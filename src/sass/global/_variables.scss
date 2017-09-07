@@ -1,0 +1,30 @@
+// Colors
+$primary: #192FF6;
+$primary-dark: #262551;
+
+$white: #ffffff;
+$grey-light: #E2E6E9;
+$grey-mid: #B3B3B3;
+$grey-dark: #313131;
+$black: #000000;
+
+$text-dark: $primary-dark;
+$text-light: $white;
+
+// Sizes
+$spacing: 20px;
+$max-width: 600px;
+
+// Animations
+$rapid: .1s;
+$fast: .3s;
+$slow: .5s;
+
+$ease: ease-in-out;
+$bounce: cubic-bezier(.5,0,.2,1);
+
+// Media queries
+$small: 420px; // Mobile
+$medium: 768px; // Tablet portrait
+$large: 1024px; // Tablet landscape
+$xlarge: 1200px; // Desktop
