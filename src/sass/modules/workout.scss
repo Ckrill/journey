@@ -1,0 +1,61 @@
+.settings {
+  label {
+    display: block;
+    font-size: (14rem/16);
+    margin-top: 20px;
+  }
+  input {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+}
+
+.workout {
+  &__sets {
+    
+  }
+  
+  &__set {
+    display: block;
+    text-align: center;
+    
+    &.js-active {
+      background-color: lightgreen;
+      font-size: 2rem;
+    }
+  }
+  
+  &__rest {
+    color: white;
+    font-size: 3rem;
+    
+    transition: background-color .3s ease;
+    
+    &.js-active {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,.5);
+      
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      & .workout__clock {
+        
+      }
+    }
+    
+  }
+  
+  &__rest-text {
+    text-align: center;
+  }
+
+  &__clock {
+
+  }
+}
