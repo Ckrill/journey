@@ -1,0 +1,49 @@
+.event {
+  padding: 20px;
+  border-radius: 0 15px 15px 15px;
+  background-color: lightcoral;
+}
+
+.event[data-type='Workout'] {
+  background-color: paleturquoise;
+}
+
+.event[data-type='Milestone'] {
+  background-color: gold;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.type {
+  text-transform: capitalize;
+  font-weight: 700;
+}
+
+/* .totalReps {
+  font-size: calc(12rem / 16);
+} */
+
+/* .date {
+  font-size: calc(12rem / 16);
+} */
+
+.table {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.table-head {
+  font-weight: 500;
+}
+
+.key {
+  padding-right: 30px;
+}
+
+.value {
+  text-align: right;
+}

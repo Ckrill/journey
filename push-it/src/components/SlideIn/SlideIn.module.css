@@ -1,0 +1,52 @@
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.closeIcon {
+  display: block;
+  width: 100%;
+}
+
+.box {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  box-sizing: border-box;
+  padding: var(--spacing);
+  width: 100%;
+  background-color: var(--text);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  color: white;
+  transition: transform var(--fast);
+  transform: translateY(100%);
+}
+
+.slideIn[data-visible='true'] .box {
+  transform: translateY(0);
+}
+
+.slideIn .form {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.slideIn .form__input,
+.slideIn .form__label-text {
+  color: white;
+}
+
+.placeholder {
+  display: none;
+  padding: var(--spacing);
+}
+
+.slideIn[data-visible='true'] .placeholder {
+  display: block;
+}

@@ -1,0 +1,21 @@
+.paragraph {
+  margin-top: 50px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 20px;
+  padding-left: 20px;
+  max-width: var(--max-size);
+  text-align: center;
+  font-size: calc(16rem / 16);
+  line-height: calc(30rem / 16);
+}
+
+.paragraph + .paragraph {
+  margin-top: 20px;
+}
+
+.paragraph[data-align='left'] {
+  padding-right: 0;
+  padding-left: 0;
+  text-align: left;
+}

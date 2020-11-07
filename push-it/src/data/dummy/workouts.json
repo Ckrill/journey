@@ -1,0 +1,75 @@
+[
+  {
+    "type": "Workout",
+    "date": "2020-01-26T14:26:45.832Z",
+    "exercises": [
+      {
+        "name": "push-ups",
+        "program": {
+          "week": 0,
+          "difficulty": 1,
+          "day": 0
+        }
+      }
+    ]
+  },
+  {
+    "type": "Workout",
+    "date": "2020-01-31T08:03:45.832Z",
+    "exercises": [
+      {
+        "name": "push-ups",
+        "program": {
+          "week": 0,
+          "difficulty": 1,
+          "day": 0
+        }
+      }
+    ]
+  },
+  {
+    "type": "Workout",
+    "date": "2020-02-12T018:00:00.000Z",
+    "quantity": 100,
+    "exercises": [
+      {
+        "name": "squats",
+        "program": {
+          "week": 0,
+          "difficulty": 1,
+          "day": 0
+        }
+      }
+    ]
+  },
+  {
+    "type": "Workout",
+    "date": "2020-02-15T012:00:00.000Z",
+    "quantity": 150,
+    "exercises": [
+      {
+        "name": "squats",
+        "program": {
+          "week": 0,
+          "difficulty": 1,
+          "day": 0
+        }
+      }
+    ]
+  },
+  {
+    "type": "Workout",
+    "date": "2020-02-18T020:00:00.000Z",
+    "quantity": 100,
+    "exercises": [
+      {
+        "name": "squats",
+        "program": {
+          "week": 0,
+          "difficulty": 1,
+          "day": 0
+        }
+      }
+    ]
+  }
+]

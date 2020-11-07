@@ -1,0 +1,67 @@
+.button {
+  --button-color: white;
+  --button-background: var(--primary-color);
+  --button-background-hover: var(--primary-color--darker);
+  --button-background-disabled: var(--text-bright);
+
+  background-color: var(--button-background);
+  color: var(--button-color);
+  border: none;
+  font-size: calc(14rem / 16);
+  line-height: calc(18rem / 16);
+  padding: 16px 30px;
+  border-radius: 100px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-spacious);
+  word-spacing: var(--word-spacing-spacious);
+  display: inline-block;
+
+  transition: transform var(--fast), background-color var(--slow);
+}
+
+.button:not([priority='secondary']) + .button {
+  margin-top: 10px;
+}
+
+.button[data-priority='secondary'] {
+  background-color: transparent;
+  color: var(--text);
+  font-size: calc(14rem / 16);
+  line-height: calc(18rem / 16);
+  border-radius: 0;
+  text-decoration: underline;
+  text-transform: none;
+  padding: 8px 20px;
+}
+
+.button:hover {
+  transform: scale(1.05);
+  transition: transform var(--rapid), background-color var(--rapid);
+}
+
+.button[disabled]:hover,
+.button[data-priority='secondary']:hover {
+  transform: none;
+}
+
+.button:not([data-priority='secondary']):hover,
+.button:not([data-priority='secondary']):focus {
+  background-color: var(--button-background-hover);
+  outline: none;
+}
+
+.button::-moz-focus-inner {
+  border: 0;
+}
+
+.button:not([data-priority='secondary']):disabled {
+  background-color: var(--button-background-disabled);
+  cursor: default;
+}
+
+.button[data-priority='secondary']:disabled {
+  color: var(--stroke);
+  cursor: default;
+}

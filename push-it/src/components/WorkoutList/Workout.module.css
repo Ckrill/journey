@@ -1,0 +1,26 @@
+.sets {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.set {
+  /* margin-top: 10px;
+  margin-bottom: 10px; */
+  text-align: center;
+}
+
+.reps {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  font-size: calc(18rem / 16);
+  line-height: calc(24rem / 16);
+}
+
+.rest {
+  color: grey;
+  font-size: calc(12rem / 16);
+  line-height: calc(20rem / 16);
+}

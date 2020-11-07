@@ -1,0 +1,36 @@
+:root {
+  --primary-color: #34495e;
+  --primary-color--darker: #2c3e50;
+
+  --text: #424242;
+  --text-bright: #787987;
+
+  --stroke: #bbbbbb;
+  /* --stroke-dark: var(--text); */
+
+  /* --highlight: #e9edf0; */
+
+  --background: #f5f5f5;
+
+  /* Sizes */
+  --max-size: 800px;
+
+  /* Spacing */
+  --spacing: 20px;
+  --stroke-width: 1px;
+
+  /* Animations */
+  --rapid: 0.1s;
+  --fast: 0.3s;
+  --slow: 0.5s;
+
+  /* Typography */
+  --font-family: 'IBM Plex Sans', Arial, sans-serif;
+  /* --font-family-mono: 'IBM Plex Mono', Arial, sans-serif; */
+
+  /* Letter spacing */
+  --letter-spacing-tight: 0.025em;
+  --letter-spacing-spacious: 0.075em;
+
+  --word-spacing-spacious: 0.15em;
+}

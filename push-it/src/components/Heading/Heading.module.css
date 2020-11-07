@@ -1,0 +1,9 @@
+.heading {
+  text-align: center;
+  text-transform: capitalize;
+  text-transform: uppercase;
+  word-spacing: var(--word-spacing-spacious);
+  letter-spacing: var(--letter-spacing-spacious);
+  font-size: calc(24rem / 16);
+  line-height: calc(32rem / 16);
+}

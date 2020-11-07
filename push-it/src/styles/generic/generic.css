@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  letter-spacing: var(--letter-spacing-tight);
+  font-family: var(--font-family);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+}

@@ -1,0 +1,60 @@
+/* Container */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.container[is-first-on-page="true"] {
+  margin-top: 0;
+}
+
+/* Group */
+.group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 500px;
+  max-width: calc(100% - (var(--spacing) * 2));
+  margin-top: 20px;
+}
+
+.group:first-of-type {
+  margin-top: 0;
+}
+
+.group .section {
+  width: calc((100% / 2) - (var(--spacing) / 2));
+  margin-top: 0;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/* Section */
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+
+  width: 500px;
+  max-width: calc(100% - (var(--spacing) * 2));
+  position: relative;
+}
+
+.section:first-of-type {
+  margin-top: 0;
+}
+
+.section:last-of-type .button:not([priority="secondary"]) {
+  margin-top: 30px;
+}
+
+.section [spacing="narrow"] {
+  margin-top: 0;
+}

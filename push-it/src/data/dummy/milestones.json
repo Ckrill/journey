@@ -1,0 +1,17 @@
+[
+  {
+    "type": "Milestone",
+    "date": "2020-01-29T14:26:45.832Z",
+    "message": "You have done 10 workouts, very good!"
+  },
+  {
+    "type": "Milestone",
+    "date": "2020-02-02T14:26:45.832Z",
+    "message": "Today you did 30 pushups!"
+  },
+  {
+    "type": "Milestone",
+    "date": "2020-02-13T14:26:45.832Z",
+    "message": "You have doubled your sit-ups. Dang!"
+  }
+]
