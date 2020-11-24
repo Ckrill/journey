@@ -7,7 +7,7 @@ import { getMonthDay } from '../../helpers/dateFormatting';
 import trainingPlan from '../../data/training-plan.json';
 
 // Styling
-import styles from './Event.module.css';
+import styles from './Event.module.scss';
 
 const getReps = (workout: any) => {
   const program = workout.exercises[0].program;
@@ -22,24 +22,18 @@ const getReps = (workout: any) => {
   return reps;
 };
 
-const Table = (event: any) => (
+const Table = (event: EventType) => (
   <table className={styles.table}>
-    <thead className={styles['table-head']}>
-      <tr>
-        <td className={styles.key}>Exercise</td>
-        <td className={styles.value}>Reps</td>
-      </tr>
-    </thead>
     <tbody>
       {event.exercises.map(
         (
-          { name, reps }: { name: string; reps: number | boolean },
+          { name, reps }: { name: string; reps?: number | boolean },
           key: number
         ) => {
           return (
             <tr key={key}>
               <td className={styles.key}>{name}</td>
-              <td className={styles.value}>{reps}</td>
+              <td className={styles.value}>{reps ? reps : '✓'}</td>
             </tr>
           );
         }
@@ -48,8 +42,22 @@ const Table = (event: any) => (
   </table>
 );
 
-const Event = (props: any) => {
-  const { event } = props;
+type Program = {
+  week: number;
+  difficulty: number;
+  day: number;
+};
+type Exercise = { name: string; program?: Program; reps?: number };
+type Exercises = Exercise[];
+type EventType = {
+  date: Date;
+  exercises: Exercises;
+  message?: string;
+  type: string;
+};
+type Props = { event: EventType };
+
+const Event = ({ event }: Props) => {
   const isWorkout = event.type === 'Workout';
   const isTest = event.type === 'Test';
 
@@ -58,15 +66,11 @@ const Event = (props: any) => {
       <header className={styles.header}>
         <div className={styles.type}>{event.type}</div>
 
-        {isWorkout && (
-          <div className={styles.totalReps}>{getReps(event)} reps</div>
-        )}
-
         <div className={styles.date}>
           <span>{getMonthDay(new Date(event.date), 'en-us')}</span>
         </div>
       </header>
-      {isTest && <Table {...event} />}
+      {(isTest || isWorkout) && <Table {...event} />}
       {event.message && <p>{event.message}</p>}
     </div>
   );

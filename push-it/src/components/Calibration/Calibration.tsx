@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 // Helpers
 import {
   getFromLocalStorage,
-  saveToLocalStorage
+  saveToLocalStorage,
 } from '../../helpers/localStorage';
 
 // Components
@@ -14,7 +14,7 @@ import Button from '../Button/Button';
 import FormInput from '../Form/FormInput';
 
 // Styling
-// import styles from './Calibration.module.css';
+// import styles from './Calibration.module.scss';
 
 // const evaluation = () => {};
 

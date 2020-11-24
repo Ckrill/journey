@@ -9,7 +9,7 @@ import Event from './Event';
 import Divider from '../Divider/Divider';
 
 // Styling
-import styles from './EventList.module.css';
+import styles from './EventList.module.scss';
 
 // type Event = {
 //   date: string;

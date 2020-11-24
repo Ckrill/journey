@@ -15,7 +15,7 @@ import FormInput from '../Form/FormInput';
 import Section from '../Section/Section';
 
 // Styling
-// import styles from './Commitment.module.css';
+// import styles from './Commitment.module.scss';
 
 const Commitment = (props: any) => {
   const { register, handleSubmit } = useForm();
@@ -23,7 +23,7 @@ const Commitment = (props: any) => {
 
   const onSubmit = (data: any) => {
     // Remove empty strings from array
-    const exercises = data.exercises.filter(function(exercise: string) {
+    const exercises = data.exercises.filter(function (exercise: string) {
       return exercise !== '';
     });
 

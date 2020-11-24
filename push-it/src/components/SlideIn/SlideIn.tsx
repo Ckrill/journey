@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Styling
-import styles from './SlideIn.module.css';
+import styles from './SlideIn.module.scss';
 
 // Images
 // import close from "../../../images/icons/close--white.svg";

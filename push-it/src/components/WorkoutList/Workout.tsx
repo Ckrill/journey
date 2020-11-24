@@ -5,7 +5,7 @@ import Divider from '../Divider/Divider';
 import Button from '../Button/Button';
 
 // Styling
-import styles from './Workout.module.css';
+import styles from './Workout.module.scss';
 
 const doneSynonyms = [
   'Done!',

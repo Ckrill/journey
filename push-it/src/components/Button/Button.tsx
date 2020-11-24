@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Styles
-import styles from './Button.module.css';
+import styles from './Button.module.scss';
 
 const Button = (props: any) => (
   <button className={styles.button} {...props}>

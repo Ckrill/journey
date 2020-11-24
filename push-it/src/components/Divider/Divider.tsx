@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Styling
-import styles from './Divider.module.css';
+import styles from './Divider.module.scss';
 
 type Props = {
   text?: string;

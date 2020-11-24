@@ -4,7 +4,7 @@ import React from 'react';
 import Workout from './Workout';
 
 // Styling
-import styles from './WorkoutList.module.css';
+import styles from './WorkoutList.module.scss';
 import { getProgram } from '../../helpers/program';
 
 const WorkoutList = (props: any) => {

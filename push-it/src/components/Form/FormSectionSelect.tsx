@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Section from '../Section/Section';
 
 // Styling
-import styles from './Form.module.css'; // Import css modules stylesheet as styles
+import styles from './Form.module.scss'; // Import css modules stylesheet as styles
 
 const FormSectionSelect = (props: any) => (
   <Section>
@@ -40,7 +40,7 @@ FormSectionSelect.propTypes = {
   labelText: PropTypes.string,
   changeHandler: PropTypes.func,
   optionHidden: PropTypes.string,
-  options: PropTypes.array
+  options: PropTypes.array,
 };
 
 export default FormSectionSelect;

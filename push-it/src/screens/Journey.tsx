@@ -44,7 +44,7 @@ const Journey = () => {
 
         {/* TODO: Add error boundary here instead of "tests &&" */}
 
-        {events && <EventList events={events} />}
+        {events.length > 0 && <EventList events={events} />}
         {events.length === 0 && (
           <Paragraph>
             You havent started your journey yet, head on over to{' '}

@@ -1,1 +1,6 @@
-[{ "name": "push-ups" }]
+[
+  { "name": "Push-ups" },
+  { "name": "Squats" },
+  { "name": "Curls" },
+  { "name": "Full body workout" }
+]
