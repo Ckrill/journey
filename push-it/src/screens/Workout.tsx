@@ -23,16 +23,19 @@ import Checklist from '../components/Checklist/Checklist';
 
 // Types
 import { Exercise, Exercises } from '../types/types';
-import { ChecklistType } from '../components/Checklist/ChecklistTypes';
+import {
+  ChecklistItemType,
+  ChecklistType,
+} from '../components/Checklist/ChecklistTypes';
 
 const Workout = () => {
-  const [exercises, setExercises] = useState<Exercises | []>([]);
+  const [exercises, setExercises] = useState<Exercises>([]);
   const [showSlideIn, setShowSlideIn] = useState(false);
   const [tests, setTests] = useState([]);
   const [workouts, setWorkouts] = useState([]);
   const [firstRender, setFirstRender] = useState(true);
 
-  const [formState, setFormState] = useState<ChecklistType | []>([]);
+  const [formState, setFormState] = useState<ChecklistType>([]);
 
   const handleClick = (exercise: string) => {
     console.log('exercise: ', exercise);
@@ -83,7 +86,13 @@ const Workout = () => {
     ];
 
     saveToLocalStorage('workouts', newWorkouts);
-    // TODO: Reset form.
+
+    // Reset form.
+    const clearedForm = formState.map((item: ChecklistItemType) => {
+      item.checked = false;
+      return item;
+    });
+    setFormState(clearedForm);
   };
 
   return (
@@ -120,7 +129,11 @@ const Workout = () => {
             </Section>
 
             <Section>
-              <Button>Submit</Button>
+              <Button
+                disabled={!formState.find((item) => item.checked === true)}
+              >
+                Submit
+              </Button>
             </Section>
           </form>
         </SectionContainer>
