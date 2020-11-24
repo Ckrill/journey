@@ -4,6 +4,9 @@ import {
   getFromLocalStorage,
 } from '../helpers/localStorage';
 
+// Settings
+import { settings } from '../settings/settings';
+
 // Data
 import user2 from '../data/dummy/user.json';
 import exercises from '../data/dummy/exercises.json';
@@ -82,17 +85,21 @@ const Settings = () => {
           </Button>
         </Section>
 
-        <Section>
-          <Divider data-appearance="faint" data-spacing="spacious" />
-        </Section>
+        {!settings.production && (
+          <>
+            <Section>
+              <Divider data-appearance="faint" data-spacing="spacious" />
+            </Section>
 
-        <Section>
-          <Heading>Testing</Heading>
-          <Paragraph>
-            For testing purposes you can add dummy data here.
-          </Paragraph>
-          <Button onClick={addDummyData}>Add dummy data</Button>
-        </Section>
+            <Section>
+              <Heading>Testing</Heading>
+              <Paragraph>
+                For testing purposes you can add dummy data here.
+              </Paragraph>
+              <Button onClick={addDummyData}>Add dummy data</Button>
+            </Section>
+          </>
+        )}
       </SectionContainer>
     </div>
   );
