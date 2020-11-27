@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-// Data
-import trainingPlan from '../data/training-plan.json';
-
 // Helpers
 import {
   getFromLocalStorage,
@@ -11,14 +8,10 @@ import {
 
 // Components
 import Button from '../components/Button/Button';
-import Form from '../components/Form/Form';
-import FormInput from '../components/Form/FormInput';
 import Heading from '../components/Heading/Heading';
 import Paragraph from '../components/Paragraph/Paragraph';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
-import SlideIn from '../components/SlideIn/SlideIn';
-import WorkoutList from '../components/WorkoutList/WorkoutList';
 import Checklist from '../components/Checklist/Checklist';
 
 // Types
@@ -30,32 +23,21 @@ import {
 
 const Workout = () => {
   const [exercises, setExercises] = useState<Exercises>([]);
-  const [showSlideIn, setShowSlideIn] = useState(false);
-  const [tests, setTests] = useState([]);
   const [workouts, setWorkouts] = useState([]);
   const [firstRender, setFirstRender] = useState(true);
 
   const [formState, setFormState] = useState<ChecklistType>([]);
-
-  const handleClick = (exercise: string) => {
-    console.log('exercise: ', exercise);
-    console.log('this: ', this);
-
-    setShowSlideIn(true);
-  };
 
   useEffect(() => {
     if (!firstRender) return;
 
     const exercises = getFromLocalStorage('exercises') || [];
     const workouts = getFromLocalStorage('workouts') || [];
-    const tests = getFromLocalStorage('tests') || [];
 
     setExercises(exercises);
     setFormState(
       exercises.map((item: Exercise) => ({ ...item, checked: false }))
     );
-    setTests(tests);
     setWorkouts(workouts);
 
     setFirstRender(false);
@@ -138,40 +120,6 @@ const Workout = () => {
           </form>
         </SectionContainer>
       )}
-
-      {/* <SectionContainer>
-        <Section>
-          <Heading>Today's workout</Heading>
-          {exercises.length && workouts.length && (
-            <WorkoutList
-              exercises={exercises}
-              tests={tests}
-              trainingPlan={trainingPlan}
-              workouts={workouts}
-              handleClick={handleClick}
-            />
-          )}
-        </Section>
-      </SectionContainer>
-      <SlideIn isShown={showSlideIn}>
-        <Form>
-          <FormInput
-            labelText={`I did this many reps!`}
-            name={`reps`}
-            // ref={register}
-            type="text"
-          />
-          <FormInput
-            labelText={`With this many kilos extra!`}
-            name={`weight`}
-            // ref={register}
-            type="text"
-          />
-          <Section>
-            <Button>Submit</Button>
-          </Section>
-        </Form>
-      </SlideIn> */}
     </>
   );
 };
