@@ -4,23 +4,23 @@ import React from 'react';
 import { getMonthDay } from '../../helpers/dateFormatting';
 
 // Data
-import trainingPlan from '../../data/training-plan.json';
+// import trainingPlan from '../../data/training-plan.json';
 
 // Styling
 import styles from './Event.module.scss';
 
-const getReps = (workout: any) => {
-  const program = workout.exercises[0].program;
-  if (!program) return null;
+// const getReps = (workout: any) => {
+//   const program = workout.exercises[0].program;
+//   if (!program) return null;
 
-  const sets =
-    trainingPlan.weeks[program.week].difficulties[program.difficulty].days[
-      program.day
-    ].sets;
-  const reps = sets.reduce((a, b) => a + b, 0);
+//   const sets =
+//     trainingPlan.weeks[program.week].difficulties[program.difficulty].days[
+//       program.day
+//     ].sets;
+//   const reps = sets.reduce((a, b) => a + b, 0);
 
-  return reps;
-};
+//   return reps;
+// };
 
 const Table = (event: EventType) => (
   <table className={styles.table}>
