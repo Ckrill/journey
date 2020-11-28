@@ -3,7 +3,7 @@
   padding-top: 20px;
   padding-bottom: 20px;
   width: 100%;
-  background-color: #34495e;
+  background-color: #62355c;
 }
 
 .list {
@@ -17,12 +17,27 @@
   list-style: none;
 }
 
-.item {
-}
+// .item {
+// }
 
 .link {
+  position: relative;
   padding: 10px;
-  color: white;
+  color: #ff6c55;
   text-decoration: none;
+  text-transform: uppercase;
   font-weight: 700;
+
+  user-select: none;
+
+  .item--active &::after {
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    width: calc(100% - 20px);
+    height: 2px;
+    background-color: #ff6c55;
+    content: '';
+    transform: translateX(-50%);
+  }
 }

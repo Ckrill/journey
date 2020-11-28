@@ -1,33 +1,38 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 // Styling
 import styles from './Header.module.scss';
 
+const navigationItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Workout', url: '/workout' },
+  { name: 'Journey', url: '/progress' },
+  { name: 'Settings', url: '/settings' },
+];
+
 const Header = () => {
+  const location = useLocation();
+
   return (
     <header className={styles.header}>
       <ul className={styles.list}>
-        <li className={styles.item}>
-          <Link className={styles.link} to={'/'}>
-            Home
-          </Link>
-        </li>
-        <li className={styles.item}>
-          <Link className={styles.link} to={'/workout'}>
-            Workout
-          </Link>
-        </li>
-        <li className={styles.item}>
-          <Link className={styles.link} to={'/progress'}>
-            Journey
-          </Link>
-        </li>
-        <li className={styles.item}>
-          <Link className={styles.link} to={'/settings'}>
-            Settings
-          </Link>
-        </li>
+        {navigationItems.map((item, index) => {
+          const active = location.pathname === item.url;
+
+          return (
+            <li
+              className={`${styles.item} ${
+                active ? styles['item--active'] : ''
+              }`}
+              key={index}
+            >
+              <Link className={styles.link} to={item.url}>
+                {item.name}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </header>
   );

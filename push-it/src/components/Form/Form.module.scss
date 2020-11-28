@@ -53,6 +53,7 @@
   cursor: text;
   transition: transform var(--rapid);
   transform-origin: 0 50%;
+  pointer-events: none;
 }
 
 .labelLine {
