@@ -22,9 +22,8 @@ type Props = {
   events: any;
 };
 
-const EventList = (props: Props) => {
-  const { events } = props;
-
+const EventList = ({ events }: Props) => {
+  console.log('events: ', events);
   let eventsByMonth: any[] = [];
 
   events.filter((event: any) => {

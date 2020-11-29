@@ -6,6 +6,9 @@ import { getMonthDay } from '../../helpers/dateFormatting';
 // Data
 // import trainingPlan from '../../data/training-plan.json';
 
+// Types
+import { Event as EventType } from '../../types/types';
+
 // Styling
 import styles from './Event.module.scss';
 
@@ -25,7 +28,7 @@ import styles from './Event.module.scss';
 const Table = (event: EventType) => (
   <table className={styles.table}>
     <tbody>
-      {event.exercises.map(
+      {event.exercises?.map(
         (
           { name, reps }: { name: string; reps?: number | boolean },
           key: number
@@ -42,19 +45,6 @@ const Table = (event: EventType) => (
   </table>
 );
 
-type Program = {
-  week: number;
-  difficulty: number;
-  day: number;
-};
-type Exercise = { name: string; program?: Program; reps?: number };
-type Exercises = Exercise[];
-type EventType = {
-  date: Date;
-  exercises: Exercises;
-  message?: string;
-  type: string;
-};
 type Props = { event: EventType };
 
 const Event = ({ event }: Props) => {
@@ -64,7 +54,10 @@ const Event = ({ event }: Props) => {
   return (
     <div className={styles.event} data-type={event.type}>
       <header className={styles.header}>
-        <div className={styles.type}>{event.type}</div>
+        <div className={styles.type}>
+          {event.user && `${event.user.name}: `}
+          {event.name || event.type}
+        </div>
 
         <div className={styles.date}>
           <span>{getMonthDay(new Date(event.date), 'en-us')}</span>
