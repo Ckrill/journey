@@ -11,19 +11,11 @@ import Divider from '../Divider/Divider';
 // Styling
 import styles from './EventList.module.scss';
 
-// type Event = {
-//   date: string;
-//   type: string;
-//   exercises: [{ name: string; reps: any }];
-// };
-// type Events = Event[];
-
 type Props = {
   events: any;
 };
 
 const EventList = ({ events }: Props) => {
-  console.log('events: ', events);
   let eventsByMonth: any[] = [];
 
   events.filter((event: any) => {

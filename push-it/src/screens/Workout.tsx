@@ -1,89 +1,156 @@
 import React, { useEffect, useState } from 'react';
+import * as contentful from 'contentful-management';
+import { useForm } from 'react-hook-form';
+
+// Settings
+import { settings } from '../settings/settings';
 
 // Helpers
-import {
-  getFromLocalStorage,
-  saveToLocalStorage,
-} from '../helpers/localStorage';
+import { getFromLocalStorage } from '../helpers/localStorage';
 
 // Components
 import Button from '../components/Button/Button';
+// import Checklist from '../components/Checklist/Checklist';
+import FormInput from '../components/Form/FormInput';
 import Heading from '../components/Heading/Heading';
 import Paragraph from '../components/Paragraph/Paragraph';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
-import Checklist from '../components/Checklist/Checklist';
+import SignUp from '../components/SignUp/SignUp';
 
 // Types
-import { Exercise, Exercises } from '../types/types';
-import {
-  ChecklistItemType,
-  ChecklistType,
-} from '../components/Checklist/ChecklistTypes';
+import { User } from '../types/types';
+// import {
+//   ChecklistItemType,
+//   ChecklistType,
+// } from '../components/Checklist/ChecklistTypes';
+
+const client = contentful.createClient({
+  accessToken:
+    process.env.REACT_APP_CONTENTFUL_USER ||
+    settings.accessTokenManagement ||
+    '',
+});
 
 const Workout = () => {
-  const [exercises, setExercises] = useState<Exercises>([]);
-  const [workouts, setWorkouts] = useState([]);
+  // const [exercises, setExercises] = useState<Exercises>([]);
+  // const [workouts, setWorkouts] = useState([]);
+  const [user, setUser] = useState<User | null>(null);
   const [firstRender, setFirstRender] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const { register, reset, handleSubmit } = useForm();
 
-  const [formState, setFormState] = useState<ChecklistType>([]);
+  // const [formState, setFormState] = useState<ChecklistType>([]);
 
   useEffect(() => {
     if (!firstRender) return;
 
-    const exercises = getFromLocalStorage('exercises') || [];
-    const workouts = getFromLocalStorage('workouts') || [];
+    // const exercises = getFromLocalStorage('exercises') || [];
+    // const workouts = getFromLocalStorage('workouts') || [];
 
-    setExercises(exercises);
-    setFormState(
-      exercises.map((item: Exercise) => ({ ...item, checked: false }))
-    );
-    setWorkouts(workouts);
+    // If user exists in local
+    const localUser = getFromLocalStorage('user');
+    if (localUser) {
+      setUser(localUser);
+    }
+
+    // setExercises(exercises);
+    // setFormState(
+    //   exercises.map((item: Exercise) => ({ ...item, checked: false }))
+    // );
+    // setWorkouts(workouts);
 
     setFirstRender(false);
   }, [firstRender]);
 
-  const submit = (event: any) => {
-    event.preventDefault();
+  const onSubmit = (data: any) => {
+    setSubmitting(true);
+
     const date = new Date();
-    const type = 'Workout';
 
-    const finishedExercises: ChecklistType = formState.filter(
-      (item) => item.checked
-    );
+    // const finishedExercises: ChecklistType = formState.filter(
+    //   (item) => item.checked
+    // );
 
-    finishedExercises.forEach((item) => {
-      delete item.checked;
-    });
+    // finishedExercises.forEach((item) => {
+    //   delete item.checked;
+    // });
 
     const finishedWorkout = {
       date: date,
-      type: type,
-      exercises: finishedExercises,
+      name: data.name,
+      user: user?.name,
     };
 
-    const newWorkouts: { date: Date; type: string; exercises: Exercises }[] = [
-      ...workouts,
-      finishedWorkout,
-    ];
+    // const newWorkouts: Workouts = [
+    //   ...workouts,
+    //   finishedWorkout,
+    // ];
 
-    saveToLocalStorage('workouts', newWorkouts);
+    // Save workout.
+    // saveToLocalStorage('workouts', newWorkouts);
+    // Create and publish item.
+    client
+      .getSpace(settings.space)
+      .then((space) => space.getEnvironment(settings.environment))
+      .then((environment) =>
+        environment.createEntry('workout', {
+          fields: {
+            date: {
+              'en-US': finishedWorkout.date,
+            },
+            name: {
+              'en-US': finishedWorkout.name,
+            },
+            user: {
+              'en-US': {
+                sys: {
+                  id: user?.id,
+                  linkType: 'Entry',
+                  type: 'Link',
+                },
+              },
+            },
+          },
+        })
+      )
+      .then((entry) => entry.publish())
+      .then((entry) => {
+        // Reset form.
+        reset();
+
+        // Reset submitError.
+        setSubmitError(null);
+        setSubmitSuccess(true);
+      })
+      .catch((error) => {
+        console.error(error);
+        setSubmitError(JSON.stringify(error));
+      })
+      .finally(() => setSubmitting(false));
 
     // Reset form.
-    const clearedForm = formState.map((item: ChecklistItemType) => {
-      item.checked = false;
-      return item;
-    });
-    setFormState(clearedForm);
+    // const clearedForm = formState.map((item: ChecklistItemType) => {
+    //   item.checked = false;
+    //   return item;
+    // });
+    // setFormState(clearedForm);
   };
 
   return (
     <>
-      {exercises.length === 0 ? (
+      {!user ? (
         <SectionContainer>
           <Section>
-            <Heading>Workout</Heading>
-            <Paragraph>It is not time for a workout yet.</Paragraph>
+            <Heading>Stranger?</Heading>
+            <Paragraph>
+              What name would like to be associated with your workouts?
+            </Paragraph>
+
+            {/* User registration */}
+            {!user && <SignUp setUser={setUser} />}
           </Section>
         </SectionContainer>
       ) : (
@@ -92,8 +159,11 @@ const Workout = () => {
             <Heading>Today's workout</Heading>
           </Section>
 
-          <form onSubmit={submit} style={{ display: 'contents' }}>
-            <Section>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            style={{ display: 'contents' }}
+          >
+            {/* <Section>
               <Checklist
                 items={formState}
                 onChange={(exerciseName: string) => {
@@ -108,16 +178,46 @@ const Workout = () => {
                   setFormState(newState);
                 }}
               />
+            </Section> */}
+
+            <Section>
+              <FormInput
+                labelText="What workout did you do?"
+                name="name"
+                ref={register}
+                type="text"
+              />
             </Section>
 
             <Section>
-              <Button
-                disabled={!formState.find((item) => item.checked === true)}
-              >
+              <Button disabled={submitting} type="submit">
                 Submit
               </Button>
             </Section>
           </form>
+
+          {submitSuccess &&
+            (() => {
+              setTimeout(() => {
+                setSubmitSuccess(false);
+              }, 2000);
+              return (
+                <Section>
+                  <Heading>Saved!</Heading>
+                </Section>
+              );
+            })()}
+
+          {submitError && (
+            <Section>
+              <Heading>A terrible error happened!</Heading>
+              <Paragraph>
+                Let me know what you did and what it says below and I will fix
+                it.
+              </Paragraph>
+              <code>{submitError}</code>
+            </Section>
+          )}
         </SectionContainer>
       )}
     </>

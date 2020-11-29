@@ -33,7 +33,7 @@ const Settings = () => {
   useEffect(() => {
     if (!firstRender) return;
 
-    const user = getFromLocalStorage('user') || {};
+    const user = getFromLocalStorage('user');
 
     setUser(user);
 
@@ -56,20 +56,21 @@ const Settings = () => {
     // localStorage.removeItem("name of localStorage variable you want to remove");
   };
 
-  const showData = () => {
-    // TODO: Show data
-    console.log('Show data');
-  };
+  // const showData = () => {
+  //   // TODO: Show data
+  //   console.log('Show data');
+  // };
 
   return (
     <div>
       <SectionContainer>
         <Section>
           <Heading>Settings</Heading>
-          Name:{!user ? ' friend' : ` ${user!.name}`}
+          <Paragraph>Name:{!user ? ' friend' : ` ${user.name}`}</Paragraph>
+          <Button onClick={clearData}>Log out</Button>
         </Section>
 
-        <Section>
+        {/* <Section>
           <Divider data-appearance="faint" data-spacing="spacious" />
         </Section>
 
@@ -83,7 +84,7 @@ const Settings = () => {
           <Button onClick={clearData} data-priority="secondary">
             Clear data
           </Button>
-        </Section>
+        </Section> */}
 
         {!settings.production && (
           <>

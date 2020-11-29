@@ -1,54 +1,116 @@
-import React from 'react';
+import React, { useState } from 'react';
+import * as contentful from 'contentful-management';
 import { useForm } from 'react-hook-form';
 
-// Components
-import Form from '../Form/Form';
-import FormInput from '../Form/FormInput';
-import Section from '../Section/Section';
-import Button from '../Button/Button';
-import Paragraph from '../Paragraph/Paragraph';
+// Settings
+import { settings } from '../../settings/settings';
 
 // Helpers
 import {
   getFromLocalStorage,
-  saveToLocalStorage
+  saveToLocalStorage,
 } from '../../helpers/localStorage';
+import { get, getItemsByAttribute } from '../../helpers/requests';
 
-const SignUp = (props: any) => {
+// Components
+import Button from '../Button/Button';
+import Form from '../Form/Form';
+import FormInput from '../Form/FormInput';
+import Heading from '../Heading/Heading';
+import Paragraph from '../Paragraph/Paragraph';
+import Section from '../Section/Section';
+import { primeArrayToObject } from '../../helpers/dataHandler';
+
+const client = contentful.createClient({
+  accessToken:
+    process.env.REACT_APP_CONTENTFUL_USER ||
+    settings.accessTokenManagement ||
+    '',
+});
+
+const getContentfulUser = (userName: string) =>
+  get(getItemsByAttribute('user', 'fields.name', userName));
+
+const SignUp = ({ setUser }: any) => {
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const { register, handleSubmit } = useForm();
 
   const user = getFromLocalStorage('user') || {};
 
   const onSubmit = (data: any) => {
-    user.name = data.name;
-    saveToLocalStorage('user', user);
-    props.handleUpdateUser(user);
-  };
+    setSubmitting(true);
 
-  const onSkip = (data: any) => {
-    user.name = 'Skip';
-    saveToLocalStorage('user', user);
-    props.handleUpdateUser(user);
+    user.name = data.name;
+
+    // If user exists, log in.
+    getContentfulUser(data.name).then((response) => {
+      const user = primeArrayToObject(response);
+
+      if (user) {
+        console.log('LOGIN');
+        // Save the user to local storage.
+        saveToLocalStorage('user', user);
+
+        // Log in
+        setUser(user);
+        return;
+      } else {
+        console.log('CREATE USER');
+        // Else Sign up.
+        // Create and publish user.
+        client
+          .getSpace(settings.space)
+          .then((space) => space.getEnvironment(settings.environment))
+          .then((environment) =>
+            environment.createEntry('user', {
+              fields: {
+                name: {
+                  'en-US': data.name,
+                },
+              },
+            })
+          )
+          .then((entry) => entry.publish())
+          .then((entry) => {
+            const user = { id: entry.sys.id, name: entry.fields.name['en-US'] };
+
+            // Save the new user to local storage.
+            saveToLocalStorage('user', user);
+            // Let parent component know about the new user.
+            console.log('SET USER', user);
+            setUser(user);
+            // Reset submitError.
+            setSubmitError(null);
+          })
+          .catch((error) => {
+            console.error(error);
+            setSubmitError(JSON.stringify(error));
+          })
+          .finally(() => setSubmitting(false));
+      }
+    });
   };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormInput
-        ref={register}
-        name="name"
-        type="text"
-        labelText="What would you like to be called?"
-      />
+      <FormInput ref={register} name="name" type="text" labelText="Name" />
 
       <Section>
-        <Button type="submit">Save</Button>
-        <Button onClick={onSkip} type="button" data-priority="secondary">
-          Skip
+        <Button disabled={submitting} type="submit">
+          Sign in
         </Button>
       </Section>
-      <Section>
-        <Paragraph>Alright, "name", lets get started!</Paragraph>
-      </Section>
+
+      {submitError && (
+        <Section>
+          <Heading>A terrible error happened!</Heading>
+          <Paragraph>
+            Let me know what you did and what it says below and I will fix it.
+          </Paragraph>
+          <code>{submitError}</code>
+        </Section>
+      )}
     </Form>
   );
 };
