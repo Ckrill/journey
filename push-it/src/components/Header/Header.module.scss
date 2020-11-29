@@ -3,7 +3,7 @@
   padding-top: 20px;
   padding-bottom: 20px;
   width: 100%;
-  background-color: #62355c;
+  background-color: #ff6c55;
 }
 
 .list {
@@ -23,12 +23,14 @@
 .link {
   position: relative;
   padding: 10px;
-  color: #ff6c55;
+  outline: none;
+  color: #62355c;
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 700;
 
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
 
   .item--active &::after {
     position: absolute;
@@ -36,7 +38,7 @@
     left: 50%;
     width: calc(100% - 20px);
     height: 2px;
-    background-color: #ff6c55;
+    background-color: #62355c;
     content: '';
     transform: translateX(-50%);
   }

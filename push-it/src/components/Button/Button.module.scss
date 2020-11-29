@@ -17,7 +17,9 @@
   letter-spacing: var(--letter-spacing-spacious);
   word-spacing: var(--word-spacing-spacious);
   display: inline-block;
+  
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
 
   transition: transform var(--fast), background-color var(--slow);
 }
