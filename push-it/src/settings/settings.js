@@ -4,5 +4,5 @@ export const settings = {
   environment: 'master',
   accessToken: 'OqzSbUybZ9r7IJ6IdfZRBSBkEIFxrwoJGmo67SuHuG8',
   accessTokenManagement: 'CFPAT-Y43utf1MWG92ZBHWqEuqWqj7ckDZTIVWravLHJI4wpQ',
-  production: false,
+  production: true,
 };
