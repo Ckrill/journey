@@ -67,7 +67,9 @@ const Settings = () => {
         <Section>
           <Heading>Settings</Heading>
           <Paragraph>Name:{!user ? ' friend' : ` ${user.name}`}</Paragraph>
-          <Button onClick={clearData}>Log out</Button>
+          <Button disabled={!user} onClick={clearData}>
+            Log out
+          </Button>
         </Section>
 
         {/* <Section>
