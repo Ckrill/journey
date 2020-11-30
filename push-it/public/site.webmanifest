@@ -1,21 +1,21 @@
 {
-    "name": "Push It",
-    "short_name": "Push It",
-    "icons": [
-        {
-            "src": "/android-chrome-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "/android-chrome-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }
-    ],
-    "theme_color": "#ff6c55",
-    "background_color": "#ff6c55",
-    "start_url": "https://push-it.now.sh/",
-    "display": "standalone",
-    "orientation": "portrait"
+  "name": "Journey",
+  "short_name": "Journey",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#ff6c55",
+  "background_color": "#ff6c55",
+  "start_url": "https://journey.now.sh/",
+  "display": "standalone",
+  "orientation": "portrait"
 }
