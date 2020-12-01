@@ -31,20 +31,18 @@ const EventList = ({ events }: Props) => {
 
   return (
     <div className={styles['event-list']}>
-      {Object.keys(eventsByMonth)
-        .reverse()
-        .map((month: any, i: number) => {
-          return (
-            <React.Fragment key={i}>
-              <Divider text={month} data-appearance="faint" />
-              {sortNewestFirst(eventsByMonth[month], 'date').map(
-                (event: any, key: number) => (
-                  <Event event={event} key={key} />
-                )
-              )}
-            </React.Fragment>
-          );
-        })}
+      {Object.keys(eventsByMonth).map((month: any, i: number) => {
+        return (
+          <React.Fragment key={i}>
+            <Divider text={month} data-appearance="faint" />
+            {sortNewestFirst(eventsByMonth[month], 'date').map(
+              (event: any, key: number) => (
+                <Event event={event} key={key} />
+              )
+            )}
+          </React.Fragment>
+        );
+      })}
     </div>
   );
 };
