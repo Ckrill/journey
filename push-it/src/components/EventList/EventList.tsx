@@ -11,14 +11,17 @@ import Divider from '../Divider/Divider';
 // Styling
 import styles from './EventList.module.scss';
 
+// Types
+import { Workout, Workouts } from '../../types/types';
+
 type Props = {
-  events: any;
+  events: Workouts;
 };
 
 const EventList = ({ events }: Props) => {
-  let eventsByMonth: any[] = [];
+  let eventsByMonth: Workouts[] = [];
 
-  events.filter((event: any) => {
+  events.filter((event: Workout) => {
     const eventMonth: any = getMonth(new Date(event.date));
 
     // If the array does not exist, create it
@@ -36,7 +39,7 @@ const EventList = ({ events }: Props) => {
           <React.Fragment key={i}>
             <Divider text={month} data-appearance="faint" />
             {sortNewestFirst(eventsByMonth[month], 'date').map(
-              (event: any, key: number) => (
+              (event: Workout, key: number) => (
                 <Event event={event} key={key} />
               )
             )}

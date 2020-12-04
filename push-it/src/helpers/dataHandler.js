@@ -30,7 +30,7 @@ export const primeWorkouts = (workoutsCrude) => {
       workoutsCrude.includes.Entry.find((entry) => {
         return entry.sys.id === userId;
       }) || {};
-    workout.user = { ...user.fields };
+    workout.user = { ...user.fields, id: userId };
   });
 
   return workouts;

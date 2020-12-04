@@ -15,12 +15,12 @@ import SectionContainer from '../components/Section/SectionContainer';
 
 // Types
 import { User, Workouts } from '../types/types';
+import Streak from '../components/Streak/Streak';
 
 const getWorkouts = () => get(getItemsByType('workout'));
 
 const Home = () => {
   const [user, setUser] = useState<User | null>(null);
-  console.log('user: ', user);
   const [workouts, setWorkouts] = useState<Workouts | []>([]);
   // const [events, setEvents] = useState<Events | []>([]);
   // const [exercises, setExercises] = useState<Exercises | null>(null);
@@ -56,6 +56,9 @@ const Home = () => {
 
   return (
     <SectionContainer>
+      <Section>
+        <Streak user={user} workouts={workouts} />
+      </Section>
       <Section>
         {/* <Paragraph>
           Good to see you{!user ? ', friend' : `, ${user!.name}`}
