@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
+// Helpers
+import { diffDays } from '../../helpers/dateFormatting';
+
 // Components
 //import Component from './react/components/Component';
 
@@ -48,14 +51,9 @@ const Streak = ({ user, workouts }: Props) => {
 
   useEffect(() => {
     const today = new Date();
-    const diffDays = Math.round(
-      Math.abs(
-        (Number(today) - Number(new Date(earliestStreakDate))) /
-          (24 * 60 * 60 * 1000)
-      )
-    );
+    const diff = diffDays(Number(new Date(earliestStreakDate)), Number(today));
 
-    setStreak(diffDays);
+    setStreak(diff);
   }, [earliestStreakDate]);
 
   return (
