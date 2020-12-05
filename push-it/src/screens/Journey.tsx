@@ -8,7 +8,7 @@ import { getFromLocalStorage } from '../helpers/localStorage';
 import SectionContainer from '../components/Section/SectionContainer';
 import Section from '../components/Section/Section';
 import Heading from '../components/Heading/Heading';
-import EventList from '../components/EventList/EventList';
+// import EventList from '../components/EventList/EventList';
 import Paragraph from '../components/Paragraph/Paragraph';
 
 const Journey = () => {
@@ -44,7 +44,7 @@ const Journey = () => {
 
         {/* TODO: Add error boundary here instead of "tests &&" */}
 
-        {events.length > 0 && <EventList events={events} />}
+        {/* {events.length > 0 && <EventList events={events} user={user} />} */}
         {events.length === 0 && (
           <Paragraph>
             You havent started your journey yet, head on over to{' '}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 // Helpers
 import { getMonthDay } from '../../helpers/dateFormatting';
@@ -7,7 +7,7 @@ import { getMonthDay } from '../../helpers/dateFormatting';
 // import trainingPlan from '../../data/training-plan.json';
 
 // Types
-import { Event as EventType } from '../../types/types';
+import { Event as EventType, User } from '../../types/types';
 
 // Styling
 import styles from './Event.module.scss';
@@ -25,46 +25,57 @@ import styles from './Event.module.scss';
 //   return reps;
 // };
 
-const Table = (event: EventType) => (
-  <table className={styles.table}>
-    <tbody>
-      {event.exercises?.map(
-        (
-          { name, reps }: { name: string; reps?: number | boolean },
-          key: number
-        ) => {
-          return (
-            <tr key={key}>
-              <td className={styles.key}>{name}</td>
-              <td className={styles.value}>{reps ? reps : '✓'}</td>
-            </tr>
-          );
-        }
-      )}
-    </tbody>
-  </table>
-);
+// const Table = (event: EventType) => (
+//   <table className={styles.table}>
+//     <tbody>
+//       {event.exercises?.map(
+//         (
+//           { name, reps }: { name: string; reps?: number | boolean },
+//           key: number
+//         ) => {
+//           return (
+//             <tr key={key}>
+//               <td className={styles.key}>{name}</td>
+//               <td className={styles.value}>{reps ? reps : '✓'}</td>
+//             </tr>
+//           );
+//         }
+//       )}
+//     </tbody>
+//   </table>
+// );
 
-type Props = { event: EventType };
+type Props = { event: EventType; user: User | null };
 
-const Event = ({ event }: Props) => {
+const Event = ({ event, user }: Props) => {
+  const [isMine, setIsMine] = useState(false);
   const isWorkout = event.type === 'Workout';
   const isTest = event.type === 'Test';
 
-  return (
-    <div className={styles.event} data-type={event.type}>
-      <header className={styles.header}>
-        <div className={styles.type}>
-          {event.user && `${event.user.name}: `}
-          {event.name || event.type}
-        </div>
+  useEffect(() => {
+    const mine = event.user?.id === user?.id;
 
-        <div className={styles.date}>
-          <span>{getMonthDay(new Date(event.date), 'en-us')}</span>
+    if (isMine === mine) return;
+    setIsMine(mine);
+  }, [event, isMine, user]);
+
+  return (
+    <div
+      className={`${styles.event} ${isMine ? styles['event--mine'] : ''}`}
+      data-type={event.type}
+    >
+      <header className={styles.header}>
+        <div className={styles.name}>{event.name || event.type}</div>
+
+        <div className={styles.meta}>
+          <div className={styles.user}>{event.user?.name}</div>
+          <div className={styles.date}>
+            {getMonthDay(new Date(event.date), 'en-us')}
+          </div>
         </div>
       </header>
-      {(isTest || isWorkout) && <Table {...event} />}
-      {event.message && <p>{event.message}</p>}
+      {/* {(isTest || isWorkout) && <Table {...event} />} */}
+      {/* {event.message && <p>{event.message}</p>} */}
     </div>
   );
 };

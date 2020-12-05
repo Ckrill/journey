@@ -66,7 +66,7 @@ const Home = () => {
 
         <Heading>Our journey</Heading>
 
-        {workouts.length > 0 && <EventList events={workouts} />}
+        {workouts.length > 0 && <EventList events={workouts} user={user} />}
 
         {/* {user && (
         <>

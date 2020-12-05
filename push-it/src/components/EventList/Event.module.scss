@@ -1,7 +1,11 @@
 .event {
-  padding: 20px;
-  border-radius: 0 15px 15px 15px;
-  background-color: lightcoral;
+  padding: 15px;
+  border-radius: 0 10px 10px 10px;
+  background-color: powderblue;
+
+  &--mine {
+    background-color: salmon;
+  }
 }
 
 .event[data-type='Workout'] {
@@ -16,26 +20,43 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  gap: 10px;
 }
 
-.type {
+.name {
   text-transform: capitalize;
   font-weight: 700;
 }
 
-/* .date {
-  font-size: calc(12rem / 16);
-} */
-
-.table {
-  margin-top: 20px;
-  width: 100%;
-}
-
-.key {
-  padding-right: 30px;
-}
-
-.value {
+.meta {
+  display: flex;
+  flex-direction: column;
   text-align: right;
+  font-size: calc(12rem / 16);
+  line-height: calc(12rem / 16);
+
+  gap: 5px;
 }
+
+.date {
+  white-space: nowrap;
+}
+
+.user {
+  text-transform: capitalize;
+  font-weight: 700;
+}
+
+// .table {
+//   margin-top: 20px;
+//   width: 100%;
+// }
+
+// .key {
+//   padding-right: 30px;
+// }
+
+// .value {
+//   text-align: right;
+// }
