@@ -49,8 +49,8 @@ type Props = { event: EventType; user: User | null };
 
 const Event = ({ event, user }: Props) => {
   const [isMine, setIsMine] = useState(false);
-  const isWorkout = event.type === 'Workout';
-  const isTest = event.type === 'Test';
+  // const isWorkout = event.type === 'Workout';
+  // const isTest = event.type === 'Test';
 
   useEffect(() => {
     const mine = event.user?.id === user?.id;
