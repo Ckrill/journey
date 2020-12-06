@@ -40,7 +40,15 @@ const Workout = () => {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const { register, reset, handleSubmit } = useForm();
+  const { errors, register, reset, handleSubmit } = useForm();
+
+  useEffect(() => {
+    if (!submitSuccess) return;
+
+    setTimeout(() => {
+      setSubmitSuccess(false);
+    }, 1000);
+  }, [submitSuccess]);
 
   // const [formState, setFormState] = useState<ChecklistType>([]);
 
@@ -184,29 +192,18 @@ const Workout = () => {
               <FormInput
                 labelText="What workout did you do?"
                 name="name"
-                ref={register}
+                ref={register({ required: true })}
                 type="text"
               />
+              {errors.name && <p>Please fill out this field.</p>}
             </Section>
 
             <Section>
-              <Button disabled={submitting} type="submit">
-                Submit
+              <Button disabled={submitSuccess || submitting} type="submit">
+                {submitSuccess ? 'Saved!' : submitting ? 'Saving' : 'Save'}
               </Button>
             </Section>
           </form>
-
-          {submitSuccess &&
-            (() => {
-              setTimeout(() => {
-                setSubmitSuccess(false);
-              }, 2000);
-              return (
-                <Section>
-                  <Heading>Saved!</Heading>
-                </Section>
-              );
-            })()}
 
           {submitError && (
             <Section>
