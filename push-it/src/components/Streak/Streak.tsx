@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 // Helpers
-import { diffDays } from '../../helpers/dateFormatting';
-
-// Components
-//import Component from './react/components/Component';
+import { calculateStreak } from '../../helpers/streak';
 
 // Styles
 // import styles from './Streak.module.scss';
@@ -15,46 +12,15 @@ import { User, Workouts } from '../../types/types';
 type Props = { user: User | null; workouts: Workouts };
 
 const Streak = ({ user, workouts }: Props) => {
-  const [earliestStreakDate, setEarliestStreakDate] = useState(
-    new Date().toDateString()
-  );
   const [streak, setStreak] = useState(0);
 
   useEffect(() => {
-    const myWorkouts = workouts.filter((item) => {
-      return item.user?.id === user?.id;
-    });
+    if (!workouts) return;
 
-    let earliestStreakDate: string = new Date().toDateString();
+    const streak = calculateStreak(user, workouts);
 
-    myWorkouts.some((item) => {
-      const date = new Date(item.date);
-      const day = date.toDateString();
-
-      const tomorrow = new Date(item.date);
-      new Date(tomorrow.setDate(tomorrow.getDate() + 1));
-      const tomorrowDay = tomorrow.toDateString();
-
-      if (earliestStreakDate === day || earliestStreakDate === tomorrowDay) {
-        earliestStreakDate = day;
-
-        // Keep counting
-        return false;
-      } else {
-        // Stop the count!
-        return true;
-      }
-    });
-
-    setEarliestStreakDate(earliestStreakDate);
-  }, [user?.id, workouts]);
-
-  useEffect(() => {
-    const today = new Date();
-    const diff = diffDays(Number(new Date(earliestStreakDate)), Number(today));
-
-    setStreak(diff);
-  }, [earliestStreakDate]);
+    setStreak(streak);
+  }, [user, workouts]);
 
   return (
     <>

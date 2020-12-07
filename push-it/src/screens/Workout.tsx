@@ -11,6 +11,7 @@ import { getFromLocalStorage } from '../helpers/localStorage';
 // Components
 import Button from '../components/Button/Button';
 // import Checklist from '../components/Checklist/Checklist';
+import Feedback from '../components/Feedback/Feedback';
 import FormInput from '../components/Form/FormInput';
 import Heading from '../components/Heading/Heading';
 import Paragraph from '../components/Paragraph/Paragraph';
@@ -33,17 +34,20 @@ const client = contentful.createClient({
 });
 
 const Workout = () => {
+  const { errors, register, reset, handleSubmit } = useForm();
   // const [exercises, setExercises] = useState<Exercises>([]);
-  // const [workouts, setWorkouts] = useState([]);
-  const [user, setUser] = useState<User | null>(null);
   const [firstRender, setFirstRender] = useState(true);
+  const [showFeedback, setShowFeedback] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const { errors, register, reset, handleSubmit } = useForm();
+  const [user, setUser] = useState<User | null>(null);
+  // const [workouts, setWorkouts] = useState([]);
 
   useEffect(() => {
     if (!submitSuccess) return;
+
+    setShowFeedback(true);
 
     setTimeout(() => {
       setSubmitSuccess(false);
@@ -204,6 +208,8 @@ const Workout = () => {
               </Button>
             </Section>
           </form>
+
+          {showFeedback && <Feedback setShow={setShowFeedback} />}
 
           {submitError && (
             <Section>

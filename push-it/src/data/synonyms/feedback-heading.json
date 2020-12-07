@@ -1,0 +1,29 @@
+[
+  { "tier": 1, "words": ["Okay", "Cool", "Nice", "Not bad", "Yay"] },
+  {
+    "tier": 2,
+    "words": ["Sick!", "What!", "How!", "Keep it up!", "Keep going!"]
+  },
+  {
+    "tier": 3,
+    "words": [
+      "Awesome!",
+      "Can't believe it!",
+      "You are doing great!",
+      "Is this a record?!"
+    ]
+  },
+  {
+    "tier": 4,
+    "words": [
+      "What are you doing with your life?",
+      "You probably have no frieds!",
+      "Give up already!",
+      "What are you running from?",
+      "Stop it!",
+      "Unneccesary!"
+    ]
+  },
+  { "tier": 5, "words": ["Okay you win."] },
+  { "tier": 6, "words": ["Ill!"] }
+]
