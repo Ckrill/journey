@@ -1,29 +1,51 @@
 [
-  { "tier": 1, "words": ["Okay", "Cool", "Nice", "Not bad", "Yay"] },
+  {
+    "tier": 1,
+    "words": ["Cool", "Nice", "Not bad", "Okay", "Yay"]
+  },
   {
     "tier": 2,
-    "words": ["Sick!", "What!", "How!", "Keep it up!", "Keep going!"]
+    "words": [
+      "Don't stop!",
+      "Great!",
+      "How!",
+      "Keep going!",
+      "Keep it up!",
+      "Wauw!",
+      "What!",
+      "Wow!"
+    ]
   },
   {
     "tier": 3,
     "words": [
+      "Amazing!",
       "Awesome!",
       "Can't believe it!",
-      "You are doing great!",
-      "Is this a record?!"
+      "Committed!",
+      "Dedicated!",
+      "Devoted",
+      "Is this a record?!",
+      "You are doing great!"
     ]
   },
   {
     "tier": 4,
     "words": [
-      "What are you doing with your life?",
-      "You probably have no frieds!",
       "Give up already!",
-      "What are you running from?",
       "Stop it!",
-      "Unneccesary!"
+      "Unneccesary!",
+      "What are you doing with your life?",
+      "What are you running from?",
+      "You probably have no frieds!"
     ]
   },
-  { "tier": 5, "words": ["Okay you win."] },
-  { "tier": 6, "words": ["Ill!"] }
+  {
+    "tier": 5,
+    "words": ["Okay you win."]
+  },
+  {
+    "tier": 6,
+    "words": ["Ill!", "Sick!"]
+  }
 ]

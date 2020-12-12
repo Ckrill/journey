@@ -209,7 +209,7 @@ const Workout = () => {
             </Section>
           </form>
 
-          {showFeedback && <Feedback setShow={setShowFeedback} />}
+          <Feedback setShow={setShowFeedback} show={showFeedback} />
 
           {submitError && (
             <Section>

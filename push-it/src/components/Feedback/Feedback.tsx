@@ -21,11 +21,12 @@ import { User, Workouts } from '../../types/types';
 
 type Props = {
   setShow: (show: boolean) => void;
+  show: boolean;
 };
 
 const getWorkouts = () => get(getItemsByType('workout'));
 
-const Feedback = ({ setShow }: Props) => {
+const Feedback = ({ setShow, show }: Props) => {
   const [firstRender, setFirstRender] = useState(true);
   const [heading, setHeading] = useState('Sick');
   const [isLoaded, setIsLoaded] = useState(false);
@@ -66,8 +67,11 @@ const Feedback = ({ setShow }: Props) => {
   return !isLoaded ? (
     <Spinner loadingMessage="Retrieving videos from the archive..." />
   ) : (
-    <>
-      <div className={styles.overlay} onClick={() => setShow(false)}>
+    <div
+      className={`${styles.overlay} ${show && styles.show}`}
+      onClick={() => setShow(false)}
+    >
+      <div className={styles.container}>
         {streak ? (
           <>
             <h1 className={styles.heading}>{heading}</h1>
@@ -83,7 +87,7 @@ const Feedback = ({ setShow }: Props) => {
           </>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
