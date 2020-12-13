@@ -1,43 +1,28 @@
 import React from 'react';
 
-// Components
-import Section from '../Section/Section';
-
 // Styling
-import styles from './Form.module.scss'; // Import css modules stylesheet as styles
+import styles from './FormInput.module.scss'; // Import css modules stylesheet as styles
 
-// type Props = {
-//   name: string;
-//   type: string;
-//   value: string | number;
-//   labelText: string;
-//   changeHandler: any;
-// };
+type Props = React.InputHTMLAttributes<HTMLInputElement> & {
+  errorText: string;
+  labelText: string;
+};
 
-const FormInput = React.forwardRef(({ labelText, ...props }: any, ref: any) => (
-  <Section>
-    <input
-      className={styles.input}
-      // id={props.id}
-      // type={props.type}
-      // min={props.min}
-      // max={props.max}
-      // name={props.name}
-      // value={props.value}
-      placeholder=" "
-      // disabled={props.disabled}
-      // autoFocus={props.autoFocus}
-      // onChange={props.changeHandler ? props.changeHandler : undefined}
-      {...props}
-      ref={ref}
-    />
-    {labelText && (
+const FormInput = React.forwardRef(
+  ({ errorText, labelText, ...props }: Props, ref: any) => (
+    <div className={styles.container}>
       <label className={styles.label} htmlFor={props.name}>
-        <span className={styles.labelText}>{labelText}</span>
-        <span className={styles.labelLine} />
+        {labelText}
       </label>
-    )}
-  </Section>
-));
+      <input
+        className={`${styles.input} ${errorText ? styles['input--error'] : ''}`}
+        id={props.name}
+        {...props}
+        ref={ref}
+      />
+      <p className={styles.error}>{errorText}</p>
+    </div>
+  )
+);
 
 export default FormInput;

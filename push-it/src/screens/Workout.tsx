@@ -194,12 +194,12 @@ const Workout = () => {
 
             <Section>
               <FormInput
-                labelText="What workout did you do?"
+                labelText="Workout"
                 name="name"
                 ref={register({ required: true })}
                 type="text"
+                errorText={errors.name && 'Please fill out this field.'}
               />
-              {errors.name && <p>Please fill out this field.</p>}
             </Section>
 
             <Section>
