@@ -96,11 +96,9 @@ const SignUp = ({ setUser }: any) => {
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormInput ref={register} name="name" type="text" labelText="Name" />
 
-      <Section>
-        <Button disabled={submitting} type="submit">
-          Sign in
-        </Button>
-      </Section>
+      <Button disabled={submitting} type="submit">
+        Sign in
+      </Button>
 
       {submitError && (
         <Section>

@@ -32,3 +32,29 @@ export const getHeading = (
 
   return word;
 };
+
+export const getHeadingSize = (length) => {
+  let headingSize = 'm';
+
+  if (length < 5) {
+    headingSize = 'l';
+  } else if (length < 6) {
+    headingSize = 'm';
+  } else if (length < 7) {
+    headingSize = 's';
+  } else {
+    headingSize = 'xs';
+  }
+
+  return headingSize;
+};
+
+export const getLongestWord = (sentence) => {
+  var words = sentence.split(' ');
+
+  const longestWord = words.reduce((champ, contender) =>
+    contender.length > champ.length ? contender : champ
+  );
+
+  return longestWord;
+};

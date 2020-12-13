@@ -52,6 +52,8 @@ const Settings = () => {
     // Clear all data
     localStorage.clear();
 
+    setUser(null);
+
     // Clear a specific item
     // localStorage.removeItem("name of localStorage variable you want to remove");
   };
@@ -66,10 +68,16 @@ const Settings = () => {
       <SectionContainer>
         <Section>
           <Heading>Settings</Heading>
-          <Paragraph>Name:{!user ? ' friend' : ` ${user.name}`}</Paragraph>
-          <Button disabled={!user} onClick={clearData}>
-            Log out
-          </Button>
+          {user ? (
+            <>
+              <Paragraph>Name:{!user ? ' friend' : ` ${user.name}`}</Paragraph>
+              <Button disabled={!user} onClick={clearData}>
+                Sign out
+              </Button>
+            </>
+          ) : (
+            <Paragraph>Sign in to see your settings.</Paragraph>
+          )}
         </Section>
 
         {/* <Section>

@@ -4,19 +4,19 @@ import React from 'react';
 import styles from './FormInput.module.scss'; // Import css modules stylesheet as styles
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
-  errorText: string;
+  errorText?: string;
   labelText: string;
 };
 
 const FormInput = React.forwardRef(
   ({ errorText, labelText, ...props }: Props, ref: any) => (
     <div className={styles.container}>
-      <label className={styles.label} htmlFor={props.name}>
+      <label className={styles.label} htmlFor={props.id}>
         {labelText}
       </label>
       <input
         className={`${styles.input} ${errorText ? styles['input--error'] : ''}`}
-        id={props.name}
+        id={props.id}
         {...props}
         ref={ref}
       />

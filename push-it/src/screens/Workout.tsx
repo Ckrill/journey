@@ -21,6 +21,7 @@ import SignUp from '../components/SignUp/SignUp';
 
 // Types
 import { User } from '../types/types';
+
 // import {
 //   ChecklistItemType,
 //   ChecklistType,
@@ -156,7 +157,7 @@ const Workout = () => {
       {!user ? (
         <SectionContainer>
           <Section>
-            <Heading>Stranger?</Heading>
+            <Heading>Welcome stranger</Heading>
             <Paragraph>
               What name would like to be associated with your workouts?
             </Paragraph>
@@ -168,7 +169,7 @@ const Workout = () => {
       ) : (
         <SectionContainer>
           <Section>
-            <Heading>Today's workout</Heading>
+            <Heading>Add workout</Heading>
           </Section>
 
           <form
@@ -194,6 +195,8 @@ const Workout = () => {
 
             <Section>
               <FormInput
+                autoFocus={true}
+                id="workout"
                 labelText="Workout"
                 name="name"
                 ref={register({ required: true })}

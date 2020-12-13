@@ -8,7 +8,11 @@ import { primeWorkouts } from '../../helpers/dataHandler';
 import { getFromLocalStorage } from '../../helpers/localStorage';
 import { get, getItemsByType } from '../../helpers/requests';
 import { calculateStreak } from '../../helpers/streak';
-import { getHeading } from '../../helpers/synonyms';
+import {
+  getHeading,
+  getHeadingSize,
+  getLongestWord,
+} from '../../helpers/synonyms';
 
 // Components
 import Spinner from '../Spinner/Spinner';
@@ -28,7 +32,8 @@ const getWorkouts = () => get(getItemsByType('workout'));
 
 const Feedback = ({ setShow, show }: Props) => {
   const [firstRender, setFirstRender] = useState(true);
-  const [heading, setHeading] = useState('Sick');
+  const [heading, setHeading] = useState('');
+  const [headingSize, setHeadingSize] = useState('m');
   const [isLoaded, setIsLoaded] = useState(false);
   const [streak, setStreak] = useState(0);
   const [user, setUser] = useState<User | null>(null);
@@ -37,7 +42,12 @@ const Feedback = ({ setShow, show }: Props) => {
   useEffect(() => {
     if (!streak) return;
 
-    setHeading(getHeading(feedbackHeading, streak));
+    const heading = getHeading(feedbackHeading, streak);
+    const longestWord = getLongestWord(heading);
+    const headingSize = getHeadingSize(longestWord.length);
+
+    setHeading(heading);
+    setHeadingSize(headingSize);
   }, [streak]);
 
   useEffect(() => {
@@ -72,14 +82,19 @@ const Feedback = ({ setShow, show }: Props) => {
       onClick={() => setShow(false)}
     >
       <div className={styles.container}>
-        {streak ? (
+        {streak > 1 ? (
           <>
-            <h1 className={styles.heading}>{heading}</h1>
+            <h1
+              className={`${styles.heading} ${
+                styles['heading--' + headingSize]
+              }`}
+            >
+              {heading}
+            </h1>
             <p className={styles.paragraph}>{streak} days in a row</p>
           </>
         ) : (
           <>
-            {/* <h1 className={styles.heading}>Inception</h1> */}
             <h1 className={styles.heading}>Departure</h1>
             <p className={styles.paragraph}>
               Today you embarked on your journey
