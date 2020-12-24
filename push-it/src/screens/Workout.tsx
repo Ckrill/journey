@@ -48,8 +48,6 @@ const Workout = () => {
   useEffect(() => {
     if (!submitSuccess) return;
 
-    setShowFeedback(true);
-
     setTimeout(() => {
       setSubmitSuccess(false);
     }, 1000);
@@ -79,6 +77,7 @@ const Workout = () => {
   }, [firstRender]);
 
   const onSubmit = (data: any) => {
+    setShowFeedback(true);
     setSubmitting(true);
 
     const date = new Date();
