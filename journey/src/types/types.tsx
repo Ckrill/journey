@@ -24,6 +24,7 @@ export type Workouts = Workout[];
 export type Event = {
   date: Date;
   exercises?: Exercises;
+  id?: string;
   message?: string;
   name?: string;
   type?: string;

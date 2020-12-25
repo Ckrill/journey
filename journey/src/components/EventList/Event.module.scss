@@ -1,10 +1,42 @@
 .event {
-  padding: 15px;
+  --options-width: 59px;
+
   border-radius: 0 10px 10px 10px;
   background-color: powderblue;
+  height: var(--options-width);
+  overflow: hidden;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border-left: 15px solid salmon;
+  user-select: none;
 
   &--mine {
     background-color: salmon;
+  }
+
+  &--deleted {
+    height: 0;
+    transform: translateX(-110%);
+    margin-bottom: 0;
+    margin-top: 0;
+    transition: transform var(--fast), height var(--rapid) var(--fast),
+      margin var(--rapid) var(--fast);
+  }
+}
+
+.container {
+  width: 100%;
+
+  padding: 15px 15px 15px 0;
+  display: grid;
+  grid-template-columns: 100% var(--options-width);
+  box-sizing: border-box;
+  transition: transform var(--rapid);
+  gap: 15px;
+
+  .event--show-options & {
+    transform: translateX(calc(var(--options-width) * -1));
   }
 }
 
@@ -46,6 +78,22 @@
 .user {
   text-transform: capitalize;
   font-weight: 700;
+}
+
+.options {
+  width: var(--options-width);
+  text-align: right;
+  background-color: mediumaquamarine;
+  margin-top: -15px;
+  margin-bottom: -15px;
+  box-sizing: border-box;
+
+  & > svg {
+    height: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    width: auto;
+  }
 }
 
 // .table {
