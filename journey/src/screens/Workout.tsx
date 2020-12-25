@@ -35,7 +35,12 @@ const client = contentful.createClient({
 });
 
 const Workout = () => {
-  const { errors, register, reset, handleSubmit } = useForm();
+  const { errors, handleSubmit, register, reset } = useForm({
+    defaultValues: {
+      date: new Date().toISOString().split('T')[0],
+      name: '',
+    },
+  });
   // const [exercises, setExercises] = useState<Exercises>([]);
   const [firstRender, setFirstRender] = useState(true);
   const [showFeedback, setShowFeedback] = useState(false);
@@ -80,8 +85,6 @@ const Workout = () => {
     setShowFeedback(true);
     setSubmitting(true);
 
-    const date = new Date();
-
     // const finishedExercises: ChecklistType = formState.filter(
     //   (item) => item.checked
     // );
@@ -91,7 +94,7 @@ const Workout = () => {
     // });
 
     const finishedWorkout = {
-      date: date,
+      date: data.date,
       name: data.name,
       user: user?.name,
     };
@@ -195,12 +198,23 @@ const Workout = () => {
             <Section>
               <FormInput
                 autoFocus={true}
+                disabled={submitting}
+                errorText={errors.name && 'Please fill out this field.'}
                 id="workout"
                 labelText="Workout"
                 name="name"
                 ref={register({ required: true })}
                 type="text"
-                errorText={errors.name && 'Please fill out this field.'}
+              />
+
+              <FormInput
+                disabled={submitting}
+                errorText={errors.date && 'Please fill out this field.'}
+                id="date"
+                labelText="Day"
+                name="date"
+                ref={register({ required: true })}
+                type="date"
               />
             </Section>
 
