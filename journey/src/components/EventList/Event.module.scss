@@ -2,41 +2,41 @@
   --color: powderblue;
   --options-width: 59px;
 
-  border-radius: 0 10px 10px 10px;
-  background-color: var(--color);
-  height: var(--options-width);
   overflow: hidden;
   margin-top: 10px;
   margin-bottom: 10px;
+  height: var(--options-width);
   border-left: 15px solid var(--color);
+  border-radius: 0 10px 10px 10px;
+  background-color: var(--color);
 
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 
   &--mine {
     --color: salmon;
-
+    
     cursor: pointer;
   }
 
   &--deleted {
-    height: 0;
-    margin-bottom: 0;
     margin-top: 0;
-    transform: translateX(-110%);
+    margin-bottom: 0;
+    height: 0;
     transition: transform var(--fast), height var(--rapid) var(--fast),
       margin var(--rapid) var(--fast);
+    transform: translateX(-110%);
   }
 }
 
 .container {
-  width: 100%;
-
-  padding: 15px 15px 15px 0;
   display: grid;
-  grid-template-columns: 100% var(--options-width);
   box-sizing: border-box;
+  padding: 15px 15px 15px 0;
+  width: 100%;
   transition: transform var(--rapid);
+
+  grid-template-columns: 100% var(--options-width);
   gap: 15px;
 
   .event--show-options & {
@@ -85,18 +85,18 @@
 }
 
 .options {
-  width: var(--options-width);
-  text-align: right;
-  background-color: mediumaquamarine;
+  box-sizing: border-box;
   margin-top: -15px;
   margin-bottom: -15px;
-  box-sizing: border-box;
+  width: var(--options-width);
+  background-color: mediumaquamarine;
+  text-align: right;
 
   & > svg {
-    height: 100%;
-    padding: 15px;
     box-sizing: border-box;
+    padding: 15px;
     width: auto;
+    height: 100%;
   }
 }
 

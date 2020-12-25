@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // Styles
 import styles from './Spinner.module.scss';
 
-const Spinner = ({ loadingMessage }) => {
+const Spinner = ({ loadingMessage }: { loadingMessage: string }) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
