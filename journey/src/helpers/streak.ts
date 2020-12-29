@@ -1,6 +1,7 @@
-import { diffDays } from '../helpers/dateFormatting';
+import { User, Workouts } from '../types/types';
+import { diffDays } from './dateFormatting';
 
-export const calculateStreak = (user, workouts) => {
+export const calculateStreak = (user: User | null, workouts: Workouts) => {
   if (!workouts.length) return 0;
 
   let earliestStreakDate = new Date().toDateString();

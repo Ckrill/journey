@@ -1,4 +1,4 @@
-export const sortNewestFirst = (array, sortObject) => {
+export const sortNewestFirst = (array: any[], sortObject: string) => {
   array.sort((a, b) => {
     a = new Date(a[sortObject]);
     b = new Date(b[sortObject]);

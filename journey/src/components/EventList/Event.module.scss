@@ -15,7 +15,7 @@
 
   &--mine {
     --color: salmon;
-    
+
     cursor: pointer;
   }
 
@@ -44,13 +44,13 @@
   }
 }
 
-.event[data-type='Workout'] {
-  background-color: paleturquoise;
-}
+// .event[data-type='Workout'] {
+//   background-color: paleturquoise;
+// }
 
-.event[data-type='Milestone'] {
-  background-color: gold;
-}
+// .event[data-type='Milestone'] {
+//   background-color: gold;
+// }
 
 .header {
   display: flex;

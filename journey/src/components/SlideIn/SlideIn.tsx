@@ -9,7 +9,7 @@ import styles from './SlideIn.module.scss';
 type Props = {
   children: React.ReactNode;
   isShown?: Boolean;
-  toggleHandler?: any;
+  toggleHandler?: () => void;
 };
 
 const SlideIn = (props: Props) => (

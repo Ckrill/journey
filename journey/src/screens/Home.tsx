@@ -12,10 +12,11 @@ import EventList from '../components/EventList/EventList';
 import Heading from '../components/Heading/Heading';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
+import Streak from '../components/Streak/Streak';
 
 // Types
+import { WorkoutsContentful } from '../types/contentfulTypes';
 import { User, Workouts } from '../types/types';
-import Streak from '../components/Streak/Streak';
 
 const getWorkouts = () => get(getItemsByType('workout'));
 
@@ -30,7 +31,7 @@ const Home = () => {
   useEffect(() => {
     if (!firstRender) return;
 
-    const user = getFromLocalStorage('user');
+    const user: User = getFromLocalStorage('user');
     // const exercises = getFromLocalStorage('exercises');
     // const tests = getFromLocalStorage('tests');
 
@@ -38,8 +39,8 @@ const Home = () => {
     // setExercises(exercises);
     // setTests(tests);
 
-    getWorkouts().then((workoutsCrude) => {
-      const workouts = primeWorkouts(workoutsCrude);
+    getWorkouts().then((workoutsContentful: WorkoutsContentful) => {
+      const workouts: Workouts = primeWorkouts(workoutsContentful);
       // const events = workouts.map((workout: Workout) => {
       //   const event: Event = { ...workout };
       //   event.type = 'workout';

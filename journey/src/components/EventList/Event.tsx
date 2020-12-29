@@ -9,7 +9,7 @@ import deleteEntry from '../../helpers/deleteEntry';
 // import trainingPlan from '../../data/training-plan.json';
 
 // Types
-import { Event as EventType, User } from '../../types/types';
+import { User, Workout } from '../../types/types';
 
 // Styling
 import styles from './Event.module.scss';
@@ -47,7 +47,7 @@ import styles from './Event.module.scss';
 //   </table>
 // );
 
-type Props = { event: EventType; user: User | null };
+type Props = { event: Workout; user: User | null };
 
 const Event = ({ event, user }: Props) => {
   const [isDeleted, setIsDeleted] = useState(false);
@@ -68,12 +68,12 @@ const Event = ({ event, user }: Props) => {
       className={`${styles.event} ${isMine ? styles['event--mine'] : ''} ${
         showOptions ? styles['event--show-options'] : ''
       } ${isDeleted ? styles['event--deleted'] : ''}`}
-      data-type={event.type}
+      // data-type={event.type}
       onClick={() => setShowOptions(isMine && !showOptions)}
     >
       <div className={styles.container}>
         <header className={styles.header}>
-          <div className={styles.name}>{event.name || event.type}</div>
+          <div className={styles.name}>{event.name}</div>
 
           <div className={styles.meta}>
             <div className={styles.user}>{event.user?.name}</div>

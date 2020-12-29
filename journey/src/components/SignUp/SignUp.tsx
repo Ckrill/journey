@@ -21,6 +21,10 @@ import Paragraph from '../Paragraph/Paragraph';
 import Section from '../Section/Section';
 import { primeArrayToObject } from '../../helpers/dataHandler';
 
+// Types
+import { User } from '../../types/types';
+import { UsersContentful } from '../../types/contentfulTypes';
+
 const client = contentful.createClient({
   accessToken:
     process.env.REACT_APP_CONTENTFUL_USER ||
@@ -31,21 +35,25 @@ const client = contentful.createClient({
 const getContentfulUser = (userName: string) =>
   get(getItemsByAttribute('user', 'fields.name', userName));
 
-const SignUp = ({ setUser }: any) => {
+type Props = {
+  setUser: (user: User) => void;
+};
+
+const SignUp = ({ setUser }: Props) => {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const { register, handleSubmit } = useForm();
 
-  const user = getFromLocalStorage('user') || {};
+  const user: User = getFromLocalStorage('user') || {};
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: User) => {
     setSubmitting(true);
 
     user.name = data.name;
 
     // If user exists, log in.
-    getContentfulUser(data.name).then((response) => {
-      const user = primeArrayToObject(response);
+    getContentfulUser(data.name).then((response: UsersContentful) => {
+      const user: User = primeArrayToObject(response);
 
       if (user) {
         console.log('LOGIN');
@@ -73,7 +81,10 @@ const SignUp = ({ setUser }: any) => {
           )
           .then((entry) => entry.publish())
           .then((entry) => {
-            const user = { id: entry.sys.id, name: entry.fields.name['en-US'] };
+            const user: User = {
+              id: entry.sys.id,
+              name: entry.fields.name['en-US'],
+            };
 
             // Save the new user to local storage.
             saveToLocalStorage('user', user);

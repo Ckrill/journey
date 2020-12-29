@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
+
+// Settings
+import { settings } from '../settings/settings';
+
+// Helpers
 import {
   saveToLocalStorage,
   getFromLocalStorage,
 } from '../helpers/localStorage';
-
-// Settings
-import { settings } from '../settings/settings';
 
 // Data
 import user2 from '../data/dummy/user.json';
@@ -33,7 +35,7 @@ const Settings = () => {
   useEffect(() => {
     if (!firstRender) return;
 
-    const user = getFromLocalStorage('user');
+    const user: User = getFromLocalStorage('user');
 
     setUser(user);
 

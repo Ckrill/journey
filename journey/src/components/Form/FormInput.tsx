@@ -9,7 +9,10 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & {
 };
 
 const FormInput = React.forwardRef(
-  ({ errorText, labelText, ...props }: Props, ref: any) => (
+  (
+    { errorText, labelText, ...props }: Props,
+    ref: React.Ref<HTMLInputElement>
+  ) => (
     <div className={styles.container}>
       <label className={styles.label} htmlFor={props.id}>
         {labelText}

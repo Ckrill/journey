@@ -1,6 +1,6 @@
 type FeedbackHeading = {
-  tier: number,
-  words: string[],
+  tier: number;
+  words: string[];
 }[];
 
 type Streak = number;
@@ -33,7 +33,7 @@ export const getHeading = (
   return word;
 };
 
-export const getHeadingSize = (length) => {
+export const getHeadingSize = (length: number) => {
   let headingSize = 'm';
 
   if (length < 5) {
@@ -49,7 +49,7 @@ export const getHeadingSize = (length) => {
   return headingSize;
 };
 
-export const getLongestWord = (sentence) => {
+export const getLongestWord = (sentence: string) => {
   var words = sentence.split(' ');
 
   const longestWord = words.reduce((champ, contender) =>

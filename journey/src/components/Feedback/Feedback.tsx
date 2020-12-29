@@ -21,6 +21,7 @@ import Spinner from '../Spinner/Spinner';
 import styles from './Feedback.module.scss';
 
 // Types
+import { WorkoutsContentful } from '../../types/contentfulTypes';
 import { User, Workouts } from '../../types/types';
 
 type Props = {
@@ -53,11 +54,11 @@ const Feedback = ({ setShow, show }: Props) => {
   useEffect(() => {
     if (!firstRender) return;
 
-    const user = getFromLocalStorage('user');
+    const user: User = getFromLocalStorage('user');
     setUser(user);
 
-    getWorkouts().then((workoutsCrude) => {
-      const workouts = primeWorkouts(workoutsCrude);
+    getWorkouts().then((workoutsContentful: WorkoutsContentful) => {
+      const workouts: Workouts = primeWorkouts(workoutsContentful);
 
       setIsLoaded(true);
       setWorkouts(workouts);

@@ -3,7 +3,11 @@ import React from 'react';
 // Styling
 import styles from './Section.module.scss';
 
-const SectionGroup = (props: any) => (
+type Props = {
+  children: React.ReactNode;
+};
+
+const SectionGroup = (props: Props) => (
   <div className={styles.group}>{props.children}</div>
 );
 
