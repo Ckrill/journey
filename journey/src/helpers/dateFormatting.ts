@@ -27,7 +27,5 @@ export const diffDays = (
 ) => {
   const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 
-  return Math.round(
-    Math.abs((Number(firstDate) - Number(secondDate)) / oneDay)
-  );
+  return Math.ceil(Math.abs((Number(firstDate) - Number(secondDate)) / oneDay));
 };

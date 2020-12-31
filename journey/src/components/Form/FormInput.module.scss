@@ -26,12 +26,11 @@
   letter-spacing: 1px;
   font-size: calc(18rem / 16);
   line-height: calc(24rem / 16);
-  transition: transform var(--fast);
+  transition: transform var(--rapid);
 
   &:focus {
     outline: none;
     border-color: #ff6c55;
-    transition: transform var(--rapid);
     transform: scale(1.02);
   }
 
