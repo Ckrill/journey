@@ -1,8 +1,11 @@
 import React from 'react';
 
 // Helpers
-import { sortNewestFirst } from '../../helpers/sorting';
-import { getMonth } from '../../helpers/dateFormatting';
+import {
+  categorizeByYearAndMonth,
+  Month,
+  Year,
+} from '../../helpers/categorizer';
 
 // Components
 import Event from './Event';
@@ -20,33 +23,30 @@ type Props = {
 };
 
 const EventList = ({ events, user }: Props) => {
-  let eventsByMonth: Workouts[] = [];
-
-  events.filter((event: Workout) => {
-    const eventMonth: any = getMonth(new Date(event.date));
-
-    // If the array does not exist, create it
-    !eventsByMonth[eventMonth] && (eventsByMonth[eventMonth] = []);
-
-    // Add event to eventsByMonth
-    eventsByMonth[eventMonth].push(event);
-    return eventsByMonth;
-  });
+  const eventsByYear: Year[] = categorizeByYearAndMonth(events) || [];
+  const currentYear = new Date().getFullYear();
+  console.log('eventsByYear: ', eventsByYear);
+  // TODO: Is this a custom hook instead of a helper?
+  // TODO: Add workouts as a state.
+  // TODO: Use useMemo to set the state.
 
   return (
     <div className={styles['event-list']}>
-      {Object.keys(eventsByMonth).map((month: any, i: number) => {
-        return (
-          <React.Fragment key={i}>
-            <Divider text={month} data-appearance="faint" />
-            {sortNewestFirst(eventsByMonth[month], 'date').map(
-              (event: Workout, key: number) => (
-                <Event event={event} key={key} user={user} />
-              )
-            )}
-          </React.Fragment>
-        );
-      })}
+      {eventsByYear.map((year) => (
+        <React.Fragment key={year.year}>
+          {Number(year.year) !== currentYear && (
+            <Divider text={String(year.year)} data-appearance="faint" />
+          )}
+          {year.months.map((month: Month, i: number) => (
+            <React.Fragment key={month.month}>
+              <Divider text={month.month} data-appearance="faint" />
+              {month.workouts.map((event: Workout, i: number) => (
+                <Event event={event} key={i} user={user} />
+              ))}
+            </React.Fragment>
+          ))}
+        </React.Fragment>
+      ))}
     </div>
   );
 };

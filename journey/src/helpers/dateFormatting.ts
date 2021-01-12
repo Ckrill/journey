@@ -10,16 +10,19 @@ export const getMonth = (date: Date, country: string = 'en-US') => {
   const month = date.toLocaleString(country, { month: 'long' });
   return month;
 };
+// "January"
 
 export const getMonthDay = (date: Date, country: string = 'en-US') => {
   const month = date.toLocaleString(country, { month: 'long' });
   return month + ' ' + date.getDate();
 };
+// "January 1"
 
 // export const getMonthDayYear = (date:Date, country: string = 'en-US') => {
 //   const month = date.toLocaleString(country, { month: 'long' });
 //   return month + ' ' + date.getDate() + ', ' + date.getFullYear();
 // };
+// "January 1, 1970"
 
 export const diffDays = (
   firstDate: number | string,
