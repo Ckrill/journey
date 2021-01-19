@@ -32,3 +32,9 @@ export const diffDays = (
 
   return Math.ceil(Math.abs((Number(firstDate) - Number(secondDate)) / oneDay));
 };
+
+export const addDays = (date: Date, days: number) => {
+  var newDate = new Date(date);
+  newDate.setDate(newDate.getDate() + days);
+  return newDate;
+};

@@ -72,7 +72,7 @@ const Feedback = ({ setShow, show }: Props) => {
 
     const streak = calculateStreak(user, workouts);
 
-    setStreak(streak);
+    setStreak(streak.streak);
   }, [user, workouts]);
 
   return !isLoaded ? (

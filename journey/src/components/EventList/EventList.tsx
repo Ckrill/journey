@@ -25,7 +25,6 @@ type Props = {
 const EventList = ({ events, user }: Props) => {
   const eventsByYear: Year[] = categorizeByYearAndMonth(events) || [];
   const currentYear = new Date().getFullYear();
-  console.log('eventsByYear: ', eventsByYear);
   // TODO: Is this a custom hook instead of a helper?
   // TODO: Add workouts as a state.
   // TODO: Use useMemo to set the state.
