@@ -43,6 +43,7 @@ const Feedback = ({ setShow, show }: Props) => {
   useEffect(() => {
     if (!streak) return;
 
+    // TODO: Heading is the same if you submit multiple times without refresh.
     const heading = getHeading(feedbackHeading, streak);
     const longestWord = getLongestWord(heading);
     const headingSize = getHeadingSize(longestWord.length);
@@ -57,6 +58,7 @@ const Feedback = ({ setShow, show }: Props) => {
     const user: User = getFromLocalStorage('user');
     setUser(user);
 
+    // TODO: This returns the workouts array without the new workout. It should add the new workout to a faux workour array and use that array to calculate streak.
     getWorkouts().then((workoutsContentful: WorkoutsContentful) => {
       const workouts: Workouts = primeWorkouts(workoutsContentful);
 
@@ -70,13 +72,15 @@ const Feedback = ({ setShow, show }: Props) => {
   useEffect(() => {
     if (!workouts) return;
 
-    const streak = calculateStreak(user, workouts);
+    const newStreak = calculateStreak(user, workouts);
 
-    setStreak(streak.streak);
-  }, [user, workouts]);
+    if (streak === newStreak.streak) return;
+
+    setStreak(newStreak.streak);
+  }, [streak, user, workouts]);
 
   return !isLoaded ? (
-    <Spinner loadingMessage="Retrieving videos from the archive..." />
+    <Spinner loadingMessage="Loading..." />
   ) : (
     <div
       className={`${styles.overlay} ${show && styles.show}`}

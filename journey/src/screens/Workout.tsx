@@ -53,6 +53,7 @@ const Workout = () => {
   useEffect(() => {
     if (!submitSuccess) return;
 
+    setShowFeedback(true);
     setTimeout(() => {
       setSubmitSuccess(false);
     }, 1000);
@@ -82,7 +83,7 @@ const Workout = () => {
   }, [firstRender]);
 
   const onSubmit = (data: any) => {
-    setShowFeedback(true);
+    // setShowFeedback(true); // This was running before the new workout was counted.
     setSubmitting(true);
 
     // const finishedExercises: ChecklistType = formState.filter(

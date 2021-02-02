@@ -22,11 +22,11 @@ export const calculateStreak = (user: User | null, workouts: Workouts) => {
 
   let leniencyRealized = leniency;
   let leniencyDebt = 0;
-  let streak2 = 0;
+  let streak = 0;
 
   // Counter - Start from today and go back as long as the streak goes on.
-  // When leniency is 0 stop the loop.
-  for (let i = leniency; i > 0; ) {
+  // When leniency is below 0 stop the loop.
+  for (let i = leniency; i >= 0; ) {
     const counterYear = date.getFullYear();
     const counterMonth = getMonth(date);
     const counterDay = date.getDate();
@@ -43,16 +43,16 @@ export const calculateStreak = (user: User | null, workouts: Workouts) => {
     if (numberOfWorkouts) {
       // Workout(s) are found.
       // Add 1 to streak
-      streak2++;
+      streak++;
 
-      // If leniency is not max, it if possible that it should be bumped up.
+      // If leniency is not max, it is possible that it should be bumped up.
       if (i < leniency) {
         const extraWorkouts = numberOfWorkouts - 1;
         // If there are more than 1 workout on counterDay restore leniency.
         i += extraWorkouts;
 
         // If there are more than 1 workout on counterDay add extra to streak.
-        streak2 = streak2 + extraWorkouts;
+        streak = streak + extraWorkouts;
 
         leniencyDebt += -extraWorkouts;
       }
@@ -71,5 +71,5 @@ export const calculateStreak = (user: User | null, workouts: Workouts) => {
     date = addDays(date, -1);
   }
 
-  return { streak: streak2, leniency: leniencyRealized };
+  return { streak: streak, leniency: leniencyRealized };
 };
