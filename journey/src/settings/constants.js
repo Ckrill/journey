@@ -1,3 +1,3 @@
-const constants = { leniency: 3 };
+const constants = { leniency: 6 };
 
 export default constants;
