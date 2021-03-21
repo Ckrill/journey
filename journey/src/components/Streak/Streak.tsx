@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import constants from '../../settings/constants';
-
 // Helpers
 import { calculateStreak } from '../../helpers/streak';
 
@@ -23,7 +21,7 @@ const Streak = ({ user, workouts }: Props) => {
     const streak = calculateStreak(user, workouts);
 
     setStreak(streak.streak);
-    setLeniency(constants.leniency - streak.leniency);
+    setLeniency(streak.leniency);
   }, [user, workouts]);
 
   return (
@@ -32,7 +30,7 @@ const Streak = ({ user, workouts }: Props) => {
         <div>
           <span>{streak} days in a row!</span>
           {leniency ? (
-            <span className={styles.leniencyCounter}>-{leniency}</span>
+            <span className={styles.leniencyCounter}>{leniency}</span>
           ) : (
             ''
           )}
