@@ -7,8 +7,8 @@ type Props = {
   children: React.ReactNode;
 };
 
-const Heading = (props: Props) => (
-  <h2 className={styles.heading}>{props.children}</h2>
+const Heading = ({ children }: Props) => (
+  <h2 className={styles.heading}>{children}</h2>
 );
 
 export default Heading;

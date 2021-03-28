@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import {
+  BsFillPersonFill as Person,
+  BsFillPeopleFill as People,
+} from 'react-icons/bs';
 
 // Helpers
 import { primeWorkouts } from '../helpers/dataHandler';
@@ -23,10 +27,12 @@ const getWorkouts = () => get(getItemsByType('workout'));
 const Home = () => {
   const [user, setUser] = useState<User | null>(null);
   const [workouts, setWorkouts] = useState<Workouts | []>([]);
+  const [workoutsFiltered, setWorkoutsFiltered] = useState<Workouts | []>([]);
   // const [events, setEvents] = useState<Events | []>([]);
   // const [exercises, setExercises] = useState<Exercises | null>(null);
   // const [tests, setTests] = useState<Tests | null>(null);
   const [firstRender, setFirstRender] = useState(true);
+  const [soloMode, setSoloMode] = useState(false);
 
   useEffect(() => {
     if (!firstRender) return;
@@ -55,6 +61,20 @@ const Home = () => {
     setFirstRender(false);
   }, [firstRender]);
 
+  useEffect(() => {
+    if (!user) return;
+
+    if (soloMode) {
+      const workoutsFiltered = workouts.filter((item) => {
+        if (item.user.id === user.id) return item;
+        return null;
+      });
+      setWorkoutsFiltered(workoutsFiltered);
+    } else {
+      setWorkoutsFiltered(workouts);
+    }
+  }, [user, soloMode, workouts]);
+
   return (
     <SectionContainer>
       <Section>
@@ -65,9 +85,19 @@ const Home = () => {
           Good to see you{!user ? ', friend' : `, ${user!.name}`}
         </Paragraph> */}
 
-        <Heading>Our journey</Heading>
+        <Heading>
+          {soloMode ? (
+            <Person onClick={() => setSoloMode((prevState) => !prevState)} />
+          ) : (
+            <People onClick={() => setSoloMode((prevState) => !prevState)} />
+          )}
+          {soloMode ? ` My ` : ` Our `}
+          journey
+        </Heading>
 
-        {workouts.length > 0 && <EventList events={workouts} user={user} />}
+        {workouts.length > 0 && (
+          <EventList events={workoutsFiltered} user={user} />
+        )}
 
         {/* {user && (
         <>
