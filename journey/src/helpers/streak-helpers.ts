@@ -1,16 +1,10 @@
 // Helpers
-import { categorizeByYearMonthDay, YearMonthDay } from './categorizer';
-
-// Types
-import { Workout } from '../types/types';
+import { YearMonthDay } from './categorizer';
 
 export const getWorkoutsForDay = (
   date: { year: number; month: string; day: number },
-  myWorkouts: Workout[]
+  workoutsByYearMonthDay: YearMonthDay[]
 ) => {
-  const workoutsByYearMonthDay: YearMonthDay[] =
-    categorizeByYearMonthDay(myWorkouts) || [];
-
   return (
     workoutsByYearMonthDay
       .find(({ year }) => year === date.year)

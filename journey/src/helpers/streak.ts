@@ -2,9 +2,12 @@
 import constants from '../settings/constants';
 
 // Helpers
-import { User, Workouts } from '../types/types';
+import { categorizeByYearMonthDay, YearMonthDay } from './categorizer';
 import { addDays, getMonth } from './dateFormatting';
 import { getWorkoutsForDay } from './streak-helpers';
+
+// Types
+import { User, Workouts } from '../types/types';
 
 // Leniency is the amount of days that can be skipped before the streak is broken.
 const leniency = constants.leniency;
@@ -13,6 +16,8 @@ export const calculateStreak = (user: User | null, workouts: Workouts) => {
   if (!workouts.length) return { streak: 0, leniency: leniency };
 
   const myWorkouts = workouts.filter((item) => item.user?.id === user?.id);
+  const workoutsByYearMonthDay: YearMonthDay[] =
+    categorizeByYearMonthDay(myWorkouts) || [];
 
   // Start from today, count backwards.
   let date = new Date();
@@ -39,7 +44,8 @@ export const calculateStreak = (user: User | null, workouts: Workouts) => {
     };
 
     // Number of workouts on that day.
-    const numberOfWorkouts = getWorkoutsForDay(dateObj, myWorkouts).length || 0;
+    const numberOfWorkouts =
+      getWorkoutsForDay(dateObj, workoutsByYearMonthDay).length || 0;
 
     if (numberOfWorkouts) {
       // Workout(s) found.

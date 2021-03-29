@@ -58,7 +58,7 @@ const Feedback = ({ setShow, show }: Props) => {
     const user: User = getFromLocalStorage('user');
     setUser(user);
 
-    // TODO: This returns the workouts array without the new workout. It should add the new workout to a faux workour array and use that array to calculate streak.
+    // TODO: This returns the workouts array without the new workout. It should add the new workout to a faux workout array and use that array to calculate streak.
     getWorkouts().then((workoutsContentful: WorkoutsContentful) => {
       const workouts: Workouts = primeWorkouts(workoutsContentful);
 

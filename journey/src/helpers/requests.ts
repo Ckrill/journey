@@ -9,13 +9,11 @@ export const getItem = (id: string) => {
 };
 
 // Get entries by type
-
 export const getItemsByType = (type: string) => {
   return `${baseURL}/spaces/${space}/environments/${environment}/entries?access_token=${accessToken}&content_type=${type}&order=-fields.date&limit=200`;
 };
 
 // Get entries by attribute
-
 export const getItemsByAttribute = (
   type: string,
   attribute: string,
