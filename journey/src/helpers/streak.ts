@@ -19,6 +19,7 @@ export const calculateStreak = (user: User | null, workouts: Workouts) => {
   const workoutsByYearMonthDay: YearMonthDay[] =
     categorizeByYearMonthDay(myWorkouts) || [];
 
+  let today = new Date();
   // Start from today, count backwards.
   let date = new Date();
 
@@ -71,8 +72,10 @@ export const calculateStreak = (user: User | null, workouts: Workouts) => {
     } else {
       // Workout not found.
 
-      // If there is a streak cached.
-      if (daysAccumulated) {
+      // If day is today, don't count it, because the day is not over yet.
+      if (date.toISOString() === today.toISOString()) {
+      } else if (daysAccumulated) {
+        // If there is a streak cached.
         // Realize the daysAccumulated.
         streak++;
         daysAccumulated--;
