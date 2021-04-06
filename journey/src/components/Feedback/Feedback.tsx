@@ -4,9 +4,6 @@ import React, { useEffect, useState } from 'react';
 import feedbackHeading from '../../data/synonyms/feedback-heading.json';
 
 // Helpers
-import { primeWorkouts } from '../../helpers/dataHandler';
-import { getFromLocalStorage } from '../../helpers/localStorage';
-import { get, getItemsByType } from '../../helpers/requests';
 import { calculateStreak } from '../../helpers/streak';
 import {
   getHeading,
@@ -14,74 +11,49 @@ import {
   getLongestWord,
 } from '../../helpers/synonyms';
 
-// Components
-import Spinner from '../Spinner/Spinner';
-
 // Styles
 import styles from './Feedback.module.scss';
 
 // Types
-import { WorkoutsContentful } from '../../types/contentfulTypes';
 import { User, Workouts } from '../../types/types';
 
 type Props = {
   setShow: (show: boolean) => void;
   show: boolean;
+  user: User;
+  workouts: Workouts | [];
 };
 
-const getWorkouts = () => get(getItemsByType('workout'));
-
-const Feedback = ({ setShow, show }: Props) => {
-  const [firstRender, setFirstRender] = useState(true);
+const Feedback = ({ setShow, show, user, workouts }: Props) => {
   const [heading, setHeading] = useState('');
   const [headingSize, setHeadingSize] = useState('m');
-  const [isLoaded, setIsLoaded] = useState(false);
   const [streak, setStreak] = useState(0);
-  const [user, setUser] = useState<User | null>(null);
-  const [workouts, setWorkouts] = useState<Workouts | []>([]);
 
+  // Get heading.
   useEffect(() => {
-    if (!streak) return;
+    if (!show || !streak) return;
 
-    // TODO: Heading is the same if you submit multiple times without refresh.
     const heading = getHeading(feedbackHeading, streak);
     const longestWord = getLongestWord(heading);
     const headingSize = getHeadingSize(longestWord.length);
 
     setHeading(heading);
     setHeadingSize(headingSize);
-  }, [streak]);
+  }, [show, streak]);
 
+  // Get streak.
   useEffect(() => {
-    if (!firstRender) return;
-
-    const user: User = getFromLocalStorage('user');
-    setUser(user);
-
-    // TODO: This returns the workouts array without the new workout. It should add the new workout to a faux workout array and use that array to calculate streak.
-    getWorkouts().then((workoutsContentful: WorkoutsContentful) => {
-      const workouts: Workouts = primeWorkouts(workoutsContentful);
-
-      setIsLoaded(true);
-      setWorkouts(workouts);
-    });
-
-    setFirstRender(false);
-  }, [firstRender]);
-
-  useEffect(() => {
-    if (!workouts) return;
+    if (!workouts.length) return;
 
     const newStreak = calculateStreak(user, workouts);
 
+    // TODO: Use memo instead of this check.
     if (streak === newStreak.streak) return;
 
     setStreak(newStreak.streak);
   }, [streak, user, workouts]);
 
-  return !isLoaded ? (
-    <Spinner loadingMessage="Loading..." />
-  ) : (
+  return (
     <div
       className={`${styles.overlay} ${show && styles.show}`}
       onClick={() => setShow(false)}

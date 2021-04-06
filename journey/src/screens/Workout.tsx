@@ -6,7 +6,9 @@ import { useForm } from 'react-hook-form';
 import { settings } from '../settings/settings';
 
 // Helpers
+import { primeWorkouts } from '../helpers/dataHandler';
 import { getFromLocalStorage } from '../helpers/localStorage';
+import { get, getItemsByType } from '../helpers/requests';
 
 // Components
 import Button from '../components/Button/Button';
@@ -20,7 +22,8 @@ import SectionContainer from '../components/Section/SectionContainer';
 import SignUp from '../components/SignUp/SignUp';
 
 // Types
-import { User } from '../types/types';
+import { WorkoutsContentful } from '../types/contentfulTypes';
+import { User, Workouts } from '../types/types';
 
 // import {
 //   ChecklistItemType,
@@ -33,6 +36,8 @@ const client = contentful.createClient({
     settings.accessTokenManagement ||
     '',
 });
+
+const getWorkouts = () => get(getItemsByType('workout'));
 
 const Workout = () => {
   const { errors, handleSubmit, register, reset } = useForm({
@@ -48,7 +53,7 @@ const Workout = () => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-  // const [workouts, setWorkouts] = useState([]);
+  const [workouts, setWorkouts] = useState<Workouts | []>([]);
 
   useEffect(() => {
     if (!submitSuccess) return;
@@ -139,7 +144,13 @@ const Workout = () => {
 
         // Reset submitError.
         setSubmitError(null);
-        setSubmitSuccess(true);
+
+        getWorkouts().then((workoutsContentful: WorkoutsContentful) => {
+          const workouts: Workouts = primeWorkouts(workoutsContentful);
+
+          setWorkouts(workouts);
+          setSubmitSuccess(true);
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -226,7 +237,12 @@ const Workout = () => {
             </Section>
           </form>
 
-          <Feedback setShow={setShowFeedback} show={showFeedback} />
+          <Feedback
+            setShow={setShowFeedback}
+            show={showFeedback}
+            user={user}
+            workouts={workouts}
+          />
 
           {submitError && (
             <Section>
