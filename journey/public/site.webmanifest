@@ -1,6 +1,7 @@
 {
   "name": "Journey",
   "short_name": "Journey",
+  "description": "Journey is a motivator and a journal for making behavioral change",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -15,6 +16,8 @@
       "purpose": "any maskable"
     }
   ],
+  "lang": "en",
+  "categories": ["health and fitness", "lifestyle"],
   "theme_color": "#ff6c55",
   "background_color": "#ff6c55",
   "start_url": "https://journey.vercel.app",
