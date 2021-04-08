@@ -26,6 +26,30 @@
       "short_name": "New Workout",
       "description": "Add a new workout",
       "url": "/workout",
+      "icons": [
+        {
+          "src": "/android-chrome-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "New Workout 2",
+      "short_name": "New Workout 2",
+      "url": "/workout",
+      "icons": [
+        {
+          "src": "/android-chrome-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "New Workout 3",
+      "short_name": "New Workout 3",
+      "url": "/workout",
       "icons": [{ "src": "/android-chrome-192x192.png", "sizes": "192x192" }]
     }
   ]
