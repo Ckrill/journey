@@ -29,11 +29,10 @@ const Streak = ({ user, workouts }: Props) => {
       {streak > 1 ? (
         <div>
           <span>{streak} days in a row!</span>
-          {leniency ? (
-            <span className={styles.leniencyCounter}>{leniency}</span>
-          ) : (
-            ''
-          )}
+
+          <span className={styles.leniencyCounter}>
+            {leniency ? leniency : ''}
+          </span>
         </div>
       ) : (
         <div>
