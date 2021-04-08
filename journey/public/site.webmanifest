@@ -19,5 +19,14 @@
   "background_color": "#ff6c55",
   "start_url": "https://journey.vercel.app",
   "display": "standalone",
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "shortcuts": [
+    {
+      "name": "New Workout",
+      "short_name": "New Workout",
+      "description": "Add a new workout",
+      "url": "/workout",
+      "icons": [{ "src": "/android-chrome-192x192.png", "sizes": "192x192" }]
+    }
+  ]
 }
