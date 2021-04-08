@@ -17,7 +17,7 @@
   ],
   "theme_color": "#ff6c55",
   "background_color": "#ff6c55",
-  "start_url": "https://journey.now.sh/",
+  "start_url": "https://journey.vercel.app",
   "display": "standalone",
   "orientation": "portrait"
 }
