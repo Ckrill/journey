@@ -13,6 +13,7 @@ import { get, getItemsByType } from '../helpers/requests';
 // import Calibration from '../components/Calibration/Calibration';
 // import Commitment from '../components/Commitment/Commitment';
 import EventList from '../components/EventList/EventList';
+import MockEventList from '../components/EventList/MockEventList';
 import Heading from '../components/Heading/Heading';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
@@ -95,8 +96,10 @@ const Home = () => {
           journey
         </Heading>
 
-        {workouts.length > 0 && (
+        {workouts.length > 0 ? (
           <EventList events={workoutsFiltered} user={user} />
+        ) : (
+          <MockEventList />
         )}
 
         {/* {user && (
