@@ -14,6 +14,7 @@ import { get, getItemsByAttribute } from '../../helpers/requests';
 
 // Components
 import Button from '../Button/Button';
+import Code from '../Code/Code';
 import Form from '../Form/Form';
 import FormInput from '../Form/FormInput';
 import Heading from '../Heading/Heading';
@@ -125,7 +126,7 @@ const SignUp = ({ setUser }: Props) => {
           <Paragraph>
             Let me know what you did and what it says below and I will fix it.
           </Paragraph>
-          <code>{submitError}</code>
+          <Code>{submitError}</Code>
         </Section>
       )}
     </Form>
