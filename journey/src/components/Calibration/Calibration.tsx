@@ -28,7 +28,7 @@ const TestResults = () => {
 };
 
 const Calibration = (props: any) => {
-  const { register, handleSubmit } = useForm();
+  const { handleSubmit } = useForm();
 
   const onSubmit = (exercises: any) => {
     // TODO: This should probably not be taken from Local Storage,
@@ -52,7 +52,6 @@ const Calibration = (props: any) => {
         {props.exercises.map((element: string, key: number) => (
           <React.Fragment key={key}>
             <FormInput
-              ref={register}
               name={`exercises[${element}]`}
               type="text"
               labelText={`How many ${props.exercises[key]} can you do?`}

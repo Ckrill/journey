@@ -105,7 +105,7 @@ const SignUp = ({ setUser }: Props) => {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormInput ref={register} name="name" type="text" labelText="Name" />
+      <FormInput {...register('name')} type="text" labelText="Name" />
 
       <Button disabled={submitting} type="submit">
         Sign in

@@ -214,8 +214,7 @@ const Workout = () => {
                 errorText={errors.name && 'Please fill out this field.'}
                 id="workout"
                 labelText="Workout"
-                name="name"
-                ref={register({ required: true })}
+                {...register('name', { required: true })}
                 type="text"
               />
 
@@ -224,8 +223,7 @@ const Workout = () => {
                 errorText={errors.date && 'Please fill out this field.'}
                 id="date"
                 labelText="Day"
-                name="date"
-                ref={register({ required: true })}
+                {...register('date', { required: true })}
                 type="date"
               />
             </Section>

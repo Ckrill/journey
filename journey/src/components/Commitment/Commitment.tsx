@@ -18,7 +18,7 @@ import Section from '../Section/Section';
 // import styles from './Commitment.module.scss';
 
 const Commitment = (props: any) => {
-  const { register, handleSubmit } = useForm();
+  const { handleSubmit } = useForm();
   const [exerciseList, hadleChange] = useState(['']);
 
   const onSubmit = (data: any) => {
@@ -44,7 +44,6 @@ const Commitment = (props: any) => {
       {exerciseList.map((element: string, key: number) => (
         <React.Fragment key={key}>
           <FormInput
-            ref={register}
             id={`exercises[${key}]`}
             type="text"
             name={`exercises[${key}]`}
