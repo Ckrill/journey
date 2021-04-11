@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import * as contentful from 'contentful-management';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 // Settings
 import { settings } from '../settings/settings';
@@ -40,12 +40,12 @@ const client = contentful.createClient({
 const getWorkouts = () => get(getItemsByType('workout'));
 
 const Workout = () => {
-  const { errors, handleSubmit, register, reset } = useForm({
-    defaultValues: {
-      date: new Date().toISOString().split('T')[0],
-      name: '',
-    },
-  });
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm();
   // const [exercises, setExercises] = useState<Exercises>([]);
   const [firstRender, setFirstRender] = useState(true);
   const [showFeedback, setShowFeedback] = useState(false);
@@ -208,23 +208,39 @@ const Workout = () => {
             </Section> */}
 
             <Section>
-              <FormInput
-                autoFocus={true}
-                disabled={submitting}
-                errorText={errors.name && 'Please fill out this field.'}
-                id="workout"
-                labelText="Workout"
-                {...register('name', { required: true })}
-                type="text"
+              <Controller
+                control={control}
+                defaultValue=""
+                name="name"
+                render={(field) => (
+                  <FormInput
+                    autoFocus={true}
+                    disabled={submitting}
+                    errorText={errors.name && 'Please fill out this field.'}
+                    id="workout"
+                    labelText="Workout"
+                    type="text"
+                    {...field}
+                  />
+                )}
+                rules={{ required: true }}
               />
 
-              <FormInput
-                disabled={submitting}
-                errorText={errors.date && 'Please fill out this field.'}
-                id="date"
-                labelText="Day"
-                {...register('date', { required: true })}
-                type="date"
+              <Controller
+                control={control}
+                defaultValue={new Date().toISOString().split('T')[0]}
+                name="date"
+                render={(field) => (
+                  <FormInput
+                    disabled={submitting}
+                    errorText={errors.date && 'Please fill out this field.'}
+                    id="date"
+                    labelText="Day"
+                    type="date"
+                    {...field}
+                  />
+                )}
+                rules={{ required: true }}
               />
             </Section>
 

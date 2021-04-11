@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as contentful from 'contentful-management';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 // Settings
 import { settings } from '../../settings/settings';
@@ -42,7 +42,7 @@ type Props = {
 const SignUp = ({ setUser }: Props) => {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const { register, handleSubmit } = useForm();
+  const { control, handleSubmit } = useForm();
 
   const user: User = getFromLocalStorage('user') || {};
 
@@ -105,7 +105,15 @@ const SignUp = ({ setUser }: Props) => {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormInput {...register('name')} type="text" labelText="Name" />
+      <Controller
+        control={control}
+        defaultValue=""
+        name="name"
+        render={(field) => (
+          <FormInput labelText="Name" type="text" {...field} />
+        )}
+        rules={{ required: true }}
+      />
 
       <Button disabled={submitting} type="submit">
         Sign in
