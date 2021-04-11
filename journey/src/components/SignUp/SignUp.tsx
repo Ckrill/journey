@@ -109,7 +109,7 @@ const SignUp = ({ setUser }: Props) => {
         control={control}
         defaultValue=""
         name="name"
-        render={(field) => (
+        render={({ field }) => (
           <FormInput labelText="Name" type="text" {...field} />
         )}
         rules={{ required: true }}

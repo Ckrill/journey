@@ -45,7 +45,12 @@ const Workout = () => {
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      date: new Date().toISOString().split('T')[0],
+      name: '',
+    },
+  });
   // const [exercises, setExercises] = useState<Exercises>([]);
   const [firstRender, setFirstRender] = useState(true);
   const [showFeedback, setShowFeedback] = useState(false);
@@ -173,7 +178,7 @@ const Workout = () => {
           <Section>
             <Heading>Welcome stranger</Heading>
             <Paragraph>
-              What name would like to be associated with your workouts?
+              What name would you like to be associated with your workouts?
             </Paragraph>
 
             {/* User registration */}
@@ -210,9 +215,8 @@ const Workout = () => {
             <Section>
               <Controller
                 control={control}
-                defaultValue=""
                 name="name"
-                render={(field) => (
+                render={({ field }) => (
                   <FormInput
                     autoFocus={true}
                     disabled={submitting}
@@ -228,9 +232,8 @@ const Workout = () => {
 
               <Controller
                 control={control}
-                defaultValue={new Date().toISOString().split('T')[0]}
                 name="date"
-                render={(field) => (
+                render={({ field }) => (
                   <FormInput
                     disabled={submitting}
                     errorText={errors.date && 'Please fill out this field.'}
