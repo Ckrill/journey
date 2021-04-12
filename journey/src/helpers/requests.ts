@@ -10,7 +10,7 @@ export const getItem = (id: string) => {
 
 // Get entries by type
 export const getItemsByType = (type: string) => {
-  return `${baseURL}/spaces/${space}/environments/${environment}/entries?access_token=${accessToken}&content_type=${type}&order=-fields.date&limit=200`;
+  return `${baseURL}/spaces/${space}/environments/${environment}/entries?access_token=${accessToken}&content_type=${type}&order=-fields.date&limit=500`;
 };
 
 // Get entries by attribute
