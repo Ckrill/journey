@@ -47,7 +47,7 @@ const SignUp = ({ setUser }: Props) => {
 
   const user: User = getFromLocalStorage('user') || {};
 
-  const onSubmit = (data: User) => {
+  const onSubmit = (data: any) => {
     setSubmitting(true);
 
     user.name = data.name;
