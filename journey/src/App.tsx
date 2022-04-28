@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 // Screens
 import Screen from './screens/Home';
@@ -17,23 +17,13 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Switch>
-        <Route exact path="/">
-          <Screen />
-        </Route>
-        <Route exact path="/workout">
-          <Workout />
-        </Route>
-        <Route exact path="/progress">
-          <Progress />
-        </Route>
-        <Route exact path="/settings">
-          <Settings />
-        </Route>
-        <Route exact path="*">
-          <Redirect to={'/'} />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Screen />} />
+        <Route path="/workout" element={<Workout />} />
+        <Route path="/progress" element={<Progress />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="*" element={<Navigate replace to={'/'} />} />
+      </Routes>
     </BrowserRouter>
   );
 }
