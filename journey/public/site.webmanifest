@@ -25,8 +25,8 @@
   "orientation": "portrait",
   "shortcuts": [
     {
-      "name": "New Workout: Stretching",
-      "short_name": "New Workout: Stretching",
+      "name": "Stretching",
+      "short_name": "Stretching",
       "description": "Add a Stretching workout",
       "url": "/?name='Stretching'",
       "icons": [
@@ -38,8 +38,8 @@
       ]
     },
     {
-      "name": "New Workout: Yoga",
-      "short_name": "New Workout: Yoga",
+      "name": "Yoga",
+      "short_name": "Yoga",
       "description": "Add a Yoga workout",
       "url": "/?name='Yoga'",
       "icons": [
@@ -51,8 +51,8 @@
       ]
     },
     {
-      "name": "New Workout: Running",
-      "short_name": "New Workout: Running",
+      "name": "Running",
+      "short_name": "Running",
       "description": "Add a Running workout",
       "url": "/?name='Running'",
       "icons": [
