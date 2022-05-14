@@ -8,7 +8,7 @@
     "words": [
       "Don't stop!",
       "Great!",
-      "How!",
+      "How?!",
       "Keep going!",
       "Keep it up!",
       "Wauw!",
@@ -46,6 +46,29 @@
   },
   {
     "tier": 6,
-    "words": ["Ill!", "Sick!"]
+    "words": [
+      "Don't stop!",
+      "Great!",
+      "How?!",
+      "Keep going!",
+      "Keep it up!",
+      "Wauw!",
+      "What!",
+      "Wow!",
+      "Amazing!",
+      "Awesome!",
+      "Can't believe it!",
+      "Committed!",
+      "Dedicated!",
+      "Devoted",
+      "Is this a record?!",
+      "You are doing great!",
+      "Ill!",
+      "Sick!",
+      "Damn son!",
+      "Was???",
+      "You got it!",
+      "Never ending!"
+    ]
   }
 ]
