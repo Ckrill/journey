@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 // Screens
-import Screen from './screens/Home';
+import Home from './screens/Home';
 import Workout from './screens/Workout';
 import Settings from './screens/Settings';
 
@@ -16,8 +16,8 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Screen />} />
-        <Route path="/workout" element={<Workout />} />
+        <Route path="/journey" element={<Home />} />
+        <Route path="/" element={<Workout />} />
         <Route path="/settings" element={<Settings />} />
       </Routes>
     </BrowserRouter>

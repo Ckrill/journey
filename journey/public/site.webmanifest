@@ -28,7 +28,7 @@
       "name": "New Workout",
       "short_name": "New Workout",
       "description": "Add a new workout",
-      "url": "/workout",
+      "url": "/",
       "icons": [
         {
           "src": "/android-chrome-192x192.png",

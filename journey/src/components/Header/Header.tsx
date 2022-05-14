@@ -5,9 +5,8 @@ import { Link, useLocation } from 'react-router-dom';
 import styles from './Header.module.scss';
 
 const navigationItems = [
-  { name: 'Journey', url: '/' },
-  { name: 'Workout', url: '/workout' },
-  // { name: 'Journey', url: '/progress' },
+  { name: 'Journey', url: '/journey' },
+  { name: 'Workout', url: '/' },
   { name: 'Settings', url: '/settings' },
 ];
 
