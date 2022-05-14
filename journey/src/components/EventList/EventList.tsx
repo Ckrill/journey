@@ -36,9 +36,11 @@ const EventList = ({ events, user }: Props) => {
           {Number(year.year) !== currentYear && (
             <Divider text={String(year.year)} data-appearance="faint" />
           )}
+
           {year.months.map((month: Month, i: number) => (
             <React.Fragment key={month.month}>
               <Divider text={month.month} data-appearance="faint" />
+
               {month.workouts.map((event: Workout, i: number) => (
                 <Event event={event} key={i} user={user} />
               ))}
