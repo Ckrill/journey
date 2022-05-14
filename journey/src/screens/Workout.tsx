@@ -12,7 +12,6 @@ import { get, getItemsByType } from '../helpers/requests';
 
 // Components
 import Button from '../components/Button/Button';
-// import Checklist from '../components/Checklist/Checklist';
 import Feedback from '../components/Feedback/Feedback';
 import FormInput from '../components/Form/FormInput';
 import Heading from '../components/Heading/Heading';
@@ -24,11 +23,6 @@ import SignUp from '../components/SignUp/SignUp';
 // Types
 import { WorkoutsContentful } from '../types/contentfulTypes';
 import { User, Workouts } from '../types/types';
-
-// import {
-//   ChecklistItemType,
-//   ChecklistType,
-// } from '../components/Checklist/ChecklistTypes';
 
 const client = contentful.createClient({
   accessToken:
@@ -51,7 +45,7 @@ const Workout = () => {
       name: '',
     },
   });
-  // const [exercises, setExercises] = useState<Exercises>([]);
+
   const [firstRender, setFirstRender] = useState(true);
   const [showFeedback, setShowFeedback] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -69,25 +63,14 @@ const Workout = () => {
     }, 1000);
   }, [submitSuccess]);
 
-  // const [formState, setFormState] = useState<ChecklistType>([]);
-
   useEffect(() => {
     if (!firstRender) return;
-
-    // const exercises = getFromLocalStorage('exercises') || [];
-    // const workouts = getFromLocalStorage('workouts') || [];
 
     // If user exists in local
     const localUser = getFromLocalStorage('user');
     if (localUser) {
       setUser(localUser);
     }
-
-    // setExercises(exercises);
-    // setFormState(
-    //   exercises.map((item: Exercise) => ({ ...item, checked: false }))
-    // );
-    // setWorkouts(workouts);
 
     setFirstRender(false);
   }, [firstRender]);
@@ -96,27 +79,12 @@ const Workout = () => {
     // setShowFeedback(true); // This was running before the new workout was counted.
     setSubmitting(true);
 
-    // const finishedExercises: ChecklistType = formState.filter(
-    //   (item) => item.checked
-    // );
-
-    // finishedExercises.forEach((item) => {
-    //   delete item.checked;
-    // });
-
     const finishedWorkout = {
       date: data.date,
       name: data.name,
       user: user?.name,
     };
 
-    // const newWorkouts: Workouts = [
-    //   ...workouts,
-    //   finishedWorkout,
-    // ];
-
-    // Save workout.
-    // saveToLocalStorage('workouts', newWorkouts);
     // Create and publish item.
     client
       .getSpace(settings.space)
@@ -162,13 +130,6 @@ const Workout = () => {
         setSubmitError(JSON.stringify(error));
       })
       .finally(() => setSubmitting(false));
-
-    // Reset form.
-    // const clearedForm = formState.map((item: ChecklistItemType) => {
-    //   item.checked = false;
-    //   return item;
-    // });
-    // setFormState(clearedForm);
   };
 
   return (
@@ -195,23 +156,6 @@ const Workout = () => {
             onSubmit={handleSubmit(onSubmit)}
             style={{ display: 'contents' }}
           >
-            {/* <Section>
-              <Checklist
-                items={formState}
-                onChange={(exerciseName: string) => {
-                  let newState = [...formState];
-
-                  formState.forEach((item, index) => {
-                    if (item.name === exerciseName) {
-                      newState[index]['checked'] = !formState[index].checked;
-                    }
-                  });
-
-                  setFormState(newState);
-                }}
-              />
-            </Section> */}
-
             <Section>
               <Controller
                 control={control}
