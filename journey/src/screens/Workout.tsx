@@ -23,6 +23,7 @@ import SignUp from '../components/SignUp/SignUp';
 // Types
 import { WorkoutsContentful } from '../types/contentfulTypes';
 import { User, Workouts } from '../types/types';
+import { useSearchParams } from 'react-router-dom';
 
 const client = contentful.createClient({
   accessToken:
@@ -34,6 +35,8 @@ const client = contentful.createClient({
 const getWorkouts = () => get(getItemsByType('workout'));
 
 const Workout = () => {
+  const [searchParams] = useSearchParams();
+
   const {
     control,
     formState: { errors },
@@ -42,7 +45,7 @@ const Workout = () => {
   } = useForm({
     defaultValues: {
       date: new Date().toISOString().split('T')[0],
-      name: '',
+      name: searchParams.get('name') || '',
     },
   });
 

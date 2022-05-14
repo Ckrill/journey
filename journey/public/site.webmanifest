@@ -25,10 +25,36 @@
   "orientation": "portrait",
   "shortcuts": [
     {
-      "name": "New Workout",
-      "short_name": "New Workout",
-      "description": "Add a new workout",
-      "url": "/",
+      "name": "New Workout: Stretching",
+      "short_name": "New Workout: Stretching",
+      "description": "Add a Stretching workout",
+      "url": "/?name='Stretching'",
+      "icons": [
+        {
+          "src": "/android-chrome-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "New Workout: Yoga",
+      "short_name": "New Workout: Yoga",
+      "description": "Add a Yoga workout",
+      "url": "/?name='Yoga'",
+      "icons": [
+        {
+          "src": "/android-chrome-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "New Workout: Running",
+      "short_name": "New Workout: Running",
+      "description": "Add a Running workout",
+      "url": "/?name='Running'",
       "icons": [
         {
           "src": "/android-chrome-192x192.png",
