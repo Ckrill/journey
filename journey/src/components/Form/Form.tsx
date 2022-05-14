@@ -1,5 +1,3 @@
-import React from 'react';
-
 // Styles
 import styles from './Form.module.scss';
 import SectionContainer from '../Section/SectionContainer';

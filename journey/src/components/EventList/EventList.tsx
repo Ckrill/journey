@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 
 // Helpers
 import {
@@ -33,21 +33,21 @@ const EventList = ({ events, user }: Props) => {
   return (
     <div className={styles['event-list']}>
       {eventsByYear.map((year) => (
-        <React.Fragment key={year.year}>
+        <Fragment key={year.year}>
           {Number(year.year) !== currentYear && (
             <Divider text={String(year.year)} data-appearance="faint" />
           )}
 
           {year.months.map((month: Month, i: number) => (
-            <React.Fragment key={month.month}>
+            <Fragment key={month.month}>
               <Divider text={month.month} data-appearance="faint" />
 
               {month.workouts.map((event: Workout, i: number) => (
                 <Event event={event} key={i} user={user} />
               ))}
-            </React.Fragment>
+            </Fragment>
           ))}
-        </React.Fragment>
+        </Fragment>
       ))}
     </div>
   );

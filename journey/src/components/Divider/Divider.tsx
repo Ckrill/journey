@@ -1,5 +1,3 @@
-import React from 'react';
-
 // Styling
 import styles from './Divider.module.scss';
 

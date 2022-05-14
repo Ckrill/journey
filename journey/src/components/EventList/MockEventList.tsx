@@ -1,5 +1,3 @@
-import React from 'react';
-
 // Helpers
 import { getMonth } from '../../helpers/dateFormatting';
 
