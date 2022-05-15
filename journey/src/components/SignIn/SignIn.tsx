@@ -123,9 +123,11 @@ const SignUp = ({ setUser }: Props) => {
       {submitError && (
         <Section>
           <Heading>A terrible error happened!</Heading>
+
           <Paragraph>
             Let me know what you did and what it says below and I will fix it.
           </Paragraph>
+
           <Code>{submitError}</Code>
         </Section>
       )}

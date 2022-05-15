@@ -11,9 +11,13 @@ import { User, Workout } from '../../types/types';
 // Styling
 import styles from './Event.module.scss';
 
-type Props = { event: Workout; user: User | null };
+type Props = {
+  event: Workout;
+  deleteEvent: (id: string) => void;
+  user: User | null;
+};
 
-const Event = ({ event, user }: Props) => {
+const Event = ({ event, deleteEvent, user }: Props) => {
   const [isDeleted, setIsDeleted] = useState(false);
   const [isMine, setIsMine] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
@@ -24,6 +28,10 @@ const Event = ({ event, user }: Props) => {
     if (isMine === mine) return;
     setIsMine(mine);
   }, [event, isMine, user]);
+
+  const deleteEventCallback = () => {
+    deleteEvent(event.id);
+  };
 
   return (
     <div
@@ -50,7 +58,8 @@ const Event = ({ event, user }: Props) => {
               if (!event.id) return;
 
               e.stopPropagation();
-              deleteEntry(event.id, setIsDeleted(true));
+              setIsDeleted(true);
+              deleteEntry(event.id, () => deleteEventCallback());
             }}
           />
         </div>

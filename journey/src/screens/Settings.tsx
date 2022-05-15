@@ -1,13 +1,8 @@
-import React, { useEffect, useState } from 'react';
-
 // Settings
 import { settings } from '../settings/settings';
 
 // Helpers
-import {
-  saveToLocalStorage,
-  getFromLocalStorage,
-} from '../helpers/localStorage';
+import { saveToLocalStorage } from '../helpers/localStorage';
 
 // Data
 import user2 from '../data/dummy/user.json';
@@ -24,24 +19,15 @@ import Divider from '../components/Divider/Divider';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 
-type User = {
-  name: string;
-} | null;
+// Types
+import { User } from '../types/types';
 
-const Settings = () => {
-  const [user, setUser] = useState<User>(null);
-  const [firstRender, setFirstRender] = useState(true);
+type Props = {
+  setUser: (user: User | null) => void;
+  user: User | null;
+};
 
-  useEffect(() => {
-    if (!firstRender) return;
-
-    const user: User = getFromLocalStorage('user');
-
-    setUser(user);
-
-    setFirstRender(false);
-  }, [firstRender]);
-
+const Settings = ({ setUser, user }: Props) => {
   const addDummyData = () => {
     saveToLocalStorage('user', user2);
     saveToLocalStorage('exercises', exercises);

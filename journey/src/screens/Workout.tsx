@@ -5,11 +5,6 @@ import { Controller, useForm } from 'react-hook-form';
 // Settings
 import { settings } from '../settings/settings';
 
-// Helpers
-import { primeWorkouts } from '../helpers/dataHandler';
-import { getFromLocalStorage } from '../helpers/localStorage';
-import { get, getItemsByType } from '../helpers/requests';
-
 // Components
 import Button from '../components/Button/Button';
 import Feedback from '../components/Feedback/Feedback';
@@ -18,11 +13,9 @@ import Heading from '../components/Heading/Heading';
 import Paragraph from '../components/Paragraph/Paragraph';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
-import SignUp from '../components/SignUp/SignUp';
 
 // Types
-import { WorkoutsContentful } from '../types/contentfulTypes';
-import { User, Workouts } from '../types/types';
+import { User, Workout as WorkoutType, Workouts } from '../types/types';
 import { useSearchParams } from 'react-router-dom';
 
 const client = contentful.createClient({
@@ -32,9 +25,13 @@ const client = contentful.createClient({
     '',
 });
 
-const getWorkouts = () => get(getItemsByType('workout'));
+type Props = {
+  addEvent: (event: WorkoutType) => void;
+  events: Workouts;
+  user: User;
+};
 
-const Workout = () => {
+const Workout = ({ addEvent, events, user }: Props) => {
   const [searchParams] = useSearchParams();
 
   const {
@@ -49,13 +46,10 @@ const Workout = () => {
     },
   });
 
-  const [firstRender, setFirstRender] = useState(true);
   const [showFeedback, setShowFeedback] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
-  const [workouts, setWorkouts] = useState<Workouts | []>([]);
 
   useEffect(() => {
     if (!submitSuccess) return;
@@ -65,18 +59,6 @@ const Workout = () => {
       setSubmitSuccess(false);
     }, 1000);
   }, [submitSuccess]);
-
-  useEffect(() => {
-    if (!firstRender) return;
-
-    // If user exists in local
-    const localUser = getFromLocalStorage('user');
-    if (localUser) {
-      setUser(localUser);
-    }
-
-    setFirstRender(false);
-  }, [firstRender]);
 
   const onSubmit = (data: any) => {
     // setShowFeedback(true); // This was running before the new workout was counted.
@@ -115,18 +97,22 @@ const Workout = () => {
       )
       .then((entry) => entry.publish())
       .then((entry) => {
+        const publishedWorkout: WorkoutType = {
+          ...finishedWorkout,
+          id: entry.sys.id,
+          user,
+        };
+
+        // Add event to state.
+        addEvent(publishedWorkout);
+
         // Reset form.
         reset();
 
         // Reset submitError.
         setSubmitError(null);
 
-        getWorkouts().then((workoutsContentful: WorkoutsContentful) => {
-          const workouts: Workouts = primeWorkouts(workoutsContentful);
-
-          setWorkouts(workouts);
-          setSubmitSuccess(true);
-        });
+        setSubmitSuccess(true);
       })
       .catch((error) => {
         console.error(error);
@@ -137,89 +123,71 @@ const Workout = () => {
 
   return (
     <>
-      {!user ? (
-        <SectionContainer>
+      <SectionContainer>
+        <Section>
+          <Heading>Add workout</Heading>
+        </Section>
+
+        <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'contents' }}>
           <Section>
-            <Heading>Welcome stranger</Heading>
+            <Controller
+              control={control}
+              name="name"
+              render={({ field }) => (
+                <FormInput
+                  autoFocus={true}
+                  disabled={submitting}
+                  errorText={errors.name && 'Please fill out this field.'}
+                  id="workout"
+                  labelText="Workout"
+                  type="text"
+                  {...field}
+                />
+              )}
+              rules={{ required: true }}
+            />
+
+            <Controller
+              control={control}
+              name="date"
+              render={({ field }) => (
+                <FormInput
+                  disabled={submitting}
+                  errorText={errors.date && 'Please fill out this field.'}
+                  id="date"
+                  labelText="Day"
+                  type="date"
+                  {...field}
+                />
+              )}
+              rules={{ required: true }}
+            />
+          </Section>
+
+          <Section>
+            <Button disabled={submitSuccess || submitting} type="submit">
+              {submitSuccess ? 'Saved!' : submitting ? 'Saving' : 'Save'}
+            </Button>
+          </Section>
+        </form>
+
+        <Feedback
+          setShow={setShowFeedback}
+          show={showFeedback}
+          user={user}
+          workouts={events}
+        />
+
+        {submitError && (
+          <Section>
+            <Heading>A terrible error happened!</Heading>
             <Paragraph>
-              What name would you like to be associated with your workouts?
+              Let me know what you did and what it says below and I will fix it.
             </Paragraph>
-
-            {/* User registration */}
-            {!user && <SignUp setUser={setUser} />}
+            <code>{submitError}</code>
           </Section>
-        </SectionContainer>
-      ) : (
-        <SectionContainer>
-          <Section>
-            <Heading>Add workout</Heading>
-          </Section>
-
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            style={{ display: 'contents' }}
-          >
-            <Section>
-              <Controller
-                control={control}
-                name="name"
-                render={({ field }) => (
-                  <FormInput
-                    autoFocus={true}
-                    disabled={submitting}
-                    errorText={errors.name && 'Please fill out this field.'}
-                    id="workout"
-                    labelText="Workout"
-                    type="text"
-                    {...field}
-                  />
-                )}
-                rules={{ required: true }}
-              />
-
-              <Controller
-                control={control}
-                name="date"
-                render={({ field }) => (
-                  <FormInput
-                    disabled={submitting}
-                    errorText={errors.date && 'Please fill out this field.'}
-                    id="date"
-                    labelText="Day"
-                    type="date"
-                    {...field}
-                  />
-                )}
-                rules={{ required: true }}
-              />
-            </Section>
-
-            <Section>
-              <Button disabled={submitSuccess || submitting} type="submit">
-                {submitSuccess ? 'Saved!' : submitting ? 'Saving' : 'Save'}
-              </Button>
-            </Section>
-          </form>
-
-          <Feedback
-            setShow={setShowFeedback}
-            show={showFeedback}
-            user={user}
-            workouts={workouts}
-          />
-
-          {submitError && (
-            <Section>
-              <Heading>A terrible error happened!</Heading>
-              <Paragraph>
-                Let me know what you did and what it says below and I will fix
-                it.
-              </Paragraph>
-              <code>{submitError}</code>
-            </Section>
-          )}
-        </SectionContainer>
-      )}
+        )}
+      </SectionContainer>
     </>
   );
 };

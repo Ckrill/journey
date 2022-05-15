@@ -4,11 +4,6 @@ import {
   BsFillPeopleFill as People,
 } from 'react-icons/bs';
 
-// Helpers
-import { primeWorkouts } from '../helpers/dataHandler';
-import { getFromLocalStorage } from '../helpers/localStorage';
-import { get, getItemsByType } from '../helpers/requests';
-
 // Components
 import EventList from '../components/EventList/EventList';
 import MockEventList from '../components/EventList/MockEventList';
@@ -18,49 +13,33 @@ import SectionContainer from '../components/Section/SectionContainer';
 import Streak from '../components/Streak/Streak';
 
 // Types
-import { WorkoutsContentful } from '../types/contentfulTypes';
 import { User, Workouts } from '../types/types';
 import Button from '../components/Button/Button';
 
-const getWorkouts = () => get(getItemsByType('workout'));
+type Props = {
+  events: Workouts;
+  deleteEvent: (id: string) => void;
+  user: User | null;
+};
 
-const Home = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [workouts, setWorkouts] = useState<Workouts | []>([]);
+const Home = ({ events, deleteEvent, user }: Props) => {
   const [workoutsFiltered, setWorkoutsFiltered] = useState<Workouts | []>([]);
-  const [firstRender, setFirstRender] = useState(true);
   const [soloMode, setSoloMode] = useState(false);
   const [itemsToShow, setItemsToShow] = useState(25);
-
-  useEffect(() => {
-    if (!firstRender) return;
-
-    const user: User = getFromLocalStorage('user');
-
-    setUser(user);
-
-    getWorkouts().then((workoutsContentful: WorkoutsContentful) => {
-      const workouts: Workouts = primeWorkouts(workoutsContentful);
-
-      setWorkouts(workouts);
-    });
-
-    setFirstRender(false);
-  }, [firstRender]);
 
   useEffect(() => {
     if (!user) return;
 
     if (soloMode) {
-      const workoutsFiltered = workouts.filter((item) => {
+      const workoutsFiltered = events.filter((item) => {
         if (item.user.id === user.id) return item;
         return null;
       });
       setWorkoutsFiltered(workoutsFiltered);
     } else {
-      setWorkoutsFiltered(workouts);
+      setWorkoutsFiltered(events);
     }
-  }, [user, soloMode, workouts]);
+  }, [user, soloMode, events]);
 
   const showMoreItems = () => {
     setItemsToShow(itemsToShow + 25);
@@ -70,7 +49,7 @@ const Home = () => {
     <>
       <SectionContainer>
         <Section>
-          <Streak user={user} workouts={workouts} />
+          <Streak user={user} workouts={events} />
         </Section>
 
         <Section>
@@ -88,9 +67,10 @@ const Home = () => {
             journey
           </Heading>
 
-          {workouts.length > 0 ? (
+          {events.length > 0 ? (
             <EventList
               events={workoutsFiltered.slice(0, itemsToShow)}
+              deleteEvent={deleteEvent}
               user={user}
             />
           ) : (
@@ -99,7 +79,7 @@ const Home = () => {
         </Section>
       </SectionContainer>
 
-      {workouts.length > 0 && (
+      {events.length > 0 && (
         <SectionContainer>
           <Section>
             <Button onClick={showMoreItems}>More...</Button>
