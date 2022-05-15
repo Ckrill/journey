@@ -28,7 +28,7 @@
       "name": "Stretching",
       "short_name": "Stretching",
       "description": "Add a Stretching workout",
-      "url": "/?name='Stretching'",
+      "url": "/?name=Stretching",
       "icons": [
         {
           "src": "/android-chrome-192x192.png",
@@ -41,7 +41,7 @@
       "name": "Yoga",
       "short_name": "Yoga",
       "description": "Add a Yoga workout",
-      "url": "/?name='Yoga'",
+      "url": "/?name=Yoga",
       "icons": [
         {
           "src": "/android-chrome-192x192.png",
@@ -54,7 +54,7 @@
       "name": "Running",
       "short_name": "Running",
       "description": "Add a Running workout",
-      "url": "/?name='Running'",
+      "url": "/?name=Running",
       "icons": [
         {
           "src": "/android-chrome-192x192.png",
