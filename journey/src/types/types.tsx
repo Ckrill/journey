@@ -22,7 +22,7 @@ export type User = {
 // }[];
 
 export type Workout = {
-  date: Date;
+  date: string;
   // exercises?: Exercises;
   id: string;
   name: string;

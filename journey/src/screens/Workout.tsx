@@ -54,21 +54,24 @@ const Workout = ({ addEvent, events, user }: Props) => {
   useEffect(() => {
     if (!submitSuccess) return;
 
-    setShowFeedback(true);
     setTimeout(() => {
       setSubmitSuccess(false);
     }, 1000);
   }, [submitSuccess]);
 
-  const onSubmit = (data: any) => {
-    // setShowFeedback(true); // This was running before the new workout was counted.
+  const onSubmit = (formData: { date: string; name: string }) => {
+    setShowFeedback(true);
     setSubmitting(true);
 
-    const finishedWorkout = {
-      date: data.date,
-      name: data.name,
-      user: user?.name,
+    const temporaryWorkout: WorkoutType = {
+      date: formData.date,
+      name: formData.name,
+      id: 'temp' + Date.now(),
+      user,
     };
+
+    // Add event to state.
+    addEvent(temporaryWorkout);
 
     // Create and publish item.
     client
@@ -78,10 +81,10 @@ const Workout = ({ addEvent, events, user }: Props) => {
         environment.createEntry('workout', {
           fields: {
             date: {
-              'en-US': finishedWorkout.date,
+              'en-US': formData.date,
             },
             name: {
-              'en-US': finishedWorkout.name,
+              'en-US': formData.name,
             },
             user: {
               'en-US': {
@@ -98,9 +101,8 @@ const Workout = ({ addEvent, events, user }: Props) => {
       .then((entry) => entry.publish())
       .then((entry) => {
         const publishedWorkout: WorkoutType = {
-          ...finishedWorkout,
+          ...temporaryWorkout,
           id: entry.sys.id,
-          user,
         };
 
         // Add event to state.
@@ -115,6 +117,8 @@ const Workout = ({ addEvent, events, user }: Props) => {
         setSubmitSuccess(true);
       })
       .catch((error) => {
+        setShowFeedback(false);
+
         console.error(error);
         setSubmitError(JSON.stringify(error));
       })
@@ -171,23 +175,25 @@ const Workout = ({ addEvent, events, user }: Props) => {
           </Section>
         </form>
 
-        <Feedback
-          setShow={setShowFeedback}
-          show={showFeedback}
-          user={user}
-          workouts={events}
-        />
-
         {submitError && (
           <Section>
             <Heading>A terrible error happened!</Heading>
+
             <Paragraph>
               Let me know what you did and what it says below and I will fix it.
             </Paragraph>
+
             <code>{submitError}</code>
           </Section>
         )}
       </SectionContainer>
+
+      <Feedback
+        setShow={setShowFeedback}
+        show={showFeedback}
+        user={user}
+        workouts={events}
+      />
     </>
   );
 };
