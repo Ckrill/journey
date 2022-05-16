@@ -12,7 +12,7 @@ import { User, Workouts } from '../../types/types';
 type Props = { user: User | null; workouts: Workouts };
 
 const Streak = ({ user, workouts }: Props) => {
-  const [streak, setStreak] = useState(0);
+  const [streak, setStreak] = useState(-1);
   const [leniency, setLeniency] = useState(0);
 
   useEffect(() => {
@@ -34,10 +34,16 @@ const Streak = ({ user, workouts }: Props) => {
             {leniency ? leniency : ''}
           </span>
         </div>
-      ) : (
+      ) : streak === 0 ? (
         <div>
           <span>Good to see you!</span>
           {/* <span>Let's get started!</span> */}
+          <span className={styles.leniencyCounter}></span>
+        </div>
+      ) : (
+        <div>
+          <span></span>
+
           <span className={styles.leniencyCounter}></span>
         </div>
       )}

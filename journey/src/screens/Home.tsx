@@ -53,10 +53,6 @@ const Home = ({ events, deleteEvent, user }: Props) => {
         </Section>
 
         <Section>
-          {/* <Paragraph>
-          Good to see you{!user ? ', friend' : `, ${user!.name}`}
-        </Paragraph> */}
-
           <Heading>
             {soloMode ? (
               <Person onClick={() => setSoloMode((prevState) => !prevState)} />
