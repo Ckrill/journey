@@ -5,11 +5,7 @@ import feedbackHeading from '../../data/synonyms/feedback-heading.json';
 
 // Helpers
 import { calculateStreak } from '../../helpers/streak';
-import {
-  getHeading,
-  getHeadingSize,
-  getLongestWord,
-} from '../../helpers/synonyms';
+import { getHeading, getHeadingSize } from '../../helpers/synonyms';
 
 // Styles
 import styles from './Feedback.module.scss';
@@ -34,8 +30,7 @@ const Feedback = ({ setShow, show, user, workouts }: Props) => {
     if (!show || !streak) return;
 
     const heading = getHeading(feedbackHeading, streak);
-    const longestWord = getLongestWord(heading);
-    const headingSize = getHeadingSize(longestWord.length);
+    const headingSize = getHeadingSize(heading);
 
     setHeading(heading);
     setHeadingSize(headingSize);

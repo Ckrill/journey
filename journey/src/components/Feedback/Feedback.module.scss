@@ -86,7 +86,10 @@
   }
   &--xs {
     // ~70rem om mobile
-    font-size: clamp(75rem/16, 15vw, 150rem/16);
+    font-size: clamp(50rem/16, 15vw, 150rem/16);
+  }
+  &--xxs {
+    font-size: clamp(30rem/16, 12vw, 150rem/16);
   }
 
   .show & {

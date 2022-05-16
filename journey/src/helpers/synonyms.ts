@@ -33,17 +33,22 @@ export const getHeading = (
   return word;
 };
 
-export const getHeadingSize = (length: number) => {
+export const getHeadingSize = (sentence: string) => {
+  const sentenceLength = sentence.length;
+  const longestWord = getLongestWord(sentence);
+  const length = longestWord.length;
   let headingSize = 'm';
 
-  if (length < 5) {
+  if (length < 5 && sentenceLength < 15) {
     headingSize = 'l';
-  } else if (length < 6) {
+  } else if (length < 6 && sentenceLength < 18) {
     headingSize = 'm';
-  } else if (length < 7) {
+  } else if (length < 7 && sentenceLength < 21) {
     headingSize = 's';
-  } else {
+  } else if (length < 9 && sentenceLength < 27) {
     headingSize = 'xs';
+  } else {
+    headingSize = 'xxs';
   }
 
   return headingSize;
