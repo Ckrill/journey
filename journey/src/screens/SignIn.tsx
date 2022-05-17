@@ -1,9 +1,10 @@
 // Components
-import SignInForm from '../components/SignIn/SignIn';
 import Heading from '../components/Heading/Heading';
 import Paragraph from '../components/Paragraph/Paragraph';
-import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
+import Page from '../components/SignIn/Page';
+import SignInForm from '../components/SignIn/SignIn';
+import Title from '../components/SignIn/Title';
 
 // Types
 import { User } from '../types/types';
@@ -13,8 +14,10 @@ type Props = { setUser: (user: User | null) => void };
 const SignIn = ({ setUser }: Props) => {
   return (
     <>
-      <SectionContainer>
-        <Section>
+      <Page>
+        <Title>Journey</Title>
+
+        <SectionContainer>
           <Heading>Welcome stranger</Heading>
 
           <Paragraph>
@@ -22,8 +25,8 @@ const SignIn = ({ setUser }: Props) => {
           </Paragraph>
 
           <SignInForm setUser={setUser} />
-        </Section>
-      </SectionContainer>
+        </SectionContainer>
+      </Page>
     </>
   );
 };

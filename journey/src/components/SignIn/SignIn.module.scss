@@ -1,0 +1,22 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background-color: #ff6c55;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  margin-top: 50px;
+  color: #62355c;
+  text-transform: uppercase;
+  word-wrap: break-word;
+  font-size: clamp(30rem/16, 15vw, 150rem/16);
+  font-family: 'Rubik', Arial, Helvetica, sans-serif;
+  transform: skewY(-20deg);
+}

@@ -15,7 +15,6 @@ import { get, getItemsByAttribute } from '../../helpers/requests';
 // Components
 import Button from '../Button/Button';
 import Code from '../Code/Code';
-import Form from '../Form/Form';
 import FormInput from '../Form/FormInput';
 import Heading from '../Heading/Heading';
 import Paragraph from '../Paragraph/Paragraph';
@@ -105,20 +104,22 @@ const SignUp = ({ setUser }: Props) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        control={control}
-        defaultValue=""
-        name="name"
-        render={({ field }) => (
-          <FormInput labelText="Name" type="text" {...field} />
-        )}
-        rules={{ required: true }}
-      />
+    <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'contents' }}>
+      <Section>
+        <Controller
+          control={control}
+          defaultValue=""
+          name="name"
+          render={({ field }) => (
+            <FormInput labelText="Name" type="text" {...field} />
+          )}
+          rules={{ required: true }}
+        />
 
-      <Button disabled={submitting} type="submit">
-        Sign in
-      </Button>
+        <Button disabled={submitting} type="submit">
+          Sign in
+        </Button>
+      </Section>
 
       {submitError && (
         <Section>
@@ -131,7 +132,7 @@ const SignUp = ({ setUser }: Props) => {
           <Code>{submitError}</Code>
         </Section>
       )}
-    </Form>
+    </form>
   );
 };
 
