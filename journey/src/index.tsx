@@ -5,12 +5,20 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
+// Contexts
+import { UserProvider } from './contexts/userContext';
+import { EventsProvider } from './contexts/eventsContext';
+
 const container = document.getElementById('root');
 const root = createRoot(container!);
 
 root.render(
   <React.StrictMode>
-    <App />
+    <UserProvider>
+      <EventsProvider>
+        <App />
+      </EventsProvider>
+    </UserProvider>
   </React.StrictMode>
 );
 

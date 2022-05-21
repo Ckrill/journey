@@ -19,15 +19,13 @@ import Divider from '../components/Divider/Divider';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 
-// Types
-import { User } from '../types/types';
+// Contexts
+import { useUser, useUserUpdate } from '../contexts/userContext';
 
-type Props = {
-  setUser: (user: User | null) => void;
-  user: User | null;
-};
+const Settings = () => {
+  const user = useUser();
+  const setUser = useUserUpdate();
 
-const Settings = ({ setUser, user }: Props) => {
   const addDummyData = () => {
     saveToLocalStorage('user', user2);
     saveToLocalStorage('exercises', exercises);
@@ -56,9 +54,11 @@ const Settings = ({ setUser, user }: Props) => {
       <SectionContainer>
         <Section>
           <Heading>Settings</Heading>
+
           {user ? (
             <>
               <Paragraph>Name:{!user ? ' friend' : ` ${user.name}`}</Paragraph>
+
               <Button disabled={!user} onClick={clearData}>
                 Sign out
               </Button>
@@ -74,11 +74,14 @@ const Settings = ({ setUser, user }: Props) => {
 
         <Section>
           <Heading>Data</Heading>
+          
           <Paragraph>
             The data you put into this app, never leaves your device. It is
             saved in your local storage, and no one is able to see it but you.
           </Paragraph>
+
           <Button onClick={showData}>See my data</Button>
+
           <Button onClick={clearData} data-priority="secondary">
             Clear data
           </Button>
@@ -92,9 +95,11 @@ const Settings = ({ setUser, user }: Props) => {
 
             <Section>
               <Heading>Testing</Heading>
+
               <Paragraph>
                 For testing purposes you can add dummy data here.
               </Paragraph>
+
               <Button onClick={addDummyData}>Add dummy data</Button>
             </Section>
           </>

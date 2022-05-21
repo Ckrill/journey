@@ -7,20 +7,21 @@ import feedbackHeading from '../../data/synonyms/feedback-heading.json';
 import { calculateStreak } from '../../helpers/streak';
 import { getHeading, getHeadingSize } from '../../helpers/synonyms';
 
+// Contexts
+import { useUser } from '../../contexts/userContext';
+import { useEvents } from '../../contexts/eventsContext';
+
 // Styles
 import styles from './Feedback.module.scss';
-
-// Types
-import { User, Workouts } from '../../types/types';
 
 type Props = {
   setShow: (show: boolean) => void;
   show: boolean;
-  user: User;
-  workouts: Workouts | [];
 };
 
-const Feedback = ({ setShow, show, user, workouts }: Props) => {
+const Feedback = ({ setShow, show }: Props) => {
+  const user = useUser();
+  const events = useEvents();
   const [heading, setHeading] = useState('');
   const [headingSize, setHeadingSize] = useState('m');
   const [streak, setStreak] = useState(0);
@@ -38,15 +39,15 @@ const Feedback = ({ setShow, show, user, workouts }: Props) => {
 
   // Get streak.
   useEffect(() => {
-    if (!workouts.length) return;
+    if (!events.length) return;
 
-    const newStreak = calculateStreak(user, workouts);
+    const newStreak = calculateStreak(user, events);
 
     // TODO: Use memo instead of this check.
     if (streak === newStreak.streak) return;
 
     setStreak(newStreak.streak);
-  }, [streak, user, workouts]);
+  }, [streak, user, events]);
 
   return (
     <div

@@ -15,15 +15,13 @@ import Divider from '../Divider/Divider';
 import styles from './EventList.module.scss';
 
 // Types
-import { User, Workout, Workouts } from '../../types/types';
+import { Workout, Workouts } from '../../types/types';
 
 type Props = {
   events: Workouts;
-  deleteEvent: (id: string) => void;
-  user: User | null;
 };
 
-const EventList = ({ events, deleteEvent, user }: Props) => {
+const EventList = ({ events }: Props) => {
   const eventsByYear: Year[] = categorizeByYearAndMonth(events) || [];
   const currentYear = new Date().getFullYear();
 
@@ -44,12 +42,7 @@ const EventList = ({ events, deleteEvent, user }: Props) => {
               <Divider text={month.month} data-appearance="faint" />
 
               {month.workouts.map((event: Workout) => (
-                <Event
-                  event={event}
-                  key={event.id}
-                  deleteEvent={deleteEvent}
-                  user={user}
-                />
+                <Event event={event} key={event.id} />
               ))}
             </Fragment>
           ))}

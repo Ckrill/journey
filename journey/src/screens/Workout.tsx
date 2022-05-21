@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as contentful from 'contentful-management';
 import { Controller, useForm } from 'react-hook-form';
 
@@ -14,8 +14,12 @@ import Paragraph from '../components/Paragraph/Paragraph';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 
+// Contexts
+import { useUser } from '../contexts/userContext';
+import { useEvents, useEventsUpdate } from '../contexts/eventsContext';
+
 // Types
-import { User, Workout as WorkoutType, Workouts } from '../types/types';
+import { Workout as WorkoutType } from '../types/types';
 import { useSearchParams } from 'react-router-dom';
 
 const client = contentful.createClient({
@@ -25,14 +29,20 @@ const client = contentful.createClient({
     '',
 });
 
-type Props = {
-  addEvent: (event: WorkoutType) => void;
-  events: Workouts;
-  user: User;
-};
-
-const Workout = ({ addEvent, events, user }: Props) => {
+const Workout = () => {
   const [searchParams] = useSearchParams();
+
+  const user = useUser();
+  const events = useEvents();
+  const setEvents = useEventsUpdate();
+
+  const addEvent = (event: WorkoutType) => {
+    const result = [...events];
+
+    result.unshift(event);
+
+    setEvents(result);
+  };
 
   const {
     control,
@@ -67,7 +77,7 @@ const Workout = ({ addEvent, events, user }: Props) => {
       date: formData.date,
       name: formData.name,
       id: 'temp' + Date.now(),
-      user,
+      user: user!,
     };
 
     // Add event to state.
@@ -188,12 +198,7 @@ const Workout = ({ addEvent, events, user }: Props) => {
         )}
       </SectionContainer>
 
-      <Feedback
-        setShow={setShowFeedback}
-        show={showFeedback}
-        user={user}
-        workouts={events}
-      />
+      <Feedback setShow={setShowFeedback} show={showFeedback} />
     </>
   );
 };

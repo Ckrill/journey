@@ -5,19 +5,25 @@ import { BiTrash as Trash } from 'react-icons/bi';
 import { getMonthDay } from '../../helpers/dateFormatting';
 import deleteEntry from '../../helpers/deleteEntry';
 
+// Contexts
+import { useUser } from '../../contexts/userContext';
+import { useEvents, useEventsUpdate } from '../../contexts/eventsContext';
+
 // Types
-import { User, Workout } from '../../types/types';
+import { Workout } from '../../types/types';
 
 // Styling
 import styles from './Event.module.scss';
 
 type Props = {
   event: Workout;
-  deleteEvent: (id: string) => void;
-  user: User | null;
+  // deleteEvent: (id: string) => void;
 };
 
-const Event = ({ event, deleteEvent, user }: Props) => {
+const Event = ({ event }: Props) => {
+  const user = useUser();
+  const events = useEvents();
+  const setEvents = useEventsUpdate();
   const [isDeleted, setIsDeleted] = useState(false);
   const [isMine, setIsMine] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
@@ -28,6 +34,17 @@ const Event = ({ event, deleteEvent, user }: Props) => {
     if (isMine === mine) return;
     setIsMine(mine);
   }, [event, isMine, user]);
+
+  const deleteEvent = (id: string) => {
+    const result = [...events];
+    const index = events.findIndex((event) => id === event.id);
+
+    if (index === -1) return;
+
+    result.splice(index, 1);
+
+    setEvents(result);
+  };
 
   const deleteEventCallback = () => {
     deleteEvent(event.id);

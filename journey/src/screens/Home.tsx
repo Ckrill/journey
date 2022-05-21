@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   BsFillPersonFill as Person,
   BsFillPeopleFill as People,
@@ -12,17 +12,17 @@ import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 import Streak from '../components/Streak/Streak';
 
+// Contexts
+import { useUser } from '../contexts/userContext';
+import { useEvents } from '../contexts/eventsContext';
+
 // Types
-import { User, Workouts } from '../types/types';
+import { Workouts } from '../types/types';
 import Button from '../components/Button/Button';
 
-type Props = {
-  events: Workouts;
-  deleteEvent: (id: string) => void;
-  user: User | null;
-};
-
-const Home = ({ events, deleteEvent, user }: Props) => {
+const Home = () => {
+  const user = useUser();
+  const events = useEvents();
   const [workoutsFiltered, setWorkoutsFiltered] = useState<Workouts | []>([]);
   const [soloMode, setSoloMode] = useState(false);
   const [itemsToShow, setItemsToShow] = useState(25);
@@ -49,7 +49,7 @@ const Home = ({ events, deleteEvent, user }: Props) => {
     <>
       <SectionContainer>
         <Section>
-          <Streak user={user} workouts={events} />
+          <Streak />
         </Section>
 
         <Section>
@@ -64,11 +64,7 @@ const Home = ({ events, deleteEvent, user }: Props) => {
           </Heading>
 
           {events.length > 0 ? (
-            <EventList
-              events={workoutsFiltered.slice(0, itemsToShow)}
-              deleteEvent={deleteEvent}
-              user={user}
-            />
+            <EventList events={workoutsFiltered.slice(0, itemsToShow)} />
           ) : (
             <MockEventList />
           )}

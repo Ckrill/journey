@@ -3,26 +3,27 @@ import { useEffect, useState } from 'react';
 // Helpers
 import { calculateStreak } from '../../helpers/streak';
 
+// Contexts
+import { useUser } from '../../contexts/userContext';
+import { useEvents } from '../../contexts/eventsContext';
+
 // Styles
 import styles from './Streak.module.scss';
 
-// Types
-import { User, Workouts } from '../../types/types';
-
-type Props = { user: User | null; workouts: Workouts };
-
-const Streak = ({ user, workouts }: Props) => {
+const Streak = () => {
+  const user = useUser();
+  const events = useEvents();
   const [streak, setStreak] = useState(-1);
   const [leniency, setLeniency] = useState(0);
 
   useEffect(() => {
-    if (!workouts) return;
+    if (!events) return;
 
-    const streak = calculateStreak(user, workouts);
+    const streak = calculateStreak(user, events);
 
     setStreak(streak.streak);
     setLeniency(streak.leniency);
-  }, [user, workouts]);
+  }, [user, events]);
 
   return (
     <>

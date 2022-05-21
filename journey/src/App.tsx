@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 // Screens
@@ -14,19 +15,22 @@ import { get, getItemsByType } from './helpers/requests';
 // Components
 import Header from './components/Header/Header';
 
+import { useUser, useUserUpdate } from './contexts/userContext';
+import { useEventsUpdate } from './contexts/eventsContext';
+
 // styles
 import './App.scss';
-import { useEffect, useState } from 'react';
 
 // Types
 import { WorkoutsContentful } from './types/contentfulTypes';
-import { User, Workout as WorkoutType, Workouts } from './types/types';
+import { User, Workouts } from './types/types';
 
 const getWorkouts = () => get(getItemsByType('workout'));
 
 function App() {
-  const [user, setUser] = useState<User | null>(null);
-  const [events, setEvents] = useState<Workouts | []>([]);
+  const user = useUser();
+  const setUser = useUserUpdate();
+  const setEvents = useEventsUpdate();
   const [firstRender, setFirstRender] = useState(true);
 
   useEffect(() => {
@@ -43,26 +47,7 @@ function App() {
     });
 
     setFirstRender(false);
-  }, [firstRender]);
-
-  const addEvent = (event: WorkoutType) => {
-    const result = [...events];
-
-    result.unshift(event);
-
-    setEvents(result);
-  };
-
-  const deleteEvent = (id: string) => {
-    const result = [...events];
-    const index = events.findIndex((event) => id === event.id);
-
-    if (index === -1) return;
-
-    result.splice(index, 1);
-
-    setEvents(result);
-  };
+  }, [firstRender, setEvents, setUser]);
 
   return (
     <BrowserRouter>
@@ -71,24 +56,11 @@ function App() {
           <Header />
 
           <Routes>
-            <Route
-              path="/journey"
-              element={
-                <Home events={events} deleteEvent={deleteEvent} user={user} />
-              }
-            />
+            <Route path="/journey" element={<Home />} />
 
-            <Route
-              path="/"
-              element={
-                <Workout addEvent={addEvent} events={events} user={user} />
-              }
-            />
+            <Route path="/" element={<Workout />} />
 
-            <Route
-              path="/settings"
-              element={<Settings setUser={setUser} user={user} />}
-            />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
         </>
       ) : (
