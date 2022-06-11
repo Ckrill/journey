@@ -4,10 +4,12 @@ import { BiTrash as Trash } from 'react-icons/bi';
 // Helpers
 import { getMonthDay } from '../../helpers/dateFormatting';
 import deleteEntry from '../../helpers/deleteEntry';
+import { calculateStreak } from '../../helpers/streak';
 
 // Contexts
 import { useUser } from '../../contexts/userContext';
 import { useEvents, useEventsUpdate } from '../../contexts/eventsContext';
+import { useStreakUpdate } from '../../contexts/streakContext';
 
 // Types
 import { Workout } from '../../types/types';
@@ -24,6 +26,8 @@ const Event = ({ event }: Props) => {
   const user = useUser();
   const events = useEvents();
   const setEvents = useEventsUpdate();
+  const setStreak = useStreakUpdate();
+
   const [isDeleted, setIsDeleted] = useState(false);
   const [isMine, setIsMine] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
@@ -42,8 +46,10 @@ const Event = ({ event }: Props) => {
     if (index === -1) return;
 
     result.splice(index, 1);
-
     setEvents(result);
+
+    const streak = calculateStreak(user, result);
+    setStreak(streak);
   };
 
   const deleteEventCallback = () => {

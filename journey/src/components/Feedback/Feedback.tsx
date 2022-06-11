@@ -4,15 +4,13 @@ import { useEffect, useState } from 'react';
 import feedbackHeading from '../../data/synonyms/feedback-heading.json';
 
 // Helpers
-import { calculateStreak } from '../../helpers/streak';
 import { getHeading, getHeadingSize } from '../../helpers/synonyms';
 
 // Contexts
-import { useUser } from '../../contexts/userContext';
-import { useEvents } from '../../contexts/eventsContext';
 
 // Styles
 import styles from './Feedback.module.scss';
+import { useStreak } from '../../contexts/streakContext';
 
 type Props = {
   setShow: (show: boolean) => void;
@@ -20,34 +18,21 @@ type Props = {
 };
 
 const Feedback = ({ setShow, show }: Props) => {
-  const user = useUser();
-  const events = useEvents();
+  const streak = useStreak();
+
   const [heading, setHeading] = useState('');
   const [headingSize, setHeadingSize] = useState('m');
-  const [streak, setStreak] = useState(0);
 
   // Get heading.
   useEffect(() => {
     if (!show || !streak) return;
 
-    const heading = getHeading(feedbackHeading, streak);
+    const heading = getHeading(feedbackHeading, streak.streak);
     const headingSize = getHeadingSize(heading);
 
     setHeading(heading);
     setHeadingSize(headingSize);
   }, [show, streak]);
-
-  // Get streak.
-  useEffect(() => {
-    if (!events.length) return;
-
-    const newStreak = calculateStreak(user, events);
-
-    // TODO: Use memo instead of this check.
-    if (streak === newStreak.streak) return;
-
-    setStreak(newStreak.streak);
-  }, [streak, user, events]);
 
   return (
     <div
@@ -55,7 +40,7 @@ const Feedback = ({ setShow, show }: Props) => {
       onClick={() => setShow(false)}
     >
       <div className={styles.container}>
-        {streak > 1 ? (
+        {streak.streak > 1 ? (
           <>
             <h1
               className={`${styles.heading} ${
@@ -64,7 +49,7 @@ const Feedback = ({ setShow, show }: Props) => {
             >
               {heading}
             </h1>
-            <p className={styles.paragraph}>{streak} days in a row</p>
+            <p className={styles.paragraph}>{streak.streak} days in a row</p>
           </>
         ) : (
           <>

@@ -1,4 +1,7 @@
+import { motion } from 'framer-motion';
+
 // Settings
+import { pageTransition, pageVariants } from '../settings/pageTransition';
 import { settings } from '../settings/settings';
 
 // Helpers
@@ -50,7 +53,13 @@ const Settings = () => {
   // };
 
   return (
-    <div>
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariants}
+      transition={pageTransition}
+    >
       <SectionContainer>
         <Section>
           <Heading>Settings</Heading>
@@ -105,7 +114,7 @@ const Settings = () => {
           </>
         )}
       </SectionContainer>
-    </div>
+    </motion.div>
   );
 };
 

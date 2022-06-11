@@ -3,6 +3,10 @@ import {
   BsFillPersonFill as Person,
   BsFillPeopleFill as People,
 } from 'react-icons/bs';
+import { motion } from 'framer-motion';
+
+// Settings
+import { pageTransition, pageVariants } from '../settings/pageTransition';
 
 // Components
 import EventList from '../components/EventList/EventList';
@@ -25,7 +29,7 @@ const Home = () => {
   const events = useEvents();
   const [workoutsFiltered, setWorkoutsFiltered] = useState<Workouts | []>([]);
   const [soloMode, setSoloMode] = useState(false);
-  const [itemsToShow, setItemsToShow] = useState(25);
+  const [itemsToShow, setItemsToShow] = useState(10);
 
   useEffect(() => {
     if (!user) return;
@@ -46,7 +50,13 @@ const Home = () => {
   };
 
   return (
-    <>
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariants}
+      transition={pageTransition}
+    >
       <SectionContainer>
         <Section>
           <Streak />
@@ -78,7 +88,7 @@ const Home = () => {
           </Section>
         </SectionContainer>
       )}
-    </>
+    </motion.div>
   );
 };
 

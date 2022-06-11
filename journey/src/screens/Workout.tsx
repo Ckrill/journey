@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react';
 import * as contentful from 'contentful-management';
 import { Controller, useForm } from 'react-hook-form';
+import { motion } from 'framer-motion';
 
 // Settings
+import { pageTransition, pageVariants } from '../settings/pageTransition';
 import { settings } from '../settings/settings';
+
+// Helpers
+import { calculateStreak } from '../helpers/streak';
 
 // Components
 import Button from '../components/Button/Button';
@@ -17,6 +22,7 @@ import SectionContainer from '../components/Section/SectionContainer';
 // Contexts
 import { useUser } from '../contexts/userContext';
 import { useEvents, useEventsUpdate } from '../contexts/eventsContext';
+import { useStreakUpdate } from '../contexts/streakContext';
 
 // Types
 import { Workout as WorkoutType } from '../types/types';
@@ -35,13 +41,18 @@ const Workout = () => {
   const user = useUser();
   const events = useEvents();
   const setEvents = useEventsUpdate();
+  const setStreak = useStreakUpdate();
 
-  const addEvent = (event: WorkoutType) => {
+  const addEvent = (event: WorkoutType, reCalculateStreak: boolean = false) => {
     const result = [...events];
 
     result.unshift(event);
-
     setEvents(result);
+
+    if (reCalculateStreak) {
+      const streak = calculateStreak(user, result);
+      setStreak(streak);
+    }
   };
 
   const {
@@ -81,7 +92,7 @@ const Workout = () => {
     };
 
     // Add event to state.
-    addEvent(temporaryWorkout);
+    addEvent(temporaryWorkout, true);
 
     // Create and publish item.
     client
@@ -129,6 +140,13 @@ const Workout = () => {
       .catch((error) => {
         setShowFeedback(false);
 
+        // TODO: Make sure Streak is always up to date.
+        // 1. If the request fails.
+        // 2. Remove temporary event from state.
+        // 2a. Make "deleteEvent" from "Event.tsx" into a hook or a global helper function.
+        // 2b. Use hook.
+        // 3. Recalculate streak.
+
         console.error(error);
         setSubmitError(JSON.stringify(error));
       })
@@ -136,7 +154,13 @@ const Workout = () => {
   };
 
   return (
-    <>
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariants}
+      transition={pageTransition}
+    >
       <SectionContainer>
         <Section>
           <Heading>Add workout</Heading>
@@ -199,7 +223,7 @@ const Workout = () => {
       </SectionContainer>
 
       <Feedback setShow={setShowFeedback} show={showFeedback} />
-    </>
+    </motion.div>
   );
 };
 

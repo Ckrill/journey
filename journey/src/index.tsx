@@ -1,5 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
@@ -8,6 +9,7 @@ import reportWebVitals from './reportWebVitals';
 // Contexts
 import { UserProvider } from './contexts/userContext';
 import { EventsProvider } from './contexts/eventsContext';
+import { StreakProvider } from './contexts/streakContext';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
@@ -16,7 +18,11 @@ root.render(
   <React.StrictMode>
     <UserProvider>
       <EventsProvider>
-        <App />
+        <StreakProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </StreakProvider>
       </EventsProvider>
     </UserProvider>
   </React.StrictMode>
