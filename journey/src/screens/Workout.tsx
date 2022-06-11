@@ -173,7 +173,6 @@ const Workout = () => {
               name="name"
               render={({ field }) => (
                 <FormInput
-                  autoFocus={true}
                   disabled={submitting}
                   errorText={errors.name && 'Please fill out this field.'}
                   id="workout"
