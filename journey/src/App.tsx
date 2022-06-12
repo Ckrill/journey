@@ -3,7 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
 // Screens
-import Home from './screens/Home';
+import Journey from './screens/Journey';
 import Workout from './screens/Workout';
 import Settings from './screens/Settings';
 import SignIn from './screens/SignIn';
@@ -65,7 +65,7 @@ function App() {
 
           <AnimatePresence exitBeforeEnter>
             <Routes location={location} key={location.pathname}>
-              <Route path="/journey" element={<Home />} />
+              <Route path="/journey" element={<Journey />} />
 
               <Route path="/" element={<Workout />} />
 

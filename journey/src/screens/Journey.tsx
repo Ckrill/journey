@@ -24,7 +24,7 @@ import { useEvents } from '../contexts/eventsContext';
 import { Workouts } from '../types/types';
 import Button from '../components/Button/Button';
 
-const Home = () => {
+const Journey = () => {
   const user = useUser();
   const events = useEvents();
   const [workoutsFiltered, setWorkoutsFiltered] = useState<Workouts | []>([]);
@@ -92,4 +92,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Journey;
