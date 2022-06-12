@@ -1,5 +1,8 @@
 import { Fragment } from 'react';
-import { motion, Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
+
+// Settings
+import { variants } from './eventTransition';
 
 // Helpers
 import {
@@ -20,11 +23,6 @@ import { Workout, Workouts } from '../../types/types';
 
 type Props = {
   events: Workouts;
-};
-
-const variants: Variants = {
-  initial: { opacity: 0, translateY: 15 },
-  animate: { opacity: 1, translateY: 0 },
 };
 
 const EventList = ({ events }: Props) => {
@@ -58,13 +56,7 @@ const EventList = ({ events }: Props) => {
                 <Divider text={month.month} data-appearance="faint" />
 
                 {month.workouts.map((event: Workout, i: number) => (
-                  <motion.div
-                    key={event.id}
-                    variants={variants}
-                    transition={{ duration: 0.2, delay: 0.05 * i }}
-                  >
-                    <Event event={event} key={event.id} />
-                  </motion.div>
+                  <Event event={event} index={i} key={event.id} />
                 ))}
               </motion.div>
             </Fragment>

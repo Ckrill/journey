@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
 import { BiTrash as Trash } from 'react-icons/bi';
+import { motion } from 'framer-motion';
+
+// Settings
+import { variants } from './eventTransition';
 
 // Helpers
 import { getMonthDay } from '../../helpers/dateFormatting';
@@ -19,10 +23,10 @@ import styles from './Event.module.scss';
 
 type Props = {
   event: Workout;
-  // deleteEvent: (id: string) => void;
+  index: number;
 };
 
-const Event = ({ event }: Props) => {
+const Event = ({ event, index }: Props) => {
   const user = useUser();
   const events = useEvents();
   const setEvents = useEventsUpdate();
@@ -57,11 +61,13 @@ const Event = ({ event }: Props) => {
   };
 
   return (
-    <div
+    <motion.div
       className={`${styles.event} ${isMine ? styles['event--mine'] : ''} ${
         showOptions ? styles['event--show-options'] : ''
       } ${isDeleted ? styles['event--deleted'] : ''}`}
       onClick={() => setShowOptions(isMine && !showOptions)}
+      variants={variants}
+      transition={{ duration: 0.2, delay: 0.05 * index }}
     >
       <div className={styles.container}>
         <header className={styles.header}>
@@ -87,7 +93,7 @@ const Event = ({ event }: Props) => {
           />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
