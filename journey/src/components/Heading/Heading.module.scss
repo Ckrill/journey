@@ -1,4 +1,6 @@
 .heading {
+  display: flex;
+  align-items: center;
   text-align: center;
   text-transform: capitalize;
   text-transform: uppercase;
@@ -6,4 +8,6 @@
   letter-spacing: var(--letter-spacing-spacious);
   font-size: calc(24rem / 16);
   line-height: calc(32rem / 16);
+
+  gap: 10px;
 }

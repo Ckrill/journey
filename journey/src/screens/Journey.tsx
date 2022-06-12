@@ -69,8 +69,10 @@ const Journey = () => {
             ) : (
               <People onClick={() => setSoloMode((prevState) => !prevState)} />
             )}
-            {soloMode ? ` My ` : ` Our `}
-            journey
+            <span>
+              {soloMode ? `My ` : `Our `}
+              journey
+            </span>
           </Heading>
 
           {events.length > 0 ? (
