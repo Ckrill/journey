@@ -18,7 +18,7 @@ const SignIn = ({ setUser }: Props) => {
         <Title>Journey</Title>
 
         <SectionContainer>
-          <Heading>Welcome stranger</Heading>
+          <Heading>Welcome friend</Heading>
 
           <Paragraph>
             What name would you like to be associated with your journey?

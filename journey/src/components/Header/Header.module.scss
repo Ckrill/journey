@@ -31,15 +31,13 @@
 
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-
-  .item--active &::after {
+  
+  .underline {
     position: absolute;
     bottom: 4px;
-    left: 50%;
+    left: 10px;
     width: calc(100% - 20px);
     height: 2px;
     background-color: #62355c;
-    content: '';
-    transform: translateX(-50%);
   }
 }

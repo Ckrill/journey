@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 // Styling
 import styles from './Header.module.scss';
@@ -19,14 +20,17 @@ const Header = () => {
           const active = location.pathname === item.url;
 
           return (
-            <li
-              className={`${styles.item} ${
-                active ? styles['item--active'] : ''
-              }`}
-              key={index}
-            >
+            <li className={`${styles.item}`} key={index}>
               <Link className={styles.link} to={item.url}>
                 {item.name}
+
+                {active ? (
+                  <motion.div
+                    className={styles.underline}
+                    layoutId="underline"
+                    transition={{ duration: 0.1 }}
+                  />
+                ) : null}
               </Link>
             </li>
           );
