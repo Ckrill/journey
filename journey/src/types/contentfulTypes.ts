@@ -14,12 +14,12 @@ export type UserContentful = EntryProps<UserFields>;
 
 export interface UsersContentful extends CollectionProp<UserContentful> {}
 
-// Workout
+// Event
 
-type WorkoutFields = { date: Date; name: string; user: EntryLink };
+type EventFields = { date: Date; name: string; user: EntryLink };
 
-export interface WorkoutContentful extends EntryProps<WorkoutFields> {}
+export interface EventContentful extends EntryProps<EventFields> {}
 
-export interface WorkoutsContentful extends CollectionProp<WorkoutContentful> {
+export interface EventsContentful extends CollectionProp<EventContentful> {
   includes: { Entry: UserContentful[] };
 }

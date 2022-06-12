@@ -2,76 +2,76 @@
 import { getMonth } from './dateFormatting';
 
 // Types
-import { Workouts } from '../types/types';
+import { Events } from '../types/types';
 
 export type Year = { months: Month[]; year: number };
-export type Month = { month: string; workouts: Workouts };
+export type Month = { month: string; events: Events };
 
 export type YearMonthDay = { months: MonthDay[]; year: number };
 export type MonthDay = { days: Day[]; month: string };
-export type Day = { day: number; workouts: Workouts };
+export type Day = { day: number; events: Events };
 
-export const categorizeByYearAndMonth = (workouts: Workouts) => {
-  const workoutsByYear: Year[] = [];
+export const categorizeByYearAndMonth = (events: Events) => {
+  const eventsByYear: Year[] = [];
 
-  workouts.forEach((workout) => {
-    const date = new Date(workout.date);
-    const workoutYear = date.getFullYear();
-    const workoutMonth = getMonth(date);
+  events.forEach((event) => {
+    const date = new Date(event.date);
+    const eventYear = date.getFullYear();
+    const eventMonth = getMonth(date);
 
     // Templates
-    const yearTemplate: Year = { months: [], year: workoutYear };
-    const monthTemplate: Month = { month: workoutMonth, workouts: [] };
+    const yearTemplate: Year = { months: [], year: eventYear };
+    const monthTemplate: Month = { month: eventMonth, events: [] };
 
     // If the year does not exist, create it.
     const yearRef =
-      workoutsByYear.find(({ year }) => year === workoutYear) ||
-      workoutsByYear[workoutsByYear.push(yearTemplate) - 1];
+      eventsByYear.find(({ year }) => year === eventYear) ||
+      eventsByYear[eventsByYear.push(yearTemplate) - 1];
 
     // If the month does not exist, create it.
     const monthRef =
-      yearRef.months.find(({ month }) => month === workoutMonth) ||
+      yearRef.months.find(({ month }) => month === eventMonth) ||
       yearRef.months[yearRef.months.push(monthTemplate) - 1];
 
-    // Add workout to the month.
-    monthRef.workouts.push(workout);
+    // Add event to the month.
+    monthRef.events.push(event);
   });
 
-  return workoutsByYear;
+  return eventsByYear;
 };
 
-export const categorizeByYearMonthDay = (workouts: Workouts) => {
-  const workoutsByYear: YearMonthDay[] = [];
+export const categorizeByYearMonthDay = (events: Events) => {
+  const eventsByYear: YearMonthDay[] = [];
 
-  workouts.forEach((workout) => {
-    const date = new Date(workout.date);
-    const workoutYear = date.getFullYear();
-    const workoutMonth = getMonth(date);
-    const workoutDay = date.getDate();
+  events.forEach((event) => {
+    const date = new Date(event.date);
+    const eventYear = date.getFullYear();
+    const eventMonth = getMonth(date);
+    const eventDay = date.getDate();
 
     // Templates
-    const yearTemplate: YearMonthDay = { months: [], year: workoutYear };
-    const monthTemplate: MonthDay = { days: [], month: workoutMonth };
-    const dayTemplate: Day = { day: workoutDay, workouts: [] };
+    const yearTemplate: YearMonthDay = { months: [], year: eventYear };
+    const monthTemplate: MonthDay = { days: [], month: eventMonth };
+    const dayTemplate: Day = { day: eventDay, events: [] };
 
     // If the year does not exist, create it.
     const yearRef =
-      workoutsByYear.find(({ year }) => year === workoutYear) ||
-      workoutsByYear[workoutsByYear.push(yearTemplate) - 1];
+      eventsByYear.find(({ year }) => year === eventYear) ||
+      eventsByYear[eventsByYear.push(yearTemplate) - 1];
 
     // If the month does not exist, create it.
     const monthRef =
-      yearRef.months.find(({ month }) => month === workoutMonth) ||
+      yearRef.months.find(({ month }) => month === eventMonth) ||
       yearRef.months[yearRef.months.push(monthTemplate) - 1];
 
     // If the day does not exist, create it.
     const dayRef =
-      monthRef.days.find(({ day }) => day === workoutDay) ||
+      monthRef.days.find(({ day }) => day === eventDay) ||
       monthRef.days[monthRef.days.push(dayTemplate) - 1];
 
-    // Add workout to the month.
-    dayRef.workouts.push(workout);
+    // Add event to the month.
+    dayRef.events.push(event);
   });
 
-  return workoutsByYear;
+  return eventsByYear;
 };

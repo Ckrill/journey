@@ -21,7 +21,7 @@ const SignIn = ({ setUser }: Props) => {
           <Heading>Welcome stranger</Heading>
 
           <Paragraph>
-            What name would you like to be associated with your workouts?
+            What name would you like to be associated with your journey?
           </Paragraph>
 
           <SignInForm setUser={setUser} />

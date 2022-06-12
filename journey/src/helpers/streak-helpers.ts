@@ -1,14 +1,14 @@
 // Helpers
 import { YearMonthDay } from './categorizer';
 
-export const getWorkoutsForDay = (
+export const getEventsForDay = (
   date: { year: number; month: string; day: number },
-  workoutsByYearMonthDay: YearMonthDay[]
+  eventsByYearMonthDay: YearMonthDay[]
 ) => {
   return (
-    workoutsByYearMonthDay
+    eventsByYearMonthDay
       .find(({ year }) => year === date.year)
       ?.months.find(({ month }) => month === date.month)
-      ?.days.find(({ day }) => day === date.day)?.workouts || []
+      ?.days.find(({ day }) => day === date.day)?.events || []
   );
 };

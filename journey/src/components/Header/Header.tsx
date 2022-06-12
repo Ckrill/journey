@@ -5,7 +5,7 @@ import styles from './Header.module.scss';
 
 const navigationItems = [
   { name: 'Journey', url: '/journey' },
-  { name: 'Workout', url: '/' },
+  { name: 'Add Event', url: '/' },
   { name: 'Settings', url: '/settings' },
 ];
 

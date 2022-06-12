@@ -26,7 +26,7 @@ import { useEvents, useEventsUpdate } from '../contexts/eventsContext';
 import { useStreakUpdate } from '../contexts/streakContext';
 
 // Types
-import { Workout as WorkoutType } from '../types/types';
+import { Event as EventType } from '../types/types';
 
 const client = contentful.createClient({
   accessToken:
@@ -35,7 +35,7 @@ const client = contentful.createClient({
     '',
 });
 
-const Workout = () => {
+const Event = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -45,7 +45,7 @@ const Workout = () => {
   const setEvents = useEventsUpdate();
   const setStreak = useStreakUpdate();
 
-  const addEvent = (event: WorkoutType, reCalculateStreak: boolean = false) => {
+  const addEvent = (event: EventType, reCalculateStreak: boolean = false) => {
     const result = [...events];
 
     result.unshift(event);
@@ -86,7 +86,7 @@ const Workout = () => {
     setShowFeedback(true);
     setSubmitting(true);
 
-    const temporaryWorkout: WorkoutType = {
+    const temporaryEvent: EventType = {
       date: formData.date,
       name: formData.name,
       id: 'temp' + Date.now(),
@@ -94,7 +94,7 @@ const Workout = () => {
     };
 
     // Add event to state.
-    addEvent(temporaryWorkout, true);
+    addEvent(temporaryEvent, true);
 
     // Create and publish item.
     client
@@ -123,13 +123,13 @@ const Workout = () => {
       )
       .then((entry) => entry.publish())
       .then((entry) => {
-        const publishedWorkout: WorkoutType = {
-          ...temporaryWorkout,
+        const publishedEvent: EventType = {
+          ...temporaryEvent,
           id: entry.sys.id,
         };
 
         // Add event to state.
-        addEvent(publishedWorkout);
+        addEvent(publishedEvent);
 
         // If there is a searchParam "name", remove it.
         if (searchParams.get('name')) navigate(location.pathname);
@@ -168,7 +168,7 @@ const Workout = () => {
     >
       <SectionContainer>
         <Section>
-          <Heading>Add workout</Heading>
+          <Heading>Add event</Heading>
         </Section>
 
         <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'contents' }}>
@@ -180,8 +180,8 @@ const Workout = () => {
                 <FormInput
                   disabled={submitting}
                   errorText={errors.name && 'Please fill out this field.'}
-                  id="workout"
-                  labelText="Workout"
+                  id="event"
+                  labelText="Event"
                   type="text"
                   {...field}
                 />
@@ -231,4 +231,4 @@ const Workout = () => {
   );
 };
 
-export default Workout;
+export default Event;

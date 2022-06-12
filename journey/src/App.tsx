@@ -4,12 +4,12 @@ import { AnimatePresence } from 'framer-motion';
 
 // Screens
 import Journey from './screens/Journey';
-import Workout from './screens/Workout';
+import Event from './screens/Event';
 import Settings from './screens/Settings';
 import SignIn from './screens/SignIn';
 
 // Helpers
-import { primeWorkouts } from './helpers/dataHandler';
+import { primeEvents } from './helpers/dataHandler';
 import { getFromLocalStorage } from './helpers/localStorage';
 import { get, getItemsByType } from './helpers/requests';
 import { calculateStreak } from './helpers/streak';
@@ -26,10 +26,10 @@ import { useStreakUpdate } from './contexts/streakContext';
 import './App.scss';
 
 // Types
-import { WorkoutsContentful } from './types/contentfulTypes';
-import { User, Workouts } from './types/types';
+import { EventsContentful } from './types/contentfulTypes';
+import { User, Events } from './types/types';
 
-const getWorkouts = () => get(getItemsByType('workout'));
+const getEvents = () => get(getItemsByType('workout'));
 
 function App() {
   const location = useLocation();
@@ -46,8 +46,8 @@ function App() {
 
     setUser(user);
 
-    getWorkouts().then((workoutsContentful: WorkoutsContentful) => {
-      const events: Workouts = primeWorkouts(workoutsContentful);
+    getEvents().then((eventsContentful: EventsContentful) => {
+      const events: Events = primeEvents(eventsContentful);
       setEvents(events);
 
       const streak = calculateStreak(user, events);
@@ -67,7 +67,7 @@ function App() {
             <Routes location={location} key={location.pathname}>
               <Route path="/journey" element={<Journey />} />
 
-              <Route path="/" element={<Workout />} />
+              <Route path="/" element={<Event />} />
 
               <Route path="/settings" element={<Settings />} />
             </Routes>

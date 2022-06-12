@@ -21,7 +21,7 @@ export type User = {
 //   exercises: Test[];
 // }[];
 
-export type Workout = {
+export type Event = {
   date: string;
   // exercises?: Exercises;
   id: string;
@@ -29,7 +29,7 @@ export type Workout = {
   user: User;
 };
 
-export type Workouts = Workout[];
+export type Events = Event[];
 
 // export type Event = {
 //   date: Date;

@@ -2,17 +2,6 @@ import { motion } from 'framer-motion';
 
 // Settings
 import { pageTransition, pageVariants } from '../settings/pageTransition';
-import { settings } from '../settings/settings';
-
-// Helpers
-import { saveToLocalStorage } from '../helpers/localStorage';
-
-// Data
-import user2 from '../data/dummy/user.json';
-import exercises from '../data/dummy/exercises.json';
-import tests from '../data/dummy/tests.json';
-import workouts from '../data/dummy/workouts.json';
-import milestones from '../data/dummy/milestones.json';
 
 // Components
 import Heading from '../components/Heading/Heading';
@@ -28,14 +17,6 @@ import { useUser, useUserUpdate } from '../contexts/userContext';
 const Settings = () => {
   const user = useUser();
   const setUser = useUserUpdate();
-
-  const addDummyData = () => {
-    saveToLocalStorage('user', user2);
-    saveToLocalStorage('exercises', exercises);
-    saveToLocalStorage('tests', tests);
-    saveToLocalStorage('workouts', workouts);
-    saveToLocalStorage('milestones', milestones);
-  };
 
   const clearData = () => {
     // Clear all data
@@ -77,42 +58,24 @@ const Settings = () => {
           )}
         </Section>
 
-        {/* <Section>
+        <Section>
           <Divider data-appearance="faint" data-spacing="spacious" />
         </Section>
 
         <Section>
           <Heading>Data</Heading>
-          
+
           <Paragraph>
-            The data you put into this app, never leaves your device. It is
-            saved in your local storage, and no one is able to see it but you.
+            The data you save in this app, is saved on a server. It is not
+            shared with anyone and is only visible to you.
           </Paragraph>
 
-          <Button onClick={showData}>See my data</Button>
+          {/* <Button onClick={showData}>See my data</Button>
 
           <Button onClick={clearData} data-priority="secondary">
             Clear data
-          </Button>
-        </Section> */}
-
-        {!settings.production && (
-          <>
-            <Section>
-              <Divider data-appearance="faint" data-spacing="spacious" />
-            </Section>
-
-            <Section>
-              <Heading>Testing</Heading>
-
-              <Paragraph>
-                For testing purposes you can add dummy data here.
-              </Paragraph>
-
-              <Button onClick={addDummyData}>Add dummy data</Button>
-            </Section>
-          </>
-        )}
+          </Button> */}
+        </Section>
       </SectionContainer>
     </motion.div>
   );

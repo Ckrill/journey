@@ -1,6 +1,6 @@
 // types
-import { ArrayContentful, WorkoutsContentful } from '../types/contentfulTypes';
-import { Workouts } from '../types/types';
+import { ArrayContentful, EventsContentful } from '../types/contentfulTypes';
+import { Events } from '../types/types';
 
 // export const primeObject = (obj) => obj.fields;
 
@@ -9,34 +9,34 @@ import { Workouts } from '../types/types';
 export const primeArrayToObject = (arr: ArrayContentful) => {
   if (!arr.items[0]) return;
 
-  // Trim unneccesary info from workout object.
+  // Trim unneccesary info from event object.
   const fields = arr.items[0].fields;
-  // Add id to workout object.
+  // Add id to event object.
   fields.id = arr.items[0].sys.id;
 
   return fields;
 };
 
-export const primeWorkouts = (workoutsContentful: WorkoutsContentful) => {
-  const workoutsCrude: any = workoutsContentful.items.map((workoutCrude) => {
-    // Trim unneccesary info from workoutCrude object.
-    const workout: any = workoutCrude.fields;
-    // Add id to workoutCrude object.
-    workout.id = workoutCrude.sys.id;
+export const primeEvents = (eventsContentful: EventsContentful) => {
+  const eventsCrude: any = eventsContentful.items.map((eventCrude) => {
+    // Trim unneccesary info from eventCrude object.
+    const event: any = eventCrude.fields;
+    // Add id to eventCrude object.
+    event.id = eventCrude.sys.id;
 
-    return workout;
+    return event;
   });
 
   // Map the poster image to the video based on image id.
-  workoutsCrude.forEach((workout: any) => {
-    const userId = workout.user && workout.user.sys.id;
-    const user = workoutsContentful.includes.Entry.find((entry) => {
+  eventsCrude.forEach((event: any) => {
+    const userId = event.user && event.user.sys.id;
+    const user = eventsContentful.includes.Entry.find((entry) => {
       return entry.sys.id === userId;
     });
-    workout.user = { ...user?.fields, id: userId };
+    event.user = { ...user?.fields, id: userId };
   });
 
-  const workouts: Workouts = workoutsCrude;
+  const events: Events = eventsCrude;
 
-  return workouts;
+  return events;
 };

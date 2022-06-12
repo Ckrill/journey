@@ -16,13 +16,13 @@ import { useEvents, useEventsUpdate } from '../../contexts/eventsContext';
 import { useStreakUpdate } from '../../contexts/streakContext';
 
 // Types
-import { Workout } from '../../types/types';
+import { Event as EventType } from '../../types/types';
 
 // Styling
 import styles from './Event.module.scss';
 
 type Props = {
-  event: Workout;
+  event: EventType;
   index: number;
 };
 

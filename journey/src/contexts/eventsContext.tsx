@@ -1,12 +1,10 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
 
 // Types
-import { Workouts } from '../types/types';
+import { Events } from '../types/types';
 
-const EventsContext = createContext<Workouts>([]);
-const EventsUpdateContext = createContext<(events: Workouts) => void>(
-  () => null
-);
+const EventsContext = createContext<Events>([]);
+const EventsUpdateContext = createContext<(events: Events) => void>(() => null);
 
 export const useEvents = () => useContext(EventsContext);
 export const useEventsUpdate = () => useContext(EventsUpdateContext);
@@ -14,7 +12,7 @@ export const useEventsUpdate = () => useContext(EventsUpdateContext);
 type Props = { children: ReactNode };
 
 export const EventsProvider = ({ children }: Props) => {
-  const [events, setEvents] = useState<Workouts | []>([]);
+  const [events, setEvents] = useState<Events | []>([]);
 
   return (
     <EventsContext.Provider value={events}>

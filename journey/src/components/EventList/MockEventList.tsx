@@ -13,7 +13,7 @@ const MockEventList = () => {
   return (
     <div className={styles['event-list']}>
       <Divider text={presentMonth} data-appearance="faint" />
-      <div>Getting your workouts...</div>
+      <div>Getting your events...</div>
     </div>
   );
 };

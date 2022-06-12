@@ -19,10 +19,10 @@ import Divider from '../Divider/Divider';
 import styles from './EventList.module.scss';
 
 // Types
-import { Workout, Workouts } from '../../types/types';
+import { Event as EventType, Events } from '../../types/types';
 
 type Props = {
-  events: Workouts;
+  events: Events;
 };
 
 const EventList = ({ events }: Props) => {
@@ -55,7 +55,7 @@ const EventList = ({ events }: Props) => {
               >
                 <Divider text={month.month} data-appearance="faint" />
 
-                {month.workouts.map((event: Workout, i: number) => (
+                {month.events.map((event: EventType, i: number) => (
                   <Event event={event} index={i} key={event.id} />
                 ))}
               </motion.div>

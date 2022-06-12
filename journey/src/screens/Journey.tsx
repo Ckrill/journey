@@ -21,13 +21,13 @@ import { useUser } from '../contexts/userContext';
 import { useEvents } from '../contexts/eventsContext';
 
 // Types
-import { Workouts } from '../types/types';
+import { Events } from '../types/types';
 import Button from '../components/Button/Button';
 
 const Journey = () => {
   const user = useUser();
   const events = useEvents();
-  const [workoutsFiltered, setWorkoutsFiltered] = useState<Workouts | []>([]);
+  const [evemtsFiltered, setEventsFiltered] = useState<Events | []>([]);
   const [soloMode, setSoloMode] = useState(false);
   const [itemsToShow, setItemsToShow] = useState(10);
 
@@ -35,13 +35,13 @@ const Journey = () => {
     if (!user) return;
 
     if (soloMode) {
-      const workoutsFiltered = events.filter((item) => {
+      const evemtsFiltered = events.filter((item) => {
         if (item.user.id === user.id) return item;
         return null;
       });
-      setWorkoutsFiltered(workoutsFiltered);
+      setEventsFiltered(evemtsFiltered);
     } else {
-      setWorkoutsFiltered(events);
+      setEventsFiltered(events);
     }
   }, [user, soloMode, events]);
 
@@ -74,7 +74,7 @@ const Journey = () => {
           </Heading>
 
           {events.length > 0 ? (
-            <EventList events={workoutsFiltered.slice(0, itemsToShow)} />
+            <EventList events={evemtsFiltered.slice(0, itemsToShow)} />
           ) : (
             <MockEventList />
           )}
