@@ -3,6 +3,7 @@ import {
   BsFillPersonFill as Person,
   BsFillPeopleFill as People,
 } from 'react-icons/bs';
+import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 
 // Settings
@@ -49,6 +50,15 @@ const Journey = () => {
     setItemsToShow(itemsToShow + 25);
   };
 
+  const { ref } = useInView({
+    delay: 100,
+    onChange: (inView) => {
+      if (!inView) return;
+      showMoreItems();
+    },
+    threshold: 1,
+  });
+
   return (
     <motion.div
       initial="initial"
@@ -84,11 +94,13 @@ const Journey = () => {
       </SectionContainer>
 
       {events.length > 0 && (
-        <SectionContainer>
-          <Section>
-            <Button onClick={showMoreItems}>More...</Button>
-          </Section>
-        </SectionContainer>
+        <div ref={ref}>
+          <SectionContainer>
+            <Section>
+              <Button onClick={showMoreItems}>More...</Button>
+            </Section>
+          </SectionContainer>
+        </div>
       )}
     </motion.div>
   );
