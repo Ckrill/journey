@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import * as contentful from 'contentful-management';
 import { Controller, useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 // Settings
 import { pageTransition, pageVariants } from '../settings/pageTransition';
@@ -26,7 +27,6 @@ import { useStreakUpdate } from '../contexts/streakContext';
 
 // Types
 import { Workout as WorkoutType } from '../types/types';
-import { useSearchParams } from 'react-router-dom';
 
 const client = contentful.createClient({
   accessToken:
@@ -36,6 +36,8 @@ const client = contentful.createClient({
 });
 
 const Workout = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
   const user = useUser();
@@ -129,8 +131,11 @@ const Workout = () => {
         // Add event to state.
         addEvent(publishedWorkout);
 
+        // If there is a searchParam "name", remove it.
+        if (searchParams.get('name')) navigate(location.pathname);
+
         // Reset form.
-        reset();
+        reset({ name: '' });
 
         // Reset submitError.
         setSubmitError(null);
