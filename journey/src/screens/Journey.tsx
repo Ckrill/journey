@@ -27,9 +27,11 @@ import ShowMore from '../components/ShowMore/ShowMore';
 const Journey = () => {
   const user = useUser();
   const events = useEvents();
+  const eventIncrements = 10;
+
   const [evemtsFiltered, setEventsFiltered] = useState<Events | []>([]);
   const [soloMode, setSoloMode] = useState(false);
-  const [itemsToShow, setItemsToShow] = useState(10);
+  const [itemsToShow, setItemsToShow] = useState(eventIncrements);
 
   useEffect(() => {
     if (!user) return;
@@ -46,7 +48,7 @@ const Journey = () => {
   }, [user, soloMode, events]);
 
   const showMoreItems = () => {
-    setItemsToShow(itemsToShow + 10);
+    setItemsToShow(itemsToShow + eventIncrements);
   };
 
   return (
@@ -83,7 +85,9 @@ const Journey = () => {
         </Section>
       </SectionContainer>
 
-      {events.length > 0 && <ShowMore callback={showMoreItems} />}
+      {evemtsFiltered.length > eventIncrements && (
+        <ShowMore callback={showMoreItems} />
+      )}
     </motion.div>
   );
 };
