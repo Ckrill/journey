@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  height: 30vh;
+}
+
+.measurer {
+  position: absolute;
+  width: 10px;
+  height: 30vh;
+}
+
+.sticky {
+  position: sticky;
+  top: calc(100vh - 150px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+}
+
+.icon {
+  z-index: 1;
+  transition: all .1s;
+}
+
+.shadowIcon {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  box-shadow: 0 0 30px inset rgba(0,0,0,.05);
+}

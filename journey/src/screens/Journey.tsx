@@ -3,7 +3,6 @@ import {
   BsFillPersonFill as Person,
   BsFillPeopleFill as People,
 } from 'react-icons/bs';
-import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 
 // Settings
@@ -23,7 +22,7 @@ import { useEvents } from '../contexts/eventsContext';
 
 // Types
 import { Events } from '../types/types';
-import Button from '../components/Button/Button';
+import ShowMore from '../components/ShowMore/ShowMore';
 
 const Journey = () => {
   const user = useUser();
@@ -47,17 +46,8 @@ const Journey = () => {
   }, [user, soloMode, events]);
 
   const showMoreItems = () => {
-    setItemsToShow(itemsToShow + 25);
+    setItemsToShow(itemsToShow + 10);
   };
-
-  const { ref } = useInView({
-    delay: 100,
-    onChange: (inView) => {
-      if (!inView) return;
-      showMoreItems();
-    },
-    threshold: 1,
-  });
 
   return (
     <motion.div
@@ -93,15 +83,7 @@ const Journey = () => {
         </Section>
       </SectionContainer>
 
-      {events.length > 0 && (
-        <div ref={ref}>
-          <SectionContainer>
-            <Section>
-              <Button onClick={showMoreItems}>More...</Button>
-            </Section>
-          </SectionContainer>
-        </div>
-      )}
+      {events.length > 0 && <ShowMore callback={showMoreItems} />}
     </motion.div>
   );
 };
