@@ -29,7 +29,7 @@ const Journey = () => {
   const events = useEvents();
   const eventIncrements = 10;
 
-  const [evemtsFiltered, setEventsFiltered] = useState<Events | []>([]);
+  const [eventsFiltered, setEventsFiltered] = useState<Events | []>([]);
   const [soloMode, setSoloMode] = useState(false);
   const [itemsToShow, setItemsToShow] = useState(eventIncrements);
 
@@ -37,11 +37,11 @@ const Journey = () => {
     if (!user) return;
 
     if (soloMode) {
-      const evemtsFiltered = events.filter((item) => {
+      const eventsFiltered = events.filter((item) => {
         if (item.user.id === user.id) return item;
         return null;
       });
-      setEventsFiltered(evemtsFiltered);
+      setEventsFiltered(eventsFiltered);
     } else {
       setEventsFiltered(events);
     }
@@ -78,14 +78,14 @@ const Journey = () => {
           </Heading>
 
           {events.length > 0 ? (
-            <EventList events={evemtsFiltered.slice(0, itemsToShow)} />
+            <EventList events={eventsFiltered.slice(0, itemsToShow)} />
           ) : (
             <MockEventList />
           )}
         </Section>
       </SectionContainer>
 
-      {evemtsFiltered.length > eventIncrements && (
+      {eventsFiltered.length > itemsToShow && (
         <ShowMore callback={showMoreItems} />
       )}
     </motion.div>
