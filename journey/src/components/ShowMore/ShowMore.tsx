@@ -11,6 +11,8 @@ type Props = {
 
 const ShowMore = ({ callback }: Props) => {
   const [size, setSize] = useState(0);
+  const [animateOut, setAnimateOut] = useState(false);
+
   const thresholds = () => {
     let result = [];
     const amount = 50;
@@ -25,16 +27,19 @@ const ShowMore = ({ callback }: Props) => {
   const { ref } = useInView({
     onChange: (inView, entry) => {
       if (!inView) return;
-      console.clear();
-      console.log('IntersectionRatio: ', entry?.intersectionRatio);
 
       const intersectionRatio = entry?.intersectionRatio || 0;
       setSize(100 * intersectionRatio);
 
       if (intersectionRatio !== 1) return;
 
-      callback();
-      setSize(50);
+      setAnimateOut(true);
+
+      setTimeout(() => {
+        callback();
+        setAnimateOut(false);
+        setSize(50);
+      }, 200);
     },
     rootMargin: '0px',
     threshold: thresholds(),
@@ -44,7 +49,9 @@ const ShowMore = ({ callback }: Props) => {
     <div className={styles.container}>
       <div className={styles.measurer} ref={ref} />
 
-      <div className={styles.sticky}>
+      <div
+        className={`${styles.sticky} ${animateOut ? styles.animateOut : ''}`}
+      >
         <ArrowDown
           className={styles.icon}
           color="salmon"

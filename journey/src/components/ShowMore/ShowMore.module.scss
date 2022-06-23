@@ -23,7 +23,12 @@
 
 .icon {
   z-index: 1;
-  transition: all .1s;
+  transition: height .1s, width .1s;
+}
+
+.animateOut {
+  opacity: 0;
+  transition: opacity .5s .1s, height .1s, width .1s;
 }
 
 .shadowIcon {
