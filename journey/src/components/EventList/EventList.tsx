@@ -28,6 +28,7 @@ type Props = {
 const EventList = ({ events }: Props) => {
   const eventsByYear: Year[] = categorizeByYearAndMonth(events) || [];
   const currentYear = new Date().getFullYear();
+  let overallIndex = 0;
 
   // TODO: Is this a custom hook instead of a helper?
   // TODO: Use useMemo to set the state.
@@ -40,26 +41,31 @@ const EventList = ({ events }: Props) => {
             <Divider text={String(year.year)} data-appearance="faint" />
           )}
 
-          {year.months.map((month: Month, i: number) => (
-            <Fragment key={month.month}>
-              <motion.div
-                key={month.month}
-                initial="initial"
-                animate="animate"
-                variants={variants}
-                transition={{
-                  duration: 0.2,
-                  delay: i ? 1 : 0,
-                  when: 'beforeChildren',
-                }}
-              >
-                <Divider text={month.month} data-appearance="faint" />
+          {year.months.map((month: Month) => (
+            <motion.div
+              key={month.month}
+              initial="initial"
+              animate="animate"
+              variants={variants}
+              transition={{
+                duration: 0.2,
+                when: 'beforeChildren',
+              }}
+            >
+              <Divider text={month.month} data-appearance="faint" />
 
-                {month.events.map((event: EventType, i: number) => (
-                  <Event event={event} index={i} key={event.id} />
-                ))}
-              </motion.div>
-            </Fragment>
+              {month.events.map((event: EventType) => {
+                overallIndex++;
+
+                return (
+                  <Event
+                    event={event}
+                    key={event.id}
+                    overallIndex={overallIndex - 1}
+                  />
+                );
+              })}
+            </motion.div>
           ))}
         </Fragment>
       ))}

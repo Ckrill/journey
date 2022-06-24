@@ -23,10 +23,10 @@ import styles from './Event.module.scss';
 
 type Props = {
   event: EventType;
-  index: number;
+  overallIndex: number;
 };
 
-const Event = ({ event, index }: Props) => {
+const Event = ({ event, overallIndex }: Props) => {
   const user = useUser();
   const events = useEvents();
   const setEvents = useEventsUpdate();
@@ -67,7 +67,10 @@ const Event = ({ event, index }: Props) => {
       } ${isDeleted ? styles['event--deleted'] : ''}`}
       onClick={() => setShowOptions(isMine && !showOptions)}
       variants={variants}
-      transition={{ duration: 0.2, delay: 0.05 * index }}
+      transition={{
+        duration: 0.2,
+        delay: ((overallIndex % 10) * 5) / 100,
+      }}
     >
       <div className={styles.container}>
         <header className={styles.header}>
@@ -75,6 +78,7 @@ const Event = ({ event, index }: Props) => {
 
           <div className={styles.meta}>
             <div className={styles.user}>{event.user?.name}</div>
+
             <div className={styles.date}>
               {getMonthDay(new Date(event.date), 'en-us')}
             </div>
