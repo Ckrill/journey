@@ -1,8 +1,8 @@
 .container {
   display: flex;
   justify-content: center;
-  margin-bottom: 50px;
-  height: 30vh;
+  margin-bottom: 30vh;
+  height: 50vh;
 }
 
 .measurer {
@@ -28,7 +28,8 @@
 
 .animateOut {
   opacity: 0;
-  transition: opacity .5s .1s, height .1s, width .1s;
+  transition: opacity .5s .1s, transform .5s .1s, height .1s, width .1s;
+  transform: scale(2);
 }
 
 .shadowIcon {
