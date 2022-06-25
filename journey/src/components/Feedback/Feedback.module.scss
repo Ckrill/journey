@@ -64,7 +64,7 @@
   text-transform: uppercase;
   word-wrap: break-word;
   font-weight: 900;
-  font-size: clamp(75rem/16, 25vw, 150rem/16);
+  font-size: clamp(75rem / 16, 25vw, 150rem / 16);
   font-family: 'Rubik', Arial, Helvetica, sans-serif;
   line-height: 0.9em;
   transition: transform var(--fast);
@@ -107,7 +107,7 @@
   text-align: center;
   text-transform: uppercase;
   font-weight: 900;
-  font-size: clamp(20rem/16, 7vw, 50rem/16);
+  font-size: clamp(20rem / 16, 7vw, 50rem / 16);
   font-family: 'Rubik', Arial, Helvetica, sans-serif;
   transition: transform var(--fast);
   transform: skewY(-20deg) translateX(-100%);

@@ -74,7 +74,7 @@ function App() {
           </AnimatePresence>
         </>
       ) : (
-        <SignIn setUser={setUser} />
+        <SignIn />
       )}
     </>
   );

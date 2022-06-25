@@ -12,6 +12,9 @@ import {
 } from '../../helpers/localStorage';
 import { get, getItemsByAttribute } from '../../helpers/requests';
 
+// Contexts
+import { useUserUpdate } from '../../contexts/userContext';
+
 // Components
 import Button from '../Button/Button';
 import Code from '../Code/Code';
@@ -35,11 +38,9 @@ const client = contentful.createClient({
 const getContentfulUser = (userName: string) =>
   get(getItemsByAttribute('user', 'fields.name', userName));
 
-type Props = {
-  setUser: (user: User) => void;
-};
+const SignUp = () => {
+  const setUser = useUserUpdate();
 
-const SignUp = ({ setUser }: Props) => {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const { control, handleSubmit } = useForm();
