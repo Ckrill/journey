@@ -1,7 +1,6 @@
 .container {
   display: flex;
   justify-content: center;
-  margin-bottom: 30vh;
   height: 50vh;
 }
 
@@ -29,7 +28,7 @@
 .animateOut {
   opacity: 0;
   transition: opacity .5s .1s, transform .5s .1s, height .1s, width .1s;
-  transform: scale(2);
+  transform: scale(1.5);
 }
 
 .shadowIcon {
@@ -37,5 +36,5 @@
   width: 100px;
   height: 100px;
   border-radius: 50px;
-  box-shadow: 0 0 30px inset rgba(0,0,0,.05);
+  box-shadow: 0 0 30px inset rgba(0,0,0,.025);
 }
