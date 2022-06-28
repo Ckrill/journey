@@ -2,6 +2,7 @@ export type User = {
   id: string;
   name: string;
   // slug: string;
+  bestStreak?: number;
 };
 
 // export type Exercise = {

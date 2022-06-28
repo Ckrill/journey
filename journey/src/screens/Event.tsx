@@ -21,12 +21,13 @@ import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 
 // Contexts
-import { useUser } from '../contexts/userContext';
+import { useUser, useUserUpdate } from '../contexts/userContext';
 import { useEvents, useEventsUpdate } from '../contexts/eventsContext';
 import { useStreakUpdate } from '../contexts/streakContext';
 
 // Types
 import { Event as EventType } from '../types/types';
+import { sys } from 'typescript';
 
 const client = contentful.createClient({
   accessToken:
@@ -41,6 +42,7 @@ const Event = () => {
   const [searchParams] = useSearchParams();
 
   const user = useUser();
+  const setUser = useUserUpdate();
   const events = useEvents();
   const setEvents = useEventsUpdate();
   const setStreak = useStreakUpdate();
@@ -54,6 +56,38 @@ const Event = () => {
     if (reCalculateStreak) {
       const streak = calculateStreak(user, result);
       setStreak(streak);
+
+      if (!user) return;
+      if (streak.streak <= (user?.bestStreak || 0)) return;
+
+      // Save new best streak to user
+      client
+        .getSpace(settings.space)
+        .then((space) => space.getEnvironment(settings.environment))
+        .then((environment) =>
+          environment
+            .getEntry(user.id)
+            .then((entry) =>
+              entry.patch([
+                {
+                  op: 'replace',
+                  path: '/fields/bestStreak/en-US',
+                  value: streak.streak,
+                },
+              ])
+            )
+            .then((entry) => entry.publish())
+            .then((entry) => {
+              const newUser = {
+                bestStreak: entry.fields.bestStreak['en-US'],
+                id: entry.sys.id,
+                name: entry.fields.name['en-US'],
+              };
+
+              setUser(newUser);
+            })
+            .catch(console.error)
+        );
     }
   };
 

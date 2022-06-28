@@ -74,6 +74,9 @@ const SignUp = () => {
           .then((environment) =>
             environment.createEntry('user', {
               fields: {
+                bestStreak: {
+                  'en-US': 0,
+                },
                 name: {
                   'en-US': data.name,
                 },
@@ -83,6 +86,7 @@ const SignUp = () => {
           .then((entry) => entry.publish())
           .then((entry) => {
             const user: User = {
+              bestStreak: entry.fields.bestStreak['en-US'],
               id: entry.sys.id,
               name: entry.fields.name['en-US'],
             };

@@ -12,9 +12,11 @@ import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 
 // Contexts
+import { useStreak } from '../contexts/streakContext';
 import { useUser, useUserUpdate } from '../contexts/userContext';
 
 const Settings = () => {
+  const streak = useStreak();
   const user = useUser();
   const setUser = useUserUpdate();
 
@@ -43,19 +45,18 @@ const Settings = () => {
     >
       <SectionContainer>
         <Section>
-          <Heading>Settings</Heading>
+          <Heading>Profile</Heading>
 
-          {user ? (
-            <>
-              <Paragraph>Name:{!user ? ' friend' : ` ${user.name}`}</Paragraph>
+          <Paragraph>
+            Yo {user?.name},
+            {streak.streak === user?.bestStreak
+              ? ` your best streak is ${user?.bestStreak} and counting!`
+              : ` your best streak was ${user?.bestStreak}.`}
+          </Paragraph>
 
-              <Button disabled={!user} onClick={clearData}>
-                Sign out
-              </Button>
-            </>
-          ) : (
-            <Paragraph>Sign in to see your settings.</Paragraph>
-          )}
+          <Button disabled={!user} onClick={clearData}>
+            Sign out
+          </Button>
         </Section>
 
         <Section>
