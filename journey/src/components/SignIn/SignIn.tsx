@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import * as contentful from 'contentful-management';
 import { Controller, useForm } from 'react-hook-form';
 

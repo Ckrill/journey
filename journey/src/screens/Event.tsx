@@ -27,7 +27,6 @@ import { useStreakUpdate } from '../contexts/streakContext';
 
 // Types
 import { Event as EventType } from '../types/types';
-import { sys } from 'typescript';
 
 const client = contentful.createClient({
   accessToken:
