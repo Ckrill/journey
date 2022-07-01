@@ -10,6 +10,7 @@ import reportWebVitals from './reportWebVitals';
 import { UserProvider } from './contexts/userContext';
 import { EventsProvider } from './contexts/eventsContext';
 import { StreakProvider } from './contexts/streakContext';
+import { SettingsProvider } from './contexts/settingsContext';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
@@ -19,9 +20,11 @@ root.render(
     <UserProvider>
       <EventsProvider>
         <StreakProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <SettingsProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </SettingsProvider>
         </StreakProvider>
       </EventsProvider>
     </UserProvider>
