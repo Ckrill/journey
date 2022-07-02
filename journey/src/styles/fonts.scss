@@ -2,8 +2,9 @@
 
 @font-face {
   font-weight: 900;
+  font-style: normal;
   font-family: 'Rubik';
-  src: url(../fonts/Rubik-Black.woff2) format('woff2');
+  src: local("Rubik Black"), local("Rubik-Black"), url(../fonts/Rubik-Black-BasicLatin.woff2) format('woff2');
 
   font-display: swap;
 }
