@@ -4,7 +4,7 @@
   font-weight: 900;
   font-style: normal;
   font-family: 'Rubik';
-  src: local("Rubik Black"), local("Rubik-Black"), url(../fonts/Rubik-Black-BasicLatin.woff2) format('woff2');
+  src: local("Rubik Black"), local("Rubik-Black"), url(../assets/fonts/Rubik-Black-BasicLatin.woff2) format('woff2');
 
   font-display: swap;
 }
@@ -15,7 +15,7 @@
   font-weight: 400;
   font-style: normal;
   font-family: 'IBM Plex Sans';
-  src: local("IBM Plex Sans"), local("IBMPlexSans"), url("../fonts/IBMPlexSans-Regular-Latin1.woff2") format("woff2");
+  src: local("IBM Plex Sans"), local("IBMPlexSans"), url("../assets/fonts/IBMPlexSans-Regular-Latin1.woff2") format("woff2");
 
   font-display: swap;
   unicode-range: U+0000, U+000D, U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039-203A, U+2044, U+20AC, U+2122, U+2212, U+FB01-FB02;
@@ -25,7 +25,7 @@
   font-weight: 400;
   font-style: italic;
   font-family: 'IBM Plex Sans';
-  src: local("IBM Plex Sans Italic"), local("IBMPlexSans-Italic"), url("../fonts/IBMPlexSans-Italic-Latin1.woff2") format("woff2");
+  src: local("IBM Plex Sans Italic"), local("IBMPlexSans-Italic"), url("../assets/fonts/IBMPlexSans-Italic-Latin1.woff2") format("woff2");
 
   font-display: swap;
   unicode-range: U+0000, U+000D, U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039-203A, U+2044, U+20AC, U+2122, U+2212, U+FB01-FB02;
@@ -35,7 +35,7 @@
   font-weight: 700;
   font-style: normal;
   font-family: 'IBM Plex Sans';
-  src: local("IBM Plex Sans Bold"), local("IBMPlexSans-Bold"), url("../fonts/IBMPlexSans-Bold-Latin1.woff2") format("woff2");
+  src: local("IBM Plex Sans Bold"), local("IBMPlexSans-Bold"), url("../assets/fonts/IBMPlexSans-Bold-Latin1.woff2") format("woff2");
 
   font-display: swap;
   unicode-range: U+0000, U+000D, U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039-203A, U+2044, U+20AC, U+2122, U+2212, U+FB01-FB02;
@@ -45,7 +45,7 @@
   font-weight: 700;
   font-style: italic;
   font-family: 'IBM Plex Sans';
-  src: local("IBM Plex Sans Bold Italic"), local("IBMPlexSans-BoldItalic"), url("../fonts/IBMPlexSans-BoldItalic-Latin1.woff2") format("woff2");
+  src: local("IBM Plex Sans Bold Italic"), local("IBMPlexSans-BoldItalic"), url("../assets/fonts/IBMPlexSans-BoldItalic-Latin1.woff2") format("woff2");
 
   font-display: swap;
   unicode-range: U+0000, U+000D, U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039-203A, U+2044, U+20AC, U+2122, U+2212, U+FB01-FB02;
@@ -58,7 +58,7 @@
   font-weight: 500;
   font-style: normal;
   font-family: 'IBM Plex Mono';
-  src: local("IBM Plex Mono Medm"), local("IBMPlexMono-Medm"), url("../fonts/IBMPlexMono-Medium-Latin1.woff2") format("woff2");
+  src: local("IBM Plex Mono Medm"), local("IBMPlexMono-Medm"), url("../assets/fonts/IBMPlexMono-Medium-Latin1.woff2") format("woff2");
 
   font-display: swap;
   unicode-range: U+0000, U+000D, U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039-203A, U+2044, U+20AC, U+2122, U+2212, U+FB01-FB02;
