@@ -12,9 +12,6 @@ import {
 } from '../../helpers/localStorage';
 import { get, getItemsByAttribute } from '../../helpers/requests';
 
-// Contexts
-import { useUserUpdate } from '../../contexts/userContext';
-
 // Components
 import Button from '../Button/Button';
 import Code from '../Code/Code';
@@ -23,6 +20,9 @@ import Heading from '../Heading/Heading';
 import Paragraph from '../Paragraph/Paragraph';
 import Section from '../Section/Section';
 import { primeArrayToObject } from '../../helpers/dataHandler';
+
+// Contexts
+import { useUserUpdate } from '../../contexts/userContext';
 
 // Types
 import { User } from '../../types/types';

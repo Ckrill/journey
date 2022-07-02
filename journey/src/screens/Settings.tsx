@@ -1,25 +1,34 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 // Settings
 import { pageTransition, pageVariants } from '../settings/pageTransition';
 
+// Helpers
+import { saveToLocalStorage } from '../helpers/localStorage';
+
 // Components
+import Button from '../components/Button/Button';
+import Checkbox from '../components/Form/Checkbox';
+import CheckboxGroup from '../components/Form/CheckboxGroup';
+import CountUp from '../components/CountUp/CountUp';
+import Divider from '../components/Divider/Divider';
 import Heading from '../components/Heading/Heading';
 import Paragraph from '../components/Paragraph/Paragraph';
-import Button from '../components/Button/Button';
-import Divider from '../components/Divider/Divider';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 
 // Contexts
 import { useStreak } from '../contexts/streakContext';
 import { useUser, useUserUpdate } from '../contexts/userContext';
-import CountUp from '../components/CountUp/CountUp';
+import { useSettings, useSettingsUpdate } from '../contexts/settingsContext';
 
 const Settings = () => {
   const streak = useStreak();
   const user = useUser();
   const setUser = useUserUpdate();
+  const settings = useSettings();
+  const setSettings = useSettingsUpdate();
 
   const clearData = () => {
     // Clear all data
@@ -35,6 +44,14 @@ const Settings = () => {
   //   // TODO: Show data
   //   console.log('Show data');
   // };
+
+  const handleSettingsToggle = (setting: 'sound' | 'vibration') => {
+    setSettings({ ...settings, [setting]: !settings[setting] });
+  };
+
+  useEffect(() => {
+    saveToLocalStorage('settings', settings);
+  }, [settings]);
 
   return (
     <motion.div
@@ -73,6 +90,30 @@ const Settings = () => {
           <Button disabled={!user} onClick={clearData}>
             Sign out
           </Button>
+        </Section>
+
+        <Section>
+          <Divider data-appearance="faint" data-spacing="spacious" />
+        </Section>
+
+        <Section>
+          <Heading>Sound / vibration</Heading>
+
+          <CheckboxGroup>
+            <Checkbox
+              callback={() => handleSettingsToggle('sound')}
+              checked={settings.sound}
+              id="sound"
+              label="Sound"
+            />
+
+            <Checkbox
+              callback={() => handleSettingsToggle('vibration')}
+              checked={settings.vibration}
+              id="vibration"
+              label="Vibration"
+            />
+          </CheckboxGroup>
         </Section>
 
         <Section>

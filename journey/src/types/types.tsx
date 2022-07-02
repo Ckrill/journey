@@ -5,6 +5,11 @@ export type User = {
   bestStreak?: number;
 };
 
+export type Settings = {
+  sound: boolean;
+  vibration: boolean;
+};
+
 // export type Exercise = {
 //   name: string;
 // };

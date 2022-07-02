@@ -1,0 +1,9 @@
+.group {
+  display: grid;
+
+  gap: var(--spacing);
+
+  h2 + & {
+    margin-top: 20px;
+  }
+}

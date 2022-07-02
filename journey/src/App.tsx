@@ -19,6 +19,7 @@ import Header from './components/Header/Header';
 
 // Contexts
 import { useUser, useUserUpdate } from './contexts/userContext';
+import { useSettingsUpdate } from './contexts/settingsContext';
 import { useEventsUpdate } from './contexts/eventsContext';
 import { useStreakUpdate } from './contexts/streakContext';
 
@@ -27,7 +28,7 @@ import './App.scss';
 
 // Types
 import { EventsContentful } from './types/contentfulTypes';
-import { User, Events } from './types/types';
+import { User, Events, Settings as SettingsType } from './types/types';
 
 const getEvents = () => get(getItemsByType('workout'));
 
@@ -35,6 +36,7 @@ function App() {
   const location = useLocation();
   const user = useUser();
   const setUser = useUserUpdate();
+  const setSettings = useSettingsUpdate();
   const setEvents = useEventsUpdate();
   const setStreak = useStreakUpdate();
   const [firstRender, setFirstRender] = useState(true);
@@ -43,8 +45,11 @@ function App() {
     if (!firstRender) return;
 
     const user: User = getFromLocalStorage('user');
-
     setUser(user);
+
+    const settings: SettingsType = getFromLocalStorage('settings');
+    console.log('settings: ', settings);
+    setSettings(settings || { sound: true, vibration: true });
 
     getEvents().then((eventsContentful: EventsContentful) => {
       const events: Events = primeEvents(eventsContentful);
@@ -55,7 +60,7 @@ function App() {
     });
 
     setFirstRender(false);
-  }, [firstRender, setEvents, setStreak, setUser]);
+  }, [firstRender, setEvents, setSettings, setStreak, setUser]);
 
   return (
     <>
