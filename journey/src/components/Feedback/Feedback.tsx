@@ -43,11 +43,12 @@ const Feedback = ({ setShow, show }: Props) => {
 
   useEffect(() => {
     if (!show) return;
-    if (!audioPlayer.current) return;
+    const player = audioPlayer.current;
+    if (!player) return;
 
     if (settings.sound) {
-      audioPlayer.current.currentTime = 0;
-      audioPlayer.current?.play();
+      player.currentTime = 0;
+      player?.play();
     }
 
     if (settings.vibration) {
@@ -65,7 +66,7 @@ const Feedback = ({ setShow, show }: Props) => {
       className={`${styles.overlay} ${show && styles.show}`}
       onClick={() => setShow(false)}
     >
-      <audio autoPlay={show} preload="auto" ref={audioPlayer}>
+      <audio preload="auto" ref={audioPlayer}>
         <source src={thump} type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
