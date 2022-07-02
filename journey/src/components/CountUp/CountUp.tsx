@@ -10,12 +10,13 @@ import styles from './CountUp.module.scss';
 type Props = {
   countTo: number;
   duration?: number;
+  exponential?: boolean;
 };
 
 const easeOutQuad = (t: number) => t * (2 - t);
 const frameDuration = 1000 / 10;
 
-const CountUp = ({ countTo, duration = 2000 }: Props) => {
+const CountUp = ({ countTo, duration = 1000, exponential }: Props) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -23,7 +24,9 @@ const CountUp = ({ countTo, duration = 2000 }: Props) => {
     const totalFrames = Math.round(duration / frameDuration);
     const counter = setInterval(() => {
       frame++;
-      const progress = easeOutQuad(frame / totalFrames);
+      const progress = exponential
+        ? easeOutQuad(frame / totalFrames)
+        : frame / totalFrames;
       const newCount = Math.floor(countTo * progress);
       setCount(newCount);
 
