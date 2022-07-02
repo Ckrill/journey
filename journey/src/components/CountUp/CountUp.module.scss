@@ -2,6 +2,10 @@
   position: relative;
   display: inline-flex;
   overflow: hidden;
+  font-weight: 500;
+  font-size: calc(18rem / 16);
+  font-family: var(--font-family-mono);
+  line-height: calc(22rem / 16);
 }
 
 .counter {
@@ -9,11 +13,9 @@
   top: 0;
   right: 0;
   display: block;
-  font-family: var(--font-family-mono);
 }
 
 .shadowCounter {
   position: relative;
   visibility: hidden;
-  font-family: var(--font-family-mono);
 }
