@@ -14,6 +14,7 @@ import SectionContainer from '../components/Section/SectionContainer';
 // Contexts
 import { useStreak } from '../contexts/streakContext';
 import { useUser, useUserUpdate } from '../contexts/userContext';
+import CountUp from '../components/CountUp/CountUp';
 
 const Settings = () => {
   const streak = useStreak();
@@ -47,12 +48,27 @@ const Settings = () => {
         <Section>
           <Heading>Profile</Heading>
 
-          <Paragraph>
-            Yo {user?.name},
-            {streak.streak === user?.bestStreak
-              ? ` your best streak is ${user?.bestStreak} and counting!`
-              : ` your best streak was ${user?.bestStreak}.`}
-          </Paragraph>
+          {user?.bestStreak ? (
+            streak.streak === user?.bestStreak ? (
+              // Peaking
+              <Paragraph>
+                You are on fire {user?.name}, your best streak is{' '}
+                <CountUp countTo={user?.bestStreak} /> and counting!
+              </Paragraph>
+            ) : (
+              // Have peaked
+              <Paragraph>
+                {' '}
+                Yo {user?.name}, your best streak was{' '}
+                <CountUp countTo={user?.bestStreak} />.
+              </Paragraph>
+            )
+          ) : (
+            // Never started
+            <Paragraph>
+              Hop on, {user?.name}, and start you journey today!
+            </Paragraph>
+          )}
 
           <Button disabled={!user} onClick={clearData}>
             Sign out

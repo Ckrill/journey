@@ -1,0 +1,19 @@
+.container {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
+}
+
+.counter {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  font-family: var(--font-family-mono);
+}
+
+.shadowCounter {
+  position: relative;
+  visibility: hidden;
+  font-family: var(--font-family-mono);
+}
