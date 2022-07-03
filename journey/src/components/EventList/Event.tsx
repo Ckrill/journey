@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BiTrash as Trash } from 'react-icons/bi';
+import { RiErrorWarningLine as Warning } from 'react-icons/ri';
 import { motion } from 'framer-motion';
 
 // Settings
@@ -33,6 +34,7 @@ const Event = ({ event, overallIndex }: Props) => {
   const setStreak = useStreakUpdate();
 
   const [isDeleted, setIsDeleted] = useState(false);
+  const [hasWarning, setHasWarning] = useState(false);
   const [isMine, setIsMine] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
 
@@ -60,6 +62,11 @@ const Event = ({ event, overallIndex }: Props) => {
     deleteEvent(event.id);
   };
 
+  const deleteEventErrorCallback = () => {
+    setIsDeleted(false);
+    setHasWarning(true);
+  };
+
   return (
     <motion.div
       className={`${styles.event} ${isMine ? styles['event--mine'] : ''} ${
@@ -85,16 +92,35 @@ const Event = ({ event, overallIndex }: Props) => {
           </div>
         </header>
 
-        <div className={`${styles.options}`}>
-          <Trash
-            onClick={(e) => {
-              if (!event.id) return;
+        <div
+          className={`${styles.options} ${
+            hasWarning ? styles['options--warning'] : ''
+          }`}
+        >
+          {hasWarning ? (
+            <Warning
+              onClick={(e) => {
+                if (!event.id) return;
 
-              e.stopPropagation();
-              setIsDeleted(true);
-              deleteEntry(event.id, () => deleteEventCallback());
-            }}
-          />
+                e.stopPropagation();
+                setHasWarning(false);
+              }}
+            />
+          ) : (
+            <Trash
+              onClick={(e) => {
+                if (!event.id) return;
+
+                e.stopPropagation();
+                setIsDeleted(true);
+                deleteEntry(
+                  event.id,
+                  () => deleteEventCallback(),
+                  () => deleteEventErrorCallback()
+                );
+              }}
+            />
+          )}
         </div>
       </div>
     </motion.div>

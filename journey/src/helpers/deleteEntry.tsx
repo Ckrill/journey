@@ -10,7 +10,11 @@ const client = contentful.createClient({
     '',
 });
 
-const deleteEntry = (entryId: string, callback: () => void) => {
+const deleteEntry = (
+  entryId: string,
+  callback: () => void,
+  errorCallback: () => void
+) => {
   client
     .getSpace(settings.space)
     .then((space) => space.getEnvironment(settings.environment))
@@ -18,7 +22,10 @@ const deleteEntry = (entryId: string, callback: () => void) => {
     .then((entry) => entry.unpublish())
     .then((entry) => entry.delete())
     .then(callback)
-    .catch(console.error);
+    .catch((error) => {
+      errorCallback();
+      console.error(error);
+    });
 };
 
 export default deleteEntry;

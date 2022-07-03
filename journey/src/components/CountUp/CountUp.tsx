@@ -44,6 +44,7 @@ const CountUp = ({ countTo, duration = 1000, exponential }: Props) => {
     <span className={styles.container}>
       <AnimatePresence>
         <span className={styles.shadowCounter}>{countTo}</span>
+
         <motion.span
           className={styles.counter}
           key={count}
