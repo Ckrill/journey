@@ -27,11 +27,11 @@ import ShowMore from '../components/ShowMore/ShowMore';
 const Journey = () => {
   const user = useUser();
   const events = useEvents();
-  const eventIncrements = 10;
+  const pageSize = 10;
 
   const [eventsFiltered, setEventsFiltered] = useState<Events | []>([]);
   const [soloMode, setSoloMode] = useState(false);
-  const [itemsToShow, setItemsToShow] = useState(eventIncrements);
+  const [itemsToShow, setItemsToShow] = useState(pageSize);
 
   useEffect(() => {
     if (!user) return;
@@ -48,7 +48,7 @@ const Journey = () => {
   }, [user, soloMode, events]);
 
   const showMoreItems = () => {
-    setItemsToShow(itemsToShow + eventIncrements);
+    setItemsToShow(itemsToShow + pageSize);
   };
 
   return (
@@ -78,7 +78,7 @@ const Journey = () => {
           </Heading>
 
           {events.length > 0 ? (
-            <EventList events={eventsFiltered.slice(0, itemsToShow)} />
+            <EventList eventsToShow={eventsFiltered.slice(0, itemsToShow)} />
           ) : (
             <MockEventList />
           )}

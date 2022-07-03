@@ -20,7 +20,7 @@ import Header from './components/Header/Header';
 // Contexts
 import { useUser, useUserUpdate } from './contexts/userContext';
 import { useSettingsUpdate } from './contexts/settingsContext';
-import { useEventsUpdate } from './contexts/eventsContext';
+import { useEvents, useEventsUpdate } from './contexts/eventsContext';
 import { useStreakUpdate } from './contexts/streakContext';
 
 // styles
@@ -37,9 +37,14 @@ function App() {
   const user = useUser();
   const setUser = useUserUpdate();
   const setSettings = useSettingsUpdate();
+  const events = useEvents();
   const setEvents = useEventsUpdate();
   const setStreak = useStreakUpdate();
   const [firstRender, setFirstRender] = useState(true);
+
+  useEffect(() => {
+    // console.log(events);
+  }, [events]);
 
   useEffect(() => {
     if (!firstRender) return;
@@ -48,7 +53,6 @@ function App() {
     setUser(user);
 
     const settings: SettingsType = getFromLocalStorage('settings');
-    console.log('settings: ', settings);
     setSettings(settings || { sound: true, vibration: true });
 
     getEvents().then((eventsContentful: EventsContentful) => {

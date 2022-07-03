@@ -38,7 +38,7 @@ const CountUp = ({ countTo, duration = 1000, exponential }: Props) => {
     return () => {
       clearInterval(counter);
     };
-  }, [countTo, duration]);
+  }, [countTo, duration, exponential]);
 
   return (
     <span className={styles.container}>

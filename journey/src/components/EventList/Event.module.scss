@@ -9,8 +9,8 @@
   border-left: 15px solid var(--color);
   border-radius: 10px;
   background-color: var(--color);
-  transition: height var(--rapid) var(--fast),
-      margin var(--rapid) var(--fast);
+  transition: height var(--rapid),
+      margin var(--rapid);
 
   user-select: none;
   -webkit-tap-highlight-color: transparent;

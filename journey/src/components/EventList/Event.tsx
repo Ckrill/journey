@@ -9,12 +9,9 @@ import { variants } from './eventTransition';
 // Helpers
 import { getMonthDay } from '../../helpers/dateFormatting';
 import deleteEntry from '../../helpers/deleteEntry';
-import { calculateStreak } from '../../helpers/streak';
 
 // Contexts
 import { useUser } from '../../contexts/userContext';
-import { useEvents, useEventsUpdate } from '../../contexts/eventsContext';
-import { useStreakUpdate } from '../../contexts/streakContext';
 
 // Types
 import { Event as EventType } from '../../types/types';
@@ -23,15 +20,13 @@ import { Event as EventType } from '../../types/types';
 import styles from './Event.module.scss';
 
 type Props = {
+  addToDeletionQueue: (id: string) => void;
   event: EventType;
   overallIndex: number;
 };
 
-const Event = ({ event, overallIndex }: Props) => {
+const Event = ({ addToDeletionQueue, event, overallIndex }: Props) => {
   const user = useUser();
-  const events = useEvents();
-  const setEvents = useEventsUpdate();
-  const setStreak = useStreakUpdate();
 
   const [isDeleted, setIsDeleted] = useState(false);
   const [hasWarning, setHasWarning] = useState(false);
@@ -45,21 +40,8 @@ const Event = ({ event, overallIndex }: Props) => {
     setIsMine(mine);
   }, [event, isMine, user]);
 
-  const deleteEvent = (id: string) => {
-    const result = [...events];
-    const index = events.findIndex((event) => id === event.id);
-
-    if (index === -1) return;
-
-    result.splice(index, 1);
-    setEvents(result);
-
-    const streak = calculateStreak(user, result);
-    setStreak(streak);
-  };
-
   const deleteEventCallback = () => {
-    deleteEvent(event.id);
+    addToDeletionQueue(event.id);
   };
 
   const deleteEventErrorCallback = () => {
@@ -115,8 +97,8 @@ const Event = ({ event, overallIndex }: Props) => {
                 setIsDeleted(true);
                 deleteEntry(
                   event.id,
-                  () => deleteEventCallback(),
-                  () => deleteEventErrorCallback()
+                  deleteEventCallback,
+                  deleteEventErrorCallback
                 );
               }}
             />
