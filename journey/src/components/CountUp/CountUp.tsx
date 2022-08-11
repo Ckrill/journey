@@ -16,7 +16,7 @@ type Props = {
 const easeOutQuad = (t: number) => t * (2 - t);
 const frameDuration = 1000 / 10;
 
-const CountUp = ({ countTo, duration = 1000, exponential }: Props) => {
+const CountUp = ({ countTo, duration = 500, exponential }: Props) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
