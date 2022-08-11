@@ -64,5 +64,6 @@
   },
   "devDependencies": {
     "source-map-explorer": "^2.5.2"
-  }
+  },
+  "packageManager": "yarn@3.2.2"
 }
