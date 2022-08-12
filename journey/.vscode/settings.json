@@ -1,8 +1,13 @@
 {
-  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "workbench.colorCustomizations": {
     "titleBar.activeForeground": "#ff6c55",
     "titleBar.activeBackground": "#62355c"
   },
-  "prettier.singleQuote": true
+  "prettier.singleQuote": true,
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }
