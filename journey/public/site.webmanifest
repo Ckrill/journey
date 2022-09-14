@@ -20,7 +20,7 @@
   "categories": ["health and fitness", "lifestyle"],
   "theme_color": "#ff6c55",
   "background_color": "#ff6c55",
-  "start_url": "https://journey.vercel.app",
+  "start_url": "https://test-journey.vercel.app",
   "display": "standalone",
   "orientation": "portrait",
   "shortcuts": [
