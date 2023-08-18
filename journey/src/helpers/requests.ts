@@ -1,7 +1,7 @@
 // Settings
 import { settings } from '../settings/settings';
 
-const { baseURL, space, environment, accessToken } = settings;
+const { baseURL, limit, space, environment, accessToken } = settings;
 
 //  Get single entry
 export const getItem = (id: string) => {
@@ -9,8 +9,8 @@ export const getItem = (id: string) => {
 };
 
 // Get entries by type
-export const getItemsByType = (type: string) => {
-  return `${baseURL}/spaces/${space}/environments/${environment}/entries?access_token=${accessToken}&content_type=${type}&order=-fields.date&limit=1000`;
+export const getItemsByType = (type: string, skip: number) => {
+  return `${baseURL}/spaces/${space}/environments/${environment}/entries?access_token=${accessToken}&content_type=${type}&order=-fields.date&limit=${limit}&skip=${skip}`;
 };
 
 // Get entries by attribute

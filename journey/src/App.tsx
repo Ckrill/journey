@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
+// Settings
+import { settings } from './settings/settings';
+
 // Screens
 import Journey from './screens/Journey';
 import Event from './screens/Event';
@@ -30,7 +33,8 @@ import './App.scss';
 import { EventsContentful } from './types/contentfulTypes';
 import { User, Events, Settings as SettingsType } from './types/types';
 
-const getEvents = () => get(getItemsByType('workout'));
+const getEvents = () => get(getItemsByType('workout', 0));
+const getEvents2 = () => get(getItemsByType('workout', settings.limit));
 
 function App() {
   const location = useLocation();
@@ -56,11 +60,16 @@ function App() {
     setSettings(settings || { sound: true, vibration: true });
 
     getEvents().then((eventsContentful: EventsContentful) => {
-      const events: Events = primeEvents(eventsContentful);
-      setEvents(events);
+      getEvents2().then((eventsContentful2: EventsContentful) => {
+        const allEvents = { ...eventsContentful };
+        allEvents.items = allEvents.items.concat(eventsContentful2.items);
 
-      const streak = calculateStreak(user, events);
-      setStreak(streak);
+        const events: Events = primeEvents(allEvents);
+        setEvents(events);
+
+        const streak = calculateStreak(user, events);
+        setStreak(streak);
+      });
     });
 
     setFirstRender(false);
