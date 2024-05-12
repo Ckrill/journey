@@ -1,9 +1,10 @@
 export const settings = {
   baseURL: 'https://cdn.contentful.com',
   limit: 1000,
-  space: 'g579itxgdtk5',
+  space: process.env.REACT_APP_CONTENTFUL_SPACE_ID || '',
   environment: 'master',
-  accessToken: 'OqzSbUybZ9r7IJ6IdfZRBSBkEIFxrwoJGmo67SuHuG8',
-  accessTokenManagement: 'CFPAT-Y43utf1MWG92ZBHWqEuqWqj7ckDZTIVWravLHJI4wpQ',
+  accessToken: process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN || '',
+  accessTokenManagement:
+    process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN_MANAGEMENT || '',
   production: true,
 };
