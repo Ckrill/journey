@@ -13,7 +13,6 @@ const FormSectionSelect = (props: any) => (
       id={props.name}
       name={props.name}
       value={props.value}
-      placeholder=" "
       disabled={props.disabled}
       onChange={props.changeHandler ? props.changeHandler : undefined}
     >
