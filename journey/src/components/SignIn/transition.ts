@@ -22,7 +22,7 @@ export const transition: Transition = {
 };
 
 export const variants2 = {
-  initial: { opacity: 0, y: '100' },
+  initial: { opacity: 0, y: 100 },
   animate: { opacity: 1, y: 0 },
 };
 
