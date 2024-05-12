@@ -4,10 +4,6 @@
   "private": true,
   "homepage": "https://journey.vercel.app",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^14.5.2",
-    "@types/jest": "^28.1.8",
     "@types/node": "^18.19.33",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
@@ -40,7 +36,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
@@ -61,7 +56,6 @@
   },
   "devDependencies": {
     "@types/prop-types": "^15.7.12",
-    "@types/testing-library__jest-dom": "^5.14.9",
     "prop-types": "^15.8.1",
     "source-map-explorer": "^2.5.3"
   },
