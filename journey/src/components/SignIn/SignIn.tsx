@@ -29,10 +29,7 @@ import { User } from '../../types/types';
 import { UsersContentful } from '../../types/contentfulTypes';
 
 const client = contentful.createClient({
-  accessToken:
-    process.env.REACT_APP_CONTENTFUL_USER ||
-    settings.accessTokenManagement ||
-    '',
+  accessToken: settings.accessTokenManagement,
 });
 
 const getContentfulUser = (userName: string) =>

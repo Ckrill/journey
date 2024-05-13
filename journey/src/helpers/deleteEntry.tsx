@@ -4,10 +4,7 @@ import * as contentful from 'contentful-management';
 import { settings } from '../settings/settings';
 
 const client = contentful.createClient({
-  accessToken:
-    process.env.REACT_APP_CONTENTFUL_USER ||
-    settings.accessTokenManagement ||
-    '',
+  accessToken: settings.accessTokenManagement,
 });
 
 const deleteEntry = (

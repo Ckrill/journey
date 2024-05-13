@@ -1,8 +1,8 @@
 {
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "workbench.colorCustomizations": {
-    "titleBar.activeForeground": "#ff6c55",
-    "titleBar.activeBackground": "#62355c"
+    "titleBar.activeForeground": "#62355c",
+    "titleBar.activeBackground": "#ff6c55"
   },
   "prettier.singleQuote": true,
   "search.exclude": {

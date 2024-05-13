@@ -29,10 +29,7 @@ import { useStreakUpdate } from '../contexts/streakContext';
 import { Event as EventType } from '../types/types';
 
 const client = contentful.createClient({
-  accessToken:
-    process.env.REACT_APP_CONTENTFUL_USER ||
-    settings.accessTokenManagement ||
-    '',
+  accessToken: settings.accessTokenManagement,
 });
 
 const Event = () => {
