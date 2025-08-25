@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://journey.vercel.app",
   "type": "module",
-  "packageManager": "yarn@4.2.2",
+  "packageManager": "yarn@4.9.3",
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "build": "vite build",
