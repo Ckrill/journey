@@ -1,23 +1,21 @@
-import PropTypes from 'prop-types';
-
 // Components
 import Section from '../Section/Section';
 
 // Styling
 import styles from './Form.module.scss'; // Import css modules stylesheet as styles
 
-const FormSectionError = (props: any) => (
+interface FormSectionErrorProps {
+  prefix?: string;
+  error?: string;
+}
+
+const FormSectionError = (props: FormSectionErrorProps) => (
   // <div className="form__section form__section--no-margin">
-  <Section spacing="narrow">
+  (<Section spacing="narrow">
     <p className={styles.error} data-show-error={props.error ? true : false}>
       {props.prefix} {props.error}
     </p>
-  </Section>
+  </Section>)
 );
-
-FormSectionError.propTypes = {
-  prefix: PropTypes.string,
-  error: PropTypes.string,
-};
 
 export default FormSectionError;

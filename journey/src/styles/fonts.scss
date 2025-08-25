@@ -5,7 +5,7 @@
   font-style: normal;
   font-family: 'Rubik';
   src: local('Rubik Black'), local('Rubik-Black'),
-    url(./assets/fonts/Rubik-Black-BasicLatin.woff2) format('woff2');
+    url(../assets/fonts/Rubik-Black-BasicLatin.woff2) format('woff2');
 
   font-display: swap;
 }
@@ -17,7 +17,7 @@
   font-style: normal;
   font-family: 'IBM Plex Sans';
   src: local('IBM Plex Sans'), local('IBMPlexSans'),
-    url('./assets/fonts/IBMPlexSans-Regular-Latin1.woff2') format('woff2');
+    url('../assets/fonts/IBMPlexSans-Regular-Latin1.woff2') format('woff2');
 
   font-display: swap;
   unicode-range: U+0000, U+000D, U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153,
@@ -30,7 +30,7 @@
   font-style: italic;
   font-family: 'IBM Plex Sans';
   src: local('IBM Plex Sans Italic'), local('IBMPlexSans-Italic'),
-    url('./assets/fonts/IBMPlexSans-Italic-Latin1.woff2') format('woff2');
+    url('../assets/fonts/IBMPlexSans-Italic-Latin1.woff2') format('woff2');
 
   font-display: swap;
   unicode-range: U+0000, U+000D, U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153,
@@ -43,7 +43,7 @@
   font-style: normal;
   font-family: 'IBM Plex Sans';
   src: local('IBM Plex Sans Bold'), local('IBMPlexSans-Bold'),
-    url('./assets/fonts/IBMPlexSans-Bold-Latin1.woff2') format('woff2');
+    url('../assets/fonts/IBMPlexSans-Bold-Latin1.woff2') format('woff2');
 
   font-display: swap;
   unicode-range: U+0000, U+000D, U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153,
@@ -56,7 +56,7 @@
   font-style: italic;
   font-family: 'IBM Plex Sans';
   src: local('IBM Plex Sans Bold Italic'), local('IBMPlexSans-BoldItalic'),
-    url('./assets/fonts/IBMPlexSans-BoldItalic-Latin1.woff2') format('woff2');
+    url('../assets/fonts/IBMPlexSans-BoldItalic-Latin1.woff2') format('woff2');
 
   font-display: swap;
   unicode-range: U+0000, U+000D, U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153,
@@ -71,7 +71,7 @@
   font-style: normal;
   font-family: 'IBM Plex Mono';
   src: local('IBM Plex Mono Medm'), local('IBMPlexMono-Medm'),
-    url('./assets/fonts/IBMPlexMono-Medium-Latin1.woff2') format('woff2');
+    url('../assets/fonts/IBMPlexMono-Medium-Latin1.woff2') format('woff2');
 
   font-display: swap;
   unicode-range: U+0000, U+000D, U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153,
