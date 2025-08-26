@@ -6,7 +6,7 @@
   "type": "module",
   "packageManager": "yarn@4.9.3",
   "scripts": {
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "analyze": "source-map-explorer 'dist/assets/*.js' --no-border-checks",
     "build": "vite build",
     "serve": "vite preview",
     "start": "vite"
