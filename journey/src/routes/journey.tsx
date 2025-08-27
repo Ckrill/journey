@@ -3,11 +3,7 @@ import {
   BsFillPersonFill as Person,
   BsFillPeopleFill as People,
 } from 'react-icons/bs';
-import { motion } from 'framer-motion';
 import { createFileRoute } from '@tanstack/react-router';
-
-// Settings
-import { pageTransition, pageVariants } from '../settings/pageTransition';
 
 // Components
 import EventList from '../components/EventList/EventList';
@@ -53,13 +49,7 @@ const Journey = () => {
   };
 
   return (
-    <motion.div
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={pageVariants}
-      transition={pageTransition}
-    >
+    <div className="page-transition">
       <SectionContainer>
         <Section>
           <Streak />
@@ -89,7 +79,7 @@ const Journey = () => {
       {eventsFiltered.length > itemsToShow && (
         <ShowMore callback={showMoreItems} />
       )}
-    </motion.div>
+    </div>
   );
 };
 

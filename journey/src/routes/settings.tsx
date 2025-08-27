@@ -1,9 +1,5 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router';
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
-
-// Settings
-import { pageTransition, pageVariants } from '../settings/pageTransition';
 
 // Helpers
 import { saveToLocalStorage } from '../helpers/localStorage';
@@ -55,13 +51,7 @@ const Settings = () => {
   }, [settings]);
 
   return (
-    <motion.div
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={pageVariants}
-      transition={pageTransition}
-    >
+    <div className="page-transition">
       <SectionContainer>
         <Section>
           <Heading>Profile</Heading>
@@ -136,8 +126,8 @@ const Settings = () => {
           </Button> */}
         </Section>
       </SectionContainer>
-    </motion.div>
-  )
+    </div>
+  );
 };
 
 export default Settings;

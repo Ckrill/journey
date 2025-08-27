@@ -14,7 +14,10 @@ import { SettingsProvider } from './contexts/settingsContext';
 import { routeTree } from './routeTree.gen';
 
 // Create a new router instance
-const router = createRouter({ routeTree });
+const router = createRouter({
+  routeTree,
+  defaultViewTransition: { types: ['page-transition'] },
+});
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {

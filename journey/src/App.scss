@@ -1,3 +1,39 @@
 @use 'styles/constants.scss';
 @use 'styles/fonts.scss';
 @use 'styles/generic.scss';
+
+.page-transition {
+  view-transition-name: page-transition;
+}
+
+html:active-view-transition-type(page-transition) {
+  &::view-transition-old(page-transition) {
+    animation: 100ms ease-out both exit;
+  }
+
+  &::view-transition-new(page-transition) {
+    animation: 100ms ease-out both enter;
+  }
+}
+
+@keyframes exit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(0);
+  }
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

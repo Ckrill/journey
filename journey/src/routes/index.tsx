@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import * as contentful from 'contentful-management';
 import { Controller, useForm } from 'react-hook-form';
-import { motion } from 'framer-motion';
 import { useNavigate } from '@tanstack/react-router';
 import { createFileRoute } from '@tanstack/react-router';
 
 // Settings
-import { pageTransition, pageVariants } from '../settings/pageTransition';
 import { settings } from '../settings/settings';
 
 // Helpers
@@ -189,13 +187,7 @@ const Event = () => {
   };
 
   return (
-    <motion.div
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={pageVariants}
-      transition={pageTransition}
-    >
+    <div className="page-transition">
       <SectionContainer>
         <Section>
           <Heading>Add event</Heading>
@@ -257,7 +249,7 @@ const Event = () => {
       </SectionContainer>
 
       <Feedback setShow={setShowFeedback} show={showFeedback} />
-    </motion.div>
+    </div>
   );
 };
 
