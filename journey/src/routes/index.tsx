@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import * as contentful from 'contentful-management';
 import { Controller, useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
-import { useLocation, useNavigate, useSearchParams } from 'react-router';
+import { useNavigate } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 
 // Settings
 import { pageTransition, pageVariants } from '../settings/pageTransition';
@@ -33,9 +34,8 @@ const client = contentful.createClient({
 });
 
 const Event = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const navigate = useNavigate({ from: Route.fullPath });
+  const searchParams = Route.useSearch();
 
   const user = useUser();
   const setUser = useUserUpdate();
@@ -95,7 +95,7 @@ const Event = () => {
   } = useForm({
     defaultValues: {
       date: new Date().toISOString().split('T')[0],
-      name: searchParams.get('name') || '',
+      name: searchParams?.name || '',
     },
   });
 
@@ -162,7 +162,7 @@ const Event = () => {
         addEvent(publishedEvent);
 
         // If there is a searchParam "name", remove it.
-        if (searchParams.get('name')) navigate(location.pathname);
+        if (searchParams?.name) navigate({ search: { name: undefined } });
 
         // Reset form.
         reset({ name: '' });
@@ -262,3 +262,23 @@ const Event = () => {
 };
 
 export default Event;
+
+type EventParams =
+  | {
+      name: string | undefined;
+    }
+  | undefined;
+
+export const Route = createFileRoute('/')({
+  component: Event,
+  validateSearch: (search: Record<string, unknown>): EventParams => {
+    // validate and parse the search params into a typed state
+    const hasName = !!search.name;
+
+    return hasName
+      ? {
+          name: search.name as string,
+        }
+      : undefined;
+  },
+});

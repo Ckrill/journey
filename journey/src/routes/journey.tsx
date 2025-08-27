@@ -4,6 +4,7 @@ import {
   BsFillPeopleFill as People,
 } from 'react-icons/bs';
 import { motion } from 'framer-motion';
+import { createFileRoute } from '@tanstack/react-router';
 
 // Settings
 import { pageTransition, pageVariants } from '../settings/pageTransition';
@@ -93,3 +94,7 @@ const Journey = () => {
 };
 
 export default Journey;
+
+export const Route = createFileRoute('/journey')({
+  component: Journey,
+});
