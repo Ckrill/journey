@@ -34,63 +34,63 @@ import { User, Events, Settings as SettingsType } from '../types/types';
 const getEvents = () => get(getItemsByType('workout', 0));
 const getEvents2 = () => get(getItemsByType('workout', settings.limit));
 
-export const Route = createRootRoute({
-  component: () => {
-    const user = useUser();
-    const setUser = useUserUpdate();
-    const setSettings = useSettingsUpdate();
-    const events = useEvents();
-    const setEvents = useEventsUpdate();
-    const setStreak = useStreakUpdate();
-    const [firstRender, setFirstRender] = useState(true);
+const RootComponent = () => {
+  const user = useUser();
+  const setUser = useUserUpdate();
+  const setSettings = useSettingsUpdate();
+  const events = useEvents();
+  const setEvents = useEventsUpdate();
+  const setStreak = useStreakUpdate();
+  const [firstRender, setFirstRender] = useState(true);
 
-    useEffect(() => {
-      // console.log(events);
-    }, [events]);
+  useEffect(() => {
+    // console.log(events);
+  }, [events]);
 
-    useEffect(() => {
-      if (!firstRender) return;
+  useEffect(() => {
+    if (!firstRender) return;
 
-      const user: User = getFromLocalStorage('user');
-      setUser(user);
+    const user: User = getFromLocalStorage('user');
+    setUser(user);
 
-      const settings: SettingsType = getFromLocalStorage('settings');
-      setSettings(settings || { sound: true, vibration: true });
+    const settings: SettingsType = getFromLocalStorage('settings');
+    setSettings(settings || { sound: true, vibration: true });
 
-      getEvents().then((eventsContentful: EventsContentful) => {
-        getEvents2().then((eventsContentful2: EventsContentful) => {
-          const allEvents = { ...eventsContentful };
-          allEvents.items = allEvents.items.concat(eventsContentful2.items);
+    getEvents().then((eventsContentful: EventsContentful) => {
+      getEvents2().then((eventsContentful2: EventsContentful) => {
+        const allEvents = { ...eventsContentful };
+        allEvents.items = allEvents.items.concat(eventsContentful2.items);
 
-          const events: Events = primeEvents(allEvents);
-          setEvents(events);
+        const events: Events = primeEvents(allEvents);
+        setEvents(events);
 
-          const streak = calculateStreak(user, events);
-          setStreak(streak);
-        });
+        const streak = calculateStreak(user, events);
+        setStreak(streak);
       });
+    });
 
-      setFirstRender(false);
-    }, [firstRender, setEvents, setSettings, setStreak, setUser]);
+    setFirstRender(false);
+  }, [firstRender, setEvents, setSettings, setStreak, setUser]);
 
-    return (
-      <>
-        {user ? (
-          <>
-            <Header />
+  return (
+    <>
+      {user ? (
+        <>
+          <Header />
 
-            <AnimatePresence mode="wait">
-              <Outlet />
-            </AnimatePresence>
-          </>
-        ) : (
-          <SignIn />
-        )}
+          <AnimatePresence mode="wait">
+            <Outlet />
+          </AnimatePresence>
+        </>
+      ) : (
+        <SignIn />
+      )}
 
-        <TanStackRouterDevtools />
-      </>
-    );
-  },
+      <TanStackRouterDevtools />
+    </>
+  );
+};
+
+export const Route = createRootRoute({
+  component: RootComponent,
 });
-
-export default Route;

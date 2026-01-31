@@ -1,16 +1,11 @@
 import { useState } from 'react';
-import * as contentful from 'contentful-management';
 import { Controller, useForm } from 'react-hook-form';
 
-// Settings
-import { settings } from '../../settings/settings';
-
 // Helpers
-import {
-  getFromLocalStorage,
-  saveToLocalStorage,
-} from '../../helpers/localStorage';
-import { get, getItemsByAttribute } from '../../helpers/requests';
+import { saveToLocalStorage } from '../../helpers/localStorage';
+
+// Hooks
+import { createUser, fetchUser } from '../../api/user';
 
 // Components
 import Button from '../Button/Button';
@@ -19,90 +14,43 @@ import FormInput from '../Form/FormInput';
 import Heading from '../Heading/Heading';
 import Paragraph from '../Paragraph/Paragraph';
 import Section from '../Section/Section';
-import { primeArrayToObject } from '../../helpers/dataHandler';
 
 // Contexts
 import { useUserUpdate } from '../../contexts/userContext';
 
-// Types
-import { User } from '../../types/types';
-import { UsersContentful } from '../../types/contentfulTypes';
-
-const client = contentful.createClient({
-  accessToken: settings.accessTokenManagement,
-});
-
-const getContentfulUser = (userName: string) =>
-  get(getItemsByAttribute('user', 'fields.name', userName));
+type FieldValues = {
+  name: string;
+};
 
 const SignUp = () => {
   const setUser = useUserUpdate();
 
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit } = useForm<FieldValues>();
 
-  const user: User = getFromLocalStorage('user') || {};
-
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: FieldValues) => {
+    setSubmitError(null);
     setSubmitting(true);
 
-    user.name = data.name;
+    const existingUser = await fetchUser(data.name);
 
-    // If user exists, log in.
-    getContentfulUser(data.name).then((response: UsersContentful) => {
-      const user: User = primeArrayToObject(response);
+    if (existingUser) {
+      saveToLocalStorage('user', existingUser);
+      setUser(existingUser);
+    } else {
+      try {
+        const newUser = await createUser(data.name);
 
-      if (user) {
-        console.log('LOGIN');
-        // Save the user to local storage.
-        saveToLocalStorage('user', user);
-
-        // Log in
-        setUser(user);
-        return;
-      } else {
-        console.log('CREATE USER');
-        // Else Sign up.
-        // Create and publish user.
-        client
-          .getSpace(settings.space)
-          .then((space) => space.getEnvironment(settings.environment))
-          .then((environment) =>
-            environment.createEntry('user', {
-              fields: {
-                bestStreak: {
-                  'en-US': 0,
-                },
-                name: {
-                  'en-US': data.name,
-                },
-              },
-            })
-          )
-          .then((entry) => entry.publish())
-          .then((entry) => {
-            const user: User = {
-              bestStreak: entry.fields.bestStreak['en-US'],
-              id: entry.sys.id,
-              name: entry.fields.name['en-US'],
-            };
-
-            // Save the new user to local storage.
-            saveToLocalStorage('user', user);
-            // Let parent component know about the new user.
-            console.log('SET USER', user);
-            setUser(user);
-            // Reset submitError.
-            setSubmitError(null);
-          })
-          .catch((error) => {
-            console.error(error);
-            setSubmitError(JSON.stringify(error));
-          })
-          .finally(() => setSubmitting(false));
+        saveToLocalStorage('user', newUser);
+        setUser(newUser);
+      } catch (error) {
+        console.error(error);
+        setSubmitError(JSON.stringify(error));
       }
-    });
+
+      setSubmitting(false);
+    }
   };
 
   return (

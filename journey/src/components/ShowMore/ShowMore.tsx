@@ -14,7 +14,7 @@ const ShowMore = ({ callback }: Props) => {
   const [animateOut, setAnimateOut] = useState(false);
 
   const thresholds = () => {
-    let result = [];
+    const result = [];
     const amount = 50;
     let i = 0;
     while (i <= amount) {
