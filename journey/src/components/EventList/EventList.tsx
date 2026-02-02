@@ -41,7 +41,7 @@ const EventList = ({ eventsToShow }: Props) => {
   const currentYear = new Date().getFullYear();
   let overallIndex = 0;
 
-  const [deletionQueue, setDeletionQueue] = useState<any[]>([]);
+  const [deletionQueue, setDeletionQueue] = useState<string[]>([]);
 
   const addToDeletionQueue = (id: string) => {
     const newDeletionQueue = [...deletionQueue];

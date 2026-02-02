@@ -61,7 +61,7 @@ const SignUp = () => {
           defaultValue=""
           name="name"
           render={({ field }) => (
-            <FormInput labelText="Name" type="text" {...field} />
+            <FormInput id="name" labelText="Name" type="text" {...field} />
           )}
           rules={{ required: true }}
         />

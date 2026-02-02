@@ -28,14 +28,16 @@ const SignIn = () => {
       transition={pageTransition}
     >
       <Page>
-        <Title
-          initial="initial"
-          animate="animate"
-          exit={'exit'}
-          variants={variants}
-          transition={transition}
-        >
-          Journey
+        <Title>
+          <motion.div
+            initial="initial"
+            animate="animate"
+            exit={'exit'}
+            variants={variants}
+            transition={transition}
+          >
+            Journey
+          </motion.div>
         </Title>
 
         <motion.div

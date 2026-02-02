@@ -19,7 +19,7 @@ export const calculateStreak = (user: User | null, events: Events) => {
   const eventsByYearMonthDay: YearMonthDay[] =
     categorizeByYearMonthDay(myEvents) || [];
 
-  let today = new Date();
+  const today = new Date();
   // Start from today, count backwards.
   let date = new Date();
 
@@ -73,6 +73,7 @@ export const calculateStreak = (user: User | null, events: Events) => {
       // Event not found.
 
       // If day is today, don't count it, because the day is not over yet.
+      // eslint-disable-next-line no-empty
       if (date.toISOString() === today.toISOString()) {
       } else if (daysAccumulated) {
         // If there is a streak cached.

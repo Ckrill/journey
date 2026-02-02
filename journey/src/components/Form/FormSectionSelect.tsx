@@ -14,6 +14,12 @@ interface FormSectionSelectProps {
   options?: unknown[];
 }
 
+/**
+ * @deprecated
+ * @param props
+ * @returns
+ */
+
 const FormSectionSelect = (props: FormSectionSelectProps) => (
   <Section>
     <select

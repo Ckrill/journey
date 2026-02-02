@@ -1,6 +1,9 @@
 // Settings
 import { settings } from '../settings/settings';
 
+// Types
+import { ArrayContentful } from '../types/contentfulTypes';
+
 const { baseURL, limit, space, environment, accessToken } = settings;
 
 //  Get single entry
@@ -17,13 +20,18 @@ export const getItemsByType = (type: string, skip: number) => {
 export const getItemsByAttribute = (
   type: string,
   attribute: string,
-  value: string
+  value: string,
 ) => {
   return `${baseURL}/spaces/${space}/environments/${environment}/entries?access_token=${accessToken}&content_type=${type}&${attribute}=${value}`;
 };
 
+type ResponseType = {
+  json: () => Promise<ArrayContentful>;
+  status: number;
+};
+
 // Error handling
-export const handleResponse = (res: { json: Function; status: number }) => {
+export const handleResponse = (res: ResponseType) => {
   if (res.status === 200) {
     return res.json();
   } else {

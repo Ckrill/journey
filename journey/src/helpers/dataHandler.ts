@@ -30,7 +30,7 @@ export const primeEvents = (eventsContentful: EventsContentful) => {
   // Map the poster image to the video based on image id.
   eventsCrude.forEach((event: any) => {
     const userId = event.user && event.user.sys.id;
-    const user = eventsContentful.includes.Entry.find((entry) => {
+    const user = eventsContentful.includes?.Entry.find((entry) => {
       return entry.sys.id === userId;
     });
     event.user = { ...user?.fields, id: userId };

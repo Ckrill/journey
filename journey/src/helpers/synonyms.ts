@@ -7,7 +7,7 @@ type Streak = number;
 
 export const getHeading = (
   feedbackHeading: FeedbackHeading,
-  streak: Streak
+  streak: Streak,
 ) => {
   let tier = 1;
 
@@ -55,10 +55,10 @@ export const getHeadingSize = (sentence: string) => {
 };
 
 export const getLongestWord = (sentence: string) => {
-  var words = sentence.split(' ');
+  const words = sentence.split(' ');
 
   const longestWord = words.reduce((champ, contender) =>
-    contender.length > champ.length ? contender : champ
+    contender.length > champ.length ? contender : champ,
   );
 
   return longestWord;

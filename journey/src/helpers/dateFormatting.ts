@@ -26,7 +26,7 @@ export const getMonthDay = (date: Date, country: string = 'en-US') => {
 
 export const diffDays = (
   firstDate: number | string,
-  secondDate: number | string
+  secondDate: number | string,
 ) => {
   const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 
@@ -34,7 +34,7 @@ export const diffDays = (
 };
 
 export const addDays = (date: Date, days: number) => {
-  var newDate = new Date(date);
+  const newDate = new Date(date);
   newDate.setDate(newDate.getDate() + days);
   return newDate;
 };

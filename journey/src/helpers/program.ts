@@ -1,9 +1,17 @@
+/**
+ * @deprecated
+ * @param trainingPlan
+ * @param previousProgram
+ * @param test
+ * @returns
+ */
+
 export const getProgram = (
   trainingPlan: any,
   previousProgram?: any,
-  test?: number
-  ) => {
-    let program;
+  test?: number,
+) => {
+  let program;
 
   if (previousProgram) {
     program =
@@ -19,7 +27,7 @@ export const getProgram = (
       return null;
     });
   } else {
-    program = trainingPlan.weeks[0].difficulties[0].days[0]
+    program = trainingPlan.weeks[0].difficulties[0].days[0];
     console.log('program: ', program);
   }
 

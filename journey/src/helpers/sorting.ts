@@ -1,3 +1,10 @@
+/**
+ * @deprecated
+ * @param array
+ * @param sortObject
+ * @returns
+ */
+
 export const sortNewestFirst = (array: any[], sortObject: string) => {
   array.sort((a, b) => {
     a = new Date(a[sortObject]);

@@ -13,12 +13,13 @@ export const pageTransition: Transition = {
 };
 
 export const variants = {
-  initial: { transform: 'skewY(-20deg) translateX(1000px)' },
-  animate: { transform: 'skewY(-20deg) translateX(0px)' },
+  initial: { transform: 'translateX(1000px)' },
+  animate: { transform: 'translateX(0px)' },
 };
 
 export const transition: Transition = {
   duration: 0.3,
+  ease: 'easeOut',
 };
 
 export const variants2 = {
@@ -29,4 +30,5 @@ export const variants2 = {
 export const transition2: Transition = {
   delay: 0.25,
   duration: 0.3,
+  ease: 'easeOut',
 };
