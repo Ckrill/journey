@@ -1,6 +1,9 @@
 // types
-import { ArrayContentful, EventsContentful } from '../types/contentfulTypes';
-import { Events } from '../types/types';
+import type {
+  ArrayContentful,
+  EventsContentful,
+} from '../types/contentfulTypes';
+import type { Events } from '../types/types';
 
 // export const primeObject = (obj) => obj.fields;
 

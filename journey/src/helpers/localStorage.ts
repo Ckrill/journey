@@ -4,7 +4,7 @@ export const getFromLocalStorage = (name: string) => {
 
 export const saveToLocalStorage = (
   name: string,
-  data: { [name: string]: string | number },
+  data: { [name: string]: string | number | boolean },
 ) => {
   // name.obj = data;
   // localStorage[name] = JSON.stringify(name);

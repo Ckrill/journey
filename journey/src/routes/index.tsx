@@ -27,7 +27,7 @@ import { useEvents, useEventsUpdate } from '../contexts/eventsContext';
 import { useStreakUpdate } from '../contexts/streakContext';
 
 // Types
-import { Event as EventType } from '../types/types';
+import type { Event as EventType } from '../types/types';
 
 const client = contentful.createClient({
   accessToken: settings.accessTokenManagement,
@@ -43,7 +43,10 @@ const Event = () => {
   const setEvents = useEventsUpdate();
   const setStreak = useStreakUpdate();
 
-  const addEvent = (event: EventType, reCalculateStreak: boolean = false) => {
+  const addEvent = async (
+    event: EventType,
+    reCalculateStreak: boolean = false,
+  ) => {
     const result = [...events];
 
     result.unshift(event);
@@ -57,33 +60,41 @@ const Event = () => {
       if (streak.streak <= (user?.bestStreak || 0)) return;
 
       // Save new best streak to user
-      client
-        .getSpace(settings.space)
-        .then((space) => space.getEnvironment(settings.environment))
-        .then((environment) =>
-          environment
-            .getEntry(user.id)
-            .then((entry) =>
-              entry.patch([
-                {
-                  op: 'replace',
-                  path: '/fields/bestStreak/en-US',
-                  value: streak.streak,
-                },
-              ])
-            )
-            .then((entry) => entry.publish())
-            .then((entry) => {
-              const newUser = {
-                bestStreak: entry.fields.bestStreak['en-US'],
-                id: entry.sys.id,
-                name: entry.fields.name['en-US'],
-              };
+      const userParams = {
+        spaceId: settings.space,
+        environmentId: settings.environment,
+        entryId: user.id,
+      };
 
-              setUser(newUser);
-            })
-            .catch(console.error)
+      try {
+        const currentEntry = await client.entry.get(userParams);
+
+        const patchedEntry = await client.entry.patch(
+          { ...userParams, version: currentEntry.sys.version },
+          [
+            {
+              op: 'replace',
+              path: '/fields/bestStreak/en-US',
+              value: streak.streak,
+            },
+          ],
         );
+
+        const publishedEntry = await client.entry.publish(
+          userParams,
+          patchedEntry,
+        );
+
+        const newUser = {
+          bestStreak: publishedEntry.fields.bestStreak['en-US'],
+          id: publishedEntry.sys.id,
+          name: publishedEntry.fields.name['en-US'],
+        };
+
+        setUser(newUser);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -112,26 +123,29 @@ const Event = () => {
     }, 1000);
   }, [submitSuccess]);
 
-  const onSubmit = (formData: { date: string; name: string }) => {
+  const onSubmit = async (formData: { date: string; name: string }) => {
     setShowFeedback(true);
     setSubmitting(true);
 
     const temporaryEvent: EventType = {
       date: formData.date,
       name: formData.name,
-      id: 'temp' + Date.now(),
+      id: 'temp' + crypto.randomUUID(),
       user: user!,
     };
 
     // Add event to state.
     addEvent(temporaryEvent, true);
 
-    // Create and publish item.
-    client
-      .getSpace(settings.space)
-      .then((space) => space.getEnvironment(settings.environment))
-      .then((environment) =>
-        environment.createEntry('workout', {
+    try {
+      // Create item.
+      const entry = await client.entry.create(
+        {
+          spaceId: settings.space,
+          environmentId: settings.environment,
+          contentTypeId: 'workout',
+        },
+        {
           fields: {
             date: {
               'en-US': formData.date,
@@ -149,43 +163,52 @@ const Event = () => {
               },
             },
           },
-        })
-      )
-      .then((entry) => entry.publish())
-      .then((entry) => {
-        const publishedEvent: EventType = {
-          ...temporaryEvent,
-          id: entry.sys.id,
-        };
+        },
+      );
 
-        // Add event to state.
-        addEvent(publishedEvent);
+      // Publish item.
+      const publishedEntry = await client.entry.publish(
+        {
+          spaceId: settings.space,
+          environmentId: settings.environment,
+          entryId: entry.sys.id,
+        },
+        entry,
+      );
 
-        // If there is a searchParam "name", remove it.
-        if (searchParams?.name) navigate({ search: { name: undefined } });
+      const publishedEvent: EventType = {
+        ...temporaryEvent,
+        id: publishedEntry.sys.id,
+      };
 
-        // Reset form.
-        reset({ name: '' });
+      // Add event to state.
+      addEvent(publishedEvent);
 
-        // Reset submitError.
-        setSubmitError(null);
+      // If there is a searchParam "name", remove it.
+      if (searchParams?.name) navigate({ search: { name: undefined } });
 
-        setSubmitSuccess(true);
-      })
-      .catch((error) => {
-        setShowFeedback(false);
+      // Reset form.
+      reset({ name: '' });
 
-        // TODO: Make sure Streak is always up to date.
-        // 1. If the request fails.
-        // 2. Remove temporary event from state.
-        // 2a. Make "deleteEvent" from "Event.tsx" into a hook or a global helper function.
-        // 2b. Use hook.
-        // 3. Recalculate streak.
+      // Reset submitError.
+      setSubmitError(null);
 
-        console.error(error);
-        setSubmitError(JSON.stringify(error));
-      })
-      .finally(() => setSubmitting(false));
+      setSubmitSuccess(true);
+    } catch (error) {
+      setShowFeedback(false);
+
+      // TODO: Make sure Streak is always up to date.
+      // 1. If the request fails.
+      // 2. Remove temporary event from state.
+      // 2a. Make "deleteEvent" from "Event.tsx" into a hook or a global helper function.
+      // 2b. Use hook.
+      // 3. Recalculate streak.
+
+      console.error(error);
+      setSubmitError(JSON.stringify(error));
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (

@@ -28,8 +28,8 @@ import { useStreakUpdate } from '../contexts/streakContext';
 import '../App.scss';
 
 // Types
-import { EventsContentful } from '../types/contentfulTypes';
-import { User, Events, Settings as SettingsType } from '../types/types';
+import type { EventsContentful } from '../types/contentfulTypes';
+import type { User, Events, Settings as SettingsType } from '../types/types';
 
 const getEvents = () => get(getItemsByType('workout', 0));
 const getEvents2 = () => get(getItemsByType('workout', settings.limit));

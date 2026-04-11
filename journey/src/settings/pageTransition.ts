@@ -1,4 +1,4 @@
-import { Transition, Variants } from 'framer-motion';
+import type { Transition, Variants } from 'framer-motion';
 
 export const pageVariants: Variants = {
   initial: { opacity: 0, translateY: 15 },

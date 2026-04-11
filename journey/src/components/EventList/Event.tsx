@@ -14,7 +14,7 @@ import deleteEntry from '../../helpers/deleteEntry';
 import { useUser } from '../../contexts/userContext';
 
 // Types
-import { Event as EventType } from '../../types/types';
+import type { Event as EventType } from '../../types/types';
 
 // Styling
 import styles from './Event.module.scss';
@@ -98,7 +98,7 @@ const Event = ({ addToDeletionQueue, event, overallIndex }: Props) => {
                 deleteEntry(
                   event.id,
                   deleteEventCallback,
-                  deleteEventErrorCallback
+                  deleteEventErrorCallback,
                 );
               }}
             />

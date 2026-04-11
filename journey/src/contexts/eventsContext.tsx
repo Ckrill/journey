@@ -1,7 +1,7 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, type ReactNode, useContext, useState } from 'react';
 
 // Types
-import { Events } from '../types/types';
+import type { Events } from '../types/types';
 
 const EventsContext = createContext<Events>([]);
 const EventsUpdateContext = createContext<(events: Events) => void>(() => null);

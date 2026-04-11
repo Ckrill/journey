@@ -7,8 +7,8 @@ import { variants } from './eventTransition';
 // Helpers
 import {
   categorizeByYearAndMonth,
-  Month,
-  Year,
+  type Month,
+  type Year,
 } from '../../helpers/categorizer';
 import { calculateStreak } from '../../helpers/streak';
 
@@ -25,7 +25,7 @@ import { useStreakUpdate } from '../../contexts/streakContext';
 import styles from './EventList.module.scss';
 
 // Types
-import { Event as EventType, Events } from '../../types/types';
+import type { Event as EventType, Events } from '../../types/types';
 
 type Props = {
   eventsToShow: Events;
@@ -54,7 +54,6 @@ const EventList = ({ eventsToShow }: Props) => {
     if (!deletionQueue.length) return;
 
     const id = deletionQueue[0];
-    console.log('id: ', id);
     const eventsNew = [...events];
     const index = events.findIndex((event) => id === event.id);
 

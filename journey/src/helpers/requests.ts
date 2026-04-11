@@ -2,7 +2,7 @@
 import { settings } from '../settings/settings';
 
 // Types
-import { ArrayContentful } from '../types/contentfulTypes';
+import type { ArrayContentful } from '../types/contentfulTypes';
 
 const { baseURL, limit, space, environment, accessToken } = settings;
 

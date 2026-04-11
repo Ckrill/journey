@@ -2,12 +2,12 @@
 import constants from '../settings/constants';
 
 // Helpers
-import { categorizeByYearMonthDay, YearMonthDay } from './categorizer';
+import { categorizeByYearMonthDay, type YearMonthDay } from './categorizer';
 import { addDays, getMonth } from './dateFormatting';
 import { getEventsForDay } from './streak-helpers';
 
 // Types
-import { User, Events } from '../types/types';
+import type { User, Events } from '../types/types';
 
 // Leniency is the amount of days that can be skipped before the streak is broken.
 const leniency = constants.leniency;

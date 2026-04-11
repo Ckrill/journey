@@ -1,11 +1,11 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, type ReactNode, useContext, useState } from 'react';
 
 // Types
-import { User } from '../types/types';
+import type { User } from '../types/types';
 
 const UserContext = createContext<User | null>(null);
 const UserUpdateContext = createContext<(user: User | null) => void>(
-  () => null
+  () => null,
 );
 
 export const useUser = () => useContext(UserContext);

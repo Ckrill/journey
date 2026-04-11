@@ -2,7 +2,7 @@
 import { getMonth } from './dateFormatting';
 
 // Types
-import { Events } from '../types/types';
+import type { Events } from '../types/types';
 
 export type Year = { months: Month[]; year: number };
 export type Month = { month: string; events: Events };

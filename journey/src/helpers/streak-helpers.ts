@@ -1,9 +1,9 @@
 // Helpers
-import { YearMonthDay } from './categorizer';
+import type { YearMonthDay } from './categorizer';
 
 export const getEventsForDay = (
   date: { year: number; month: string; day: number },
-  eventsByYearMonthDay: YearMonthDay[]
+  eventsByYearMonthDay: YearMonthDay[],
 ) => {
   return (
     eventsByYearMonthDay

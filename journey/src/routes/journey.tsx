@@ -22,7 +22,7 @@ import { useUser } from '../contexts/userContext';
 import { useEvents } from '../contexts/eventsContext';
 
 // Types
-import { Events } from '../types/types';
+import type { Events } from '../types/types';
 import ShowMore from '../components/ShowMore/ShowMore';
 
 const Journey = () => {

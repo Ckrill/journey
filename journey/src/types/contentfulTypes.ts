@@ -1,4 +1,8 @@
-import { CollectionProp, EntryProps, Link } from 'contentful-management/types';
+import type {
+  CollectionProp,
+  EntryProps,
+  Link,
+} from 'contentful-management/types';
 
 // Generic
 
