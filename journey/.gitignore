@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+# Vite bundle visualizer output
+stats.html
+
 # production
 /build
 /dist
