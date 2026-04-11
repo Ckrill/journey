@@ -5,23 +5,22 @@
   --button-background-disabled: var(--text-bright);
   
   display: inline-block;
-  padding: 16px 30px;
-  max-width: var(--form-size);
   width: 100%;
-  border: none;
-  border-radius: 4px;
-  background-color: var(--button-background);
+  max-width: var(--form-size);
+  padding: 16px 30px;
+  font-size: calc(14rem / 16);
+  font-weight: 700;
+  line-height: calc(18rem / 16);
   color: var(--button-color);
   text-transform: uppercase;
   word-spacing: var(--word-spacing-spacious);
   letter-spacing: var(--letter-spacing-spacious);
-  font-weight: 700;
-  font-size: calc(14rem / 16);
-  line-height: calc(18rem / 16);
   cursor: pointer;
-  transition: transform var(--rapid), background-color var(--rapid);
-
   user-select: none;
+  background-color: var(--button-background);
+  border: none;
+  border-radius: 4px;
+  transition: transform var(--rapid), background-color var(--rapid);
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -31,18 +30,18 @@
 
 .button[data-priority='secondary'] {
   padding: 8px 20px;
-  border-radius: 0;
-  background-color: transparent;
-  color: var(--text);
-  text-decoration: underline;
-  text-transform: none;
   font-size: calc(14rem / 16);
   line-height: calc(18rem / 16);
+  color: var(--text);
+  text-transform: none;
+  text-decoration: underline;
+  background-color: transparent;
+  border-radius: 0;
 }
 
 .button:active {
-  transition: transform var(--rapid);
   transform: scale(0.98);
+  transition: transform var(--rapid);
 }
 
 .button:not([data-priority='secondary']):hover,
@@ -57,8 +56,8 @@
 }
 
 .button:not([data-priority='secondary']):disabled {
-  background-color: var(--button-background-disabled);
   cursor: default;
+  background-color: var(--button-background-disabled);
 }
 
 .button[data-priority='secondary']:disabled {

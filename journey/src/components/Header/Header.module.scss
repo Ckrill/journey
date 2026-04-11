@@ -1,8 +1,8 @@
 .header {
   box-sizing: border-box;
+  width: 100%;
   padding-top: 20px;
   padding-bottom: 20px;
-  width: 100%;
   background-color: #ff6c55;
 }
 
@@ -10,10 +10,10 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  width: 100%;
+  padding-left: 0;
   margin-top: 0;
   margin-bottom: 0;
-  padding-left: 0;
-  width: 100%;
   list-style: none;
 }
 
@@ -23,13 +23,12 @@
 .link {
   position: relative;
   padding: 10px;
-  outline: none;
-  color: #62355c;
-  text-decoration: none;
-  text-transform: uppercase;
   font-weight: 700;
-
+  color: #62355c;
+  text-transform: uppercase;
+  text-decoration: none;
   user-select: none;
+  outline: none;
   -webkit-tap-highlight-color: transparent;
   
   .underline {

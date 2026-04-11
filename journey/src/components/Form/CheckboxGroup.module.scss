@@ -1,6 +1,5 @@
 .group {
   display: grid;
-
   gap: var(--spacing);
 
   h2 + & {

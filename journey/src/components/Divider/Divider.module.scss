@@ -2,9 +2,9 @@
   position: relative;
   display: flex;
   justify-content: center;
+  width: 100%;
   margin-top: 10px;
   margin-bottom: 10px;
-  width: 100%;
   text-align: center;
 }
 
@@ -22,27 +22,27 @@
   top: 0;
   bottom: 0;
   left: 0;
-  margin-top: auto;
-  margin-bottom: auto;
   width: 100%;
   height: calc(2 * var(--stroke-width));
-  border: none;
+  margin-top: auto;
+  margin-bottom: auto;
   background-color: var(--stroke);
+  border: none;
 }
 
 .mask {
   position: relative;
   padding-right: 20px;
   padding-left: 20px;
-  background-color: var(--background);
   text-align: center;
+  background-color: var(--background);
 }
 
 .text {
   display: block;
   margin-bottom: 5px;
-  text-transform: capitalize;
-  font-weight: 600;
   font-size: calc(16rem / 16);
+  font-weight: 600;
   line-height: calc(22rem / 16);
+  text-transform: capitalize;
 }

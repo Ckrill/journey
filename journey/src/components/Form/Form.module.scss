@@ -4,15 +4,16 @@
 
 .input {
   display: block;
+  width: 100%;
   padding-top: 20px;
   padding-left: 4px;
-  width: 100%;
-  border: none;
-  background-color: transparent;
-  color: inherit;
+
   /* font-weight: 500; */
   font-size: calc(16rem / 16);
   line-height: calc(24rem / 16);
+  color: inherit;
+  background-color: transparent;
+  border: none;
 }
 
 .input:focus {
@@ -28,10 +29,10 @@
 }
 
 .imageLabel {
-  overflow: hidden;
-  margin-bottom: 20px;
-  max-width: 200px;
   width: 50%;
+  max-width: 200px;
+  margin-bottom: 20px;
+  overflow: hidden;
   border-radius: 50%;
 }
 
@@ -45,15 +46,16 @@
   top: 20px;
   left: 0;
   padding-left: 6px;
-  color: var(--text-bright);
-  letter-spacing: var(--letter-spacing-spacious);
+
   /* font-weight: 100; */
   font-size: calc(16rem / 16);
   line-height: calc(24rem / 16);
-  cursor: text;
-  transition: transform var(--rapid);
-  transform-origin: 0 50%;
+  color: var(--text-bright);
+  letter-spacing: var(--letter-spacing-spacious);
   pointer-events: none;
+  cursor: text;
+  transform-origin: 0 50%;
+  transition: transform var(--rapid);
 }
 
 .labelLine {
@@ -72,9 +74,9 @@
   width: 100%;
   height: 100%;
   content: '';
-  transition: transform var(--rapid) var(--rapid);
   transform: scaleX(0);
   transform-origin: left;
+  transition: transform var(--rapid) var(--rapid);
 }
 
 .labelLine::before {
@@ -87,7 +89,6 @@
 
 .input:focus + .label .labelLine::before {
   transform: scaleX(1);
-
   will-change: transform;
 }
 
@@ -106,12 +107,12 @@
 
 .error {
   visibility: hidden;
-  margin-left: 11px;
-  min-height: calc(2 * (16rem / 16));
   width: 100%;
-  color: red;
+  min-height: calc(2 * (16rem / 16));
+  margin-left: 11px;
   font-size: calc(12rem / 16);
   line-height: calc(16rem / 16);
+  color: red;
 }
 
 .error[data-show-error='true'] {
@@ -121,11 +122,11 @@
 .input:invalid {
   /* Reset default styling */
   box-shadow: none;
+
   /* Reset default styling - END */
 }
 
 .input:invalid + .label .labelLine::after {
   transform: scaleX(1);
-
   will-change: transform;
 }

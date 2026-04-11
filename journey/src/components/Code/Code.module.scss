@@ -1,7 +1,7 @@
 .code {
-  padding: var(--spacing);
   width: calc(100% - (2 * var(--spacing)));
-  border-radius: 4px;
+  padding: var(--spacing);
+  overflow-wrap: break-word;
   background-color: var(--stroke);
-  word-wrap: break-word;
+  border-radius: 4px;
 }

@@ -1,12 +1,12 @@
 body {
   margin: 0;
-  background: var(--background);
+  font-family: var(--font-family);
   color: var(--text);
   letter-spacing: var(--letter-spacing-tight);
-  font-family: var(--font-family);
+  background: var(--background);
 }
 
 body {
-  background-color: var(--background);
   color: var(--text);
+  background-color: var(--background);
 }

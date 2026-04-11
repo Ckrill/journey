@@ -2,28 +2,28 @@
   --color: powderblue;
   --options-width: 59px;
 
-  overflow: hidden;
+  height: var(--options-width);
   margin-top: 10px;
   margin-bottom: 10px;
-  height: var(--options-width);
+  overflow: hidden;
+  user-select: none;
+  background-color: var(--color);
   border-left: 15px solid var(--color);
   border-radius: 10px;
-  background-color: var(--color);
   transition: height var(--rapid),
       margin var(--rapid);
-
-  user-select: none;
   -webkit-tap-highlight-color: transparent;
 
   &--mine {
     --color: salmon;
+
     cursor: pointer;
   }
 
   &--deleted {
+    height: 0;
     margin-top: -5px;
     margin-bottom: -5px;
-    height: 0;
 
     & + .event--deleted {
       margin-top: 0;
@@ -43,14 +43,13 @@
 }
 
 .container {
-  display: grid;
   box-sizing: border-box;
-  padding: 15px 15px 15px 0;
-  width: 100%;
-  transition: transform var(--rapid);
-
+  display: grid;
   grid-template-columns: 100% var(--options-width);
   gap: 15px;
+  width: 100%;
+  padding: 15px 15px 15px 0;
+  transition: transform var(--rapid);
 
   .event--show-options & {
     transform: translateX(calc(var(--options-width) * -1));
@@ -59,25 +58,23 @@
 
 .header {
   display: flex;
+  gap: 10px;
   align-items: center;
   justify-content: space-between;
-
-  gap: 10px;
 }
 
 .name {
-  text-transform: capitalize;
   font-weight: 700;
+  text-transform: capitalize;
 }
 
 .meta {
   display: flex;
   flex-direction: column;
-  text-align: right;
+  gap: 5px;
   font-size: calc(12rem / 16);
   line-height: calc(12rem / 16);
-
-  gap: 5px;
+  text-align: right;
 }
 
 .date {
@@ -85,27 +82,27 @@
 }
 
 .user {
-  text-transform: capitalize;
   font-weight: 700;
+  text-transform: capitalize;
 }
 
 .options {
   box-sizing: border-box;
+  width: var(--options-width);
   margin-top: -15px;
   margin-bottom: -15px;
-  width: var(--options-width);
-  background-color: mediumaquamarine;
   text-align: right;
+  background-color: mediumaquamarine;
   transition: background-color var(--fast);
 
   &--warning {
-    background-color: rgb(255, 204, 0);
+    background-color: rgb(255 204 0);
   }
 
   & > svg {
     box-sizing: border-box;
-    padding: 15px;
     width: auto;
     height: 100%;
+    padding: 15px;
   }
 }
