@@ -1,4 +1,4 @@
-import { createContext, type ReactNode, useContext, useState } from 'react';
+import { createContext, type ReactNode, use, useState } from 'react';
 
 const StreakContext = createContext<{
   leniency: number;
@@ -8,8 +8,8 @@ const StreakUpdateContext = createContext<
   (streak: { leniency: number; streak: number }) => void
 >(() => null);
 
-export const useStreak = () => useContext(StreakContext);
-export const useStreakUpdate = () => useContext(StreakUpdateContext);
+export const useStreak = () => use(StreakContext);
+export const useStreakUpdate = () => use(StreakUpdateContext);
 
 type Props = { children: ReactNode };
 
@@ -20,10 +20,8 @@ export const StreakProvider = ({ children }: Props) => {
   }>({ leniency: 0, streak: -1 });
 
   return (
-    <StreakContext.Provider value={streak}>
-      <StreakUpdateContext.Provider value={setStreak}>
-        {children}
-      </StreakUpdateContext.Provider>
-    </StreakContext.Provider>
+    <StreakContext value={streak}>
+      <StreakUpdateContext value={setStreak}>{children}</StreakUpdateContext>
+    </StreakContext>
   );
 };

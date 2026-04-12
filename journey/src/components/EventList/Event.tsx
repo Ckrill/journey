@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BiTrash as Trash } from 'react-icons/bi';
 import { RiErrorWarningLine as Warning } from 'react-icons/ri';
 import { motion } from 'framer-motion';
@@ -30,15 +30,9 @@ const Event = ({ addToDeletionQueue, event, overallIndex }: Props) => {
 
   const [isDeleted, setIsDeleted] = useState(false);
   const [hasWarning, setHasWarning] = useState(false);
-  const [isMine, setIsMine] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
 
-  useEffect(() => {
-    const mine = event.user?.id === user?.id;
-
-    if (isMine === mine) return;
-    setIsMine(mine);
-  }, [event, isMine, user]);
+  const isMine = event.user?.id === user?.id;
 
   const deleteEventCallback = () => {
     addToDeletionQueue(event.id);

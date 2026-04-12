@@ -1,4 +1,4 @@
-import { createContext, type ReactNode, useContext, useState } from 'react';
+import { createContext, type ReactNode, use, useState } from 'react';
 
 const SettingsContext = createContext<{
   sound: boolean;
@@ -8,8 +8,8 @@ const SettingsUpdateContext = createContext<
   (settings: { sound: boolean; vibration: boolean }) => void
 >(() => null);
 
-export const useSettings = () => useContext(SettingsContext);
-export const useSettingsUpdate = () => useContext(SettingsUpdateContext);
+export const useSettings = () => use(SettingsContext);
+export const useSettingsUpdate = () => use(SettingsUpdateContext);
 
 type Props = { children: ReactNode };
 
@@ -20,10 +20,10 @@ export const SettingsProvider = ({ children }: Props) => {
   }>({ sound: true, vibration: true });
 
   return (
-    <SettingsContext.Provider value={settings}>
-      <SettingsUpdateContext.Provider value={setSettings}>
+    <SettingsContext value={settings}>
+      <SettingsUpdateContext value={setSettings}>
         {children}
-      </SettingsUpdateContext.Provider>
-    </SettingsContext.Provider>
+      </SettingsUpdateContext>
+    </SettingsContext>
   );
 };

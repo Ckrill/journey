@@ -9,27 +9,19 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   labelText: string;
 };
 
-const FormInput = React.forwardRef(
-  (
-    { errorText, labelText, ...props }: Props,
-    ref: React.Ref<HTMLInputElement>,
-  ) => (
-    <div className={styles.container}>
-      <label className={styles.label} htmlFor={props.id}>
-        {labelText}
-      </label>
+const FormInput = ({ errorText, labelText, ...props }: Props) => (
+  <div className={styles.container}>
+    <label className={styles.label} htmlFor={props.id}>
+      {labelText}
+    </label>
 
-      <input
-        className={`${styles.input} ${errorText ? styles['input--error'] : ''}`}
-        {...props}
-        ref={ref}
-      />
+    <input
+      className={`${styles.input} ${errorText ? styles['input--error'] : ''}`}
+      {...props}
+    />
 
-      <p className={styles.error}>{errorText}</p>
-    </div>
-  ),
+    <p className={styles.error}>{errorText}</p>
+  </div>
 );
-
-FormInput.displayName = 'FormInput';
 
 export default FormInput;

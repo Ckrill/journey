@@ -98,6 +98,8 @@ const Event = () => {
     }
   };
 
+  const [currentDate] = useState(() => new Date().toISOString().split('T')[0]);
+
   const {
     control,
     formState: { errors },
@@ -105,7 +107,7 @@ const Event = () => {
     reset,
   } = useForm({
     defaultValues: {
-      date: new Date().toISOString().split('T')[0],
+      date: currentDate,
       name: searchParams?.name || '',
     },
   });
@@ -118,9 +120,11 @@ const Event = () => {
   useEffect(() => {
     if (!submitSuccess) return;
 
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setSubmitSuccess(false);
     }, 1000);
+
+    return () => clearTimeout(timeout);
   }, [submitSuccess]);
 
   const onSubmit = async (formData: { date: string; name: string }) => {

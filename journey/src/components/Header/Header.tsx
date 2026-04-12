@@ -16,11 +16,11 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <ul className={styles.list}>
-        {navigationItems.map((item, index) => {
+        {navigationItems.map((item) => {
           const active = location.pathname === item.url;
 
           return (
-            <li className={`${styles.item}`} key={index}>
+            <li className={`${styles.item}`} key={item.url}>
               <Link className={styles.link} to={item.url}>
                 {item.name}
 

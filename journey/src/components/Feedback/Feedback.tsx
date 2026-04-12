@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 // Data
 import feedbackHeading from '../../data/synonyms/feedback-heading.json';
@@ -25,25 +25,20 @@ const Feedback = ({ setShow, show }: Props) => {
   const streak = useStreak();
   const settings = useSettings();
 
-  const [heading, setHeading] = useState('');
-  const [headingSize, setHeadingSize] = useState('m');
+  const heading = useMemo(
+    () => (show && streak ? getHeading(feedbackHeading, streak.streak) : ''),
+    [show, streak],
+  );
+  const headingSize = useMemo(
+    () => (heading ? getHeadingSize(heading) : 'm'),
+    [heading],
+  );
 
-  const audioPlayer = useRef<HTMLAudioElement | null>(null);
-
-  // Get heading.
-  useEffect(() => {
-    if (!show || !streak) return;
-
-    const heading = getHeading(feedbackHeading, streak.streak);
-    const headingSize = getHeadingSize(heading);
-
-    setHeading(heading);
-    setHeadingSize(headingSize);
-  }, [show, streak]);
+  const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     if (!show) return;
-    const player = audioPlayer.current;
+    const player = audioPlayerRef.current;
     if (!player) return;
 
     if (settings.sound) {
@@ -54,9 +49,11 @@ const Feedback = ({ setShow, show }: Props) => {
     if (settings.vibration) {
       if ('vibrate' in navigator) {
         // vibration API supported
-        setTimeout(() => {
+        const timeout = setTimeout(() => {
           navigator.vibrate(200);
         }, 100);
+
+        return () => clearTimeout(timeout);
       }
     }
   }, [settings.sound, settings.vibration, show]);
@@ -66,7 +63,7 @@ const Feedback = ({ setShow, show }: Props) => {
       className={`${styles.overlay} ${show && styles.show}`}
       onClick={() => setShow(false)}
     >
-      <audio preload="auto" ref={audioPlayer}>
+      <audio preload="auto" ref={audioPlayerRef}>
         <source src={thump} type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
