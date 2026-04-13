@@ -288,8 +288,6 @@ const Event = () => {
   );
 };
 
-export default Event;
-
 type EventParams =
   | {
       name: string | undefined;

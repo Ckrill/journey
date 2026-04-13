@@ -24,7 +24,7 @@ export type UsersContentful = CollectionProp<UserContentful>;
 
 type EventFields = { date: Date; name: string; user: EntryLink };
 
-export type EventContentful = EntryProps<EventFields>;
+type EventContentful = EntryProps<EventFields>;
 
 export interface EventsContentful extends CollectionProp<EventContentful> {
   includes?: { Entry: EntryProps<any>[] };

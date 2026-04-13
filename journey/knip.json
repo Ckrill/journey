@@ -1,0 +1,11 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "tags": ["-lintignore"],
+  "ignoreDependencies": [
+    "@emotion/is-prop-valid",
+    "@tanstack/router-core",
+    "sass-embedded",
+    "stylelint",
+    "stylelint-order"
+  ]
+}

@@ -54,7 +54,7 @@ export const getHeadingSize = (sentence: string) => {
   return headingSize;
 };
 
-export const getLongestWord = (sentence: string) => {
+const getLongestWord = (sentence: string) => {
   const words = sentence.split(' ');
 
   const longestWord = words.reduce((champ, contender) =>

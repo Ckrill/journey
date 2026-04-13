@@ -93,8 +93,6 @@ const Journey = () => {
   );
 };
 
-export default Journey;
-
 export const Route = createFileRoute('/journey')({
   component: Journey,
 });

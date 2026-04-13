@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
@@ -137,10 +137,8 @@ const Settings = () => {
         </Section>
       </SectionContainer>
     </motion.div>
-  )
+  );
 };
-
-export default Settings;
 
 export const Route = createFileRoute('/settings')({
   component: Settings,

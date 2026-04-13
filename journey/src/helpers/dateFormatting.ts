@@ -24,14 +24,14 @@ export const getMonthDay = (date: Date, country: string = 'en-US') => {
 // };
 // "January 1, 1970"
 
-export const diffDays = (
-  firstDate: number | string,
-  secondDate: number | string,
-) => {
-  const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+// export const diffDays = (
+//   firstDate: number | string,
+//   secondDate: number | string,
+// ) => {
+//   const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 
-  return Math.ceil(Math.abs((Number(firstDate) - Number(secondDate)) / oneDay));
-};
+//   return Math.ceil(Math.abs((Number(firstDate) - Number(secondDate)) / oneDay));
+// };
 
 export const addDays = (date: Date, days: number) => {
   const newDate = new Date(date);

@@ -7,7 +7,9 @@
   "prettier.singleQuote": true,
   "search.exclude": {
     "**/.yarn": true,
-    "**/.pnp.*": true
+    "**/.pnp.*": true,
+    // Tanstack Router
+    "**/routeTree.gen.ts": true
   },
   "js/ts.tsdk.promptToUseWorkspaceVersion": true,
   "eslint.nodePath": ".yarn/sdks",
@@ -18,5 +20,13 @@
   "scss.validate": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.stylelint": "explicit"
+  },
+
+  // Tanstack Router
+  "files.readonlyInclude": {
+    "**/routeTree.gen.ts": true
+  },
+  "files.watcherExclude": {
+    "**/routeTree.gen.ts": true
   }
 }

@@ -7,9 +7,9 @@ import type { ArrayContentful } from '../types/contentfulTypes';
 const { baseURL, limit, space, environment, accessToken } = settings;
 
 //  Get single entry
-export const getItem = (id: string) => {
-  return `${baseURL}/spaces/${space}/environments/${environment}/entries/${id}?access_token=${accessToken}`;
-};
+// export const getItem = (id: string) => {
+//   return `${baseURL}/spaces/${space}/environments/${environment}/entries/${id}?access_token=${accessToken}`;
+// };
 
 // Get entries by type
 export const getItemsByType = (type: string, skip: number) => {
@@ -31,7 +31,7 @@ type ResponseType = {
 };
 
 // Error handling
-export const handleResponse = (res: ResponseType) => {
+const handleResponse = (res: ResponseType) => {
   if (res.status === 200) {
     return res.json();
   } else {
