@@ -6,7 +6,36 @@ import { visualizer } from 'rollup-plugin-visualizer';
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            {
+              name: 'vendor-react',
+              test: /node_modules[\\/]react(-dom)?[\\/]/,
+              priority: 30,
+            },
+            {
+              name: 'vendor-router',
+              test: /node_modules[\\/]@tanstack[\\/]/,
+              priority: 20,
+            },
+            {
+              name: 'vendor-motion',
+              test: /node_modules[\\/]framer-motion[\\/]/,
+              priority: 15,
+            },
+            {
+              name: 'vendor-contentful',
+              test: /node_modules[\\/]contentful-management[\\/]/,
+              priority: 10,
+            },
+          ],
+        },
+      },
+    },
     sourcemap: true,
+    target: 'esnext',
   },
   plugins: [
     // Please make sure that '@tanstack/router-plugin' is passed before '@vitejs/plugin-react'
@@ -21,6 +50,7 @@ export default defineConfig({
     }),
     visualizer({
       filename: 'stats.html',
+      gzipSize: true,
       open: true,
     }),
   ],

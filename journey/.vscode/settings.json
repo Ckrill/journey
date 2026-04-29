@@ -13,20 +13,23 @@
   },
   "js/ts.tsdk.promptToUseWorkspaceVersion": true,
   "eslint.nodePath": ".yarn/sdks",
-
   // Stylelint settings
-  "stylelint.validate": ["css", "scss"],
+  "stylelint.validate": [
+    "css",
+    "scss"
+  ],
   "css.validate": false,
   "scss.validate": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.stylelint": "explicit"
   },
-
   // Tanstack Router
   "files.readonlyInclude": {
     "**/routeTree.gen.ts": true
   },
   "files.watcherExclude": {
     "**/routeTree.gen.ts": true
-  }
+  },
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }
