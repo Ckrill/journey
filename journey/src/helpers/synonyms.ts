@@ -37,7 +37,7 @@ export const getHeadingSize = (sentence: string) => {
   const sentenceLength = sentence.length;
   const longestWord = getLongestWord(sentence);
   const length = longestWord.length;
-  let headingSize = 'm';
+  let headingSize;
 
   if (length < 5 && sentenceLength < 15) {
     headingSize = 'l';
