@@ -43,7 +43,7 @@ const Feedback = ({ setShow, show }: Props) => {
 
     if (settings.sound) {
       player.currentTime = 0;
-      player.play();
+      void player.play();
     }
 
     if (settings.vibration) {

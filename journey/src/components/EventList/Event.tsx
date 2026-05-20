@@ -91,7 +91,7 @@ const Event = ({ removeEvent, event, overallIndex }: Props) => {
 
                 e.stopPropagation();
                 setIsDeleted(true);
-                deleteEntry(
+                void deleteEntry(
                   event.id,
                   deleteEventCallback,
                   deleteEventErrorCallback,

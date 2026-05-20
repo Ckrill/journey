@@ -28,7 +28,9 @@ const FormSectionSelect = (props: FormSectionSelectProps) => (
       name={props.name}
       value={props.value}
       disabled={props.disabled}
-      onChange={props.changeHandler ? (e) => props.changeHandler?.(e) : undefined}
+      onChange={
+        props.changeHandler ? (e) => props.changeHandler?.(e) : undefined
+      }
     >
       {props.optionHidden && <option hidden>{props.optionHidden}</option>}
       {props.options?.map((option: any) => (

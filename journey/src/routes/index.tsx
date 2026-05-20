@@ -51,7 +51,7 @@ const Event = () => {
 
     if (success) {
       // If there is a searchParam "name", remove it.
-      if (searchParams?.name) navigate({ search: { name: undefined } });
+      if (searchParams?.name) void navigate({ search: { name: undefined } });
 
       // Reset form.
       reset({ name: '' });
@@ -71,7 +71,12 @@ const Event = () => {
           <Heading>Add event</Heading>
         </Section>
 
-        <form onSubmit={(e) => { void handleSubmit(onSubmit)(e); }} style={{ display: 'contents' }}>
+        <form
+          onSubmit={(e) => {
+            void handleSubmit(onSubmit)(e);
+          }}
+          style={{ display: 'contents' }}
+        >
           <Section>
             <Controller
               control={control}

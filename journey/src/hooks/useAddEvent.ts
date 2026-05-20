@@ -105,7 +105,7 @@ export const useAddEvent = () => {
     };
 
     // Add event to state.
-    addEvent(temporaryEvent, true);
+    void addEvent(temporaryEvent, true);
 
     try {
       // Create item.
@@ -152,7 +152,7 @@ export const useAddEvent = () => {
       };
 
       // Add event to state.
-      addEvent(publishedEvent);
+      void addEvent(publishedEvent);
 
       setSubmitError(null);
       setSubmitSuccess(true);

@@ -38,4 +38,4 @@ if (!rootElement.innerHTML) {
   );
 }
 
-navigator.serviceWorker.register('/sw.js');
+void navigator.serviceWorker.register('/sw.js');
