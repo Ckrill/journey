@@ -12,7 +12,6 @@ import { client } from '../api/contentful';
 // Contexts
 import { useUser, useUserUpdate } from '../contexts/userContext';
 import { useEvents, useEventsUpdate } from '../contexts/eventsContext';
-import { useStreakUpdate } from '../contexts/streakContext';
 
 // Types
 import type { Event as EventType } from '../types/types';
@@ -22,7 +21,6 @@ export const useAddEvent = () => {
   const setUser = useUserUpdate();
   const events = useEvents();
   const setEvents = useEventsUpdate();
-  const setStreak = useStreakUpdate();
 
   const [showFeedback, setShowFeedback] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -50,7 +48,6 @@ export const useAddEvent = () => {
 
     if (reCalculateStreak) {
       const streak = calculateStreak(user, result);
-      setStreak(streak);
 
       if (!user) return;
       if (streak.streak <= (user?.bestStreak || 0)) return;

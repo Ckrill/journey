@@ -7,7 +7,6 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 // Contexts
 import { UserProvider } from './contexts/userContext';
 import { EventsProvider } from './contexts/eventsContext';
-import { StreakProvider } from './contexts/streakContext';
 import { SettingsProvider } from './contexts/settingsContext';
 
 // Import the generated route tree
@@ -31,14 +30,12 @@ if (!rootElement.innerHTML) {
     <StrictMode>
       <UserProvider>
         <EventsProvider>
-          <StreakProvider>
-            <SettingsProvider>
-              <RouterProvider router={router} />
-            </SettingsProvider>
-          </StreakProvider>
+          <SettingsProvider>
+            <RouterProvider router={router} />
+          </SettingsProvider>
         </EventsProvider>
       </UserProvider>
-    </StrictMode>
+    </StrictMode>,
   );
 }
 

@@ -10,16 +10,13 @@ import {
   type Month,
   type Year,
 } from '../../helpers/categorizer';
-import { calculateStreak } from '../../helpers/streak';
 
 // Components
 import Event from './Event';
 import Divider from '../Divider/Divider';
 
 // Contexts
-import { useUser } from '../../contexts/userContext';
 import { useEvents, useEventsUpdate } from '../../contexts/eventsContext';
-import { useStreakUpdate } from '../../contexts/streakContext';
 
 // Styling
 import styles from './EventList.module.scss';
@@ -32,10 +29,8 @@ type Props = {
 };
 
 const EventList = ({ eventsToShow }: Props) => {
-  const user = useUser();
   const events = useEvents();
   const setEvents = useEventsUpdate();
-  const setStreak = useStreakUpdate();
 
   const [currentYear] = useState(() => new Date().getFullYear());
 
@@ -45,7 +40,6 @@ const EventList = ({ eventsToShow }: Props) => {
   const removeEvent = (id: string) => {
     const eventsNew = events.filter((event) => event.id !== id);
     setEvents(eventsNew);
-    setStreak(calculateStreak(user, eventsNew));
   };
 
   return (

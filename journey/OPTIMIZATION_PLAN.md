@@ -21,7 +21,7 @@
 | 8        | 7   | Bundle Size — Lazy-Load Contentful  | 3     | 2      | ★★★   | ❌ Skip |
 | 9        | 6   | ESLint — Re-enable Strict Rules     | 3     | 3      | ★★★   | ⬜ TODO |
 | 10       | 2   | Type Safety — Remove `any` Types    | 4     | 3      | ★★★   | ✅ Done |
-| 11       | 11  | Context Re-renders — Combine        | 2     | 2      | ★★    | ⬜ TODO |
+| 11       | 11  | Context Re-renders — Combine        | 2     | 2      | ★★    | ✅ Done |
 | 12       | 10  | Service Worker — Modernize          | 2     | 3      | ★★    | ⬜ TODO |
 
 ---

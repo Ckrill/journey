@@ -11,7 +11,7 @@ import thump from '../../assets/sounds/thump.mp3';
 
 // Contexts
 import { useSettings } from '../../contexts/settingsContext';
-import { useStreak } from '../../contexts/streakContext';
+import { useStreak } from '../../contexts/eventsContext';
 
 // Styles
 import styles from './Feedback.module.scss';
