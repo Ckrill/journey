@@ -7,6 +7,7 @@ import type { Event, Events, User } from '../types/types';
 
 export const parseUser = (arr: UsersContentful): User | null => {
   const item = arr.items[0];
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!item) return null;
 
   const user: User = {

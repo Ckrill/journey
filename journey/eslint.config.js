@@ -58,8 +58,6 @@ export default defineConfig([
       '@typescript-eslint/unbound-method': 'off',
 
       // Temp Strict
-      '@typescript-eslint/no-unnecessary-condition': 'off',
-
       '@typescript-eslint/no-deprecated': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
     },

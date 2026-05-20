@@ -32,7 +32,7 @@ const Event = ({ removeEvent, event, overallIndex }: Props) => {
   const [hasWarning, setHasWarning] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
 
-  const isMine = event.user?.id === user?.id;
+  const isMine = event.user.id === user?.id;
 
   const deleteEventCallback = () => {
     removeEvent(event.id);
@@ -60,7 +60,7 @@ const Event = ({ removeEvent, event, overallIndex }: Props) => {
           <div className={styles.name}>{event.name}</div>
 
           <div className={styles.meta}>
-            <div className={styles.user}>{event.user?.name}</div>
+            <div className={styles.user}>{event.user.name}</div>
 
             <div className={styles.date}>
               {getMonthDay(new Date(event.date), 'en-us')}

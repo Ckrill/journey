@@ -34,7 +34,7 @@ const EventList = ({ eventsToShow }: Props) => {
 
   const [currentYear] = useState(() => new Date().getFullYear());
 
-  const eventsByYear: Year[] = categorizeByYearAndMonth(eventsToShow) || [];
+  const eventsByYear: Year[] = categorizeByYearAndMonth(eventsToShow);
   let overallIndex = 0;
 
   const removeEvent = (id: string) => {

@@ -67,18 +67,18 @@ const Settings = () => {
           <Heading>Profile</Heading>
 
           {user?.bestStreak ? (
-            streak.streak === user?.bestStreak ? (
+            streak.streak === user.bestStreak ? (
               // Peaking
               <Paragraph>
-                You are on fire {user?.name}, your best streak is{' '}
-                <CountUp countTo={user?.bestStreak} /> and counting!
+                You are on fire {user.name}, your best streak is{' '}
+                <CountUp countTo={user.bestStreak} /> and counting!
               </Paragraph>
             ) : (
               // Have peaked
               <Paragraph>
                 {' '}
-                Yo {user?.name}, your best streak was{' '}
-                <CountUp countTo={user?.bestStreak} />.
+                Yo {user.name}, your best streak was{' '}
+                <CountUp countTo={user.bestStreak} />.
               </Paragraph>
             )
           ) : (

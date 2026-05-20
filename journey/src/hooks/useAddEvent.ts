@@ -34,7 +34,9 @@ export const useAddEvent = () => {
       setSubmitSuccess(false);
     }, 1000);
 
-    return () => { clearTimeout(timeout); };
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [submitSuccess]);
 
   const addEvent = async (
@@ -50,7 +52,7 @@ export const useAddEvent = () => {
       const streak = calculateStreak(user, result);
 
       if (!user) return;
-      if (streak.streak <= (user?.bestStreak || 0)) return;
+      if (streak.streak <= (user.bestStreak || 0)) return;
 
       // Save new best streak to user
       const userParams = {

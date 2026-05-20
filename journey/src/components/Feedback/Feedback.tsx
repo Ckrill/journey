@@ -26,7 +26,7 @@ const Feedback = ({ setShow, show }: Props) => {
   const settings = useSettings();
 
   const heading = useMemo(
-    () => (show && streak ? getHeading(feedbackHeading, streak.streak) : ''),
+    () => (show ? getHeading(feedbackHeading, streak.streak) : ''),
     [show, streak],
   );
   const headingSize = useMemo(
@@ -43,7 +43,7 @@ const Feedback = ({ setShow, show }: Props) => {
 
     if (settings.sound) {
       player.currentTime = 0;
-      player?.play();
+      player.play();
     }
 
     if (settings.vibration) {

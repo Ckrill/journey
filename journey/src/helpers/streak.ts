@@ -15,9 +15,9 @@ const leniency = constants.leniency;
 export const calculateStreak = (user: User | null, events: Events) => {
   if (!events.length) return { streak: 0, leniency: leniency };
 
-  const myEvents = events.filter((item) => item.user?.id === user?.id);
+  const myEvents = events.filter((item) => item.user.id === user?.id);
   const eventsByYearMonthDay: YearMonthDay[] =
-    categorizeByYearMonthDay(myEvents) || [];
+    categorizeByYearMonthDay(myEvents);
 
   const today = new Date();
   // Start from today, count backwards.
