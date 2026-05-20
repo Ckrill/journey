@@ -46,7 +46,6 @@ export default defineConfig([
       'react-refresh/only-export-components': 'off',
 
       // Temp
-      '@eslint-react/set-state-in-effect': 'off',
       '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-call': 'off',
