@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 // Settings
@@ -42,34 +42,11 @@ const EventList = ({ eventsToShow }: Props) => {
   const eventsByYear: Year[] = categorizeByYearAndMonth(eventsToShow) || [];
   let overallIndex = 0;
 
-  const [deletionQueue, setDeletionQueue] = useState<string[]>([]);
-
-  const addToDeletionQueue = (id: string) => {
-    const newDeletionQueue = [...deletionQueue];
-    newDeletionQueue.push(id);
-
-    setDeletionQueue(newDeletionQueue);
-  };
-
-  useEffect(() => {
-    if (!deletionQueue.length) return;
-
-    const id = deletionQueue[0];
-    const eventsNew = [...events];
-    const index = events.findIndex((event) => id === event.id);
-
-    const newDeletionQueue = [...deletionQueue];
-    newDeletionQueue.splice(0, 1);
-    setDeletionQueue(newDeletionQueue);
-
-    if (index === -1) return;
-
-    eventsNew.splice(index, 1);
+  const removeEvent = (id: string) => {
+    const eventsNew = events.filter((event) => event.id !== id);
     setEvents(eventsNew);
-
-    const streak = calculateStreak(user, eventsNew);
-    setStreak(streak);
-  }, [deletionQueue, events, setEvents, setStreak, user]);
+    setStreak(calculateStreak(user, eventsNew));
+  };
 
   return (
     <div className={styles.container}>
@@ -100,7 +77,7 @@ const EventList = ({ eventsToShow }: Props) => {
 
                     return (
                       <Event
-                        addToDeletionQueue={addToDeletionQueue}
+                        removeEvent={removeEvent}
                         event={event}
                         key={event.id}
                         overallIndex={overallIndex - 1}

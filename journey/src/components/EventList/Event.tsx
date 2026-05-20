@@ -20,12 +20,12 @@ import type { Event as EventType } from '../../types/types';
 import styles from './Event.module.scss';
 
 type Props = {
-  addToDeletionQueue: (id: string) => void;
+  removeEvent: (id: string) => void;
   event: EventType;
   overallIndex: number;
 };
 
-const Event = ({ addToDeletionQueue, event, overallIndex }: Props) => {
+const Event = ({ removeEvent, event, overallIndex }: Props) => {
   const user = useUser();
 
   const [isDeleted, setIsDeleted] = useState(false);
@@ -35,7 +35,7 @@ const Event = ({ addToDeletionQueue, event, overallIndex }: Props) => {
   const isMine = event.user?.id === user?.id;
 
   const deleteEventCallback = () => {
-    addToDeletionQueue(event.id);
+    removeEvent(event.id);
   };
 
   const deleteEventErrorCallback = () => {

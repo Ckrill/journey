@@ -16,7 +16,7 @@
 | 3        | 5   | Contentful Client — Single Instance | 3     | 1      | ★★★★  | ✅ Done |
 | 4        | 8   | Dead Code — Remove Commented Code   | 2     | 1      | ★★★★  | ⬜ TODO |
 | 5        | 9   | firstRender Anti-Pattern in Root    | 3     | 2      | ★★★   | ✅ Done |
-| 6        | 4   | Deletion Queue — Simplify EventList | 4     | 2      | ★★★   | ⬜ TODO |
+| 6        | 4   | Deletion Queue — Simplify EventList | 4     | 2      | ★★★   | ✅ Done |
 | 7        | 12  | Form — Index Route Complexity       | 3     | 2      | ★★★   | ⬜ TODO |
 | 8        | 7   | Bundle Size — Lazy-Load Contentful  | 3     | 2      | ★★★   | ⬜ TODO |
 | 9        | 6   | ESLint — Re-enable Strict Rules     | 3     | 3      | ★★★   | ⬜ TODO |
