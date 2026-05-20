@@ -35,7 +35,7 @@ const handleResponse = (res: ResponseType) => {
   if (res.status === 200) {
     return res.json();
   } else {
-    throw res;
+    throw new Error(`Request failed with status ${String(res.status)}`);
   }
 };
 
