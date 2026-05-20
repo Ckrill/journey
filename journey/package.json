@@ -9,8 +9,10 @@
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "stylelint \"src/**/*.scss\"",
-    "lint:fix": "stylelint \"src/**/*.scss\" --fix",
+    "lint": "eslint src/",
+    "lint:css": "stylelint \"src/**/*.scss\"",
+    "lint:css:fix": "stylelint \"src/**/*.scss\" --fix",
+    "typecheck": "tsc --noEmit",
     "knip": "knip"
   },
   "browserslist": {

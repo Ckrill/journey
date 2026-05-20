@@ -46,7 +46,7 @@ const EventList = ({ eventsToShow }: Props) => {
     <div className={styles.container}>
       {eventsByYear.map((year: Year) => (
         <Fragment key={year.year}>
-          {Number(year.year) !== currentYear && (
+          {year.year !== currentYear && (
             <Divider text={String(year.year)} data-appearance="faint" />
           )}
 
