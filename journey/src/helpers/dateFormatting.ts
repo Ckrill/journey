@@ -14,7 +14,7 @@ export const getMonth = (date: Date, country: string = 'en-US') => {
 
 export const getMonthDay = (date: Date, country: string = 'en-US') => {
   const month = date.toLocaleString(country, { month: 'long' });
-  return month + ' ' + date.getDate();
+  return `${month} ${String(date.getDate())}`;
 };
 // "January 1"
 

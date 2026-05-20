@@ -59,7 +59,6 @@ export default defineConfig([
 
       // Temp Strict
       '@typescript-eslint/no-unnecessary-condition': 'off',
-      '@typescript-eslint/restrict-plus-operands': 'off',
 
       '@typescript-eslint/use-unknown-in-catch-callback-variable': 'off',
       '@typescript-eslint/no-deprecated': 'off',

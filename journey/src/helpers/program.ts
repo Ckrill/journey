@@ -17,8 +17,8 @@ export const getProgram = (
     program =
       trainingPlan.weeks[previousProgram.week].difficulties[
         previousProgram.difficulty
-      ].days[previousProgram.day + 1] ||
-      trainingPlan.weeks[previousProgram.week + 1].difficulties[
+      ].days[Number(previousProgram.day) + 1] ||
+      trainingPlan.weeks[Number(previousProgram.week) + 1].difficulties[
         previousProgram.difficulty
       ].days[0];
   } else if (test) {
