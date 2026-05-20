@@ -20,7 +20,7 @@ const Header = () => {
           const active = location.pathname === item.url;
 
           return (
-            <li className={`${styles.item}`} key={item.url}>
+            <li className={styles.item} key={item.url}>
               <Link className={styles.link} to={item.url}>
                 {item.name}
 

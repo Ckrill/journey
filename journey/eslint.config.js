@@ -64,7 +64,6 @@ export default defineConfig([
       '@typescript-eslint/restrict-template-expressions': 'off',
       '@typescript-eslint/use-unknown-in-catch-callback-variable': 'off',
       '@typescript-eslint/no-unnecessary-type-conversion': 'off',
-      '@typescript-eslint/no-unnecessary-template-expression': 'off',
       '@typescript-eslint/no-deprecated': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
     },
