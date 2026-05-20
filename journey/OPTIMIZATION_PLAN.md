@@ -22,7 +22,7 @@
 | 9        | 6   | ESLint — Re-enable Strict Rules     | 3     | 3      | ★★★   | ⬜ TODO |
 | 10       | 2   | Type Safety — Remove `any` Types    | 4     | 3      | ★★★   | ✅ Done |
 | 11       | 11  | Context Re-renders — Combine        | 2     | 2      | ★★    | ✅ Done |
-| 12       | 10  | Service Worker — Modernize          | 2     | 3      | ★★    | ⬜ TODO |
+| 12       | 10  | Service Worker — Modernize          | 2     | 3      | ★★    | ✅ Done |
 | 13       | 13  | Streak — Simplify Calculation       | 3     | 2      | ★★★   | ⬜ TODO |
 | 14       | 14  | Page Transitions — Exit Animations  | 3     | 3      | ★★★   | ⬜ TODO |
 

@@ -2,7 +2,6 @@ import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 import './index.css';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 // Contexts
 import { UserProvider } from './contexts/userContext';
@@ -39,7 +38,4 @@ if (!rootElement.innerHTML) {
   );
 }
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://cra.link/PWA
-serviceWorkerRegistration.register();
+navigator.serviceWorker?.register('/sw.js');
