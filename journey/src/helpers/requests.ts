@@ -13,7 +13,7 @@ const { baseURL, limit, space, environment, accessToken } = settings;
 
 // Get entries by type
 export const getItemsByType = (type: string, skip: number) => {
-  return `${baseURL}/spaces/${space}/environments/${environment}/entries?access_token=${accessToken}&content_type=${type}&order=-fields.date&limit=${limit}&skip=${skip}`;
+  return `${baseURL}/spaces/${space}/environments/${environment}/entries?access_token=${accessToken}&content_type=${type}&order=-fields.date&limit=${String(limit)}&skip=${String(skip)}`;
 };
 
 // Get entries by attribute

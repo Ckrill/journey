@@ -60,7 +60,7 @@ const Feedback = ({ setShow, show }: Props) => {
 
   return (
     <div
-      className={`${styles.overlay} ${show && styles.show}`}
+      className={`${styles.overlay} ${show ? styles.show : ''}`}
       onClick={() => setShow(false)}
     >
       <audio preload="auto" ref={audioPlayerRef}>
