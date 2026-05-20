@@ -14,7 +14,7 @@ export interface ArrayContentful extends CollectionProp<EntryProps<any>> {
 
 // User
 
-type UserFields = { name: string };
+type UserFields = { name: string; bestStreak?: number };
 
 export type UserContentful = EntryProps<UserFields>;
 
@@ -27,5 +27,5 @@ type EventFields = { date: Date; name: string; user: EntryLink };
 type EventContentful = EntryProps<EventFields>;
 
 export interface EventsContentful extends CollectionProp<EventContentful> {
-  includes?: { Entry: EntryProps<any>[] };
+  includes?: { Entry: EntryProps<UserFields>[] };
 }

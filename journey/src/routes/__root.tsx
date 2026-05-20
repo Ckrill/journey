@@ -7,7 +7,7 @@ import { AnimatePresence } from 'framer-motion';
 import SignIn from '../screens/SignIn';
 
 // Helpers
-import { primeEvents } from '../helpers/dataHandler';
+import { parseEvents } from '../helpers/dataHandler';
 import { getAll } from '../helpers/requests';
 import { calculateStreak } from '../helpers/streak';
 
@@ -61,7 +61,7 @@ const RootComponent = () => {
 export const Route = createRootRoute({
   loader: async () => {
     const allEvents = await getAll<EventsContentful>('workout');
-    const events = primeEvents(allEvents);
+    const events = parseEvents(allEvents);
 
     return { events };
   },
