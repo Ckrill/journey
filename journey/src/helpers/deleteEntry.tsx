@@ -1,11 +1,8 @@
-import * as contentful from 'contentful-management';
-
 // Settings
 import { settings } from '../settings/settings';
 
-const client = contentful.createClient({
-  accessToken: settings.accessTokenManagement,
-});
+// API
+import { client } from '../api/contentful';
 
 const deleteEntry = (
   entryId: string,

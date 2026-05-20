@@ -1,13 +1,9 @@
-import * as contentful from 'contentful-management';
 import { get, getItemsByAttribute } from '../helpers/requests';
 import { primeArrayToObject } from '../helpers/dataHandler';
 import { settings } from '../settings/settings';
+import { client } from './contentful';
 import type { UsersContentful } from '../types/contentfulTypes';
 import type { User } from '../types/types';
-
-const client = contentful.createClient({
-  accessToken: settings.accessTokenManagement,
-});
 
 /** Fetch user by name.
  * @param userName

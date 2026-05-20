@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import * as contentful from 'contentful-management';
 import { Controller, useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
 import { useNavigate } from '@tanstack/react-router';
@@ -11,6 +10,9 @@ import { settings } from '../settings/settings';
 
 // Helpers
 import { calculateStreak } from '../helpers/streak';
+
+// API
+import { client } from '../api/contentful';
 
 // Components
 import Button from '../components/Button/Button';
@@ -28,10 +30,6 @@ import { useStreakUpdate } from '../contexts/streakContext';
 
 // Types
 import type { Event as EventType } from '../types/types';
-
-const client = contentful.createClient({
-  accessToken: settings.accessTokenManagement,
-});
 
 const Event = () => {
   const navigate = useNavigate({ from: Route.fullPath });
