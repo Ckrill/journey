@@ -60,7 +60,6 @@ export default defineConfig([
       // Temp Strict
       '@typescript-eslint/no-unnecessary-condition': 'off',
 
-      '@typescript-eslint/use-unknown-in-catch-callback-variable': 'off',
       '@typescript-eslint/no-deprecated': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
     },
