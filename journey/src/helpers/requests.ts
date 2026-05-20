@@ -40,6 +40,39 @@ const handleResponse = (res: ResponseType) => {
 };
 
 // Request a resource
-export const get = (url: string) => {
-  return fetch(url).then((res) => handleResponse(res));
+export const get = <T = ArrayContentful>(url: string): Promise<T> => {
+  return fetch(url).then((res) => handleResponse(res)) as Promise<T>;
+};
+
+// Fetch all pages for a content type in parallel
+export const getAll = async <T extends ArrayContentful>(
+  type: string,
+): Promise<T> => {
+  // First page reveals total item count
+  const first = await get<T>(getItemsByType(type, 0));
+
+  if (first.items.length >= first.total) return first;
+
+  // Fire remaining page requests in parallel
+  const remainingPages = Math.ceil((first.total - limit) / limit);
+  const requests = Array.from({ length: remainingPages }, (_, i) =>
+    get<T>(getItemsByType(type, (i + 1) * limit)),
+  );
+
+  const pages = await Promise.all(requests);
+
+  // Merge items and linked entries from all pages
+  const result = { ...first };
+  result.items = [...first.items, ...pages.flatMap((page) => page.items)];
+
+  if (first.includes?.Entry) {
+    result.includes = {
+      Entry: [
+        ...first.includes.Entry,
+        ...pages.flatMap((page) => page.includes?.Entry ?? []),
+      ],
+    };
+  }
+
+  return result;
 };
