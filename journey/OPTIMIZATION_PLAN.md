@@ -11,7 +11,7 @@
 
 | Priority | §   | Item                                | Value | Effort | ROI   | Status  |
 | -------- | --- | ----------------------------------- | ----- | ------ | ----- | ------- |
-| 1        | 3   | Derived State — Replace useEffect   | 4     | 1      | ★★★★★ | ⬜ TODO |
+| 1        | 3   | Derived State — Replace useEffect   | 4     | 1      | ★★★★★ | ✅ Done |
 | 2        | 1   | Data Fetching — Parallel Requests   | 5     | 2      | ★★★★★ | ✅ Done |
 | 3        | 5   | Contentful Client — Single Instance | 3     | 1      | ★★★★  | ✅ Done |
 | 4        | 8   | Dead Code — Remove Commented Code   | 2     | 1      | ★★★★  | ⬜ TODO |
