@@ -56,9 +56,9 @@ const Journey = () => {
         <Section>
           <Heading>
             {soloMode ? (
-              <Person onClick={() => setSoloMode((prevState) => !prevState)} />
+              <Person onClick={() => { setSoloMode((prevState) => !prevState); }} />
             ) : (
-              <People onClick={() => setSoloMode((prevState) => !prevState)} />
+              <People onClick={() => { setSoloMode((prevState) => !prevState); }} />
             )}
             <span>
               {soloMode ? `My ` : `Our `}

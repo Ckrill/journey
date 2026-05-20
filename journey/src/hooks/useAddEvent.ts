@@ -34,7 +34,7 @@ export const useAddEvent = () => {
       setSubmitSuccess(false);
     }, 1000);
 
-    return () => clearTimeout(timeout);
+    return () => { clearTimeout(timeout); };
   }, [submitSuccess]);
 
   const addEvent = async (
