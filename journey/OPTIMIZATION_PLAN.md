@@ -23,6 +23,8 @@
 | 10       | 2   | Type Safety — Remove `any` Types    | 4     | 3      | ★★★   | ✅ Done |
 | 11       | 11  | Context Re-renders — Combine        | 2     | 2      | ★★    | ✅ Done |
 | 12       | 10  | Service Worker — Modernize          | 2     | 3      | ★★    | ⬜ TODO |
+| 13       | 13  | Streak — Simplify Calculation       | 3     | 2      | ★★★   | ⬜ TODO |
+| 14       | 14  | Page Transitions — Exit Animations  | 3     | 3      | ★★★   | ⬜ TODO |
 
 ---
 
@@ -241,3 +243,41 @@ const eventsFiltered = soloMode
 - Reduces the component from ~310 to ~80 lines
 
 **References**: [index.tsx](src/routes/index.tsx)
+
+---
+
+## 13. Streak — Simplify Calculation
+
+| Value | Effort | Status  |
+| ----- | ------ | ------- |
+| 3     | 2      | ⬜ TODO |
+
+**Problem**: `streak.ts` is ~90 lines of complex logic with leniency pools, accumulated days from extra events, and day-by-day backward iteration through a nested year/month/day structure. It also depends on `streak-helpers.ts` and `categorizer.ts` for date lookups.
+
+**Solution**:
+
+- Simplify the rule: streak is broken if there's a gap of more than 3 days between consecutive events
+- Sort user's events by date, walk forward checking gaps between consecutive dates
+- Remove the leniency pool / accumulated days complexity
+- Potentially remove `streak-helpers.ts` and the `categorizeByYearMonthDay` dependency
+- Consider calculating streak without fetching ALL events — e.g. fetch only recent events (last N days or since last gap) via a filtered CDA query (`fields.date[gte]=...`)
+
+**References**: [streak.ts](src/helpers/streak.ts), [streak-helpers.ts](src/helpers/streak-helpers.ts), [constants.ts](src/settings/constants.ts)
+
+---
+
+## 14. Page Transitions — Exit Animations
+
+| Value | Effort | Status  |
+| ----- | ------ | ------- |
+| 3     | 3      | ⬜ TODO |
+
+**Problem**: Exit animations on page transitions are cut short because TanStack Router unmounts the outgoing route before Framer Motion's `AnimatePresence` can complete the exit. Wrapping `<Outlet />` in `<AnimatePresence mode="wait">` doesn't work because the router controls the component lifecycle.
+
+**Solution options**:
+
+- **React `<ViewTransition>`** (React 19 canary / experimental) — native browser View Transitions API with React integration. No library needed, works with route changes, handles cross-document-style animations declaratively. Requires React 19+ (already in use).
+- **TanStack Router's built-in transition support** — check if `router.subscribe` or `onBeforeNavigate` can delay unmount
+- **Avoid**: Framer Motion hacks like cloning the outgoing page or manual `key` management on `<Outlet />`
+
+**References**: [\_\_root.tsx](src/routes/__root.tsx#L42-L44), [pageTransition.ts](src/settings/pageTransition.ts), [React ViewTransition RFC](https://react.dev/reference/react/ViewTransition)
