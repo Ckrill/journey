@@ -1,5 +1,8 @@
 import { createContext, type ReactNode, use, useState } from 'react';
 
+// Helpers
+import { getFromLocalStorage } from '../helpers/localStorage';
+
 // Types
 import type { User } from '../types/types';
 
@@ -14,7 +17,9 @@ export const useUserUpdate = () => use(UserUpdateContext);
 type Props = { children: ReactNode };
 
 export const UserProvider = ({ children }: Props) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() =>
+    getFromLocalStorage('user'),
+  );
 
   return (
     <UserContext value={user}>
