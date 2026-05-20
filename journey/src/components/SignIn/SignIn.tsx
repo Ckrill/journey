@@ -54,7 +54,7 @@ const SignUp = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'contents' }}>
+    <form onSubmit={(e) => { void handleSubmit(onSubmit)(e); }} style={{ display: 'contents' }}>
       <Section>
         <Controller
           control={control}
