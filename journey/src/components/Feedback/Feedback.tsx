@@ -53,7 +53,9 @@ const Feedback = ({ setShow, show }: Props) => {
           navigator.vibrate(200);
         }, 100);
 
-        return () => { clearTimeout(timeout); };
+        return () => {
+          clearTimeout(timeout);
+        };
       }
     }
   }, [settings.sound, settings.vibration, show]);
@@ -61,7 +63,9 @@ const Feedback = ({ setShow, show }: Props) => {
   return (
     <div
       className={`${styles.overlay} ${show ? styles.show : ''}`}
-      onClick={() => { setShow(false); }}
+      onClick={() => {
+        setShow(false);
+      }}
     >
       <audio preload="auto" ref={audioPlayerRef}>
         <source src={thump} type="audio/mpeg" />

@@ -102,14 +102,18 @@ const Settings = () => {
 
           <CheckboxGroup>
             <Checkbox
-              callback={() => { handleSettingsToggle('sound'); }}
+              callback={() => {
+                handleSettingsToggle('sound');
+              }}
               checked={settings.sound}
               id="sound"
               label="Sound"
             />
 
             <Checkbox
-              callback={() => { handleSettingsToggle('vibration'); }}
+              callback={() => {
+                handleSettingsToggle('vibration');
+              }}
               checked={settings.vibration}
               id="vibration"
               label="Vibration"

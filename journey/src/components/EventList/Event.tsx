@@ -48,7 +48,9 @@ const Event = ({ removeEvent, event, overallIndex }: Props) => {
       className={`${styles.event} ${isMine ? styles['event--mine'] : ''} ${
         showOptions ? styles['event--show-options'] : ''
       } ${isDeleted ? styles['event--deleted'] : ''}`}
-      onClick={() => { setShowOptions(isMine && !showOptions); }}
+      onClick={() => {
+        setShowOptions(isMine && !showOptions);
+      }}
       variants={variants}
       transition={{
         duration: 0.2,

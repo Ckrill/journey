@@ -54,7 +54,6 @@ export default defineConfig([
       '@typescript-eslint/no-unsafe-call': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unsafe-return': 'off',
-      '@typescript-eslint/unbound-method': 'off',
 
       // Temp Strict
       '@typescript-eslint/no-deprecated': 'off',
