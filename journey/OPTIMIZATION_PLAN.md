@@ -9,21 +9,28 @@
 
 ## Overview
 
-| Priority | §   | Item                                | Value | Effort | ROI   | Status  |
-| -------- | --- | ----------------------------------- | ----- | ------ | ----- | ------- |
-| 1        | 3   | Derived State — Replace useEffect   | 4     | 1      | ★★★★★ | ✅ Done |
-| 2        | 1   | Data Fetching — Parallel Requests   | 5     | 2      | ★★★★★ | ✅ Done |
-| 3        | 5   | Contentful Client — Single Instance | 3     | 1      | ★★★★  | ✅ Done |
-| 4        | 8   | Dead Code — Remove Commented Code   | 2     | 1      | ★★★★  | ✅ Done |
-| 5        | 9   | firstRender Anti-Pattern in Root    | 3     | 2      | ★★★   | ✅ Done |
-| 6        | 4   | Deletion Queue — Simplify EventList | 4     | 2      | ★★★   | ✅ Done |
-| 7        | 12  | Form — Index Route Complexity       | 3     | 2      | ★★★   | ✅ Done |
-| 8        | 7   | Bundle Size — Lazy-Load Contentful  | 3     | 2      | ★★★   | ❌ Skip |
-| 9        | 6   | ESLint — Re-enable Strict Rules     | 3     | 3      | ★★★   | ✅ Done |
-| 10       | 2   | Type Safety — Remove `any` Types    | 4     | 3      | ★★★   | ✅ Done |
-| 11       | 11  | Context Re-renders — Combine        | 2     | 2      | ★★    | ✅ Done |
-| 12       | 10  | Service Worker — Modernize          | 2     | 3      | ★★    | ✅ Done |
-| 13       | 13  | Streak — Simplify Calculation       | 3     | 2      | ★★★   | ⬜ TODO |
+| Priority | §   | Item                                    | Value | Effort | ROI   | Status  |
+| -------- | --- | --------------------------------------- | ----- | ------ | ----- | ------- |
+| 1        | 3   | Derived State — Replace useEffect       | 4     | 1      | ★★★★★ | ✅ Done |
+| 2        | 1   | Data Fetching — Parallel Requests       | 5     | 2      | ★★★★★ | ✅ Done |
+| 3        | 5   | Contentful Client — Single Instance     | 3     | 1      | ★★★★  | ✅ Done |
+| 4        | 8   | Dead Code — Remove Commented Code       | 2     | 1      | ★★★★  | ✅ Done |
+| 5        | 9   | firstRender Anti-Pattern in Root        | 3     | 2      | ★★★   | ✅ Done |
+| 6        | 4   | Deletion Queue — Simplify EventList     | 4     | 2      | ★★★   | ✅ Done |
+| 7        | 12  | Form — Index Route Complexity           | 3     | 2      | ★★★   | ✅ Done |
+| 8        | 7   | Bundle Size — Lazy-Load Contentful      | 3     | 2      | ★★★   | ❌ Skip |
+| 9        | 6   | ESLint — Re-enable Strict Rules         | 3     | 3      | ★★★   | ✅ Done |
+| 10       | 2   | Type Safety — Remove `any` Types        | 4     | 3      | ★★★   | ✅ Done |
+| 11       | 11  | Context Re-renders — Combine            | 2     | 2      | ★★    | ✅ Done |
+| 12       | 10  | Service Worker — Modernize              | 2     | 3      | ★★    | ✅ Done |
+| 13       | 13  | Streak — Simplify Calculation           | 3     | 2      | ★★★   | ⬜ TODO |
+| 14       | 15  | useAddEvent — Duplicate Event Bug       | 5     | 1      | ★★★★★ | ⬜ TODO |
+| 15       | 14  | Streak — Memoize in Context             | 4     | 1      | ★★★★★ | ⬜ TODO |
+| 16       | 16  | useAddEvent — Redundant Streak Calc     | 3     | 2      | ★★★   | ⬜ TODO |
+| 17       | 17  | Remaining Dead Code                     | 2     | 1      | ★★★★  | ⬜ TODO |
+| 18       | 18  | ShowMore — Constant Recreated on Render | 2     | 1      | ★★★★  | ⬜ TODO |
+| 19       | 19  | Streak Component — Nested Ternary       | 2     | 1      | ★★★★  | ⬜ TODO |
+| 20       | 20  | EventList — Mutable Counter in Map      | 2     | 1      | ★★★★  | ⬜ TODO |
 
 ---
 
@@ -262,3 +269,176 @@ const eventsFiltered = soloMode
 - Consider calculating streak without fetching ALL events — e.g. fetch only recent events (last N days or since last gap) via a filtered CDA query (`fields.date[gte]=...`)
 
 **References**: [streak.ts](src/helpers/streak.ts), [streak-helpers.ts](src/helpers/streak-helpers.ts), [constants.ts](src/settings/constants.ts)
+
+---
+
+## 14. Streak — Memoize Expensive Calculation in Context
+
+| Value | Effort | Status  |
+| ----- | ------ | ------- |
+| 4     | 1      | ⬜ TODO |
+
+**Problem**: In `eventsContext.tsx`, `calculateStreak(user, events)` is called directly in the render body of `EventsProvider`. This O(n) computation re-runs on every render — including when unrelated context consumers trigger re-renders. The function builds a year/month/day tree and loops backwards day-by-day, which is expensive for large event lists.
+
+**Solution**:
+
+```tsx
+const streak = useMemo(() => calculateStreak(user, events), [user, events]);
+```
+
+**References**: [eventsContext.tsx](src/contexts/eventsContext.tsx#L31)
+
+---
+
+## 15. useAddEvent — Duplicate Event Bug (adds event to state twice)
+
+| Value | Effort | Status  |
+| ----- | ------ | ------- |
+| 5     | 1      | ⬜ TODO |
+
+**Problem**: `useAddEvent.submitEvent` calls `addEvent(temporaryEvent, true)` for the optimistic update, then after the API succeeds calls `addEvent(publishedEvent)` — which calls `result.unshift(event)` again without removing the temporary entry. This results in the same event appearing twice in state (once with a `temp*` ID, once with the real ID).
+
+**Solution**:
+
+- After API success, _replace_ the temporary event with the real one instead of unshifting a second time:
+
+```tsx
+const publishedEvent: EventType = {
+  ...temporaryEvent,
+  id: publishedEntry.sys.id,
+};
+setEvents(events.map((e) => (e.id === temporaryEvent.id ? publishedEvent : e)));
+```
+
+- Remove the second `addEvent` call entirely. The `addEvent` function should only be used for the initial optimistic insert.
+
+**References**: [useAddEvent.ts](src/hooks/useAddEvent.ts#L117-L164)
+
+---
+
+## 16. useAddEvent — Redundant Streak Calculation
+
+| Value | Effort | Status  |
+| ----- | ------ | ------- |
+| 3     | 2      | ⬜ TODO |
+
+**Problem**: The `addEvent` function in `useAddEvent.ts` calls `calculateStreak(user, result)` to check if the new streak is a personal best. But `EventsProvider` already derives streak from events via `calculateStreak(user, events)`. This means every event submission runs the expensive streak calculation _twice_ — once inside the hook and once when the context re-renders.
+
+**Solution**:
+
+- After fixing the optimistic update (§15), read the streak from context (`useStreak()`) after the state update settles. Use a `useEffect` that fires when the streak value changes to check for best-streak updates.
+- Or extract the best-streak check into a separate `useEffect` that watches `streak` from context and compares to `user.bestStreak`.
+
+**References**: [useAddEvent.ts](src/hooks/useAddEvent.ts#L52-L57), [eventsContext.tsx](src/contexts/eventsContext.tsx#L31)
+
+---
+
+## 17. Remaining Dead Code — Commented-Out Functions
+
+| Value | Effort | Status  |
+| ----- | ------ | ------- |
+| 2     | 1      | ⬜ TODO |
+
+**Problem**: Several files still contain commented-out code blocks that add noise:
+
+- `dateFormatting.ts` — 3 dead functions: `dateFormatter`, `getMonthDayYear`, `diffDays` (~20 lines)
+- `requests.ts` — dead `getItem` function (~3 lines)
+- `settings.tsx` — `showData` function + related commented JSX (~8 lines)
+
+**Solution**: Delete all commented-out code. Git history preserves it.
+
+**References**: [dateFormatting.ts](src/helpers/dateFormatting.ts#L1-L7), [dateFormatting.ts](src/helpers/dateFormatting.ts#L21-L35), [requests.ts](src/helpers/requests.ts#L10-L12), [settings.tsx](src/routes/settings.tsx#L44-L51)
+
+---
+
+## 18. ShowMore — `thresholds()` Recreated Every Render
+
+| Value | Effort | Status  |
+| ----- | ------ | ------- |
+| 2     | 1      | ⬜ TODO |
+
+**Problem**: `ShowMore.tsx` defines `thresholds()` inside the component body, creating a new array of 50 values on every render. This array is constant — it doesn't depend on props or state.
+
+**Solution**:
+
+Move it outside the component as a module-level constant:
+
+```tsx
+const THRESHOLDS = Array.from({ length: 51 }, (_, i) => i / 50);
+
+const ShowMore = ({ callback }: Props) => {
+  // ...
+  const { ref } = useInView({ threshold: THRESHOLDS, ... });
+};
+```
+
+**References**: [ShowMore.tsx](src/components/ShowMore/ShowMore.tsx#L17-L25)
+
+---
+
+## 19. Streak Component — Nested Ternary
+
+| Value | Effort | Status  |
+| ----- | ------ | ------- |
+| 2     | 1      | ⬜ TODO |
+
+**Problem**: `Streak.tsx` uses a nested ternary (`streak > 1 ? ... : streak === 0 ? ... : ...`) for conditional rendering. The third branch renders empty spans (effectively nothing). The fragment wrapper is unnecessary.
+
+**Solution**:
+
+Use early returns or a simple `if`/`else` structure:
+
+```tsx
+const Streak = () => {
+  const streak = useStreak();
+
+  if (streak.streak <= 0) return null;
+  if (streak.streak === 0)
+    return (
+      <div>
+        <span>Good to see you!</span>
+      </div>
+    );
+
+  return (
+    <div>
+      <span>{streak.streak} days in a row!</span>
+      <span className={styles.leniencyCounter}>{streak.leniency || ''}</span>
+    </div>
+  );
+};
+```
+
+**References**: [Streak.tsx](src/components/Streak/Streak.tsx#L12-L35)
+
+---
+
+## 20. EventList — Mutable `overallIndex` Counter Inside Map
+
+| Value | Effort | Status  |
+| ----- | ------ | ------- |
+| 2     | 1      | ⬜ TODO |
+
+**Problem**: `EventList.tsx` uses `let overallIndex = 0` in the render body, incrementing it inside nested `.map()` calls. Mutable variables inside render + side effects inside map functions is fragile and hard to reason about. It's used to calculate staggered animation delays.
+
+**Solution**:
+
+Pre-compute a flat list with indices, or use `flatMap` before grouping:
+
+```tsx
+// Compute the flat index before the year was even reached
+const eventsBeforeYear = eventsByYear
+  .slice(0, yearIdx)
+  .reduce(
+    (sum, y) => sum + y.months.reduce((s, m) => s + m.events.length, 0),
+    0,
+  );
+```
+
+Or simpler — just pass the event's position in the original `eventsToShow` array:
+
+```tsx
+overallIndex={eventsToShow.indexOf(event)}
+```
+
+**References**: [EventList.tsx](src/components/EventList/EventList.tsx#L38-L77)
