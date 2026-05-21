@@ -2,7 +2,6 @@ import js from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import react from '@eslint-react/eslint-plugin';
-import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import reactCompiler from 'eslint-plugin-react-compiler';
 import depend from 'eslint-plugin-depend';
@@ -36,12 +35,10 @@ export default defineConfig([
   },
   tseslint.configs.strictTypeChecked,
   react.configs['recommended-typescript'],
-  reactHooks.configs.flat.recommended,
   reactRefresh.configs.vite,
   reactCompiler.configs.recommended,
   {
     rules: {
-      'react-hooks/set-state-in-effect': 'off',
       'react-refresh/only-export-components': 'off',
 
       // Temp Strict
