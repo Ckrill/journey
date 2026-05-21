@@ -10,8 +10,8 @@ import { saveToLocalStorage } from '../helpers/localStorage';
 
 // Components
 import Button from '../components/Button/Button';
-import Checkbox from '../components/Form/Checkbox';
-import CheckboxGroup from '../components/Form/CheckboxGroup';
+import Checkbox from '../components/Form/Checkbox/Checkbox';
+import CheckboxGroup from '../components/Form/Checkbox/CheckboxGroup';
 import CountUp from '../components/CountUp/CountUp';
 import Divider from '../components/Divider/Divider';
 import Heading from '../components/Heading/Heading';

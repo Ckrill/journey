@@ -13,7 +13,7 @@ import { useAddEvent } from '../hooks/useAddEvent';
 // Components
 import Button from '../components/Button/Button';
 import Feedback from '../components/Feedback/Feedback';
-import FormInput from '../components/Form/FormInput';
+import Input from '../components/Form/Input/Input';
 import Heading from '../components/Heading/Heading';
 import Paragraph from '../components/Paragraph/Paragraph';
 import Section from '../components/Section/Section';
@@ -82,7 +82,7 @@ const Event = () => {
               control={control}
               name="name"
               render={({ field }) => (
-                <FormInput
+                <Input
                   disabled={submitting}
                   errorText={errors.name && 'Please fill out this field.'}
                   id="event"
@@ -98,7 +98,7 @@ const Event = () => {
               control={control}
               name="date"
               render={({ field }) => (
-                <FormInput
+                <Input
                   disabled={submitting}
                   errorText={errors.date && 'Please fill out this field.'}
                   id="date"

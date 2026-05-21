@@ -14,7 +14,7 @@
 | 1        | 3   | Derived State — Replace useEffect   | 4     | 1      | ★★★★★ | ✅ Done |
 | 2        | 1   | Data Fetching — Parallel Requests   | 5     | 2      | ★★★★★ | ✅ Done |
 | 3        | 5   | Contentful Client — Single Instance | 3     | 1      | ★★★★  | ✅ Done |
-| 4        | 8   | Dead Code — Remove Commented Code   | 2     | 1      | ★★★★  | ⬜ TODO |
+| 4        | 8   | Dead Code — Remove Commented Code   | 2     | 1      | ★★★★  | ✅ Done |
 | 5        | 9   | firstRender Anti-Pattern in Root    | 3     | 2      | ★★★   | ✅ Done |
 | 6        | 4   | Deletion Queue — Simplify EventList | 4     | 2      | ★★★   | ✅ Done |
 | 7        | 12  | Form — Index Route Complexity       | 3     | 2      | ★★★   | ✅ Done |

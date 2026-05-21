@@ -10,7 +10,7 @@ import { createUser, fetchUser } from '../../api/user';
 // Components
 import Button from '../Button/Button';
 import Code from '../Code/Code';
-import FormInput from '../Form/FormInput';
+import Input from '../Form/Input/Input';
 import Heading from '../Heading/Heading';
 import Paragraph from '../Paragraph/Paragraph';
 import Section from '../Section/Section';
@@ -66,7 +66,7 @@ const SignUp = () => {
           defaultValue=""
           name="name"
           render={({ field }) => (
-            <FormInput id="name" labelText="Name" type="text" {...field} />
+            <Input id="name" labelText="Name" type="text" {...field} />
           )}
           rules={{ required: true }}
         />
