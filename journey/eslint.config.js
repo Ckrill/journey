@@ -40,9 +40,6 @@ export default defineConfig([
   {
     rules: {
       'react-refresh/only-export-components': 'off',
-
-      // Temp Strict
-      '@typescript-eslint/no-deprecated': 'off',
     },
   },
 ]);
