@@ -80,10 +80,16 @@ export const useAddEvent = () => {
           patchedEntry,
         );
 
+        type UserFields = {
+          bestStreak: { 'en-US': number };
+          name: { 'en-US': string };
+        };
+        const userFields = publishedEntry.fields as UserFields;
+
         const newUser = {
-          bestStreak: publishedEntry.fields.bestStreak['en-US'],
+          bestStreak: userFields.bestStreak['en-US'],
           id: publishedEntry.sys.id,
-          name: publishedEntry.fields.name['en-US'],
+          name: userFields.name['en-US'],
         };
 
         setUser(newUser);

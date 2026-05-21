@@ -44,13 +44,6 @@ export default defineConfig([
       'react-hooks/set-state-in-effect': 'off',
       'react-refresh/only-export-components': 'off',
 
-      // Temp
-      '@typescript-eslint/no-unsafe-argument': 'off',
-      '@typescript-eslint/no-unsafe-assignment': 'off',
-      '@typescript-eslint/no-unsafe-call': 'off',
-      '@typescript-eslint/no-unsafe-member-access': 'off',
-      '@typescript-eslint/no-unsafe-return': 'off',
-
       // Temp Strict
       '@typescript-eslint/no-deprecated': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',

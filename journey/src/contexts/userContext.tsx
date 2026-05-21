@@ -18,7 +18,7 @@ type Props = { children: ReactNode };
 
 export const UserProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | null>(() =>
-    getFromLocalStorage('user'),
+    getFromLocalStorage<User>('user'),
   );
 
   return (
