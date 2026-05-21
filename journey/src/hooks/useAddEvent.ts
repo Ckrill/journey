@@ -100,6 +100,8 @@ export const useAddEvent = () => {
   };
 
   const submitEvent = async (formData: { date: string; name: string }) => {
+    if (!user) return { success: false };
+
     setShowFeedback(true);
     setSubmitting(true);
 
@@ -107,7 +109,7 @@ export const useAddEvent = () => {
       date: formData.date,
       name: formData.name,
       id: 'temp' + crypto.randomUUID(),
-      user: user!,
+      user: user,
     };
 
     // Add event to state.
@@ -132,7 +134,7 @@ export const useAddEvent = () => {
             user: {
               'en-US': {
                 sys: {
-                  id: user?.id,
+                  id: user.id,
                   linkType: 'Entry',
                   type: 'Link',
                 },

@@ -43,7 +43,6 @@ export default defineConfig([
 
       // Temp Strict
       '@typescript-eslint/no-deprecated': 'off',
-      '@typescript-eslint/no-non-null-assertion': 'off',
     },
   },
 ]);
