@@ -38,6 +38,13 @@ export default defineConfig([
   reactRefresh.configs.vite,
   reactCompiler.configs.recommended,
   {
+    rules: {},
+  },
+  // TanStack Router routes must export `Route` alongside the component — splitting
+  // is not possible. Context files co-locate provider + hook by convention. Neither
+  // pattern benefits from fast refresh isolation since they rarely change in isolation.
+  {
+    files: ['src/routes/**', 'src/contexts/**'],
     rules: {
       'react-refresh/only-export-components': 'off',
     },
