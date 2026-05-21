@@ -24,7 +24,6 @@
 | 11       | 11  | Context Re-renders — Combine        | 2     | 2      | ★★    | ✅ Done |
 | 12       | 10  | Service Worker — Modernize          | 2     | 3      | ★★    | ✅ Done |
 | 13       | 13  | Streak — Simplify Calculation       | 3     | 2      | ★★★   | ⬜ TODO |
-| 14       | 14  | Page Transitions — Exit Animations  | 3     | 3      | ★★★   | ⬜ TODO |
 
 ---
 
@@ -263,21 +262,3 @@ const eventsFiltered = soloMode
 - Consider calculating streak without fetching ALL events — e.g. fetch only recent events (last N days or since last gap) via a filtered CDA query (`fields.date[gte]=...`)
 
 **References**: [streak.ts](src/helpers/streak.ts), [streak-helpers.ts](src/helpers/streak-helpers.ts), [constants.ts](src/settings/constants.ts)
-
----
-
-## 14. Page Transitions — Exit Animations
-
-| Value | Effort | Status  |
-| ----- | ------ | ------- |
-| 3     | 3      | ⬜ TODO |
-
-**Problem**: Exit animations on page transitions are cut short because TanStack Router unmounts the outgoing route before Framer Motion's `AnimatePresence` can complete the exit. Wrapping `<Outlet />` in `<AnimatePresence mode="wait">` doesn't work because the router controls the component lifecycle.
-
-**Solution options**:
-
-- **React `<ViewTransition>`** (React 19 canary / experimental) — native browser View Transitions API with React integration. No library needed, works with route changes, handles cross-document-style animations declaratively. Requires React 19+ (already in use).
-- **TanStack Router's built-in transition support** — check if `router.subscribe` or `onBeforeNavigate` can delay unmount
-- **Avoid**: Framer Motion hacks like cloning the outgoing page or manual `key` management on `<Outlet />`
-
-**References**: [\_\_root.tsx](src/routes/__root.tsx#L42-L44), [pageTransition.ts](src/settings/pageTransition.ts), [React ViewTransition RFC](https://react.dev/reference/react/ViewTransition)
