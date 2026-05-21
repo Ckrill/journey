@@ -41,7 +41,6 @@ export default defineConfig([
   reactCompiler.configs.recommended,
   {
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
       'react-hooks/set-state-in-effect': 'off',
       'react-refresh/only-export-components': 'off',
 

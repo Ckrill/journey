@@ -8,8 +8,8 @@ import type {
 
 type EntryLink = Link<'Entry'>;
 
-export interface ArrayContentful extends CollectionProp<EntryProps<any>> {
-  includes?: { Entry: EntryProps<any>[] };
+export interface ArrayContentful extends CollectionProp<EntryProps<unknown>> {
+  includes?: { Entry: EntryProps<unknown>[] };
 }
 
 // User

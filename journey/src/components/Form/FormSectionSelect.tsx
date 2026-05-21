@@ -11,7 +11,7 @@ interface FormSectionSelectProps {
   labelText?: string;
   changeHandler?(...args: unknown[]): unknown;
   optionHidden?: string;
-  options?: unknown[];
+  options?: { value: string; name: string }[];
 }
 
 /**
@@ -33,7 +33,7 @@ const FormSectionSelect = (props: FormSectionSelectProps) => (
       }
     >
       {props.optionHidden && <option hidden>{props.optionHidden}</option>}
-      {props.options?.map((option: any) => (
+      {props.options?.map((option) => (
         <option value={option.value} key={option.value}>
           {option.name}
         </option>
