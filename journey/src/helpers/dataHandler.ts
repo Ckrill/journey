@@ -14,6 +14,8 @@ export const parseUser = (arr: UsersContentful): User | null => {
     id: item.sys.id,
     name: item.fields.name,
     bestStreak: item.fields.bestStreak,
+    currentStreak: item.fields.currentStreak,
+    streakUpdatedDate: item.fields.streakUpdatedDate,
   };
 
   return user;

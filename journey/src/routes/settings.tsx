@@ -20,7 +20,7 @@ import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 
 // Contexts
-import { useStreak } from '../contexts/eventsContext';
+import { useStreak } from '../contexts/streakContext';
 import { useUser, useUserUpdate } from '../contexts/userContext';
 import { useSettings, useSettingsUpdate } from '../contexts/settingsContext';
 

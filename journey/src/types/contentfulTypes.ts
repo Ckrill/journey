@@ -14,7 +14,12 @@ export interface ArrayContentful extends CollectionProp<EntryProps<unknown>> {
 
 // User
 
-type UserFields = { name: string; bestStreak?: number };
+type UserFields = {
+  name: string;
+  bestStreak?: number;
+  currentStreak?: number;
+  streakUpdatedDate?: string;
+};
 
 export type UserContentful = EntryProps<UserFields>;
 

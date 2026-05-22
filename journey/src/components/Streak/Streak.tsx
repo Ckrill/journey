@@ -1,5 +1,5 @@
 // Contexts
-import { useStreak } from '../../contexts/eventsContext';
+import { useStreak } from '../../contexts/streakContext';
 
 // Styles
 import styles from './Streak.module.scss';

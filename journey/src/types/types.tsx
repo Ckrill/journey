@@ -2,6 +2,8 @@ export type User = {
   id: string;
   name: string;
   bestStreak?: number;
+  currentStreak?: number;
+  streakUpdatedDate?: string;
 };
 
 export type Settings = {

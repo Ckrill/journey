@@ -16,6 +16,14 @@ export const getItemsByType = (type: string, skip: number) => {
   return `${baseURL}/spaces/${space}/environments/${environment}/entries?access_token=${accessToken}&content_type=${type}&order=-fields.date&limit=${String(limit)}&skip=${String(skip)}`;
 };
 
+// Get recent entries by type (date-filtered)
+export const getRecentByType = (type: string, days: number) => {
+  const since = Temporal.Now.plainDateISO()
+    .subtract({ days })
+    .toString();
+  return `${baseURL}/spaces/${space}/environments/${environment}/entries?access_token=${accessToken}&content_type=${type}&order=-fields.date&fields.date[gte]=${since}&limit=100`;
+};
+
 // Get entries by attribute
 export const getItemsByAttribute = (
   type: string,

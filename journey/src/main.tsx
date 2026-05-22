@@ -6,6 +6,7 @@ import './index.css';
 // Contexts
 import { UserProvider } from './contexts/userContext';
 import { EventsProvider } from './contexts/eventsContext';
+import { StreakProvider } from './contexts/streakContext';
 import { SettingsProvider } from './contexts/settingsContext';
 
 // Import the generated route tree
@@ -29,9 +30,11 @@ if (rootElement && !rootElement.innerHTML) {
     <StrictMode>
       <UserProvider>
         <EventsProvider>
-          <SettingsProvider>
-            <RouterProvider router={router} />
-          </SettingsProvider>
+          <StreakProvider>
+            <SettingsProvider>
+              <RouterProvider router={router} />
+            </SettingsProvider>
+          </StreakProvider>
         </EventsProvider>
       </UserProvider>
     </StrictMode>,
