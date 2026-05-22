@@ -14,7 +14,7 @@ const Streak = () => {
           <span>{streak.streak} days in a row!</span>
 
           <span className={styles.leniencyCounter}>
-            {streak.leniency ? streak.leniency : ''}
+            {streak.daysSinceLast > 0 ? streak.daysSinceLast : ''}
           </span>
         </div>
       ) : streak.streak === 0 ? (

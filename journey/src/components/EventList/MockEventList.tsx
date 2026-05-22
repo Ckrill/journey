@@ -1,5 +1,5 @@
 // Helpers
-import { getMonth } from '../../helpers/dateFormatting';
+import { formatDate } from '../../helpers/dateFormatting';
 
 // Components
 import Divider from '../Divider/Divider';
@@ -7,7 +7,7 @@ import Divider from '../Divider/Divider';
 // Styles
 import styles from './EventList.module.scss';
 
-const presentMonth = getMonth(new Date());
+const presentMonth = formatDate(new Date(), 'month');
 
 const MockEventList = () => {
   return (

@@ -1,97 +1,36 @@
-// Constants
-import constants from '../settings/constants';
-
-// Helpers
-import { categorizeByYearMonthDay, type YearMonthDay } from './categorizer';
-import { addDays, getMonth } from './dateFormatting';
-import { getEventsForDay } from './streak-helpers';
-
 // Types
 import type { User, Events } from '../types/types';
 
-// Leniency is the amount of days that can be skipped before the streak is broken.
-const leniency = constants.leniency;
+const STREAK_LENIENCY_DAYS = 3;
+
+const daysBetween = (dateA: string, dateB: string) => {
+  return Temporal.PlainDate.from(dateA).until(dateB).total('days');
+};
 
 export const calculateStreak = (user: User | null, events: Events) => {
-  if (!events.length) return { streak: 0, leniency: leniency };
+  if (!user) return { streak: 0, daysSinceLast: 0 };
 
-  const myEvents = events.filter((item) => item.user.id === user?.id);
-  const eventsByYearMonthDay: YearMonthDay[] =
-    categorizeByYearMonthDay(myEvents);
+  // Unique dates for this user, sorted descending
+  const userEvents = events.filter((e) => e.user.id === user.id);
+  const uniqueDates = [...new Set(userEvents.map((e) => e.date))];
+  const sortedDates = uniqueDates.sort((a, b) => (a > b ? -1 : 1));
 
-  const today = new Date();
-  // Start from today, count backwards.
-  let date = new Date();
+  if (!sortedDates.length) return { streak: 0, daysSinceLast: 0 };
 
-  // Leniency pool represents the potential for extra events.
-  // Leniency pool + days accumulated can maximum be 3 (constants.leniency) at any given moment.
-  let leniencyPool = leniency;
+  const latestEventDate = sortedDates[0];
+  const today = Temporal.Now.plainDateISO().toString();
+  const daysSinceLast = daysBetween(latestEventDate, today);
 
-  // Days accumulated is the extra events, that can be used on a missed day (max 3 (constants.leniency) at any time).
-  let daysAccumulated = 0;
+  // Streak already broken
+  if (daysSinceLast > STREAK_LENIENCY_DAYS) return { streak: 0, daysSinceLast };
 
-  let daysMissed = 0;
-  let totalDaysMissed = 0;
-  let streak = 0;
-
-  // Counter - Start from today and go back as long as the streak goes on.
-  // When leniency pool and days accumulated is used, stop the loop.
-  for (; leniencyPool + daysAccumulated >= 0; ) {
-    // The day.
-    const dateObj = {
-      year: date.getFullYear(),
-      month: getMonth(date),
-      day: date.getDate(),
-    };
-
-    // Number of events on that day.
-    const numberOfEvents =
-      getEventsForDay(dateObj, eventsByYearMonthDay).length || 0;
-
-    if (numberOfEvents) {
-      // Event(s) found.
-
-      // Update total days missed here because we don't want to update it if there is not a valid event after a missed day.
-      totalDaysMissed = daysMissed;
-
-      streak++;
-
-      let extraEvents = numberOfEvents - 1;
-
-      for (; extraEvents > 0; extraEvents--) {
-        // Add 1 to daysAccumulated.
-        daysAccumulated++;
-        if (daysAccumulated + leniencyPool > leniency) {
-          leniencyPool--;
-          leniencyPool = Math.max(leniencyPool, 0);
-        }
-      }
-
-      // Cap daysAccumulated.
-      daysAccumulated = Math.min(daysAccumulated, leniency);
-    } else {
-      // Event not found.
-
-      // If day is today, don't count it, because the day is not over yet.
-      // eslint-disable-next-line no-empty
-      if (date.toISOString() === today.toISOString()) {
-      } else if (daysAccumulated) {
-        // If there is a streak cached.
-        // Realize the daysAccumulated.
-        streak++;
-        daysAccumulated--;
-      } else {
-        // Else add 1 to daysMissed
-        daysMissed++;
-
-        // Missed a day, remove 1 from leniency pool.
-        leniencyPool--;
-      }
-    }
-
-    // Go to previous day
-    date = addDays(date, -1);
+  // Walk consecutive pairs — break on first gap > STREAK_LENIENCY_DAYS
+  let streak = 1;
+  for (let i = 0; i < sortedDates.length - 1; i++) {
+    if (daysBetween(sortedDates[i + 1], sortedDates[i]) > STREAK_LENIENCY_DAYS)
+      break;
+    streak++;
   }
 
-  return { streak: streak, leniency: totalDaysMissed };
+  return { streak, daysSinceLast };
 };

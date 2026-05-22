@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { variants } from './eventTransition';
 
 // Helpers
-import { getMonthDay } from '../../helpers/dateFormatting';
+import { formatDate } from '../../helpers/dateFormatting';
 import deleteEntry from '../../helpers/deleteEntry';
 
 // Contexts
@@ -65,7 +65,7 @@ const Event = ({ removeEvent, event, overallIndex }: Props) => {
             <div className={styles.user}>{event.user.name}</div>
 
             <div className={styles.date}>
-              {getMonthDay(new Date(event.date), 'en-us')}
+              {formatDate(new Date(event.date), 'monthDay')}
             </div>
           </div>
         </header>

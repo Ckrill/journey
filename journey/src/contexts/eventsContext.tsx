@@ -9,11 +9,11 @@ import { useUser } from './userContext';
 // Types
 import type { Events } from '../types/types';
 
-type Streak = { leniency: number; streak: number };
+type Streak = { daysSinceLast: number; streak: number };
 
 const EventsContext = createContext<Events>([]);
 const EventsUpdateContext = createContext<(events: Events) => void>(() => null);
-const StreakContext = createContext<Streak>({ leniency: 0, streak: -1 });
+const StreakContext = createContext<Streak>({ daysSinceLast: 0, streak: -1 });
 
 export const useEvents = () => use(EventsContext);
 export const useEventsUpdate = () => use(EventsUpdateContext);
