@@ -28,7 +28,7 @@ const ShowMore = ({ callback }: Props) => {
     onChange: (inView, entry) => {
       if (!inView) return;
 
-      const intersectionRatio = entry?.intersectionRatio || 0;
+      const intersectionRatio = entry.intersectionRatio || 0;
       setSize(100 * intersectionRatio);
 
       if (intersectionRatio !== 1) return;

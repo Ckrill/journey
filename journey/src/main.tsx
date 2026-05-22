@@ -2,7 +2,6 @@ import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 import './index.css';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 // Contexts
 import { UserProvider } from './contexts/userContext';
@@ -24,8 +23,8 @@ declare module '@tanstack/react-router' {
 }
 
 // Render the app
-const rootElement = document.getElementById('root')!;
-if (!rootElement.innerHTML) {
+const rootElement = document.getElementById('root');
+if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
@@ -38,11 +37,8 @@ if (!rootElement.innerHTML) {
           </StreakProvider>
         </EventsProvider>
       </UserProvider>
-    </StrictMode>
+    </StrictMode>,
   );
 }
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://cra.link/PWA
-serviceWorkerRegistration.register();
+void navigator.serviceWorker.register('/sw.js');

@@ -2,7 +2,6 @@ import js from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import react from '@eslint-react/eslint-plugin';
-import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import reactCompiler from 'eslint-plugin-react-compiler';
 import depend from 'eslint-plugin-depend';
@@ -36,37 +35,18 @@ export default defineConfig([
   },
   tseslint.configs.strictTypeChecked,
   react.configs['recommended-typescript'],
-  reactHooks.configs.flat.recommended,
   reactRefresh.configs.vite,
   reactCompiler.configs.recommended,
   {
+    rules: {},
+  },
+  // TanStack Router routes must export `Route` alongside the component — splitting
+  // is not possible. Context files co-locate provider + hook by convention. Neither
+  // pattern benefits from fast refresh isolation since they rarely change in isolation.
+  {
+    files: ['src/routes/**', 'src/contexts/**'],
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      'react-hooks/set-state-in-effect': 'off',
       'react-refresh/only-export-components': 'off',
-
-      // Temp
-      '@eslint-react/set-state-in-effect': 'off',
-      '@typescript-eslint/no-floating-promises': 'off',
-      '@typescript-eslint/no-misused-promises': 'off',
-      '@typescript-eslint/no-unsafe-argument': 'off',
-      '@typescript-eslint/no-unsafe-assignment': 'off',
-      '@typescript-eslint/no-unsafe-call': 'off',
-      '@typescript-eslint/no-unsafe-member-access': 'off',
-      '@typescript-eslint/no-unsafe-return': 'off',
-      '@typescript-eslint/only-throw-error': 'off',
-      '@typescript-eslint/unbound-method': 'off',
-
-      // Temp Strict
-      '@typescript-eslint/no-unnecessary-condition': 'off',
-      '@typescript-eslint/no-confusing-void-expression': 'off',
-      '@typescript-eslint/restrict-plus-operands': 'off',
-      '@typescript-eslint/restrict-template-expressions': 'off',
-      '@typescript-eslint/use-unknown-in-catch-callback-variable': 'off',
-      '@typescript-eslint/no-unnecessary-type-conversion': 'off',
-      '@typescript-eslint/no-unnecessary-template-expression': 'off',
-      '@typescript-eslint/no-deprecated': 'off',
-      '@typescript-eslint/no-non-null-assertion': 'off',
     },
   },
 ]);

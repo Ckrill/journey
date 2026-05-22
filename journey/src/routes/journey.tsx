@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   BsFillPersonFill as Person,
   BsFillPeopleFill as People,
@@ -22,7 +22,6 @@ import { useUser } from '../contexts/userContext';
 import { useEvents } from '../contexts/eventsContext';
 
 // Types
-import type { Events } from '../types/types';
 import ShowMore from '../components/ShowMore/ShowMore';
 
 const Journey = () => {
@@ -30,23 +29,12 @@ const Journey = () => {
   const events = useEvents();
   const pageSize = 10;
 
-  const [eventsFiltered, setEventsFiltered] = useState<Events | []>([]);
   const [soloMode, setSoloMode] = useState(false);
   const [itemsToShow, setItemsToShow] = useState(pageSize);
 
-  useEffect(() => {
-    if (!user) return;
-
-    if (soloMode) {
-      const eventsFiltered = events.filter((item) => {
-        if (item.user.id === user.id) return item;
-        return null;
-      });
-      setEventsFiltered(eventsFiltered);
-    } else {
-      setEventsFiltered(events);
-    }
-  }, [user, soloMode, events]);
+  const eventsFiltered = soloMode
+    ? events.filter((item) => item.user.id === user?.id)
+    : events;
 
   const showMoreItems = () => {
     setItemsToShow(itemsToShow + pageSize);
@@ -68,9 +56,9 @@ const Journey = () => {
         <Section>
           <Heading>
             {soloMode ? (
-              <Person onClick={() => setSoloMode((prevState) => !prevState)} />
+              <Person onClick={() => { setSoloMode((prevState) => !prevState); }} />
             ) : (
-              <People onClick={() => setSoloMode((prevState) => !prevState)} />
+              <People onClick={() => { setSoloMode((prevState) => !prevState); }} />
             )}
             <span>
               {soloMode ? `My ` : `Our `}

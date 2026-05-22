@@ -26,7 +26,7 @@ const Feedback = ({ setShow, show }: Props) => {
   const settings = useSettings();
 
   const heading = useMemo(
-    () => (show && streak ? getHeading(feedbackHeading, streak.streak) : ''),
+    () => (show ? getHeading(feedbackHeading, streak.streak) : ''),
     [show, streak],
   );
   const headingSize = useMemo(
@@ -43,7 +43,7 @@ const Feedback = ({ setShow, show }: Props) => {
 
     if (settings.sound) {
       player.currentTime = 0;
-      player?.play();
+      void player.play();
     }
 
     if (settings.vibration) {
@@ -53,15 +53,19 @@ const Feedback = ({ setShow, show }: Props) => {
           navigator.vibrate(200);
         }, 100);
 
-        return () => clearTimeout(timeout);
+        return () => {
+          clearTimeout(timeout);
+        };
       }
     }
   }, [settings.sound, settings.vibration, show]);
 
   return (
     <div
-      className={`${styles.overlay} ${show && styles.show}`}
-      onClick={() => setShow(false)}
+      className={`${styles.overlay} ${show ? styles.show : ''}`}
+      onClick={() => {
+        setShow(false);
+      }}
     >
       <audio preload="auto" ref={audioPlayerRef}>
         <source src={thump} type="audio/mpeg" />

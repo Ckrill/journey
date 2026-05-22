@@ -8,13 +8,18 @@ import type {
 
 type EntryLink = Link<'Entry'>;
 
-export interface ArrayContentful extends CollectionProp<EntryProps<any>> {
-  includes?: { Entry: EntryProps<any>[] };
+export interface ArrayContentful extends CollectionProp<EntryProps<unknown>> {
+  includes?: { Entry: EntryProps<unknown>[] };
 }
 
 // User
 
-type UserFields = { name: string };
+type UserFields = {
+  name: string;
+  bestStreak?: number;
+  currentStreak?: number;
+  streakUpdatedDate?: string;
+};
 
 export type UserContentful = EntryProps<UserFields>;
 
@@ -27,5 +32,5 @@ type EventFields = { date: Date; name: string; user: EntryLink };
 type EventContentful = EntryProps<EventFields>;
 
 export interface EventsContentful extends CollectionProp<EventContentful> {
-  includes?: { Entry: EntryProps<any>[] };
+  includes?: { Entry: EntryProps<UserFields>[] };
 }

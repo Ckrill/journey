@@ -1,9 +1,13 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "tags": ["-lintignore"],
+  "project": ["src/**", "public/**", "*.{js,ts}"],
+  "ignore": ["public/sw.js"],
+  "ignoreBinaries": ["eslint", "knip", "stylelint", "tsc", "vite"],
   "ignoreDependencies": [
     "@emotion/is-prop-valid",
     "@tanstack/router-core",
+    "postcss",
     "sass-embedded",
     "stylelint",
     "stylelint-order"

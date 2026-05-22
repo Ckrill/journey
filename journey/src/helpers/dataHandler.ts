@@ -1,45 +1,45 @@
 // types
 import type {
-  ArrayContentful,
   EventsContentful,
+  UsersContentful,
 } from '../types/contentfulTypes';
-import type { Events } from '../types/types';
+import type { Event, Events, User } from '../types/types';
 
-// export const primeObject = (obj) => obj.fields;
+export const parseUser = (arr: UsersContentful): User | null => {
+  const item = arr.items[0];
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (!item) return null;
 
-// export const primeArray = (arr) => arr.items.map((item) => item.fields);
+  const user: User = {
+    id: item.sys.id,
+    name: item.fields.name,
+    bestStreak: item.fields.bestStreak,
+    currentStreak: item.fields.currentStreak,
+    streakUpdatedDate: item.fields.streakUpdatedDate,
+  };
 
-export const primeArrayToObject = (arr: ArrayContentful) => {
-  if (!arr.items[0]) return;
-
-  // Trim unneccesary info from event object.
-  const fields = arr.items[0].fields;
-  // Add id to event object.
-  fields.id = arr.items[0].sys.id;
-
-  return fields;
+  return user;
 };
 
-export const primeEvents = (eventsContentful: EventsContentful) => {
-  const eventsCrude: any = eventsContentful.items.map((eventCrude) => {
-    // Trim unneccesary info from eventCrude object.
-    const event: any = eventCrude.fields;
-    // Add id to eventCrude object.
-    event.id = eventCrude.sys.id;
+export const parseEvents = (eventsContentful: EventsContentful): Events => {
+  const events: Events = eventsContentful.items.map((eventCrude) => {
+    const userId = eventCrude.fields.user.sys.id;
+    const userEntry = eventsContentful.includes?.Entry.find(
+      (entry) => entry.sys.id === userId,
+    );
+
+    const event: Event = {
+      date: String(eventCrude.fields.date),
+      id: eventCrude.sys.id,
+      name: eventCrude.fields.name,
+      user: {
+        id: userId,
+        name: userEntry?.fields.name ?? '',
+      },
+    };
 
     return event;
   });
-
-  // Map the poster image to the video based on image id.
-  eventsCrude.forEach((event: any) => {
-    const userId = event.user && event.user.sys.id;
-    const user = eventsContentful.includes?.Entry.find((entry) => {
-      return entry.sys.id === userId;
-    });
-    event.user = { ...user?.fields, id: userId };
-  });
-
-  const events: Events = eventsCrude;
 
   return events;
 };

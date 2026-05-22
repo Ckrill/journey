@@ -10,8 +10,8 @@ import { saveToLocalStorage } from '../helpers/localStorage';
 
 // Components
 import Button from '../components/Button/Button';
-import Checkbox from '../components/Form/Checkbox';
-import CheckboxGroup from '../components/Form/CheckboxGroup';
+import Checkbox from '../components/Form/Checkbox/Checkbox';
+import CheckboxGroup from '../components/Form/Checkbox/CheckboxGroup';
 import CountUp from '../components/CountUp/CountUp';
 import Divider from '../components/Divider/Divider';
 import Heading from '../components/Heading/Heading';
@@ -67,18 +67,18 @@ const Settings = () => {
           <Heading>Profile</Heading>
 
           {user?.bestStreak ? (
-            streak.streak === user?.bestStreak ? (
+            streak.streak === user.bestStreak ? (
               // Peaking
               <Paragraph>
-                You are on fire {user?.name}, your best streak is{' '}
-                <CountUp countTo={user?.bestStreak} /> and counting!
+                You are on fire {user.name}, your best streak is{' '}
+                <CountUp countTo={user.bestStreak} /> and counting!
               </Paragraph>
             ) : (
               // Have peaked
               <Paragraph>
                 {' '}
-                Yo {user?.name}, your best streak was{' '}
-                <CountUp countTo={user?.bestStreak} />.
+                Yo {user.name}, your best streak was{' '}
+                <CountUp countTo={user.bestStreak} />.
               </Paragraph>
             )
           ) : (
@@ -102,14 +102,18 @@ const Settings = () => {
 
           <CheckboxGroup>
             <Checkbox
-              callback={() => handleSettingsToggle('sound')}
+              callback={() => {
+                handleSettingsToggle('sound');
+              }}
               checked={settings.sound}
               id="sound"
               label="Sound"
             />
 
             <Checkbox
-              callback={() => handleSettingsToggle('vibration')}
+              callback={() => {
+                handleSettingsToggle('vibration');
+              }}
               checked={settings.vibration}
               id="vibration"
               label="Vibration"

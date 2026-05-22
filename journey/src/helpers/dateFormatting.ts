@@ -1,40 +1,9 @@
-// export const dateFormatter = (date:Date, country: string = 'en-US') => {
-//   const weekday = date.toLocaleString(country, { weekday: 'long' }),
-//     month = date.toLocaleString(country, { month: 'long' });
-//   return (
-//     weekday + ' ' + month + ' ' + date.getDate() + ', ' + date.getFullYear()
-//   );
-// };
-
-export const getMonth = (date: Date, country: string = 'en-US') => {
-  const month = date.toLocaleString(country, { month: 'long' });
-  return month;
-};
-// "January"
-
-export const getMonthDay = (date: Date, country: string = 'en-US') => {
-  const month = date.toLocaleString(country, { month: 'long' });
-  return month + ' ' + date.getDate();
-};
-// "January 1"
-
-// export const getMonthDayYear = (date:Date, country: string = 'en-US') => {
-//   const month = date.toLocaleString(country, { month: 'long' });
-//   return month + ' ' + date.getDate() + ', ' + date.getFullYear();
-// };
-// "January 1, 1970"
-
-// export const diffDays = (
-//   firstDate: number | string,
-//   secondDate: number | string,
-// ) => {
-//   const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-
-//   return Math.ceil(Math.abs((Number(firstDate) - Number(secondDate)) / oneDay));
-// };
-
-export const addDays = (date: Date, days: number) => {
-  const newDate = new Date(date);
-  newDate.setDate(newDate.getDate() + days);
-  return newDate;
+/** Formats a date by the given granularity: "January", "January 1", or "January 1, 2026" */
+export const formatDate = (date: Date, format: 'month' | 'monthDay') => {
+  const locale: string = 'en-US';
+  const formattedDate = date.toLocaleDateString(locale, {
+    month: 'long',
+    day: format !== 'month' ? 'numeric' : undefined,
+  });
+  return formattedDate;
 };

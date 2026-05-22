@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Styling
-import styles from './FormInput.module.scss';
+import styles from './Input.module.scss';
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   errorText?: string;

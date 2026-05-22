@@ -1,5 +1,5 @@
 // Styling
-import styles from './Section.module.scss';
+import styles from './SectionContainer.module.scss';
 
 type Props = {
   children: React.ReactNode;

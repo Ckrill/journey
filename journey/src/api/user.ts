@@ -1,13 +1,9 @@
-import * as contentful from 'contentful-management';
 import { get, getItemsByAttribute } from '../helpers/requests';
-import { primeArrayToObject } from '../helpers/dataHandler';
+import { parseUser } from '../helpers/dataHandler';
 import { settings } from '../settings/settings';
+import { client } from './contentful';
 import type { UsersContentful } from '../types/contentfulTypes';
 import type { User } from '../types/types';
-
-const client = contentful.createClient({
-  accessToken: settings.accessTokenManagement,
-});
 
 /** Fetch user by name.
  * @param userName
@@ -18,7 +14,7 @@ export const fetchUser = async (userName: string): Promise<User | null> => {
     getItemsByAttribute('user', 'fields.name', userName),
   );
 
-  return primeArrayToObject(response);
+  return parseUser(response);
 };
 
 /**

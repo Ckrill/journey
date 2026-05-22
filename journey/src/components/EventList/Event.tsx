@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { variants } from './eventTransition';
 
 // Helpers
-import { getMonthDay } from '../../helpers/dateFormatting';
+import { formatDate } from '../../helpers/dateFormatting';
 import deleteEntry from '../../helpers/deleteEntry';
 
 // Contexts
@@ -20,22 +20,22 @@ import type { Event as EventType } from '../../types/types';
 import styles from './Event.module.scss';
 
 type Props = {
-  addToDeletionQueue: (id: string) => void;
+  removeEvent: (id: string) => void;
   event: EventType;
   overallIndex: number;
 };
 
-const Event = ({ addToDeletionQueue, event, overallIndex }: Props) => {
+const Event = ({ removeEvent, event, overallIndex }: Props) => {
   const user = useUser();
 
   const [isDeleted, setIsDeleted] = useState(false);
   const [hasWarning, setHasWarning] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
 
-  const isMine = event.user?.id === user?.id;
+  const isMine = event.user.id === user?.id;
 
   const deleteEventCallback = () => {
-    addToDeletionQueue(event.id);
+    removeEvent(event.id);
   };
 
   const deleteEventErrorCallback = () => {
@@ -48,7 +48,9 @@ const Event = ({ addToDeletionQueue, event, overallIndex }: Props) => {
       className={`${styles.event} ${isMine ? styles['event--mine'] : ''} ${
         showOptions ? styles['event--show-options'] : ''
       } ${isDeleted ? styles['event--deleted'] : ''}`}
-      onClick={() => setShowOptions(isMine && !showOptions)}
+      onClick={() => {
+        setShowOptions(isMine && !showOptions);
+      }}
       variants={variants}
       transition={{
         duration: 0.2,
@@ -60,10 +62,10 @@ const Event = ({ addToDeletionQueue, event, overallIndex }: Props) => {
           <div className={styles.name}>{event.name}</div>
 
           <div className={styles.meta}>
-            <div className={styles.user}>{event.user?.name}</div>
+            <div className={styles.user}>{event.user.name}</div>
 
             <div className={styles.date}>
-              {getMonthDay(new Date(event.date), 'en-us')}
+              {formatDate(new Date(event.date), 'monthDay')}
             </div>
           </div>
         </header>
@@ -89,7 +91,7 @@ const Event = ({ addToDeletionQueue, event, overallIndex }: Props) => {
 
                 e.stopPropagation();
                 setIsDeleted(true);
-                deleteEntry(
+                void deleteEntry(
                   event.id,
                   deleteEventCallback,
                   deleteEventErrorCallback,

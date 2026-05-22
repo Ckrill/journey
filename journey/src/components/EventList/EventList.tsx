@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 // Settings
@@ -10,16 +10,13 @@ import {
   type Month,
   type Year,
 } from '../../helpers/categorizer';
-import { calculateStreak } from '../../helpers/streak';
 
 // Components
 import Event from './Event';
 import Divider from '../Divider/Divider';
 
 // Contexts
-import { useUser } from '../../contexts/userContext';
 import { useEvents, useEventsUpdate } from '../../contexts/eventsContext';
-import { useStreakUpdate } from '../../contexts/streakContext';
 
 // Styling
 import styles from './EventList.module.scss';
@@ -32,50 +29,24 @@ type Props = {
 };
 
 const EventList = ({ eventsToShow }: Props) => {
-  const user = useUser();
   const events = useEvents();
   const setEvents = useEventsUpdate();
-  const setStreak = useStreakUpdate();
 
   const [currentYear] = useState(() => new Date().getFullYear());
 
-  const eventsByYear: Year[] = categorizeByYearAndMonth(eventsToShow) || [];
+  const eventsByYear: Year[] = categorizeByYearAndMonth(eventsToShow);
   let overallIndex = 0;
 
-  const [deletionQueue, setDeletionQueue] = useState<string[]>([]);
-
-  const addToDeletionQueue = (id: string) => {
-    const newDeletionQueue = [...deletionQueue];
-    newDeletionQueue.push(id);
-
-    setDeletionQueue(newDeletionQueue);
-  };
-
-  useEffect(() => {
-    if (!deletionQueue.length) return;
-
-    const id = deletionQueue[0];
-    const eventsNew = [...events];
-    const index = events.findIndex((event) => id === event.id);
-
-    const newDeletionQueue = [...deletionQueue];
-    newDeletionQueue.splice(0, 1);
-    setDeletionQueue(newDeletionQueue);
-
-    if (index === -1) return;
-
-    eventsNew.splice(index, 1);
+  const removeEvent = (id: string) => {
+    const eventsNew = events.filter((event) => event.id !== id);
     setEvents(eventsNew);
-
-    const streak = calculateStreak(user, eventsNew);
-    setStreak(streak);
-  }, [deletionQueue, events, setEvents, setStreak, user]);
+  };
 
   return (
     <div className={styles.container}>
       {eventsByYear.map((year: Year) => (
         <Fragment key={year.year}>
-          {Number(year.year) !== currentYear && (
+          {year.year !== currentYear && (
             <Divider text={String(year.year)} data-appearance="faint" />
           )}
 
@@ -100,7 +71,7 @@ const EventList = ({ eventsToShow }: Props) => {
 
                     return (
                       <Event
-                        addToDeletionQueue={addToDeletionQueue}
+                        removeEvent={removeEvent}
                         event={event}
                         key={event.id}
                         overallIndex={overallIndex - 1}

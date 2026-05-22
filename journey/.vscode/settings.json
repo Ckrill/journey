@@ -14,10 +14,7 @@
   "js/ts.tsdk.promptToUseWorkspaceVersion": true,
   "eslint.nodePath": ".yarn/sdks",
   // Stylelint settings
-  "stylelint.validate": [
-    "css",
-    "scss"
-  ],
+  "stylelint.validate": ["css", "scss"],
   "css.validate": false,
   "scss.validate": false,
   "editor.codeActionsOnSave": {
@@ -31,5 +28,6 @@
     "**/routeTree.gen.ts": true
   },
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "snyk.advanced.autoSelectOrganization": true
 }

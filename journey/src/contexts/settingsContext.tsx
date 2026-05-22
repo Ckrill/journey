@@ -1,5 +1,11 @@
 import { createContext, type ReactNode, use, useState } from 'react';
 
+// Helpers
+import { getFromLocalStorage } from '../helpers/localStorage';
+
+// Types
+import type { Settings } from '../types/types';
+
 const SettingsContext = createContext<{
   sound: boolean;
   vibration: boolean;
@@ -17,7 +23,13 @@ export const SettingsProvider = ({ children }: Props) => {
   const [settings, setSettings] = useState<{
     sound: boolean;
     vibration: boolean;
-  }>({ sound: true, vibration: true });
+  }>(
+    () =>
+      getFromLocalStorage<Settings>('settings') || {
+        sound: true,
+        vibration: true,
+      },
+  );
 
   return (
     <SettingsContext value={settings}>
