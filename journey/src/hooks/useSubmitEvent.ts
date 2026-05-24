@@ -27,6 +27,7 @@ export const useSubmitEvent = () => {
     useStreakActions();
 
   return useMutation<EventType, Error, FormData, MutationContext>({
+    retry: false,
     // Create and publish the event in Contentful
     mutationFn: async (formData) => {
       if (!user) throw new Error('No user');

@@ -17,6 +17,7 @@ export const useDeleteEvent = () => {
   const { refresh: refreshStreak } = useStreakActions();
 
   return useMutation({
+    retry: false,
     // Unpublish and delete the entry from Contentful
     mutationFn: async (entryId: string) => {
       const params = {
