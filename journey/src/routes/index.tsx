@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
 import { useNavigate } from '@tanstack/react-router';
@@ -8,7 +8,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { pageTransition, pageVariants } from '../settings/pageTransition';
 
 // Hooks
-import { useAddEvent } from '../hooks/useAddEvent';
+import { useSubmitEvent } from '../hooks/useSubmitEvent';
 
 // Components
 import Button from '../components/Button/Button';
@@ -23,14 +23,10 @@ const Event = () => {
   const navigate = useNavigate({ from: Route.fullPath });
   const searchParams = Route.useSearch();
 
-  const {
-    showFeedback,
-    setShowFeedback,
-    submitting,
-    submitError,
-    submitSuccess,
-    submitEvent,
-  } = useAddEvent();
+  const mutation = useSubmitEvent();
+  const [showFeedback, setShowFeedback] = useState(false);
+
+  const { isSuccess, reset: resetMutation } = mutation;
 
   const [currentDate] = useState(() => new Date().toISOString().split('T')[0]);
 
@@ -46,16 +42,34 @@ const Event = () => {
     },
   });
 
-  const onSubmit = async (formData: { date: string; name: string }) => {
-    const { success } = await submitEvent(formData);
+  // Auto-reset success state after 1s (for button text)
+  useEffect(() => {
+    if (!isSuccess) return;
 
-    if (success) {
-      // If there is a searchParam "name", remove it.
-      if (searchParams?.name) void navigate({ search: { name: undefined } });
+    const timeout = setTimeout(() => {
+      resetMutation();
+    }, 1000);
 
-      // Reset form.
-      reset({ name: '' });
-    }
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [isSuccess, resetMutation]);
+
+  const onSubmit = (formData: { date: string; name: string }) => {
+    setShowFeedback(true);
+
+    mutation.mutate(formData, {
+      onSuccess: () => {
+        // If there is a searchParam "name", remove it.
+        if (searchParams?.name) void navigate({ search: { name: undefined } });
+
+        // Reset form.
+        reset({ name: '' });
+      },
+      onError: () => {
+        setShowFeedback(false);
+      },
+    });
   };
 
   return (
@@ -83,7 +97,7 @@ const Event = () => {
               name="name"
               render={({ field }) => (
                 <Input
-                  disabled={submitting}
+                  disabled={mutation.isPending}
                   errorText={errors.name && 'Please fill out this field.'}
                   id="event"
                   labelText="Event"
@@ -99,7 +113,7 @@ const Event = () => {
               name="date"
               render={({ field }) => (
                 <Input
-                  disabled={submitting}
+                  disabled={mutation.isPending}
                   errorText={errors.date && 'Please fill out this field.'}
                   id="date"
                   labelText="Day"
@@ -112,13 +126,20 @@ const Event = () => {
           </Section>
 
           <Section>
-            <Button disabled={submitSuccess || submitting} type="submit">
-              {submitSuccess ? 'Saved!' : submitting ? 'Saving' : 'Save'}
+            <Button
+              disabled={mutation.isSuccess || mutation.isPending}
+              type="submit"
+            >
+              {mutation.isSuccess
+                ? 'Saved!'
+                : mutation.isPending
+                  ? 'Saving'
+                  : 'Save'}
             </Button>
           </Section>
         </form>
 
-        {submitError && (
+        {mutation.isError && (
           <Section>
             <Heading>A terrible error happened!</Heading>
 
@@ -126,7 +147,7 @@ const Event = () => {
               Let me know what you did and what it says below and I will fix it.
             </Paragraph>
 
-            <code>{submitError}</code>
+            <code>{String(mutation.error)}</code>
           </Section>
         )}
       </SectionContainer>

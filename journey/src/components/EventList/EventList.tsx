@@ -15,32 +15,21 @@ import {
 import Event from './Event';
 import Divider from '../Divider/Divider';
 
-// Contexts
-import { useEvents, useEventsUpdate } from '../../contexts/eventsContext';
-
 // Styling
 import styles from './EventList.module.scss';
 
 // Types
-import type { Event as EventType, Events } from '../../types/types';
+import type { Events } from '../../types/types';
 
 type Props = {
   eventsToShow: Events;
 };
 
 const EventList = ({ eventsToShow }: Props) => {
-  const events = useEvents();
-  const setEvents = useEventsUpdate();
-
   const [currentYear] = useState(() => new Date().getFullYear());
 
   const eventsByYear: Year[] = categorizeByYearAndMonth(eventsToShow);
   let overallIndex = 0;
-
-  const removeEvent = (id: string) => {
-    const eventsNew = events.filter((event) => event.id !== id);
-    setEvents(eventsNew);
-  };
 
   return (
     <div className={styles.container}>
@@ -66,12 +55,11 @@ const EventList = ({ eventsToShow }: Props) => {
                 <Divider text={month.month} data-appearance="faint" />
 
                 <div className={styles.eventList}>
-                  {month.events.map((event: EventType) => {
+                  {month.events.map((event) => {
                     overallIndex++;
 
                     return (
                       <Event
-                        removeEvent={removeEvent}
                         event={event}
                         key={event.id}
                         overallIndex={overallIndex - 1}

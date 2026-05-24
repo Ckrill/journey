@@ -17,16 +17,18 @@ import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 import Streak from '../components/Streak/Streak';
 
+// Hooks
+import { useEventsQuery } from '../hooks/useEventsQuery';
+
 // Contexts
 import { useUser } from '../contexts/userContext';
-import { useEvents } from '../contexts/eventsContext';
 
-// Types
+// Components
 import ShowMore from '../components/ShowMore/ShowMore';
 
 const Journey = () => {
   const user = useUser();
-  const events = useEvents();
+  const { data: events = [] } = useEventsQuery();
   const pageSize = 10;
 
   const [soloMode, setSoloMode] = useState(false);

@@ -5,6 +5,7 @@ import react from '@eslint-react/eslint-plugin';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import reactCompiler from 'eslint-plugin-react-compiler';
 import depend from 'eslint-plugin-depend';
+import query from '@tanstack/eslint-plugin-query';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
@@ -37,6 +38,7 @@ export default defineConfig([
   react.configs['recommended-typescript'],
   reactRefresh.configs.vite,
   reactCompiler.configs.recommended,
+  ...query.configs['flat/recommended'],
   {
     rules: {},
   },

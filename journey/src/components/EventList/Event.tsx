@@ -8,7 +8,9 @@ import { variants } from './eventTransition';
 
 // Helpers
 import { formatDate } from '../../helpers/dateFormatting';
-import deleteEntry from '../../helpers/deleteEntry';
+
+// Hooks
+import { useDeleteEvent } from '../../hooks/useDeleteEvent';
 
 // Contexts
 import { useUser } from '../../contexts/userContext';
@@ -20,34 +22,23 @@ import type { Event as EventType } from '../../types/types';
 import styles from './Event.module.scss';
 
 type Props = {
-  removeEvent: (id: string) => void;
   event: EventType;
   overallIndex: number;
 };
 
-const Event = ({ removeEvent, event, overallIndex }: Props) => {
+const Event = ({ event, overallIndex }: Props) => {
   const user = useUser();
+  const deleteEvent = useDeleteEvent();
 
-  const [isDeleted, setIsDeleted] = useState(false);
-  const [hasWarning, setHasWarning] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
 
   const isMine = event.user.id === user?.id;
-
-  const deleteEventCallback = () => {
-    removeEvent(event.id);
-  };
-
-  const deleteEventErrorCallback = () => {
-    setIsDeleted(false);
-    setHasWarning(true);
-  };
 
   return (
     <motion.div
       className={`${styles.event} ${isMine ? styles['event--mine'] : ''} ${
         showOptions ? styles['event--show-options'] : ''
-      } ${isDeleted ? styles['event--deleted'] : ''}`}
+      } ${deleteEvent.isPending ? styles['event--deleted'] : ''}`}
       onClick={() => {
         setShowOptions(isMine && !showOptions);
       }}
@@ -72,16 +63,16 @@ const Event = ({ removeEvent, event, overallIndex }: Props) => {
 
         <div
           className={`${styles.options} ${
-            hasWarning ? styles['options--warning'] : ''
+            deleteEvent.isError ? styles['options--warning'] : ''
           }`}
         >
-          {hasWarning ? (
+          {deleteEvent.isError ? (
             <Warning
               onClick={(e) => {
                 if (!event.id) return;
 
                 e.stopPropagation();
-                setHasWarning(false);
+                deleteEvent.reset();
               }}
             />
           ) : (
@@ -90,12 +81,7 @@ const Event = ({ removeEvent, event, overallIndex }: Props) => {
                 if (!event.id) return;
 
                 e.stopPropagation();
-                setIsDeleted(true);
-                void deleteEntry(
-                  event.id,
-                  deleteEventCallback,
-                  deleteEventErrorCallback,
-                );
+                deleteEvent.mutate(event.id);
               }}
             />
           )}

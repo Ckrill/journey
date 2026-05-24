@@ -49,7 +49,9 @@ const handleResponse = (res: ResponseType) => {
 
 // Request a resource
 export const get = <T = ArrayContentful>(url: string): Promise<T> => {
-  return fetch(url).then((res) => handleResponse(res)) as Promise<T>;
+  return fetch(url, { signal: AbortSignal.timeout(5_000) }).then((res) =>
+    handleResponse(res),
+  ) as Promise<T>;
 };
 
 // Fetch all pages for a content type in parallel
