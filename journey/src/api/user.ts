@@ -1,7 +1,14 @@
-import { get, getItemsByAttribute } from '../helpers/requests';
-import { parseUser } from '../helpers/dataHandler';
+// Settings
 import { settings } from '../settings/settings';
+
+// Utilities
+import { parseUser } from '../helpers/dataHandler';
+import { get, getItemsByAttribute } from '../helpers/requests';
+
+// Miscellaneous
 import { client } from './contentful';
+
+// Types
 import type { UsersContentful } from '../types/contentfulTypes';
 import type { User } from '../types/types';
 
@@ -9,7 +16,7 @@ import type { User } from '../types/types';
  * @param userName
  * @returns user or null
  */
-export const fetchUser = async (userName: string): Promise<User | null> => {
+export const fetchUser = async (userName: string): Promise<null | User> => {
   const response: UsersContentful = await get(
     getItemsByAttribute('user', 'fields.name', userName),
   );
@@ -25,9 +32,9 @@ export const fetchUser = async (userName: string): Promise<User | null> => {
 export const createUser = async (userName: string): Promise<User> => {
   const entry = await client.entry.create(
     {
-      spaceId: settings.space,
-      environmentId: settings.environment,
       contentTypeId: 'user',
+      environmentId: settings.environment,
+      spaceId: settings.space,
     },
     {
       fields: {
@@ -43,9 +50,9 @@ export const createUser = async (userName: string): Promise<User> => {
 
   const publishedEntry = await client.entry.publish(
     {
-      spaceId: settings.space,
-      environmentId: settings.environment,
       entryId: entry.sys.id,
+      environmentId: settings.environment,
+      spaceId: settings.space,
     },
     entry,
   );

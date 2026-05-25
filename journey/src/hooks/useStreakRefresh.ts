@@ -1,3 +1,4 @@
+// External
 import {
   type Dispatch,
   type SetStateAction,
@@ -5,11 +6,15 @@ import {
   useEffect,
 } from 'react';
 
+// Utilities
 import { calculateStreak } from '../helpers/streak';
 import { fetchStreak } from '../helpers/streakFetch';
 import { persistStreak } from '../helpers/streakPersist';
+
+// Contexts
 import { useUser, useUserUpdate } from '../contexts/userContext';
 
+// Types
 import type { Events } from '../types/types';
 
 type Streak = { daysSinceLast: number; streak: number };
@@ -33,7 +38,7 @@ export const useStreakRefresh = (
 
       if (!result) return;
 
-      setStreak({ streak: result.streak, daysSinceLast: result.daysSinceLast });
+      setStreak({ daysSinceLast: result.daysSinceLast, streak: result.streak });
 
       try {
         const { isNewBest, today } = await persistStreak(user, result.streak);

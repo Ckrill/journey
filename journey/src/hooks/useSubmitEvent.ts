@@ -1,3 +1,4 @@
+// External
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 // Settings
@@ -7,25 +8,26 @@ import { settings } from '../settings/settings';
 import { client } from '../api/contentful';
 
 // Contexts
-import { useUser } from '../contexts/userContext';
 import { useStreakActions } from '../contexts/streakContext';
+import { useUser } from '../contexts/userContext';
 
 // Types
-import type { Event as EventType, Events } from '../types/types';
+import type { Events, Event as EventType } from '../types/types';
 
 type FormData = { date: string; name: string };
 
 type MutationContext = {
-  temporaryEvent: EventType;
   previous: Events | undefined;
+  temporaryEvent: EventType;
 };
 
 export const useSubmitEvent = () => {
   const queryClient = useQueryClient();
   const user = useUser();
-  const { refresh: refreshStreak, increment: incrementStreak } =
+  const { increment: incrementStreak, refresh: refreshStreak } =
     useStreakActions();
 
+  /* eslint-disable perfectionist/sort-objects */
   return useMutation<EventType, Error, FormData, MutationContext>({
     retry: false,
     // Create and publish the event in Contentful
@@ -34,9 +36,9 @@ export const useSubmitEvent = () => {
 
       const entry = await client.entry.create(
         {
-          spaceId: settings.space,
-          environmentId: settings.environment,
           contentTypeId: 'workout',
+          environmentId: settings.environment,
+          spaceId: settings.space,
         },
         {
           fields: {
@@ -53,9 +55,9 @@ export const useSubmitEvent = () => {
 
       const publishedEntry = await client.entry.publish(
         {
-          spaceId: settings.space,
-          environmentId: settings.environment,
           entryId: entry.sys.id,
+          environmentId: settings.environment,
+          spaceId: settings.space,
         },
         entry,
       );
@@ -80,8 +82,8 @@ export const useSubmitEvent = () => {
 
       const temporaryEvent: EventType = {
         date: formData.date,
-        name: formData.name,
         id: 'temp' + crypto.randomUUID(),
+        name: formData.name,
         user: user,
       };
 
@@ -92,7 +94,7 @@ export const useSubmitEvent = () => {
 
       incrementStreak();
 
-      return { temporaryEvent, previous };
+      return { previous, temporaryEvent };
     },
     // Replace the temp event with the real one and recalculate the streak
     onSuccess: (publishedEvent, _formData, context) => {
@@ -115,4 +117,5 @@ export const useSubmitEvent = () => {
       void refreshStreak();
     },
   });
+  /* eslint-enable perfectionist/sort-objects */
 };

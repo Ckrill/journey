@@ -1,6 +1,7 @@
+// External
 import React from 'react';
 
-// Styling
+// Styles
 import styles from './Paragraph.module.scss';
 
 type Props = {

@@ -1,7 +1,8 @@
+// External
 import { Link, useLocation } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 
-// Styling
+// Styles
 import styles from './Header.module.scss';
 
 const navigationItems = [

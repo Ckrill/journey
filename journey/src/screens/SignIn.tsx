@@ -1,6 +1,13 @@
+// External
 import { motion } from 'framer-motion';
 
-// Settings
+// Miscellaneous
+import Heading from '../components/Heading/Heading';
+import Paragraph from '../components/Paragraph/Paragraph';
+import SectionContainer from '../components/Section/SectionContainer';
+import Page from '../components/SignIn/Page';
+import SignInForm from '../components/SignIn/SignIn';
+import Title from '../components/SignIn/Title';
 import {
   pageTransition,
   pageVariants,
@@ -10,42 +17,34 @@ import {
   variants2,
 } from '../components/SignIn/transition';
 
-// Components
-import Heading from '../components/Heading/Heading';
-import Page from '../components/SignIn/Page';
-import Paragraph from '../components/Paragraph/Paragraph';
-import SectionContainer from '../components/Section/SectionContainer';
-import SignInForm from '../components/SignIn/SignIn';
-import Title from '../components/SignIn/Title';
-
 const SignIn = () => {
   return (
     <motion.div
-      initial="initial"
       animate="animate"
       exit="exit"
-      variants={pageVariants}
+      initial="initial"
       transition={pageTransition}
+      variants={pageVariants}
     >
       <Page>
         <Title>
           <motion.div
-            initial="initial"
             animate="animate"
             exit={'exit'}
-            variants={variants}
+            initial="initial"
             transition={transition}
+            variants={variants}
           >
             Journey
           </motion.div>
         </Title>
 
         <motion.div
-          style={{ display: 'flex', justifyContent: 'center' }}
-          initial="initial"
           animate="animate"
-          variants={variants2}
+          initial="initial"
+          style={{ display: 'flex', justifyContent: 'center' }}
           transition={transition2}
+          variants={variants2}
         >
           <SectionContainer>
             <Heading>Welcome friend</Heading>

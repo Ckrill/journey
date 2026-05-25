@@ -1,3 +1,4 @@
+// External
 import * as contentful from 'contentful-management';
 
 // Settings

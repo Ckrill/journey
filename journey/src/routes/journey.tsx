@@ -1,30 +1,29 @@
+// External
+import { createFileRoute } from '@tanstack/react-router';
+import { motion } from 'framer-motion';
 import { useState } from 'react';
 import {
-  BsFillPersonFill as Person,
   BsFillPeopleFill as People,
+  BsFillPersonFill as Person,
 } from 'react-icons/bs';
-import { motion } from 'framer-motion';
-import { createFileRoute } from '@tanstack/react-router';
 
 // Settings
 import { pageTransition, pageVariants } from '../settings/pageTransition';
 
-// Components
+// Contexts
+import { useUser } from '../contexts/userContext';
+
+// Hooks
+import { useEventsQuery } from '../hooks/useEventsQuery';
+
+// Miscellaneous
 import EventList from '../components/EventList/EventList';
 import MockEventList from '../components/EventList/MockEventList';
 import Heading from '../components/Heading/Heading';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
-import Streak from '../components/Streak/Streak';
-
-// Hooks
-import { useEventsQuery } from '../hooks/useEventsQuery';
-
-// Contexts
-import { useUser } from '../contexts/userContext';
-
-// Components
 import ShowMore from '../components/ShowMore/ShowMore';
+import Streak from '../components/Streak/Streak';
 
 const Journey = () => {
   const user = useUser();
@@ -44,11 +43,11 @@ const Journey = () => {
 
   return (
     <motion.div
-      initial="initial"
       animate="animate"
       exit="exit"
-      variants={pageVariants}
+      initial="initial"
       transition={pageTransition}
+      variants={pageVariants}
     >
       <SectionContainer>
         <Section>
@@ -58,9 +57,17 @@ const Journey = () => {
         <Section>
           <Heading>
             {soloMode ? (
-              <Person onClick={() => { setSoloMode((prevState) => !prevState); }} />
+              <Person
+                onClick={() => {
+                  setSoloMode((prevState) => !prevState);
+                }}
+              />
             ) : (
-              <People onClick={() => { setSoloMode((prevState) => !prevState); }} />
+              <People
+                onClick={() => {
+                  setSoloMode((prevState) => !prevState);
+                }}
+              />
             )}
             <span>
               {soloMode ? `My ` : `Our `}

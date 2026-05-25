@@ -1,21 +1,18 @@
+// External
 import { createRootRoute, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { AnimatePresence } from 'framer-motion';
 
-// Screens
-import SignIn from '../screens/SignIn';
+// Contexts
+import { useUser } from '../contexts/userContext';
 
 // Hooks
 import { eventsQueryOptions } from '../hooks/useEventsQuery';
 
-// Components
+// Miscellaneous
 import Header from '../components/Header/Header';
-
-// Contexts
-import { useUser } from '../contexts/userContext';
-
-// Query
 import { queryClient } from '../lib/queryClient';
+import SignIn from '../screens/SignIn';
 
 // styles
 import '../App.scss';

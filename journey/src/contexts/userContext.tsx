@@ -1,13 +1,14 @@
+// External
 import { createContext, type ReactNode, use, useState } from 'react';
 
-// Helpers
+// Utilities
 import { getFromLocalStorage } from '../helpers/localStorage';
 
 // Types
 import type { User } from '../types/types';
 
-const UserContext = createContext<User | null>(null);
-const UserUpdateContext = createContext<(user: User | null) => void>(
+const UserContext = createContext<null | User>(null);
+const UserUpdateContext = createContext<(user: null | User) => void>(
   () => null,
 );
 
@@ -17,7 +18,7 @@ export const useUserUpdate = () => use(UserUpdateContext);
 type Props = { children: ReactNode };
 
 export const UserProvider = ({ children }: Props) => {
-  const [user, setUser] = useState<User | null>(() =>
+  const [user, setUser] = useState<null | User>(() =>
     getFromLocalStorage<User>('user'),
   );
 

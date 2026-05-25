@@ -1,6 +1,7 @@
+// External
 import React from 'react';
 
-// Styling
+// Styles
 import styles from './Input.module.scss';
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {

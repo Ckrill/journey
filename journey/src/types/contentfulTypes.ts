@@ -1,3 +1,4 @@
+// Types
 import type {
   CollectionProp,
   EntryProps,
@@ -15,9 +16,9 @@ export interface ArrayContentful extends CollectionProp<EntryProps<unknown>> {
 // User
 
 type UserFields = {
-  name: string;
   bestStreak?: number;
   currentStreak?: number;
+  name: string;
   streakUpdatedDate?: string;
 };
 

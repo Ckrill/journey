@@ -1,8 +1,8 @@
 export type User = {
-  id: string;
-  name: string;
   bestStreak?: number;
   currentStreak?: number;
+  id: string;
+  name: string;
   streakUpdatedDate?: string;
 };
 

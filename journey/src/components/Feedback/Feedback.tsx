@@ -1,17 +1,18 @@
+// External
 import { useEffect, useMemo, useRef } from 'react';
 
-// Data
-import feedbackHeading from '../../data/synonyms/feedback-heading.json';
-
-// Helpers
+// Utilities
 import { getHeading, getHeadingSize } from '../../helpers/synonyms';
-
-// Sounds
-import thump from '../../assets/sounds/thump.mp3';
 
 // Contexts
 import { useSettings } from '../../contexts/settingsContext';
 import { useStreak } from '../../contexts/streakContext';
+
+// Data
+import feedbackHeading from '../../data/synonyms/feedback-heading.json';
+
+// Assets
+import thump from '../../assets/sounds/thump.mp3';
 
 // Styles
 import styles from './Feedback.module.scss';

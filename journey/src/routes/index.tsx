@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { motion } from 'framer-motion';
+// External
 import { useNavigate } from '@tanstack/react-router';
 import { createFileRoute } from '@tanstack/react-router';
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
 // Settings
 import { pageTransition, pageVariants } from '../settings/pageTransition';
@@ -10,7 +11,7 @@ import { pageTransition, pageVariants } from '../settings/pageTransition';
 // Hooks
 import { useSubmitEvent } from '../hooks/useSubmitEvent';
 
-// Components
+// Miscellaneous
 import Button from '../components/Button/Button';
 import Feedback from '../components/Feedback/Feedback';
 import Input from '../components/Form/Input/Input';
@@ -74,11 +75,11 @@ const Event = () => {
 
   return (
     <motion.div
-      initial="initial"
       animate="animate"
       exit="exit"
-      variants={pageVariants}
+      initial="initial"
       transition={pageTransition}
+      variants={pageVariants}
     >
       <SectionContainer>
         <Section>
@@ -158,10 +159,10 @@ const Event = () => {
 };
 
 type EventParams =
+  | undefined
   | {
       name: string | undefined;
-    }
-  | undefined;
+    };
 
 export const Route = createFileRoute('/')({
   component: Event,

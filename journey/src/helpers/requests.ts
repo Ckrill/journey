@@ -4,7 +4,7 @@ import { settings } from '../settings/settings';
 // Types
 import type { ArrayContentful } from '../types/contentfulTypes';
 
-const { baseURL, limit, space, environment, accessToken } = settings;
+const { accessToken, baseURL, environment, limit, space } = settings;
 
 //  Get single entry
 // export const getItem = (id: string) => {

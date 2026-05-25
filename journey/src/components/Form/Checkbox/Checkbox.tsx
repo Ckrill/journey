@@ -14,12 +14,12 @@ const Checkbox = ({ callback, checked, id, label }: Props) => (
       checked={checked}
       className={styles.inputCheckbox}
       id={id}
-      type="checkbox"
       onChange={callback}
+      type="checkbox"
     />{' '}
     <label className={styles.checkbox} htmlFor={id}>
       <span>
-        <svg width="22px" height="20px" viewBox="0 0 12 10">
+        <svg height="20px" viewBox="0 0 12 10" width="22px">
           <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
         </svg>
       </span>

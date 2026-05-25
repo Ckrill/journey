@@ -1,28 +1,29 @@
+// External
 import { createFileRoute } from '@tanstack/react-router';
-import { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 
 // Settings
 import { pageTransition, pageVariants } from '../settings/pageTransition';
 
-// Helpers
+// Utilities
 import { saveToLocalStorage } from '../helpers/localStorage';
 
-// Components
+// Contexts
+import { useSettings, useSettingsUpdate } from '../contexts/settingsContext';
+import { useStreak } from '../contexts/streakContext';
+import { useUser, useUserUpdate } from '../contexts/userContext';
+
+// Miscellaneous
 import Button from '../components/Button/Button';
-import Checkbox from '../components/Form/Checkbox/Checkbox';
-import CheckboxGroup from '../components/Form/Checkbox/CheckboxGroup';
 import CountUp from '../components/CountUp/CountUp';
 import Divider from '../components/Divider/Divider';
+import Checkbox from '../components/Form/Checkbox/Checkbox';
+import CheckboxGroup from '../components/Form/Checkbox/CheckboxGroup';
 import Heading from '../components/Heading/Heading';
 import Paragraph from '../components/Paragraph/Paragraph';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
-
-// Contexts
-import { useStreak } from '../contexts/streakContext';
-import { useUser, useUserUpdate } from '../contexts/userContext';
-import { useSettings, useSettingsUpdate } from '../contexts/settingsContext';
 
 const Settings = () => {
   const streak = useStreak();
@@ -56,11 +57,11 @@ const Settings = () => {
 
   return (
     <motion.div
-      initial="initial"
       animate="animate"
       exit="exit"
-      variants={pageVariants}
+      initial="initial"
       transition={pageTransition}
+      variants={pageVariants}
     >
       <SectionContainer>
         <Section>

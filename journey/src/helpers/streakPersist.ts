@@ -1,5 +1,10 @@
-import { client } from '../api/contentful';
+// Settings
 import { settings } from '../settings/settings';
+
+// API
+import { client } from '../api/contentful';
+
+// Types
 import type { User } from '../types/types';
 
 /** Persists currentStreak and streakUpdatedDate (and bestStreak if new record) to Contentful */
@@ -8,9 +13,9 @@ export const persistStreak = async (user: User, streakValue: number) => {
   const isNewBest = streakValue > (user.bestStreak ?? 0);
 
   const entryParams = {
-    spaceId: settings.space,
-    environmentId: settings.environment,
     entryId: user.id,
+    environmentId: settings.environment,
+    spaceId: settings.space,
   };
 
   const currentEntry = await client.entry.get(entryParams);

@@ -1,6 +1,7 @@
+// External
 import { useQuery } from '@tanstack/react-query';
 
-// Helpers
+// Utilities
 import { parseEvents } from '../helpers/dataHandler';
 import { getAll } from '../helpers/requests';
 
@@ -9,11 +10,11 @@ import type { EventsContentful } from '../types/contentfulTypes';
 import type { Events } from '../types/types';
 
 export const eventsQueryOptions = {
-  queryKey: ['events'] as const,
   queryFn: async (): Promise<Events> => {
     const data = await getAll<EventsContentful>('workout');
     return parseEvents(data);
   },
+  queryKey: ['events'] as const,
   staleTime: 30_000,
 };
 

@@ -1,6 +1,7 @@
+// External
 import { createContext, type ReactNode, use, useState } from 'react';
 
-// Helpers
+// Utilities
 import { getFromLocalStorage } from '../helpers/localStorage';
 
 // Types

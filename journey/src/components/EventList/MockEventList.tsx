@@ -1,7 +1,7 @@
-// Helpers
+// Utilities
 import { formatDate } from '../../helpers/dateFormatting';
 
-// Components
+// Miscellaneous
 import Divider from '../Divider/Divider';
 
 // Styles
@@ -12,7 +12,7 @@ const presentMonth = formatDate(new Date(), 'month');
 const MockEventList = () => {
   return (
     <div className={styles['event-list']}>
-      <Divider text={presentMonth} data-appearance="faint" />
+      <Divider data-appearance="faint" text={presentMonth} />
 
       <div>Getting your events...</div>
     </div>

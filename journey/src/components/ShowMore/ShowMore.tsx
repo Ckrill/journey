@@ -1,8 +1,9 @@
+// External
 import { useState } from 'react';
 import { BsArrowDownCircleFill as ArrowDown } from 'react-icons/bs';
 import { useInView } from 'react-intersection-observer';
 
-// Styling
+// Styles
 import styles from './ShowMore.module.scss';
 
 type Props = {

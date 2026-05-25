@@ -1,19 +1,20 @@
+// External
+import { QueryClientProvider } from '@tanstack/react-query';
+import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { RouterProvider, createRouter } from '@tanstack/react-router';
-import './index.css';
-
-// Query
-import { queryClient } from './lib/queryClient';
 
 // Contexts
-import { UserProvider } from './contexts/userContext';
-import { StreakProvider } from './contexts/streakContext';
 import { SettingsProvider } from './contexts/settingsContext';
+import { StreakProvider } from './contexts/streakContext';
+import { UserProvider } from './contexts/userContext';
 
-// Import the generated route tree
+// Miscellaneous
+import { queryClient } from './lib/queryClient';
 import { routeTree } from './routeTree.gen';
+
+// Styles
+import './index.css';
 
 // Create a new router instance
 const router = createRouter({ routeTree });

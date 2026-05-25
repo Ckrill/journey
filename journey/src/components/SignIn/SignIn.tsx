@@ -1,22 +1,23 @@
+// External
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
-// Helpers
+// Utilities
 import { saveToLocalStorage } from '../../helpers/localStorage';
 
-// Hooks
+// API
 import { createUser, fetchUser } from '../../api/user';
 
-// Components
+// Contexts
+import { useUserUpdate } from '../../contexts/userContext';
+
+// Miscellaneous
 import Button from '../Button/Button';
 import Code from '../Code/Code';
 import Input from '../Form/Input/Input';
 import Heading from '../Heading/Heading';
 import Paragraph from '../Paragraph/Paragraph';
 import Section from '../Section/Section';
-
-// Contexts
-import { useUserUpdate } from '../../contexts/userContext';
 
 type FieldValues = {
   name: string;
@@ -26,7 +27,7 @@ const SignUp = () => {
   const setUser = useUserUpdate();
 
   const [submitting, setSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<null | string>(null);
   const { control, handleSubmit } = useForm<FieldValues>();
 
   const onSubmit = async (data: FieldValues) => {

@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+// External
 import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
-// Settings
+// Miscellaneous
 import { variants } from './transition';
 
 // Styles
@@ -46,16 +47,16 @@ const CountUp = ({ countTo, duration = 500, exponential }: Props) => {
         <span className={styles.shadowCounter}>{countTo}</span>
 
         <motion.span
-          className={styles.counter}
-          key={count}
-          initial="initial"
           animate="animate"
+          className={styles.counter}
           exit="exit"
-          variants={variants}
+          initial="initial"
+          key={count}
           transition={{
             duration: frameDuration / 1000,
             ease: 'linear',
           }}
+          variants={variants}
         >
           {count}
         </motion.span>

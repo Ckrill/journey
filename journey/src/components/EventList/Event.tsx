@@ -1,24 +1,25 @@
+// External
+import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { BiTrash as Trash } from 'react-icons/bi';
 import { RiErrorWarningLine as Warning } from 'react-icons/ri';
-import { motion } from 'framer-motion';
 
-// Settings
-import { variants } from './eventTransition';
-
-// Helpers
+// Utilities
 import { formatDate } from '../../helpers/dateFormatting';
-
-// Hooks
-import { useDeleteEvent } from '../../hooks/useDeleteEvent';
 
 // Contexts
 import { useUser } from '../../contexts/userContext';
 
+// Hooks
+import { useDeleteEvent } from '../../hooks/useDeleteEvent';
+
+// Miscellaneous
+import { variants } from './eventTransition';
+
 // Types
 import type { Event as EventType } from '../../types/types';
 
-// Styling
+// Styles
 import styles from './Event.module.scss';
 
 type Props = {
@@ -42,11 +43,11 @@ const Event = ({ event, overallIndex }: Props) => {
       onClick={() => {
         setShowOptions(isMine && !showOptions);
       }}
-      variants={variants}
       transition={{
-        duration: 0.2,
         delay: ((overallIndex % 10) * 5) / 100,
+        duration: 0.2,
       }}
+      variants={variants}
     >
       <div className={styles.container}>
         <header className={styles.header}>

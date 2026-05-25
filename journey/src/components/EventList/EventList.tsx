@@ -1,25 +1,24 @@
-import { Fragment, useState } from 'react';
+// External
 import { AnimatePresence, motion } from 'framer-motion';
+import { Fragment, useState } from 'react';
 
-// Settings
-import { variants } from './eventTransition';
-
-// Helpers
+// Utilities
 import {
   categorizeByYearAndMonth,
   type Month,
   type Year,
 } from '../../helpers/categorizer';
 
-// Components
-import Event from './Event';
+// Miscellaneous
 import Divider from '../Divider/Divider';
-
-// Styling
-import styles from './EventList.module.scss';
+import Event from './Event';
+import { variants } from './eventTransition';
 
 // Types
 import type { Events } from '../../types/types';
+
+// Styles
+import styles from './EventList.module.scss';
 
 type Props = {
   eventsToShow: Events;
@@ -36,23 +35,23 @@ const EventList = ({ eventsToShow }: Props) => {
       {eventsByYear.map((year: Year) => (
         <Fragment key={year.year}>
           {year.year !== currentYear && (
-            <Divider text={String(year.year)} data-appearance="faint" />
+            <Divider data-appearance="faint" text={String(year.year)} />
           )}
 
           <AnimatePresence>
             {year.months.map((month: Month) => (
               <motion.div
-                key={month.month}
-                initial="initial"
                 animate="animate"
                 exit="exit"
-                variants={variants}
+                initial="initial"
+                key={month.month}
                 transition={{
                   duration: 0.2,
                   when: 'beforeChildren',
                 }}
+                variants={variants}
               >
-                <Divider text={month.month} data-appearance="faint" />
+                <Divider data-appearance="faint" text={month.month} />
 
                 <div className={styles.eventList}>
                   {month.events.map((event) => {

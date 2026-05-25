@@ -1,3 +1,4 @@
+// External
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 // Settings
@@ -16,14 +17,15 @@ export const useDeleteEvent = () => {
   const queryClient = useQueryClient();
   const { refresh: refreshStreak } = useStreakActions();
 
+  /* eslint-disable perfectionist/sort-objects */
   return useMutation({
     retry: false,
     // Unpublish and delete the entry from Contentful
     mutationFn: async (entryId: string) => {
       const params = {
-        spaceId: settings.space,
-        environmentId: settings.environment,
         entryId,
+        environmentId: settings.environment,
+        spaceId: settings.space,
       };
 
       const entry = await client.entry.get(params);
@@ -54,4 +56,5 @@ export const useDeleteEvent = () => {
       }
     },
   });
+  /* eslint-enable perfectionist/sort-objects */
 };

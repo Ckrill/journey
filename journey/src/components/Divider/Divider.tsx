@@ -1,4 +1,4 @@
-// Styling
+// Styles
 import styles from './Divider.module.scss';
 
 type Props = {

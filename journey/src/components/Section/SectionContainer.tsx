@@ -1,4 +1,4 @@
-// Styling
+// Styles
 import styles from './SectionContainer.module.scss';
 
 type Props = {

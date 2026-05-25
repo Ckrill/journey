@@ -5,16 +5,16 @@ import type {
 } from '../types/contentfulTypes';
 import type { Event, Events, User } from '../types/types';
 
-export const parseUser = (arr: UsersContentful): User | null => {
+export const parseUser = (arr: UsersContentful): null | User => {
   const item = arr.items[0];
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!item) return null;
 
   const user: User = {
-    id: item.sys.id,
-    name: item.fields.name,
     bestStreak: item.fields.bestStreak,
     currentStreak: item.fields.currentStreak,
+    id: item.sys.id,
+    name: item.fields.name,
     streakUpdatedDate: item.fields.streakUpdatedDate,
   };
 

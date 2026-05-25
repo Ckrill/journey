@@ -1,11 +1,11 @@
-// Helpers
-import { formatDate } from './dateFormatting';
+// Utilities
+import { formatDate } from '../helpers/dateFormatting';
 
 // Types
 import type { Events } from '../types/types';
 
 export type Year = { months: Month[]; year: number };
-export type Month = { month: string; events: Events };
+export type Month = { events: Events; month: string };
 
 export const categorizeByYearAndMonth = (events: Events) => {
   const eventsByYear: Year[] = [];
@@ -17,7 +17,7 @@ export const categorizeByYearAndMonth = (events: Events) => {
 
     // Templates
     const yearTemplate: Year = { months: [], year: eventYear };
-    const monthTemplate: Month = { month: eventMonth, events: [] };
+    const monthTemplate: Month = { events: [], month: eventMonth };
 
     // If the year does not exist, create it.
     const yearRef =

@@ -1,5 +1,5 @@
 // Types
-import type { User, Events } from '../types/types';
+import type { Events, User } from '../types/types';
 
 /** Maximum allowed gap (in days) between consecutive event dates before the streak breaks */
 const STREAK_LENIENCY_DAYS = 3;
@@ -14,8 +14,8 @@ const daysBetween = (dateA: string, dateB: string) => {
  * Returns `hitBoundary: true` when the streak spans all available data,
  * signalling that a larger window of events may be needed.
  */
-export const calculateStreak = (user: User | null, events: Events) => {
-  if (!user) return { streak: 0, daysSinceLast: 0, hitBoundary: false };
+export const calculateStreak = (user: null | User, events: Events) => {
+  if (!user) return { daysSinceLast: 0, hitBoundary: false, streak: 0 };
 
   // Unique dates for this user, sorted descending
   const userEvents = events.filter((e) => e.user.id === user.id);
@@ -23,7 +23,7 @@ export const calculateStreak = (user: User | null, events: Events) => {
   const sortedDates = uniqueDates.sort((a, b) => (a > b ? -1 : 1));
 
   if (!sortedDates.length)
-    return { streak: 0, daysSinceLast: 0, hitBoundary: false };
+    return { daysSinceLast: 0, hitBoundary: false, streak: 0 };
 
   const latestEventDate = sortedDates[0];
   const today = Temporal.Now.plainDateISO().toString();
@@ -31,7 +31,7 @@ export const calculateStreak = (user: User | null, events: Events) => {
 
   // Streak already broken
   if (daysSinceLast > STREAK_LENIENCY_DAYS)
-    return { streak: 0, daysSinceLast, hitBoundary: false };
+    return { daysSinceLast, hitBoundary: false, streak: 0 };
 
   // Walk consecutive pairs — break on first gap > STREAK_LENIENCY_DAYS
   let streak = 1;
@@ -46,5 +46,5 @@ export const calculateStreak = (user: User | null, events: Events) => {
     streak++;
   }
 
-  return { streak, daysSinceLast, hitBoundary };
+  return { daysSinceLast, hitBoundary, streak };
 };

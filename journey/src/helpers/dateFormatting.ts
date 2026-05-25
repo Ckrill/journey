@@ -2,8 +2,8 @@
 export const formatDate = (date: Date, format: 'month' | 'monthDay') => {
   const locale: string = 'en-US';
   const formattedDate = date.toLocaleDateString(locale, {
-    month: 'long',
     day: format !== 'month' ? 'numeric' : undefined,
+    month: 'long',
   });
   return formattedDate;
 };

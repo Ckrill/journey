@@ -1,7 +1,9 @@
-import { calculateStreak } from './streak';
+// Miscellaneous
 import { parseEvents } from './dataHandler';
 import { get, getRecentByType } from './requests';
+import { calculateStreak } from './streak';
 
+// Types
 import type { EventsContentful } from '../types/contentfulTypes';
 import type { User } from '../types/types';
 
@@ -20,7 +22,7 @@ export const fetchStreak = async (user: User) => {
     const result = calculateStreak(user, events);
 
     if (!result.hitBoundary || events.length === 0) {
-      return { streak: result.streak, daysSinceLast: result.daysSinceLast };
+      return { daysSinceLast: result.daysSinceLast, streak: result.streak };
     }
   }
   return null;

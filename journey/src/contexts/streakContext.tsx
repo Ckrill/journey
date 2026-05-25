@@ -1,3 +1,4 @@
+// External
 import {
   createContext,
   type ReactNode,
@@ -19,14 +20,14 @@ import type { Events } from '../types/types';
 type Streak = { daysSinceLast: number; streak: number };
 
 type StreakActions = {
-  refresh: (localEvents?: Events) => Promise<void>;
   increment: () => void;
+  refresh: (localEvents?: Events) => Promise<void>;
 };
 
 const StreakContext = createContext<Streak>({ daysSinceLast: 0, streak: -1 });
 const StreakActionsContext = createContext<StreakActions>({
-  refresh: () => Promise.resolve(),
   increment: () => undefined,
+  refresh: () => Promise.resolve(),
 });
 
 export const useStreak = () => use(StreakContext);
@@ -43,7 +44,7 @@ export const StreakProvider = ({ children }: Props) => {
     if (!user) return { daysSinceLast: 0, streak: -1 };
     const today = Temporal.Now.plainDateISO().toString();
     if (user.streakUpdatedDate === today && user.currentStreak != null) {
-      return { streak: user.currentStreak, daysSinceLast: 0 };
+      return { daysSinceLast: 0, streak: user.currentStreak };
     }
     return { daysSinceLast: 0, streak: -1 };
   });
@@ -52,10 +53,10 @@ export const StreakProvider = ({ children }: Props) => {
 
   // Optimistic UI update — immediately reflects the new streak before persist completes
   const increment = useCallback(() => {
-    setStreak((prev) => ({ streak: prev.streak + 1, daysSinceLast: 0 }));
+    setStreak((prev) => ({ daysSinceLast: 0, streak: prev.streak + 1 }));
   }, []);
 
-  const actions = useMemo(() => ({ refresh, increment }), [refresh, increment]);
+  const actions = useMemo(() => ({ increment, refresh }), [refresh, increment]);
 
   return (
     <StreakContext value={streak}>
