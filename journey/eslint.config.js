@@ -6,6 +6,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import reactCompiler from 'eslint-plugin-react-compiler';
 import depend from 'eslint-plugin-depend';
 import query from '@tanstack/eslint-plugin-query';
+import router from '@tanstack/eslint-plugin-router';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
@@ -38,9 +39,33 @@ export default defineConfig([
   react.configs['recommended-typescript'],
   reactRefresh.configs.vite,
   reactCompiler.configs.recommended,
+  ...router.configs['flat/recommended'],
   ...query.configs['flat/recommended'],
   {
     rules: {},
+  },
+  // Allow TanStack Router's throw redirect() / throw notFound() patterns.
+  // https://tanstack.com/router/latest/docs/eslint/eslint-plugin-router#typescript-eslint
+  {
+    rules: {
+      '@typescript-eslint/only-throw-error': [
+        'error',
+        {
+          allow: [
+            {
+              from: 'package',
+              package: '@tanstack/router-core',
+              name: 'Redirect',
+            },
+            {
+              from: 'package',
+              package: '@tanstack/router-core',
+              name: 'NotFoundError',
+            },
+          ],
+        },
+      ],
+    },
   },
   // TanStack Router routes must export `Route` alongside the component — splitting
   // is not possible. Context files co-locate provider + hook by convention. Neither
