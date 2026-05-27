@@ -1,0 +1,89 @@
+{
+  // Yarn PnP doesn't support relative paths in the $schema field, so we have to use an absolute path or a URL.
+  // "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/refs/heads/main/npm/oxfmt/configuration_schema.json",
+  "singleQuote": true,
+  "printWidth": 80,
+  "trailingComma": "all",
+  "ignorePatterns": ["src/routeTree.gen.ts", ".yarn/**", ".pnp.*"],
+  "sortImports": {
+    "newlinesBetween": true,
+    "sortSideEffects": true,
+    "groups": [
+      "type-import",
+      ["builtin", "external"],
+      "settings",
+      "type-internal",
+      "internal",
+      "utils",
+      "api",
+      "context",
+      "hooks",
+      "data",
+      "assets",
+      ["parent", "sibling", "index"],
+      ["type-parent", "type-sibling", "type-index", "types"],
+      "styles",
+      "unknown",
+    ],
+    "customGroups": [
+      {
+        // Includes "settings/".
+        "groupName": "settings",
+        "elementNamePattern": ["**/settings/**"],
+      },
+      {
+        // Contain "/utils/" or end with "utils" or "util" or contain "/helpers/" or end with "helpers" or "helper".
+        "groupName": "utils",
+        "elementNamePattern": [
+          "**/utils/**",
+          "**/*utils",
+          "**/*util",
+          "**/helpers/**",
+          "**/*helpers",
+          "**/*helper",
+        ],
+      },
+      {
+        // Contain "/api/".
+        "groupName": "api",
+        "elementNamePattern": ["**/api/**"],
+      },
+      {
+        // Contain "/contexts/" or end with "Context".
+        "groupName": "context",
+        "elementNamePattern": ["**/contexts/**", "**/*Context"],
+      },
+      {
+        // Contain "/hooks/" or contain "/use" followed by a capital letter or start with "use" followed by a capital letter.
+        "groupName": "hooks",
+        "elementNamePattern": ["**/hooks/**", "**/use[A-Z]*", "use[A-Z]*"],
+      },
+      {
+        // Contain "/data/" or end with ".json".
+        "groupName": "data",
+        "elementNamePattern": ["**/data/**", "**/*.json"],
+      },
+      {
+        // Contain "/assets/".
+        "groupName": "assets",
+        "elementNamePattern": ["**/assets/**"],
+      },
+      {
+        // Contain "/types/" or end with ".types".
+        "groupName": "types",
+        "elementNamePattern": ["**/types/**", "**/*.types"],
+      },
+      {
+        // Contain "/styles/" or end with ".styles" or ".css" or ".scss".
+        "groupName": "styles",
+        "elementNamePattern": [
+          "**/styles/**",
+          "**/*.styles",
+          "**/*.css",
+          "**/*.scss",
+        ],
+      },
+    ],
+  },
+}

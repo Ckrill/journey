@@ -10,8 +10,9 @@
   background-color: var(--color);
   border-left: 15px solid var(--color);
   border-radius: 10px;
-  transition: height var(--rapid),
-      margin var(--rapid);
+  transition:
+    height var(--rapid),
+    margin var(--rapid);
   -webkit-tap-highlight-color: transparent;
 
   &--mine {
@@ -29,12 +30,12 @@
       margin-top: 0;
       margin-bottom: 0;
     }
-    
+
     &:first-child {
       margin-top: 0;
       margin-bottom: 0;
     }
-    
+
     &:last-child {
       margin-top: 5px;
       margin-bottom: 5px;

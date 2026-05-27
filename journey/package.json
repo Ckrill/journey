@@ -4,29 +4,20 @@
   "private": true,
   "homepage": "https://journey.vercel.app",
   "type": "module",
-  "packageManager": "yarn@4.14.1",
   "scripts": {
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint src/",
-    "lint:css": "stylelint \"src/**/*.scss\"",
-    "lint:css:fix": "stylelint \"src/**/*.scss\" --fix",
-    "typecheck": "tsc --noEmit",
+    "format": "echo '▶ Oxfmt' && oxfmt --check",
+    "format:fix": "oxfmt",
+    "lint": "yarn lint:css && yarn lint:js",
+    "lint:css": "echo '▶ Stylelint' && stylelint \"src/**/*.{css,scss}\"",
+    "lint:css:fix": "stylelint \"src/**/*.{css,scss}\" --fix",
+    "lint:js": "echo '▶ ESLint' && eslint src/",
+    "lint:js:fix": "eslint src/ --fix",
+    "typecheck": "echo '▶ TypeScript' && tsc --noEmit",
+    "validate": "yarn format && yarn lint && yarn typecheck",
     "knip": "knip"
-  },
-  "browserslist": {
-    "production": [
-      "defaults"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "resolutions": {
-    "react-icons": "5.4.0"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.100.11",
@@ -61,6 +52,7 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
     "knip": "^6.11.0",
+    "oxfmt": "^0.51.0",
     "postcss": "^8.5.14",
     "rollup-plugin-visualizer": "^7.0.1",
     "sass-embedded": "^1.99.0",
@@ -71,5 +63,24 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.1",
     "vite": "^8.0.10"
-  }
+  },
+  "dependenciesMeta": {
+    "oxfmt@0.51.0": {
+      "unplugged": true
+    }
+  },
+  "resolutions": {
+    "react-icons": "5.4.0"
+  },
+  "browserslist": {
+    "production": [
+      "defaults"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "packageManager": "yarn@4.14.1"
 }

@@ -3,10 +3,11 @@
   "tags": ["-lintignore"],
   "project": ["src/**", "public/**", "*.{js,ts}"],
   "ignore": ["public/sw.js"],
-  "ignoreBinaries": ["eslint", "knip", "stylelint", "tsc", "vite"],
+  "ignoreBinaries": ["eslint", "knip", "oxfmt", "stylelint", "tsc", "vite"],
   "ignoreDependencies": [
     "@emotion/is-prop-valid",
     "@tanstack/router-core",
+    "oxfmt",
     "postcss",
     "sass-embedded",
     "stylelint",

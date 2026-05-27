@@ -10,7 +10,8 @@
   text-align: center;
 }
 
-h2 + .paragraph, .paragraph + .paragraph {
+h2 + .paragraph,
+.paragraph + .paragraph {
   margin-top: 20px;
 }
 

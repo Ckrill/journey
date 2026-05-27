@@ -1,14 +1,15 @@
-import js from '@eslint/js';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
+// External
 import react from '@eslint-react/eslint-plugin';
-import reactRefresh from 'eslint-plugin-react-refresh';
-import reactCompiler from 'eslint-plugin-react-compiler';
-import depend from 'eslint-plugin-depend';
+import js from '@eslint/js';
 import query from '@tanstack/eslint-plugin-query';
 import router from '@tanstack/eslint-plugin-router';
+import depend from 'eslint-plugin-depend';
 import perfectionist from 'eslint-plugin-perfectionist';
+import reactCompiler from 'eslint-plugin-react-compiler';
+import reactRefresh from 'eslint-plugin-react-refresh';
 import { defineConfig, globalIgnores } from 'eslint/config';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 export default defineConfig([
   globalIgnores([
@@ -45,90 +46,7 @@ export default defineConfig([
   perfectionist.configs['recommended-natural'],
   {
     rules: {
-      'perfectionist/sort-imports': [
-        'warn',
-        {
-          sortSideEffects: true,
-          type: 'natural',
-          groups: [
-            'type',
-            { group: ['builtin', 'external'], commentAbove: 'External' },
-            { group: 'settings', commentAbove: 'Settings' },
-            'type-internal',
-            'internal',
-            { group: 'utils', commentAbove: 'Utilities' },
-            { group: 'api', commentAbove: 'API' },
-            { group: 'context', commentAbove: 'Contexts' },
-            { group: 'hooks', commentAbove: 'Hooks' },
-            { group: 'data', commentAbove: 'Data' },
-            { group: 'assets', commentAbove: 'Assets' },
-            {
-              group: ['parent', 'sibling', 'index'],
-              commentAbove: 'Miscellaneous',
-            },
-            {
-              group: ['type-parent', 'type-sibling', 'type-index', 'types'],
-              commentAbove: 'Types',
-            },
-            { group: ['style', 'styles'], commentAbove: 'Styles' },
-            'unknown',
-          ],
-          customGroups: [
-            {
-              // Includes "settings/".
-              groupName: 'settings',
-              elementNamePattern: 'settings/',
-            },
-            {
-              // Contain "/api/".
-              groupName: 'api',
-              elementNamePattern: '/api/',
-            },
-            {
-              // Contain "/utils/" or end with "utils" or "util" or contain "/helpers/" or end with "helpers" or "helper".
-              groupName: 'utils',
-              elementNamePattern: [
-                '/utils/',
-                'utils$',
-                'util$',
-                '/helpers/',
-                'helpers$',
-                'helper$',
-              ],
-            },
-            {
-              // Contain "/contexts/" or end with ".context".
-              groupName: 'context',
-              elementNamePattern: ['/contexts/', 'Context$'],
-            },
-            {
-              // Contain "/hooks/ or contain "/use" followed by a capital letter" or start with "use" followed by a capital letter.
-              groupName: 'hooks',
-              elementNamePattern: ['/hooks/', '/use[A-Z]', '^use[A-Z]'],
-            },
-            {
-              // Contain "/data/" or end with ".json".
-              groupName: 'data',
-              elementNamePattern: ['/data/', '.json$'],
-            },
-            {
-              // Contain "/assets/".
-              groupName: 'assets',
-              elementNamePattern: '/assets/',
-            },
-            {
-              // Contain "/types/" or end with ".types".
-              groupName: 'types',
-              elementNamePattern: ['/types/', '.types$'],
-            },
-            {
-              // Contain "/styles" or end with ".styles".
-              groupName: 'styles',
-              elementNamePattern: ['/styles/', '.styles$', '.css$', '.scss$'],
-            },
-          ],
-        },
-      ],
+      'perfectionist/sort-imports': 'off',
       'perfectionist/sort-modules': 'off',
     },
   },

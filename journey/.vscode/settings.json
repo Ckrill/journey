@@ -1,20 +1,24 @@
 {
-  "js/ts.tsdk.path": ".yarn/sdks/typescript/lib",
+  // Theme
   "workbench.colorCustomizations": {
     "titleBar.activeForeground": "#62355c",
     "titleBar.activeBackground": "#ff6c55"
   },
-  "prettier.singleQuote": true,
+  // Formatting settings
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.formatOnSave": true,
+  // Search settings
   "search.exclude": {
     "**/.yarn": true,
     "**/.pnp.*": true,
     // Tanstack Router
     "**/routeTree.gen.ts": true
   },
-  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
-  "eslint.nodePath": ".yarn/sdks",
   // Stylelint settings
-  "stylelint.validate": ["css", "scss"],
+  "stylelint.validate": [
+    "css",
+    "scss"
+  ],
   "css.validate": false,
   "scss.validate": false,
   "editor.codeActionsOnSave": {
@@ -27,7 +31,13 @@
   "files.watcherExclude": {
     "**/routeTree.gen.ts": true
   },
+  // ESLint settings
+  "eslint.nodePath": ".yarn/sdks",
+  // TypeScript settings
+  "js/ts.tsdk.path": ".yarn/sdks/typescript/lib",
+  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
+  // Snyk settings
   "snyk.advanced.autoSelectOrganization": true
 }

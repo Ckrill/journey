@@ -22,13 +22,19 @@
 
 .icon {
   z-index: 1;
-  transition: height .1s, width .1s;
+  transition:
+    height 0.1s,
+    width 0.1s;
 }
 
 .animateOut {
   opacity: 0;
   transform: scale(1.5);
-  transition: opacity .5s .1s, transform .5s .1s, height .1s, width .1s;
+  transition:
+    opacity 0.5s 0.1s,
+    transform 0.5s 0.1s,
+    height 0.1s,
+    width 0.1s;
 }
 
 .shadowIcon {
