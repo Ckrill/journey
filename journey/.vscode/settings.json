@@ -15,10 +15,7 @@
     "**/routeTree.gen.ts": true
   },
   // Stylelint settings
-  "stylelint.validate": [
-    "css",
-    "scss"
-  ],
+  "stylelint.validate": ["css", "scss"],
   "css.validate": false,
   "scss.validate": false,
   "editor.codeActionsOnSave": {
