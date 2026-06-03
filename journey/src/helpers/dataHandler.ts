@@ -22,11 +22,14 @@ export const parseUser = (arr: UsersContentful): null | User => {
 };
 
 export const parseEvents = (eventsContentful: EventsContentful): Events => {
+  const userMap = new Map(
+    eventsContentful.includes?.Entry.map((entry) => [entry.sys.id, entry]) ??
+      [],
+  );
+
   const events: Events = eventsContentful.items.map((eventCrude) => {
     const userId = eventCrude.fields.user.sys.id;
-    const userEntry = eventsContentful.includes?.Entry.find(
-      (entry) => entry.sys.id === userId,
-    );
+    const userEntry = userMap.get(userId);
 
     const event: Event = {
       date: String(eventCrude.fields.date),
