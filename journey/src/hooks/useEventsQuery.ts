@@ -1,5 +1,5 @@
 // External
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 // Utilities
 import { parseEvents } from '../helpers/dataHandler';
@@ -19,5 +19,5 @@ export const eventsQueryOptions = {
 };
 
 export const useEventsQuery = () => {
-  return useQuery(eventsQueryOptions);
+  return useSuspenseQuery(eventsQueryOptions);
 };

@@ -16,6 +16,7 @@
 | 3        | 18  | ShowMore — Constant Recreated on Render | 2     | 1      | ★★★★ | ⬜ TODO |
 | 4        | 19  | Streak Component — Nested Ternary       | 2     | 1      | ★★★★ | ⬜ TODO |
 | 5        | 20  | EventList — Mutable Counter in Map      | 2     | 1      | ★★★★ | ⬜ TODO |
+| 6        | 21  | Events — Paginate Instead of Fetch All  | 4     | 3      | ★★★  | ⬜ TODO |
 
 ---
 
@@ -148,3 +149,25 @@ overallIndex={eventsToShow.indexOf(event)}
 ```
 
 **References**: [EventList.tsx](src/components/EventList/EventList.tsx#L38-L77)
+
+---
+
+## 21. Events — Paginate Instead of Fetch All
+
+| Value | Effort | Status  |
+| ----- | ------ | ------- |
+| 4     | 3      | ⬜ TODO |
+
+**Problem**: `useEventsQuery` calls `getAll('workout')` which fetches all 1100+ events from Contentful via parallel paginated requests, even though the UI only shows 10 at a time. This wastes bandwidth, increases initial load time, and holds a large array in memory.
+
+**Solution**:
+
+- Replace `useEventsQuery` with `useInfiniteQuery` that fetches one page at a time (e.g. 50 events per page)
+- Use Contentful's `skip` and `limit` params for server-side pagination
+- Fetch the next page when the user clicks "Show More" (or use intersection observer)
+- Remove the client-side `itemsToShow` slicing in `journey.tsx`
+- Keep optimistic inserts working by prepending to the first page
+
+**Trade-off**: Streak calculation via `refreshStreak(localEvents)` currently passes the full events cache. With pagination, it would rely on `fetchStreak` (which already fetches only recent events by date) instead of the full local cache.
+
+**References**: [useEventsQuery.ts](src/hooks/useEventsQuery.ts), [requests.ts](src/helpers/requests.ts#L60-L87), [journey.tsx](src/routes/journey.tsx)

@@ -1,5 +1,7 @@
 // External
-import { createRootRoute, Outlet } from '@tanstack/react-router';
+import type { QueryClient } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { AnimatePresence } from 'framer-motion';
 
@@ -30,11 +32,17 @@ const RootComponent = () => {
         <SignIn />
       )}
 
+      <ReactQueryDevtools />
+
       <TanStackRouterDevtools />
     </>
   );
 };
 
-export const Route = createRootRoute({
+type RouterContext = {
+  queryClient: QueryClient;
+};
+
+export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootComponent,
 });

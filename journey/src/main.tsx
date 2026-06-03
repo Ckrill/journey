@@ -16,7 +16,14 @@ import { routeTree } from './routeTree.gen';
 import './index.css';
 
 // Create a new router instance
-const router = createRouter({ routeTree });
+const router = createRouter({
+  context: { queryClient },
+  defaultErrorComponent: () => <div>Something went wrong</div>,
+  defaultPendingComponent: () => <div>Loading...</div>,
+  defaultPreload: 'viewport',
+  defaultPreloadStaleTime: 0,
+  routeTree,
+});
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {

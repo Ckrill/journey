@@ -18,17 +18,15 @@ import { eventsQueryOptions, useEventsQuery } from '../hooks/useEventsQuery';
 
 // Miscellaneous
 import EventList from '../components/EventList/EventList';
-import MockEventList from '../components/EventList/MockEventList';
 import Heading from '../components/Heading/Heading';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 import ShowMore from '../components/ShowMore/ShowMore';
 import Streak from '../components/Streak/Streak';
-import { queryClient } from '../lib/queryClient';
 
 const Journey = () => {
   const user = useUser();
-  const { data: events = [] } = useEventsQuery();
+  const { data: events } = useEventsQuery();
   const pageSize = 10;
 
   const [soloMode, setSoloMode] = useState(false);
@@ -76,11 +74,7 @@ const Journey = () => {
             </span>
           </Heading>
 
-          {events.length > 0 ? (
-            <EventList eventsToShow={eventsFiltered.slice(0, itemsToShow)} />
-          ) : (
-            <MockEventList />
-          )}
+          <EventList eventsToShow={eventsFiltered.slice(0, itemsToShow)} />
         </Section>
       </SectionContainer>
 
@@ -92,10 +86,8 @@ const Journey = () => {
 };
 
 export const Route = createFileRoute('/journey')({
-  loader: async () => {
-    await queryClient.ensureQueryData(eventsQueryOptions);
+  loader: async ({ context }) => {
+    await context.queryClient.ensureQueryData(eventsQueryOptions);
   },
-  pendingComponent: () => <div>Loading...</div>,
-  errorComponent: () => <div>Failed to load events</div>,
   component: Journey,
 });
