@@ -14,7 +14,7 @@ import { pageTransition, pageVariants } from '../settings/pageTransition';
 import { useUser } from '../contexts/userContext';
 
 // Hooks
-import { useEventsQuery } from '../hooks/useEventsQuery';
+import { eventsQueryOptions, useEventsQuery } from '../hooks/useEventsQuery';
 
 // Miscellaneous
 import EventList from '../components/EventList/EventList';
@@ -24,6 +24,7 @@ import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 import ShowMore from '../components/ShowMore/ShowMore';
 import Streak from '../components/Streak/Streak';
+import { queryClient } from '../lib/queryClient';
 
 const Journey = () => {
   const user = useUser();
@@ -91,5 +92,10 @@ const Journey = () => {
 };
 
 export const Route = createFileRoute('/journey')({
+  loader: async () => {
+    await queryClient.ensureQueryData(eventsQueryOptions);
+  },
+  pendingComponent: () => <div>Loading...</div>,
+  errorComponent: () => <div>Failed to load events</div>,
   component: Journey,
 });

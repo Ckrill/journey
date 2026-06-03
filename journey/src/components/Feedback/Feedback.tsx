@@ -6,7 +6,9 @@ import { getHeading, getHeadingSize } from '../../helpers/synonyms';
 
 // Contexts
 import { useSettings } from '../../contexts/settingsContext';
-import { useStreak } from '../../contexts/streakContext';
+
+// Hooks
+import { useStreakQuery } from '../../hooks/useStreakQuery';
 
 // Data
 import feedbackHeading from '../../data/synonyms/feedback-heading.json';
@@ -23,7 +25,7 @@ type Props = {
 };
 
 const Feedback = ({ setShow, show }: Props) => {
-  const streak = useStreak();
+  const { data: streak } = useStreakQuery();
   const settings = useSettings();
 
   const heading = useMemo(

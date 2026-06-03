@@ -8,8 +8,10 @@ import { settings } from '../settings/settings';
 import { client } from '../api/contentful';
 
 // Contexts
-import { useStreakActions } from '../contexts/streakContext';
 import { useUser } from '../contexts/userContext';
+
+// Hooks
+import { useStreakActions } from './useStreakQuery';
 
 // Types
 import type { Events, Event as EventType } from '../types/types';

@@ -6,12 +6,8 @@ import { AnimatePresence } from 'framer-motion';
 // Contexts
 import { useUser } from '../contexts/userContext';
 
-// Hooks
-import { eventsQueryOptions } from '../hooks/useEventsQuery';
-
 // Miscellaneous
 import Header from '../components/Header/Header';
-import { queryClient } from '../lib/queryClient';
 import SignIn from '../screens/SignIn';
 
 // styles
@@ -40,10 +36,5 @@ const RootComponent = () => {
 };
 
 export const Route = createRootRoute({
-  loader: async () => {
-    await queryClient.ensureQueryData(eventsQueryOptions);
-  },
-  pendingComponent: () => <div>Loading...</div>,
-  errorComponent: () => <div>Failed to load events</div>,
   component: RootComponent,
 });

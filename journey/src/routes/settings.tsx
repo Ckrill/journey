@@ -11,8 +11,10 @@ import { saveToLocalStorage } from '../helpers/localStorage';
 
 // Contexts
 import { useSettings, useSettingsUpdate } from '../contexts/settingsContext';
-import { useStreak } from '../contexts/streakContext';
 import { useUser, useUserUpdate } from '../contexts/userContext';
+
+// Hooks
+import { useStreakQuery } from '../hooks/useStreakQuery';
 
 // Miscellaneous
 import Button from '../components/Button/Button';
@@ -26,7 +28,7 @@ import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 
 const Settings = () => {
-  const streak = useStreak();
+  const { data: streak } = useStreakQuery();
   const user = useUser();
   const setUser = useUserUpdate();
   const settings = useSettings();

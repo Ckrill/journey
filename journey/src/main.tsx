@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom/client';
 
 // Contexts
 import { SettingsProvider } from './contexts/settingsContext';
-import { StreakProvider } from './contexts/streakContext';
 import { UserProvider } from './contexts/userContext';
 
 // Miscellaneous
@@ -34,11 +33,9 @@ if (rootElement && !rootElement.innerHTML) {
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         <UserProvider>
-          <StreakProvider>
-            <SettingsProvider>
-              <RouterProvider router={router} />
-            </SettingsProvider>
-          </StreakProvider>
+          <SettingsProvider>
+            <RouterProvider router={router} />
+          </SettingsProvider>
         </UserProvider>
       </QueryClientProvider>
     </StrictMode>,

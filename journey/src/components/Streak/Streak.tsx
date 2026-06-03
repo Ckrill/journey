@@ -1,11 +1,11 @@
-// Contexts
-import { useStreak } from '../../contexts/streakContext';
+// Hooks
+import { useStreakQuery } from '../../hooks/useStreakQuery';
 
 // Styles
 import styles from './Streak.module.scss';
 
 const Streak = () => {
-  const streak = useStreak();
+  const { data: streak } = useStreakQuery();
 
   return (
     <>
