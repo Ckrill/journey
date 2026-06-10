@@ -22,10 +22,13 @@ import CountUp from '../components/CountUp/CountUp';
 import Divider from '../components/Divider/Divider';
 import Checkbox from '../components/Form/Checkbox/Checkbox';
 import CheckboxGroup from '../components/Form/Checkbox/CheckboxGroup';
+import Input from '../components/Form/Input/Input';
 import Heading from '../components/Heading/Heading';
 import Paragraph from '../components/Paragraph/Paragraph';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
+
+const currentYear = new Date().getFullYear();
 
 const Settings = () => {
   const { data: streak } = useStreakQuery();
@@ -51,6 +54,11 @@ const Settings = () => {
 
   const handleSettingsToggle = (setting: 'sound' | 'vibration') => {
     setSettings({ ...settings, [setting]: !settings[setting] });
+  };
+
+  const handleBirthYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.valueAsNumber;
+    setSettings({ ...settings, birthYear: value || undefined });
   };
 
   useEffect(() => {
@@ -122,6 +130,24 @@ const Settings = () => {
               label="Vibration"
             />
           </CheckboxGroup>
+        </Section>
+
+        <Section>
+          <Divider data-appearance="faint" data-spacing="spacious" />
+        </Section>
+
+        <Section>
+          <Heading>Birth year</Heading>
+
+          <Input
+            id="birthYear"
+            labelText="Year of birth"
+            max={currentYear}
+            min={1900}
+            onChange={handleBirthYearChange}
+            type="number"
+            value={settings.birthYear}
+          />
         </Section>
 
         <Section>

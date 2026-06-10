@@ -7,6 +7,7 @@ export type User = {
 };
 
 export type Settings = {
+  birthYear?: number;
   sound: boolean;
   vibration: boolean;
 };

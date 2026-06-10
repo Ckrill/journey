@@ -8,6 +8,7 @@ import styles from './Header.module.scss';
 const navigationItems = [
   { name: 'Journey', url: '/journey' },
   { name: 'Add Event', url: '/' },
+  { name: 'Time', url: '/time' },
   { name: 'Settings', url: '/settings' },
 ];
 

@@ -1,0 +1,114 @@
+@property --progress {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing);
+}
+
+.circles {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 340px;
+  height: 340px;
+}
+
+.ring {
+  --ring-thickness: calc(var(--multiplier) * 3px + 10px);
+  --size: calc(var(--multiplier) * var(--multiplier) * 3% + 20%);
+
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size);
+  height: var(--size);
+  background: conic-gradient(
+    var(--ring-color) calc(var(--progress) * 1%),
+    var(--ring-bg) calc(var(--progress) * 1%)
+  );
+  border-radius: 50%;
+  animation: progress-fill calc(var(--progress) * 10ms) ease-out both;
+  animation-delay: calc(var(--multiplier) * 0.1s);
+}
+
+.ringInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - var(--ring-thickness));
+  height: calc(100% - var(--ring-thickness));
+  background: var(--background);
+  border-radius: 50%;
+}
+
+.life {
+  --multiplier: 5;
+  --ring-color: #ff6c55;
+  --ring-bg: #ff6c5522;
+}
+
+.year {
+  --multiplier: 4;
+  --ring-color: #62355c;
+  --ring-bg: #62355c22;
+}
+
+.month {
+  --multiplier: 3;
+  --ring-color: #34495e;
+  --ring-bg: #34495e22;
+}
+
+.week {
+  --multiplier: 2;
+  --ring-color: #3498db;
+  --ring-bg: #3498db22;
+}
+
+.day {
+  --multiplier: 1;
+  --ring-color: #2ecc71;
+  --ring-bg: #2ecc7122;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: var(--spacing);
+}
+
+.legendItem {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.legendDot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--ring-color);
+  border-radius: 50%;
+}
+
+@keyframes progress-fill {
+  from {
+    --progress: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring {
+    animation: none;
+  }
+}
