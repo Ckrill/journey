@@ -81,7 +81,7 @@ const Settings = () => {
             streak.streak === user.bestStreak ? (
               // Peaking
               <Paragraph>
-                You are on fire {user.name}, your best streak is{' '}
+                You are on fire {user.name}, you pushed your streak to{' '}
                 <CountUp countTo={user.bestStreak} /> and counting!
               </Paragraph>
             ) : (
@@ -95,7 +95,7 @@ const Settings = () => {
           ) : (
             // Never started
             <Paragraph>
-              Hop on, {user?.name}, and start you journey today!
+              Hop on, {user?.name}, and start your journey today!
             </Paragraph>
           )}
 
