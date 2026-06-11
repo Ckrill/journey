@@ -23,6 +23,8 @@
 }
 
 .ring {
+  // Enable this when the sibling selector is supported in Firefox to avoid hardcoding multipliers below.
+  // --multiplier: calc(sibling-count() - sibling-index() + 1);
   --ring-thickness: calc(var(--multiplier) * 3px + 10px);
   --size: calc(var(--multiplier) * var(--multiplier) * 3% + 20%);
 
@@ -84,7 +86,7 @@
 .legend {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 20px;
   justify-content: center;
   margin-top: var(--spacing);
 }
@@ -97,8 +99,10 @@
 }
 
 .legendDot {
-  width: 10px;
-  height: 10px;
+  --size: calc(var(--multiplier) * 1px + 10px);
+
+  width: var(--size);
+  height: var(--size);
   background-color: var(--ring-color);
   border-radius: 50%;
 }
