@@ -1,6 +1,6 @@
 // External
 import { Link, useLocation } from '@tanstack/react-router';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 // Styles
 import styles from './Header.module.scss';

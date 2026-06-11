@@ -1,7 +1,7 @@
 // External
 import { useNavigate } from '@tanstack/react-router';
 import { createFileRoute } from '@tanstack/react-router';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 

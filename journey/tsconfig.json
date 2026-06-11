@@ -1,11 +1,10 @@
 {
-  "extends": "@tsconfig/vite-react/tsconfig.json",
+  "extends": "@tsconfig/vite-react/tsconfig.json", // https://github.com/tsconfig/bases/blob/main/bases/vite-react.json
   "compilerOptions": {
     // #################### Custom ####################
     // https://www.typescriptlang.org/tsconfig
     "target": "ESNext",
-    "lib": ["ESNext", "DOM"],
-    "types": ["vite/client"]
+    "lib": ["ESNext", "DOM"]
   },
   "include": ["src"]
 }

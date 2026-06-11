@@ -1,4 +1,4 @@
-import type { Transition, Variants } from 'framer-motion';
+import type { Transition, Variants } from 'motion/react';
 
 /* eslint-disable perfectionist/sort-objects */
 export const pageVariants: Variants = {

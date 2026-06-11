@@ -1,5 +1,5 @@
 // External
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { useState } from 'react';
 import { BiTrash as Trash } from 'react-icons/bi';
 import { RiErrorWarningLine as Warning } from 'react-icons/ri';

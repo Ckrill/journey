@@ -1,5 +1,5 @@
 // External
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 // Miscellaneous
 import Heading from '../components/Heading/Heading';

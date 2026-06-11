@@ -1,6 +1,6 @@
 // External
 import { createFileRoute } from '@tanstack/react-router';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 // Settings
 import { pageTransition, pageVariants } from '../settings/pageTransition';

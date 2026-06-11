@@ -1,6 +1,6 @@
 // External
-import type { Easing } from 'framer-motion';
-import { animate, useMotionValue, useMotionValueEvent } from 'framer-motion';
+import type { Easing } from 'motion/react';
+import { animate, useMotionValue, useMotionValueEvent } from 'motion/react';
 import { useEffect, useRef } from 'react';
 
 // Styles
