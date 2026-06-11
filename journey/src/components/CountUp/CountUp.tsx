@@ -1,66 +1,47 @@
 // External
-import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-
-// Miscellaneous
-import { variants } from './transition';
+import type { Easing } from 'framer-motion';
+import { animate, useMotionValue, useMotionValueEvent } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 
 // Styles
 import styles from './CountUp.module.scss';
 
 type Props = {
   countTo: number;
+  delay?: number;
   duration?: number;
-  exponential?: boolean;
+  ease?: Easing;
 };
 
-const easeOutQuad = (t: number) => t * (2 - t);
-const frameDuration = 1000 / 10;
-
-const CountUp = ({ countTo, duration = 500, exponential }: Props) => {
-  const [count, setCount] = useState(0);
+const CountUp = ({
+  countTo,
+  delay = 0.3,
+  duration = 1,
+  ease = 'easeIn',
+}: Props) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const motionValue = useMotionValue(0);
 
   useEffect(() => {
-    let frame = 0;
-    const totalFrames = Math.round(duration / frameDuration);
-    const counter = setInterval(() => {
-      frame++;
-      const progress = exponential
-        ? easeOutQuad(frame / totalFrames)
-        : frame / totalFrames;
-      const newCount = Math.floor(countTo * progress);
-      setCount(newCount);
+    const controls = animate(motionValue, countTo, {
+      delay,
+      duration,
+      ease,
+    });
+    return controls.stop;
+  }, [countTo, delay, duration, ease, motionValue]);
 
-      if (frame === totalFrames) {
-        clearInterval(counter);
-      }
-    }, frameDuration);
-
-    return () => {
-      clearInterval(counter);
-    };
-  }, [countTo, duration, exponential]);
+  useMotionValueEvent(motionValue, 'change', (latest) => {
+    if (ref.current) {
+      ref.current.textContent = String(Math.floor(latest));
+    }
+  });
 
   return (
     <span className={styles.container}>
-      <AnimatePresence>
-        <span className={styles.shadowCounter}>{countTo}</span>
+      <span className={styles.shadowCounter}>{countTo}</span>
 
-        <motion.span
-          animate="animate"
-          className={styles.counter}
-          exit="exit"
-          initial="initial"
-          key={count}
-          transition={{
-            duration: frameDuration / 1000,
-            ease: 'linear',
-          }}
-          variants={variants}
-        >
-          {count}
-        </motion.span>
-      </AnimatePresence>
+      <span className={styles.counter} ref={ref} />
     </span>
   );
 };

@@ -88,7 +88,7 @@ const Settings = () => {
               // Have peaked
               <Paragraph>
                 {' '}
-                Yo {user.name}, your best streak was{' '}
+                {user.name}, your best streak was{' '}
                 <CountUp countTo={user.bestStreak} />.
               </Paragraph>
             )

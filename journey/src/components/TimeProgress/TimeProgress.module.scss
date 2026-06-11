@@ -39,7 +39,7 @@
     var(--ring-bg) calc(var(--progress) * 1%)
   );
   border-radius: 50%;
-  animation: progress-fill calc(var(--progress) * 10ms) ease-out both;
+  animation: progress-fill calc(var(--progress) * 10ms) ease-in-out both;
   animation-delay: calc(var(--multiplier) * 0.1s);
 }
 
