@@ -1,0 +1,61 @@
+.switcher {
+  display: flex;
+  gap: var(--spacing);
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--max-size);
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  font-size: calc(32rem / 16);
+  color: var(--text);
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition:
+    color var(--fast),
+    transform var(--fast);
+
+  &:active {
+    transform: scale(0.8);
+    transition: transform var(--instant);
+  }
+
+  &:disabled {
+    color: var(--stroke);
+    cursor: default;
+    transform: scale(0.8);
+  }
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  padding: 0;
+  color: var(--text);
+  letter-spacing: var(--letter-spacing-spacious);
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.date {
+  min-width: 11ch;
+  font-size: calc(16rem / 16);
+  font-weight: 600;
+  text-align: center;
+}
+
+.week {
+  font-size: calc(12rem / 16);
+  color: var(--stroke);
+  text-transform: uppercase;
+}

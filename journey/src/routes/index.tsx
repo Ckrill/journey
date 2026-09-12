@@ -1,76 +1,94 @@
 // External
-import { useNavigate } from '@tanstack/react-router';
 import { createFileRoute } from '@tanstack/react-router';
 import { motion } from 'motion/react';
-import { useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 // Settings
 import { pageTransition, pageVariants } from '../settings/pageTransition';
 
+// Utilities
+import { calculateStreak } from '../helpers/streak';
+import { currentWeekStart, weekDates } from '../helpers/week';
+
 // Hooks
-import { useSubmitEvent } from '../hooks/useSubmitEvent';
+import { eventsQueryOptions, useEventsQuery } from '../hooks/useEventsQuery';
+import { habitsQueryOptions, useHabitsQuery } from '../hooks/useHabitsQuery';
 
 // Miscellaneous
 import Button from '../components/Button/Button';
 import Feedback from '../components/Feedback/Feedback';
-import Input from '../components/Form/Input/Input';
+import HabitFormModal from '../components/Habit/HabitModal/HabitFormModal';
 import Heading from '../components/Heading/Heading';
-import Paragraph from '../components/Paragraph/Paragraph';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
+import WeekPager from '../components/Week/WeekPager';
 
-const Event = () => {
-  const navigate = useNavigate({ from: Route.fullPath });
-  const searchParams = Route.useSearch();
+// Types
+import type { Habit } from '../types/types';
 
-  const mutation = useSubmitEvent();
+const Journey = () => {
+  const { data: habits } = useHabitsQuery();
+  const { data: events } = useEventsQuery();
+
+  const [editing, setEditing] = useState<Habit | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
+  const [celebrateStreak, setCelebrateStreak] = useState(0);
 
-  const { isSuccess, reset: resetMutation } = mutation;
+  // Map each habit to the set of dates it was completed on.
+  const datesByHabit = useMemo(() => {
+    const map = new Map<string, Set<string>>();
+    for (const event of events) {
+      let set = map.get(event.habitId);
+      if (!set) {
+        set = new Set<string>();
+        map.set(event.habitId, set);
+      }
+      set.add(event.date);
+    }
+    return map;
+  }, [events]);
 
-  const [currentDate] = useState(() => new Date().toISOString().split('T')[0]);
+  // Fire the celebration when a habit newly meets its target this week.
+  const prevMetRef = useRef<Map<string, boolean> | null>(null);
 
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm({
-    defaultValues: {
-      date: currentDate,
-      name: searchParams?.name || '',
-    },
-  });
-
-  // Auto-reset success state after 1s (for button text)
   useEffect(() => {
-    if (!isSuccess) return;
+    const currentDates = weekDates(currentWeekStart());
+    const met = new Map<string, boolean>();
+    for (const habit of habits) {
+      const set = datesByHabit.get(habit.id);
+      const count = set
+        ? currentDates.filter((date) => set.has(date)).length
+        : 0;
+      met.set(habit.id, count >= habit.weeklyTarget);
+    }
 
-    const timeout = setTimeout(() => {
-      resetMutation();
-    }, 1000);
+    if (prevMetRef.current) {
+      for (const habit of habits) {
+        const was = prevMetRef.current.get(habit.id) ?? false;
+        const now = met.get(habit.id) ?? false;
+        if (!was && now) {
+          setCelebrateStreak(calculateStreak(habit, events).current);
+          setShowFeedback(true);
+          break;
+        }
+      }
+    }
+    prevMetRef.current = met;
+  }, [habits, events, datesByHabit]);
 
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [isSuccess, resetMutation]);
+  const openCreate = () => {
+    setEditing(null);
+    setModalOpen(true);
+  };
 
-  const onSubmit = (formData: { date: string; name: string }) => {
-    setShowFeedback(true);
+  const openEdit = (habit: Habit) => {
+    setEditing(habit);
+    setModalOpen(true);
+  };
 
-    mutation.mutate(formData, {
-      onSuccess: () => {
-        // If there is a searchParam "name", remove it.
-        if (searchParams?.name) void navigate({ search: { name: undefined } });
-
-        // Reset form.
-        reset({ name: '' });
-      },
-      onError: () => {
-        setShowFeedback(false);
-      },
-    });
+  const closeHabitForm = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -83,97 +101,51 @@ const Event = () => {
     >
       <SectionContainer>
         <Section>
-          <Heading>Add event</Heading>
+          <Heading>Journey</Heading>
         </Section>
 
-        <form
-          onSubmit={(e) => {
-            void handleSubmit(onSubmit)(e);
-          }}
-          style={{ display: 'contents' }}
-        >
-          <Section>
-            <Controller
-              control={control}
-              name="name"
-              render={({ field }) => (
-                <Input
-                  disabled={mutation.isPending}
-                  errorText={errors.name && 'Please fill out this field.'}
-                  id="event"
-                  labelText="Event"
-                  type="text"
-                  {...field}
-                />
-              )}
-              rules={{ required: true }}
-            />
+        <Section>
+          <WeekPager
+            datesByHabit={datesByHabit}
+            events={events}
+            habits={habits}
+            openEdit={openEdit}
+          />
+        </Section>
 
-            <Controller
-              control={control}
-              name="date"
-              render={({ field }) => (
-                <Input
-                  disabled={mutation.isPending}
-                  errorText={errors.date && 'Please fill out this field.'}
-                  id="date"
-                  labelText="Day"
-                  type="date"
-                  {...field}
-                />
-              )}
-              rules={{ required: true }}
-            />
-          </Section>
-
-          <Section>
-            <Button
-              disabled={mutation.isSuccess || mutation.isPending}
-              type="submit"
-            >
-              {mutation.isSuccess
-                ? 'Saved!'
-                : mutation.isPending
-                  ? 'Saving'
-                  : 'Save'}
-            </Button>
-          </Section>
-        </form>
-
-        {mutation.isError && (
-          <Section>
-            <Heading>A terrible error happened!</Heading>
-
-            <Paragraph>
-              Let me know what you did and what it says below and I will fix it.
-            </Paragraph>
-
-            <code>{String(mutation.error)}</code>
-          </Section>
-        )}
+        <Section>
+          <Button onClick={openCreate} type="button">
+            + Add habit
+          </Button>
+        </Section>
       </SectionContainer>
 
-      <Feedback setShow={setShowFeedback} show={showFeedback} />
+      <HabitFormModal
+        habit={editing}
+        onClose={closeHabitForm}
+        open={modalOpen}
+      />
+
+      <Feedback
+        setShow={setShowFeedback}
+        show={showFeedback}
+        streak={celebrateStreak}
+      />
     </motion.div>
   );
 };
 
-type EventParams =
-  | undefined
-  | {
-      name: string | undefined;
-    };
+type WeekSearch = { week?: string };
 
 export const Route = createFileRoute('/')({
-  component: Event,
-  validateSearch: (search: Record<string, unknown>): EventParams => {
-    // validate and parse the search params into a typed state
-    const hasName = !!search.name;
-
-    return hasName
-      ? {
-          name: search.name as string,
-        }
-      : undefined;
+  component: Journey,
+  validateSearch: (search: Record<string, unknown>): WeekSearch => ({
+    week: typeof search.week === 'string' ? search.week : undefined,
+  }),
+  loader: async ({ context }) => {
+    await Promise.all([
+      context.queryClient.ensureQueryData(habitsQueryOptions),
+      context.queryClient.ensureQueryData(eventsQueryOptions),
+    ]);
   },
 });

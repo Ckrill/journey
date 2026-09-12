@@ -10,3 +10,11 @@ body {
   color: var(--text);
   background-color: var(--background);
 }
+
+* {
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+
+  // outline: 0 !important;
+}

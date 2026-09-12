@@ -11,15 +11,10 @@ const { accessToken, baseURL, environment, limit, space } = settings;
 //   return `${baseURL}/spaces/${space}/environments/${environment}/entries/${id}?access_token=${accessToken}`;
 // };
 
-// Get entries by type
-export const getItemsByType = (type: string, skip: number) => {
-  return `${baseURL}/spaces/${space}/environments/${environment}/entries?access_token=${accessToken}&content_type=${type}&order=-fields.date&limit=${String(limit)}&skip=${String(skip)}`;
-};
-
-// Get recent entries by type (date-filtered)
-export const getRecentByType = (type: string, days: number) => {
-  const since = Temporal.Now.plainDateISO().subtract({ days }).toString();
-  return `${baseURL}/spaces/${space}/environments/${environment}/entries?access_token=${accessToken}&content_type=${type}&order=-fields.date&fields.date[gte]=${since}&limit=100`;
+// Get entries by type. `query` appends extra params, e.g. `&order=-fields.date`
+// or `&fields.active=true`.
+export const getItemsByType = (type: string, skip: number, query = '') => {
+  return `${baseURL}/spaces/${space}/environments/${environment}/entries?access_token=${accessToken}&content_type=${type}&limit=${String(limit)}&skip=${String(skip)}${query}`;
 };
 
 // Get entries by attribute
@@ -52,19 +47,21 @@ export const get = <T = ArrayContentful>(url: string): Promise<T> => {
   ) as Promise<T>;
 };
 
-// Fetch all pages for a content type in parallel
+// Fetch all pages for a content type in parallel. `query` is forwarded to every
+// page request (e.g. ordering or field filters).
 export const getAll = async <T extends ArrayContentful>(
   type: string,
+  query = '',
 ): Promise<T> => {
   // First page reveals total item count
-  const first = await get<T>(getItemsByType(type, 0));
+  const first = await get<T>(getItemsByType(type, 0, query));
 
   if (first.items.length >= first.total) return first;
 
   // Fire remaining page requests in parallel
   const remainingPages = Math.ceil((first.total - limit) / limit);
   const requests = Array.from({ length: remainingPages }, (_, i) =>
-    get<T>(getItemsByType(type, (i + 1) * limit)),
+    get<T>(getItemsByType(type, (i + 1) * limit, query)),
   );
 
   const pages = await Promise.all(requests);

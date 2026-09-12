@@ -38,9 +38,6 @@ export const createUser = async (userName: string): Promise<User> => {
     },
     {
       fields: {
-        bestStreak: {
-          'en-US': 0,
-        },
         name: {
           'en-US': userName,
         },
@@ -58,7 +55,6 @@ export const createUser = async (userName: string): Promise<User> => {
   );
 
   const user: User = {
-    bestStreak: publishedEntry.fields.bestStreak['en-US'],
     id: publishedEntry.sys.id,
     name: publishedEntry.fields.name['en-US'],
   };

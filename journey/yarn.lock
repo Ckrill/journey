@@ -3484,7 +3484,6 @@ __metadata:
     react-dom: "npm:^19.2.7"
     react-hook-form: "npm:^7.78.0"
     react-icons: "npm:^5.6.0"
-    react-intersection-observer: "npm:^10.0.3"
     rollup-plugin-visualizer: "npm:^7.0.1"
     sass-embedded: "npm:^1.100.0"
     stylelint: "npm:^17.13.0"
@@ -4526,19 +4525,6 @@ __metadata:
   peerDependencies:
     react: "*"
   checksum: 10/c900d475c64852b316d16bdc1a436c93e18e0ffb321ebc43a1d8741191baba736e0ef4c6d871399056832b69413cd13b56ae6a18eaa5ad17041df805d803651c
-  languageName: node
-  linkType: hard
-
-"react-intersection-observer@npm:^10.0.3":
-  version: 10.0.3
-  resolution: "react-intersection-observer@npm:10.0.3"
-  peerDependencies:
-    react: ^17.0.0 || ^18.0.0 || ^19.0.0
-    react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
-  peerDependenciesMeta:
-    react-dom:
-      optional: true
-  checksum: 10/bc28378618e7a1f9aa367e9ce19f956d027a42946caf99f20afe927f14ee9288af08871d52d038103c2bc9bf5f664c748c74010882f5e14c695cd8202928ed9b
   languageName: node
   linkType: hard
 

@@ -1,9 +1,10 @@
 // types
 import type {
   EventsContentful,
+  HabitsContentful,
   UsersContentful,
 } from '../types/contentfulTypes';
-import type { Event, Events, User } from '../types/types';
+import type { Event, Events, Habit, Habits, User } from '../types/types';
 
 export const parseUser = (arr: UsersContentful): null | User => {
   const item = arr.items[0];
@@ -11,34 +12,35 @@ export const parseUser = (arr: UsersContentful): null | User => {
   if (!item) return null;
 
   const user: User = {
-    bestStreak: item.fields.bestStreak,
-    currentStreak: item.fields.currentStreak,
     id: item.sys.id,
     name: item.fields.name,
-    streakUpdatedDate: item.fields.streakUpdatedDate,
   };
 
   return user;
 };
 
+export const parseHabits = (habitsContentful: HabitsContentful): Habits => {
+  const habits: Habits = habitsContentful.items.map((item) => {
+    const habit: Habit = {
+      active: item.fields.active,
+      createdAt: item.sys.createdAt,
+      id: item.sys.id,
+      name: item.fields.name,
+      weeklyTarget: item.fields.weeklyTarget,
+    };
+
+    return habit;
+  });
+
+  return habits;
+};
+
 export const parseEvents = (eventsContentful: EventsContentful): Events => {
-  const userMap = new Map(
-    eventsContentful.includes?.Entry.map((entry) => [entry.sys.id, entry]) ??
-      [],
-  );
-
-  const events: Events = eventsContentful.items.map((eventCrude) => {
-    const userId = eventCrude.fields.user.sys.id;
-    const userEntry = userMap.get(userId);
-
+  const events: Events = eventsContentful.items.map((item) => {
     const event: Event = {
-      date: String(eventCrude.fields.date),
-      id: eventCrude.sys.id,
-      name: eventCrude.fields.name,
-      user: {
-        id: userId,
-        name: userEntry?.fields.name ?? '',
-      },
+      date: item.fields.date,
+      habitId: item.fields.habit.sys.id,
+      id: item.sys.id,
     };
 
     return event;

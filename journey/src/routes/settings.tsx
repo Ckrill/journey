@@ -8,13 +8,15 @@ import { pageTransition, pageVariants } from '../settings/pageTransition';
 
 // Utilities
 import { saveToLocalStorage } from '../helpers/localStorage';
+import { calculateStreak, overallBestStreak } from '../helpers/streak';
 
 // Contexts
 import { useSettings, useSettingsUpdate } from '../contexts/settingsContext';
 import { useUser, useUserUpdate } from '../contexts/userContext';
 
 // Hooks
-import { useStreakQuery } from '../hooks/useStreakQuery';
+import { eventsQueryOptions, useEventsQuery } from '../hooks/useEventsQuery';
+import { habitsQueryOptions, useHabitsQuery } from '../hooks/useHabitsQuery';
 
 // Miscellaneous
 import Button from '../components/Button/Button';
@@ -31,11 +33,22 @@ import SectionContainer from '../components/Section/SectionContainer';
 const currentYear = new Date().getFullYear();
 
 const Settings = () => {
-  const { data: streak } = useStreakQuery();
+  const { data: habits } = useHabitsQuery();
+  const { data: events } = useEventsQuery();
   const user = useUser();
   const setUser = useUserUpdate();
   const settings = useSettings();
   const setSettings = useSettingsUpdate();
+
+  const bestStreak = overallBestStreak(habits, events);
+  const currentBest = habits.reduce(
+    (max, habit) => Math.max(max, calculateStreak(habit, events).current),
+    0,
+  );
+
+  const birthError =
+    settings.birthYear !== undefined &&
+    (settings.birthYear < 1900 || settings.birthYear > currentYear);
 
   const clearData = () => {
     // Clear all data
@@ -77,19 +90,19 @@ const Settings = () => {
         <Section>
           <Heading>Profile</Heading>
 
-          {user?.bestStreak ? (
-            streak.streak === user.bestStreak ? (
+          {bestStreak ? (
+            currentBest === bestStreak ? (
               // Peaking
               <Paragraph>
-                You are on fire {user.name}, you pushed your streak to{' '}
-                <CountUp countTo={user.bestStreak} /> and counting!
+                You are on fire, {user?.name}.<br />
+                You pushed your streak to <CountUp countTo={bestStreak} />!
               </Paragraph>
             ) : (
               // Have peaked
               <Paragraph>
                 {' '}
-                {user.name}, your best streak was{' '}
-                <CountUp countTo={user.bestStreak} />.
+                {user?.name}, your best streak was{' '}
+                <CountUp countTo={bestStreak} /> weeks.
               </Paragraph>
             )
           ) : (
@@ -140,6 +153,8 @@ const Settings = () => {
           <Heading>Birth year</Heading>
 
           <Input
+            assistiveText="Used for your clock."
+            errorText={birthError ? 'Please enter a valid year.' : undefined}
             id="birthYear"
             labelText="Year of birth"
             max={currentYear}
@@ -175,4 +190,10 @@ const Settings = () => {
 
 export const Route = createFileRoute('/settings')({
   component: Settings,
+  loader: async ({ context }) => {
+    await Promise.all([
+      context.queryClient.ensureQueryData(habitsQueryOptions),
+      context.queryClient.ensureQueryData(eventsQueryOptions),
+    ]);
+  },
 });

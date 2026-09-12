@@ -31,14 +31,15 @@
 }
 
 .button[data-priority='secondary'] {
-  padding: 8px 20px;
-  font-size: calc(14rem / 16);
-  line-height: calc(18rem / 16);
+  padding: 12px 20px;
+  font-size: calc(12rem / 16);
   color: var(--text);
-  text-transform: none;
-  text-decoration: underline;
   background-color: transparent;
   border-radius: 0;
+}
+
+.button[data-tone='danger'] {
+  color: var(--error-color);
 }
 
 .button:active {

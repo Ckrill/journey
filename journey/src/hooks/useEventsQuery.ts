@@ -11,7 +11,7 @@ import type { Events } from '../types/types';
 
 export const eventsQueryOptions = {
   queryFn: async (): Promise<Events> => {
-    const data = await getAll<EventsContentful>('workout');
+    const data = await getAll<EventsContentful>('event');
     return parseEvents(data);
   },
   queryKey: ['events'] as const,

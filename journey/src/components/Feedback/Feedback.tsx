@@ -7,9 +7,6 @@ import { getHeading, getHeadingSize } from '../../helpers/synonyms';
 // Contexts
 import { useSettings } from '../../contexts/settingsContext';
 
-// Hooks
-import { useStreakQuery } from '../../hooks/useStreakQuery';
-
 // Data
 import feedbackHeading from '../../data/synonyms/feedback-heading.json';
 
@@ -22,14 +19,14 @@ import styles from './Feedback.module.scss';
 type Props = {
   setShow: (show: boolean) => void;
   show: boolean;
+  streak: number;
 };
 
-const Feedback = ({ setShow, show }: Props) => {
-  const { data: streak } = useStreakQuery();
+const Feedback = ({ setShow, show, streak }: Props) => {
   const settings = useSettings();
 
   const heading = useMemo(
-    () => (show ? getHeading(feedbackHeading, streak.streak) : ''),
+    () => (show ? getHeading(feedbackHeading, streak) : ''),
     [show, streak],
   );
   const headingSize = useMemo(
@@ -76,7 +73,7 @@ const Feedback = ({ setShow, show }: Props) => {
       </audio>
 
       <div className={styles.container}>
-        {streak.streak > 1 ? (
+        {streak > 1 ? (
           <>
             <h1
               className={`${styles.heading} ${
@@ -86,7 +83,7 @@ const Feedback = ({ setShow, show }: Props) => {
               {heading}
             </h1>
 
-            <p className={styles.paragraph}>{streak.streak} days in a row</p>
+            <p className={styles.paragraph}>{streak} weeks in a row</p>
           </>
         ) : (
           <>

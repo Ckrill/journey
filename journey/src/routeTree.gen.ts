@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TimeRouteImport } from './routes/time'
 import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as JourneyRouteImport } from './routes/journey'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TimeRoute = TimeRouteImport.update({
@@ -24,11 +23,6 @@ const SettingsRoute = SettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
-const JourneyRoute = JourneyRouteImport.update({
-  id: '/journey',
-  path: '/journey',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,34 +31,30 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/journey': typeof JourneyRoute
   '/settings': typeof SettingsRoute
   '/time': typeof TimeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/journey': typeof JourneyRoute
   '/settings': typeof SettingsRoute
   '/time': typeof TimeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/journey': typeof JourneyRoute
   '/settings': typeof SettingsRoute
   '/time': typeof TimeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/journey' | '/settings' | '/time'
+  fullPaths: '/' | '/settings' | '/time'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/journey' | '/settings' | '/time'
-  id: '__root__' | '/' | '/journey' | '/settings' | '/time'
+  to: '/' | '/settings' | '/time'
+  id: '__root__' | '/' | '/settings' | '/time'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  JourneyRoute: typeof JourneyRoute
   SettingsRoute: typeof SettingsRoute
   TimeRoute: typeof TimeRoute
 }
@@ -85,13 +75,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/journey': {
-      id: '/journey'
-      path: '/journey'
-      fullPath: '/journey'
-      preLoaderRoute: typeof JourneyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -104,7 +87,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  JourneyRoute: JourneyRoute,
   SettingsRoute: SettingsRoute,
   TimeRoute: TimeRoute,
 }

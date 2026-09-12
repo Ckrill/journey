@@ -1,50 +1,60 @@
+// Utilities
+import { countEventsPerWeek, currentWeekStart, shiftWeek } from './week';
+
 // Types
-import type { Events, User } from '../types/types';
+import type { Events, Habit } from '../types/types';
 
-/** Maximum allowed gap (in days) between consecutive event dates before the streak breaks */
-const STREAK_LENIENCY_DAYS = 3;
-
-/** Returns the number of days between two ISO date strings */
-const daysBetween = (dateA: string, dateB: string) => {
-  return Temporal.PlainDate.from(dateA).until(dateB).total('days');
+export type HabitStreak = {
+  /** Longest run of consecutive met weeks anywhere in history. */
+  best: number;
+  /** Consecutive met weeks up to (and including) the current week. */
+  current: number;
 };
 
 /**
- * Calculates the current streak length for a user.
- * Returns `hitBoundary: true` when the streak spans all available data,
- * signalling that a larger window of events may be needed.
+ * Computes the current and best weekly streak for a habit, live from events.
+ *
+ * A week "hits" when its event count >= the habit's weeklyTarget. The current
+ * week is forgiving: if not yet met it neither counts nor breaks the streak
+ * (it's still "in progress").
  */
-export const calculateStreak = (user: null | User, events: Events) => {
-  if (!user) return { daysSinceLast: 0, hitBoundary: false, streak: 0 };
+export const calculateStreak = (habit: Habit, events: Events): HabitStreak => {
+  const dates = events
+    .filter((event) => event.habitId === habit.id)
+    .map((event) => event.date);
 
-  // Unique dates for this user, sorted descending
-  const userEvents = events.filter((e) => e.user.id === user.id);
-  const uniqueDates = [...new Set(userEvents.map((e) => e.date))];
-  const sortedDates = uniqueDates.sort((a, b) => (a > b ? -1 : 1));
+  const perWeek = countEventsPerWeek(dates);
+  const target = habit.weeklyTarget;
+  const isMet = (week: string) => (perWeek.get(week) ?? 0) >= target;
 
-  if (!sortedDates.length)
-    return { daysSinceLast: 0, hitBoundary: false, streak: 0 };
-
-  const latestEventDate = sortedDates[0];
-  const today = Temporal.Now.plainDateISO().toString();
-  const daysSinceLast = daysBetween(latestEventDate, today);
-
-  // Streak already broken
-  if (daysSinceLast > STREAK_LENIENCY_DAYS)
-    return { daysSinceLast, hitBoundary: false, streak: 0 };
-
-  // Walk consecutive pairs — break on first gap > STREAK_LENIENCY_DAYS
-  let streak = 1;
-  let hitBoundary = true;
-  for (let i = 0; i < sortedDates.length - 1; i++) {
-    if (
-      daysBetween(sortedDates[i + 1], sortedDates[i]) > STREAK_LENIENCY_DAYS
-    ) {
-      hitBoundary = false;
-      break;
-    }
-    streak++;
+  // Current streak: walk backwards from this week.
+  const thisWeek = currentWeekStart();
+  let current = 0;
+  // Skip the current week if it isn't met yet (in progress, not a break).
+  let cursor = isMet(thisWeek) ? thisWeek : shiftWeek(thisWeek, -1);
+  while (isMet(cursor)) {
+    current++;
+    cursor = shiftWeek(cursor, -1);
   }
 
-  return { daysSinceLast, hitBoundary, streak };
+  // Best streak: scan all met weeks, find the longest consecutive run.
+  const weeks = [...perWeek.keys()].filter(isMet).sort();
+  let best = 0;
+  let run = 0;
+  let previous: null | string = null;
+  for (const week of weeks) {
+    run = previous !== null && shiftWeek(previous, 1) === week ? run + 1 : 1;
+    if (run > best) best = run;
+    previous = week;
+  }
+
+  return { best: Math.max(best, current), current };
+};
+
+/** The best streak across every habit (overall personal record). */
+export const overallBestStreak = (habits: Habit[], events: Events): number => {
+  return habits.reduce(
+    (max, habit) => Math.max(max, calculateStreak(habit, events).best),
+    0,
+  );
 };

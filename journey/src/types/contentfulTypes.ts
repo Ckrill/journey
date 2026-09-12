@@ -16,22 +16,34 @@ export interface ArrayContentful extends CollectionProp<EntryProps<unknown>> {
 // User
 
 type UserFields = {
-  bestStreak?: number;
-  currentStreak?: number;
   name: string;
-  streakUpdatedDate?: string;
 };
 
 export type UserContentful = EntryProps<UserFields>;
 
 export type UsersContentful = CollectionProp<UserContentful>;
 
+// Habit
+
+type HabitFields = {
+  active: boolean;
+  name: string;
+  user: EntryLink;
+  weeklyTarget: number;
+};
+
+type HabitContentful = EntryProps<HabitFields>;
+
+export interface HabitsContentful extends CollectionProp<HabitContentful> {
+  includes?: { Entry: EntryProps<UserFields>[] };
+}
+
 // Event
 
-type EventFields = { date: Date; name: string; user: EntryLink };
+type EventFields = { date: string; habit: EntryLink; name: string };
 
 type EventContentful = EntryProps<EventFields>;
 
 export interface EventsContentful extends CollectionProp<EventContentful> {
-  includes?: { Entry: EntryProps<UserFields>[] };
+  includes?: { Entry: EntryProps<HabitFields>[] };
 }

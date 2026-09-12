@@ -39,6 +39,14 @@
   }
 }
 
+.assistive {
+  min-height: calc(18rem / 16);
+  margin: 4px 4px 0;
+  font-size: calc(12rem / 16);
+  font-style: italic;
+  line-height: calc(18rem / 16);
+}
+
 .error {
   min-height: calc(18rem / 16);
   margin: 4px 4px 0;

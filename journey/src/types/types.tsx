@@ -1,9 +1,6 @@
 export type User = {
-  bestStreak?: number;
-  currentStreak?: number;
   id: string;
   name: string;
-  streakUpdatedDate?: string;
 };
 
 export type Settings = {
@@ -12,11 +9,20 @@ export type Settings = {
   vibration: boolean;
 };
 
-export type Event = {
-  date: string;
+export type Habit = {
+  active: boolean;
+  createdAt: string;
   id: string;
   name: string;
-  user: User;
+  weeklyTarget: number;
+};
+
+export type Habits = Habit[];
+
+export type Event = {
+  date: string; // ISO calendar date (YYYY-MM-DD)
+  habitId: string;
+  id: string;
 };
 
 export type Events = Event[];
