@@ -12,23 +12,23 @@ export default defineConfig({
           groups: [
             {
               name: 'vendor-react',
-              test: /node_modules[\\/]react(-dom)?[\\/]/,
               priority: 30,
+              test: /node_modules[\\/]react(-dom)?[\\/]/,
             },
             {
               name: 'vendor-router',
-              test: /node_modules[\\/]@tanstack[\\/]/,
               priority: 20,
+              test: /node_modules[\\/]@tanstack[\\/]/,
             },
             {
               name: 'vendor-motion',
-              test: /node_modules[\\/]motion[\\/]/,
               priority: 15,
+              test: /node_modules[\\/]motion[\\/]/,
             },
             {
               name: 'vendor-contentful',
-              test: /node_modules[\\/]contentful-management[\\/]/,
               priority: 10,
+              test: /node_modules[\\/]contentful-management[\\/]/,
             },
           ],
         },

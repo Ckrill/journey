@@ -18,19 +18,18 @@ export default defineConfig([
     '.yarn/**',
     '.pnp.cjs',
     '.pnp.loader.mjs',
-    'eslint.config.js',
-    'vite.config.js',
+    'public/**',
   ]),
   {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-    plugins: { js, depend },
     extends: ['js/recommended', 'depend/flat/recommended'],
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
         projectService: true,
       },
     },
+    plugins: { depend, js },
     settings: {
       react: {
         version: 'detect',
@@ -60,13 +59,13 @@ export default defineConfig([
           allow: [
             {
               from: 'package',
-              package: '@tanstack/router-core',
               name: 'Redirect',
+              package: '@tanstack/router-core',
             },
             {
               from: 'package',
-              package: '@tanstack/router-core',
               name: 'NotFoundError',
+              package: '@tanstack/router-core',
             },
           ],
         },
@@ -89,5 +88,11 @@ export default defineConfig([
     rules: {
       'perfectionist/sort-objects': 'off',
     },
+  },
+  // Root config files are outside tsconfig's `include`, so type-aware rules can't run on them.
+  {
+    extends: [tseslint.configs.disableTypeChecked],
+    files: ['*.{js,mjs,cjs}'],
+    languageOptions: { globals: globals.node },
   },
 ]);
