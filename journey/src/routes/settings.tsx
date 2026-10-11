@@ -50,6 +50,28 @@ const Settings = () => {
     settings.birthYear !== undefined &&
     (settings.birthYear < 1900 || settings.birthYear > currentYear);
 
+  let profileMessage: React.ReactNode;
+  if (!bestStreak) {
+    profileMessage = (
+      <Paragraph>Hop on, {user?.name}, and start your journey today!</Paragraph>
+    );
+  } else if (currentBest === bestStreak) {
+    profileMessage = (
+      <Paragraph>
+        You are on fire, {user?.name}.<br />
+        You pushed your streak to <CountUp countTo={bestStreak} />!
+      </Paragraph>
+    );
+  } else {
+    profileMessage = (
+      <Paragraph>
+        {' '}
+        {user?.name}, your best streak was <CountUp countTo={bestStreak} />{' '}
+        weeks.
+      </Paragraph>
+    );
+  }
+
   const clearData = () => {
     // Clear all data
     localStorage.clear();
@@ -61,6 +83,7 @@ const Settings = () => {
   };
 
   // const showData = () => {
+  // eslint-disable-next-line sonarjs/todo-tag
   //   // TODO: Show data
   //   console.log('Show data');
   // };
@@ -90,27 +113,7 @@ const Settings = () => {
         <Section>
           <Heading>Profile</Heading>
 
-          {bestStreak ? (
-            currentBest === bestStreak ? (
-              // Peaking
-              <Paragraph>
-                You are on fire, {user?.name}.<br />
-                You pushed your streak to <CountUp countTo={bestStreak} />!
-              </Paragraph>
-            ) : (
-              // Have peaked
-              <Paragraph>
-                {' '}
-                {user?.name}, your best streak was{' '}
-                <CountUp countTo={bestStreak} /> weeks.
-              </Paragraph>
-            )
-          ) : (
-            // Never started
-            <Paragraph>
-              Hop on, {user?.name}, and start your journey today!
-            </Paragraph>
-          )}
+          {profileMessage}
 
           <Button disabled={!user} onClick={clearData}>
             Sign out

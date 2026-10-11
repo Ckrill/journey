@@ -3,11 +3,9 @@ type FeedbackHeading = {
   words: string[];
 }[];
 
-type Streak = number;
-
 export const getHeading = (
   feedbackHeading: FeedbackHeading,
-  streak: Streak,
+  streak: number,
 ) => {
   let tier = 1;
 
@@ -27,6 +25,7 @@ export const getHeading = (
 
   const wordList =
     feedbackHeading.find((item) => item.tier === tier)?.words ?? [];
+  // eslint-disable-next-line sonarjs/pseudo-random
   const randomIndex = Math.floor(Math.random() * wordList.length);
   const word = wordList[randomIndex];
 
@@ -57,8 +56,9 @@ export const getHeadingSize = (sentence: string) => {
 const getLongestWord = (sentence: string) => {
   const words = sentence.split(' ');
 
-  const longestWord = words.reduce((champ, contender) =>
-    contender.length > champ.length ? contender : champ,
+  const longestWord = words.reduce(
+    (champ, contender) => (contender.length > champ.length ? contender : champ),
+    '',
   );
 
   return longestWord;

@@ -7,6 +7,7 @@ import depend from 'eslint-plugin-depend';
 import perfectionist from 'eslint-plugin-perfectionist';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import sonarjs from 'eslint-plugin-sonarjs';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -36,6 +37,8 @@ export default defineConfig([
 
   ...router.configs['flat/recommended'],
   ...query.configs['flat/recommended'],
+
+  sonarjs.configs.recommended,
 
   perfectionist.configs['recommended-natural'],
 

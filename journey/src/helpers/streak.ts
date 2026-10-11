@@ -38,7 +38,9 @@ export const calculateStreak = (habit: Habit, events: Events): HabitStreak => {
   }
 
   // Best streak: scan all met weeks, find the longest consecutive run.
-  const weeks = [...perWeek.keys()].filter(isMet).sort();
+  const weeks = [...perWeek.keys()]
+    .filter(isMet)
+    .sort((a, b) => a.localeCompare(b));
   let best = 0;
   let run = 0;
   let previous: null | string = null;

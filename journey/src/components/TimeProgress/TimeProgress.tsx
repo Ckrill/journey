@@ -107,7 +107,7 @@ const TimeProgress = () => {
       </div>
 
       <div className={styles.legend}>
-        {rings.reverse().map((ring) => (
+        {rings.toReversed().map((ring) => (
           <span
             className={`${styles.legendItem} ${ring.className}`}
             key={ring.label}
