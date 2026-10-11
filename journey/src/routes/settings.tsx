@@ -192,8 +192,8 @@ export const Route = createFileRoute('/settings')({
   component: Settings,
   loader: async ({ context }) => {
     await Promise.all([
-      context.queryClient.ensureQueryData(habitsQueryOptions),
-      context.queryClient.ensureQueryData(eventsQueryOptions),
+      context.queryClient.query({ ...habitsQueryOptions, staleTime: 'static' }),
+      context.queryClient.query({ ...eventsQueryOptions, staleTime: 'static' }),
     ]);
   },
 });
