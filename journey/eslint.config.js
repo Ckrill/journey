@@ -5,7 +5,7 @@ import query from '@tanstack/eslint-plugin-query';
 import router from '@tanstack/eslint-plugin-router';
 import depend from 'eslint-plugin-depend';
 import perfectionist from 'eslint-plugin-perfectionist';
-import reactCompiler from 'eslint-plugin-react-compiler';
+import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
@@ -40,16 +40,32 @@ export default defineConfig([
     languageOptions: { globals: globals.browser },
   },
   tseslint.configs.strictTypeChecked,
+
   react.configs['recommended-typescript'],
+
+  reactHooks.configs.flat.recommended,
+  react.configs['disable-conflict-eslint-plugin-react-hooks'],
+
   reactRefresh.configs.vite,
-  reactCompiler.configs.recommended,
+
   ...router.configs['flat/recommended'],
   ...query.configs['flat/recommended'],
+
   perfectionist.configs['recommended-natural'],
   {
     rules: {
       'perfectionist/sort-imports': 'off',
       'perfectionist/sort-modules': 'off',
+    },
+  },
+  // The conflict preset turns these off, but @eslint-react only enables its versions in `all`
+  // (experimental). Remove once a stable @eslint-react preset (recommended/strict) enables
+  // @eslint-react/{globals,immutability,refs}.
+  {
+    rules: {
+      'react-hooks/globals': 'error',
+      'react-hooks/immutability': 'error',
+      'react-hooks/refs': 'error',
     },
   },
   // Allow TanStack Router's throw redirect() / throw notFound() patterns.
