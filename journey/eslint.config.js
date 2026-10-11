@@ -24,7 +24,6 @@ export default defineConfig([
     extends: ['js/recommended', 'depend/flat/recommended'],
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     languageOptions: {
-      globals: globals.browser,
       parserOptions: {
         projectService: true,
       },
@@ -35,6 +34,10 @@ export default defineConfig([
         version: 'detect',
       },
     },
+  },
+  {
+    files: ['src/**'],
+    languageOptions: { globals: globals.browser },
   },
   tseslint.configs.strictTypeChecked,
   react.configs['recommended-typescript'],
