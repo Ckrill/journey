@@ -15,9 +15,9 @@ export interface ArrayContentful extends CollectionProp<EntryProps<unknown>> {
 
 // User
 
-type UserFields = {
+interface UserFields {
   name: string;
-};
+}
 
 export type UserContentful = EntryProps<UserFields>;
 
@@ -25,12 +25,12 @@ export type UsersContentful = CollectionProp<UserContentful>;
 
 // Habit
 
-type HabitFields = {
+interface HabitFields {
   active: boolean;
   name: string;
   user: EntryLink;
   weeklyTarget: number;
-};
+}
 
 type HabitContentful = EntryProps<HabitFields>;
 
@@ -40,7 +40,11 @@ export interface HabitsContentful extends CollectionProp<HabitContentful> {
 
 // Event
 
-type EventFields = { date: string; habit: EntryLink; name: string };
+interface EventFields {
+  date: string;
+  habit: EntryLink;
+  name: string;
+}
 
 type EventContentful = EntryProps<EventFields>;
 

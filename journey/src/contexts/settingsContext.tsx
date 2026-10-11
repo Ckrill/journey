@@ -4,9 +4,6 @@ import { createContext, type ReactNode, use, useState } from 'react';
 // Utilities
 import { getFromLocalStorage } from '../helpers/localStorage';
 
-// Types
-import type { Settings } from '../types/types';
-
 const SettingsContext = createContext<{
   birthYear?: number;
   sound: boolean;
@@ -19,7 +16,9 @@ const SettingsUpdateContext = createContext<
 export const useSettings = () => use(SettingsContext);
 export const useSettingsUpdate = () => use(SettingsUpdateContext);
 
-type Props = { children: ReactNode };
+interface Props {
+  children: ReactNode;
+}
 
 export const SettingsProvider = ({ children }: Props) => {
   const [settings, setSettings] = useState<{
@@ -28,7 +27,7 @@ export const SettingsProvider = ({ children }: Props) => {
     vibration: boolean;
   }>(
     () =>
-      getFromLocalStorage<Settings>('settings') || {
+      getFromLocalStorage('settings') ?? {
         sound: true,
         vibration: true,
       },

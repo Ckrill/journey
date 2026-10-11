@@ -8,13 +8,13 @@ import type { Habit } from '../../../types/types';
 // Styles
 import styles from './HabitItem.module.scss';
 
-type Props = {
+interface Props {
   completedDates: Set<string>;
   currentStreak: number;
   habit: Habit;
   onEdit: (habit: Habit) => void;
   weekDates: string[];
-};
+}
 
 const HabitItem = ({
   completedDates,

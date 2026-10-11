@@ -19,9 +19,9 @@ import Heading from '../Heading/Heading';
 import Paragraph from '../Paragraph/Paragraph';
 import Section from '../Section/Section';
 
-type FieldValues = {
+interface FieldValues {
   name: string;
-};
+}
 
 const SignUp = () => {
   const setUser = useUserUpdate();

@@ -14,11 +14,11 @@ import type { Habit } from '../../../types/types';
 // Styles
 import styles from './Days.module.scss';
 
-type Props = {
+interface Props {
   completedDates: Set<string>;
   habit: Habit;
   weekDates: string[];
-};
+}
 
 const Days = ({ completedDates, habit, weekDates }: Props) => {
   const toggle = useToggleEvent();

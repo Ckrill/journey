@@ -16,11 +16,3 @@
 .section:first-of-type {
   margin-top: 0;
 }
-
-.section:last-of-type .button:not([priority='secondary']) {
-  margin-top: 30px;
-}
-
-.section [spacing='narrow'] {
-  margin-top: 0;
-}

@@ -7,13 +7,13 @@ import { formatWeekRange, weekNumber } from '../../helpers/week';
 // Styles
 import styles from './WeekSwitcher.module.scss';
 
-type Props = {
+interface Props {
   canGoNext: boolean;
   onCurrent: () => void;
   onNext: () => void;
   onPrev: () => void;
   weekStart: string;
-};
+}
 
 const WeekSwitcher = ({
   canGoNext,

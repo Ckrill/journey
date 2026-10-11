@@ -135,7 +135,9 @@ const Journey = () => {
   );
 };
 
-type WeekSearch = { week?: string };
+interface WeekSearch {
+  week?: string;
+}
 
 export const Route = createFileRoute('/')({
   component: Journey,

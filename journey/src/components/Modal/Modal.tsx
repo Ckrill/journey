@@ -6,11 +6,11 @@ import type { ReactNode } from 'react';
 // Styles
 import styles from './Modal.module.scss';
 
-type Props = {
+interface Props {
   children: ReactNode;
   onClose: () => void;
   open: boolean;
-};
+}
 
 const Modal = ({ children, onClose, open }: Props) => {
   const dialogRef = useRef<HTMLDialogElement>(null);

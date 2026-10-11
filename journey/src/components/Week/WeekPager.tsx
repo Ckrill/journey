@@ -15,12 +15,12 @@ import type { Events, Habit } from '../../types/types';
 
 const route = getRouteApi('/');
 
-type Props = {
+interface Props {
   datesByHabit: Map<string, Set<string>>;
   events: Events;
   habits: Habit[];
   openEdit: (habit: Habit) => void;
-};
+}
 
 const WeekPager = ({ datesByHabit, events, habits, openEdit }: Props) => {
   const navigate = route.useNavigate();

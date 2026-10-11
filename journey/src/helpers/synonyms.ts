@@ -26,7 +26,7 @@ export const getHeading = (
   }
 
   const wordList =
-    feedbackHeading.find((item) => item.tier === tier)?.words || [];
+    feedbackHeading.find((item) => item.tier === tier)?.words ?? [];
   const randomIndex = Math.floor(Math.random() * wordList.length);
   const word = wordList[randomIndex];
 

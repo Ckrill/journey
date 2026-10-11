@@ -1,12 +1,12 @@
 // Styles
 import styles from './Checkbox.module.scss';
 
-type Props = {
+interface Props {
   callback: () => void;
   checked: boolean;
   id: string;
   label: string;
-};
+}
 
 const Checkbox = ({ callback, checked, id, label }: Props) => (
   <div className={styles.container}>

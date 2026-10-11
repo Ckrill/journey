@@ -6,12 +6,12 @@ import { useEffect, useRef } from 'react';
 // Styles
 import styles from './CountUp.module.scss';
 
-type Props = {
+interface Props {
   countTo: number;
   delay?: number;
   duration?: number;
   ease?: Easing;
-};
+}
 
 const CountUp = ({
   countTo,

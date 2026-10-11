@@ -22,11 +22,11 @@ import type { Habit } from '../../../types/types';
 // Styles
 import styles from './HabitFormModal.module.scss';
 
-type Props = {
+interface Props {
   habit: Habit | null;
   onClose: () => void;
   open: boolean;
-};
+}
 
 const HabitFormModal = ({ habit, onClose, open }: Props) => {
   const { archive, create, update } = useHabitMutations();

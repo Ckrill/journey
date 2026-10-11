@@ -13,7 +13,10 @@ import { useUser } from '../contexts/userContext';
 // Types
 import type { Habit, Habits } from '../types/types';
 
-export type HabitFormData = { name: string; weeklyTarget: number };
+export interface HabitFormData {
+  name: string;
+  weeklyTarget: number;
+}
 
 const entryParams = (entryId: string) => ({
   entryId,

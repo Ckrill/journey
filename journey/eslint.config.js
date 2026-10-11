@@ -20,28 +20,14 @@ export default defineConfig([
     '.pnp.loader.mjs',
     'public/**',
   ]),
-  {
-    extends: ['js/recommended', 'depend/flat/recommended'],
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-      },
-    },
-    plugins: { depend, js },
-    settings: {
-      react: {
-        version: 'detect',
-      },
-    },
-  },
-  {
-    files: ['src/**'],
-    languageOptions: { globals: globals.browser },
-  },
-  tseslint.configs.strictTypeChecked,
 
-  react.configs['recommended-typescript'],
+  js.configs.recommended,
+  depend.configs['flat/recommended'],
+
+  tseslint.configs.strictTypeChecked,
+  tseslint.configs.stylisticTypeChecked,
+
+  react.configs['strict-type-checked'],
 
   reactHooks.configs.flat.recommended,
   react.configs['disable-conflict-eslint-plugin-react-hooks'],
@@ -52,26 +38,19 @@ export default defineConfig([
   ...query.configs['flat/recommended'],
 
   perfectionist.configs['recommended-natural'],
+
   {
-    rules: {
-      'perfectionist/sort-imports': 'off',
-      'perfectionist/sort-modules': 'off',
+    files: ['src/**'],
+    languageOptions: {
+      globals: globals.browser,
+      parserOptions: { projectService: true },
     },
   },
-  // The conflict preset turns these off, but @eslint-react only enables its versions in `all`
-  // (experimental). Remove once a stable @eslint-react preset (recommended/strict) enables
-  // @eslint-react/{globals,immutability,refs}.
+
   {
     rules: {
-      'react-hooks/globals': 'error',
-      'react-hooks/immutability': 'error',
-      'react-hooks/refs': 'error',
-    },
-  },
-  // Allow TanStack Router's throw redirect() / throw notFound() patterns.
-  // https://tanstack.com/router/latest/docs/eslint/eslint-plugin-router#typescript-eslint
-  {
-    rules: {
+      // Allow TanStack Router's throw redirect() / throw notFound() patterns.
+      // https://tanstack.com/router/latest/docs/eslint/eslint-plugin-router#typescript-eslint
       '@typescript-eslint/only-throw-error': [
         'error',
         {
@@ -89,8 +68,21 @@ export default defineConfig([
           ],
         },
       ],
+
+      // Import order is owned by oxfmt (`sortImports` in .oxfmtrc.jsonc).
+      'perfectionist/sort-imports': 'off',
+      // Would reorder top-level declarations; keep them in hand-written order.
+      'perfectionist/sort-modules': 'off',
+
+      // The conflict preset turns these off, but @eslint-react only enables its versions in `all`
+      // (experimental). Remove once a stable @eslint-react preset (recommended/strict) enables
+      // @eslint-react/{globals,immutability,refs}.
+      'react-hooks/globals': 'error',
+      'react-hooks/immutability': 'error',
+      'react-hooks/refs': 'error',
     },
   },
+
   // TanStack Router routes must export `Route` alongside the component — splitting
   // is not possible. Context files co-locate provider + hook by convention. Neither
   // pattern benefits from fast refresh isolation since they rarely change in isolation.
@@ -100,6 +92,7 @@ export default defineConfig([
       'react-refresh/only-export-components': 'off',
     },
   },
+
   // Let @tanstack/router/create-route-property-order control object key order
   // in route files instead of perfectionist.
   {
@@ -108,9 +101,13 @@ export default defineConfig([
       'perfectionist/sort-objects': 'off',
     },
   },
+
   // Root config files are outside tsconfig's `include`, so type-aware rules can't run on them.
   {
-    extends: [tseslint.configs.disableTypeChecked],
+    extends: [
+      tseslint.configs.disableTypeChecked,
+      react.configs['disable-type-checked'],
+    ],
     files: ['*.{js,mjs,cjs}'],
     languageOptions: { globals: globals.node },
   },

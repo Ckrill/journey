@@ -1,9 +1,9 @@
 // Styles
 import styles from './Divider.module.scss';
 
-type Props = {
+interface Props {
   text?: string;
-};
+}
 
 const Divider = (props: Props) => (
   <div className={styles.divider} {...props}>

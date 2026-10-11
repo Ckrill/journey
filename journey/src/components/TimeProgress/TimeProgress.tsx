@@ -49,11 +49,11 @@ const getDayProgress = () => {
   return getProgess(24, elapsed);
 };
 
-type Ring = {
+interface Ring {
   className: string;
   label: string;
   progress: number;
-};
+}
 
 const TimeProgress = () => {
   const settings = useSettings();

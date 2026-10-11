@@ -15,11 +15,13 @@ const UserUpdateContext = createContext<(user: null | User) => void>(
 export const useUser = () => use(UserContext);
 export const useUserUpdate = () => use(UserUpdateContext);
 
-type Props = { children: ReactNode };
+interface Props {
+  children: ReactNode;
+}
 
 export const UserProvider = ({ children }: Props) => {
   const [user, setUser] = useState<null | User>(() =>
-    getFromLocalStorage<User>('user'),
+    getFromLocalStorage('user'),
   );
 
   return (

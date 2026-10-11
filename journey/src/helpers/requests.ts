@@ -26,10 +26,10 @@ export const getItemsByAttribute = (
   return `${baseURL}/spaces/${space}/environments/${environment}/entries?access_token=${accessToken}&content_type=${type}&${attribute}=${value}`;
 };
 
-type ResponseType = {
+interface ResponseType {
   json: () => Promise<ArrayContentful>;
   status: number;
-};
+}
 
 // Error handling
 const handleResponse = (res: ResponseType) => {

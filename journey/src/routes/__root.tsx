@@ -39,9 +39,9 @@ const RootComponent = () => {
   );
 };
 
-type RouterContext = {
+interface RouterContext {
   queryClient: QueryClient;
-};
+}
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootComponent,

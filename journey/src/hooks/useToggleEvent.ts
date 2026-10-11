@@ -11,9 +11,15 @@ import { client } from '../api/contentful';
 // Types
 import type { Event, Events } from '../types/types';
 
-type ToggleArgs = { date: string; habitId: string; habitName: string };
+interface ToggleArgs {
+  date: string;
+  habitId: string;
+  habitName: string;
+}
 
-type MutationContext = { previous: Events | undefined };
+interface MutationContext {
+  previous: Events | undefined;
+}
 
 const entryParams = (entryId: string) => ({
   entryId,

@@ -1,14 +1,22 @@
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
-export const getFromLocalStorage = <T>(name: string): null | T => {
+import type { Settings, User } from '../types/types';
+
+interface StorageSchema {
+  settings: Settings;
+  user: User;
+}
+
+// Parsed JSON is not validated; the schema is a contract with whatever this app saved earlier.
+export const getFromLocalStorage = <K extends keyof StorageSchema>(
+  name: K,
+): null | StorageSchema[K] => {
   const stored = localStorage.getItem(name);
-  const parsed = stored ? (JSON.parse(stored) as T) : null;
+  const parsed = stored ? (JSON.parse(stored) as StorageSchema[K]) : null;
   return parsed;
 };
 
-export const saveToLocalStorage = (
-  name: string,
-  data: { [name: string]: boolean | number | string },
+export const saveToLocalStorage = <K extends keyof StorageSchema>(
+  name: K,
+  data: StorageSchema[K],
 ) => {
-  const stringified = JSON.stringify(data);
-  localStorage.setItem(name, stringified);
+  localStorage.setItem(name, JSON.stringify(data));
 };

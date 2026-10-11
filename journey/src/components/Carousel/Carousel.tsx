@@ -16,13 +16,13 @@ const swipeConfidenceThreshold = 10_000;
 const swipePower = (offset: number, velocity: number) =>
   Math.abs(offset) * velocity;
 
-type Props = {
+interface Props {
   children: ReactNode;
   direction: number;
   onNext?: () => void;
   onPrev?: () => void;
   slideKey: string;
-};
+}
 
 const Carousel = ({ children, direction, onNext, onPrev, slideKey }: Props) => (
   <AnimatePresence custom={direction} initial={false} mode="wait">

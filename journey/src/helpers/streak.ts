@@ -4,12 +4,12 @@ import { countEventsPerWeek, currentWeekStart, shiftWeek } from './week';
 // Types
 import type { Events, Habit } from '../types/types';
 
-export type HabitStreak = {
+export interface HabitStreak {
   /** Longest run of consecutive met weeks anywhere in history. */
   best: number;
   /** Consecutive met weeks up to (and including) the current week. */
   current: number;
-};
+}
 
 /**
  * Computes the current and best weekly streak for a habit, live from events.

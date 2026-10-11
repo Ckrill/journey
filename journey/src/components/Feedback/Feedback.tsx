@@ -16,11 +16,11 @@ import thump from '../../assets/sounds/thump.mp3';
 // Styles
 import styles from './Feedback.module.scss';
 
-type Props = {
+interface Props {
   setShow: (show: boolean) => void;
   show: boolean;
   streak: number;
-};
+}
 
 const Feedback = ({ setShow, show, streak }: Props) => {
   const settings = useSettings();
