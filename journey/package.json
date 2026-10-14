@@ -24,6 +24,7 @@
     "@tanstack/react-router": "^1.170.41",
     "@tanstack/react-router-devtools": "^1.167.2",
     "@tanstack/router-core": "^1.171.34",
+    "clsx": "^2.1.1",
     "contentful-management": "^12.19.0",
     "motion": "^14.0.0",
     "react": "^19.3.0",

@@ -2,6 +2,9 @@
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
+// Utilities
+import { WEEKDAY_LABELS, WEEKDAYS } from '../../../helpers/week';
+
 // Hooks
 import {
   type HabitFormData,
@@ -10,17 +13,26 @@ import {
 
 // Miscellaneous
 import Button from '../../Button/Button';
+import FormActions from '../../Form/FormActions/FormActions';
 import Input from '../../Form/Input/Input';
+import Pillbox from '../../Form/Pillbox/Pillbox';
 import Heading from '../../Heading/Heading';
 import Modal from '../../Modal/Modal';
 import Section from '../../Section/Section';
 import SectionContainer from '../../Section/SectionContainer';
 
 // Types
-import type { Habit } from '../../../types/types';
+import type { Habit, Weekday } from '../../../types/types';
+import type { PillboxOption } from '../../Form/Pillbox/Pillbox';
 
 // Styles
 import styles from './HabitFormModal.module.scss';
+
+const dayOptions: PillboxOption<Weekday>[] = WEEKDAYS.map((value, index) => ({
+  display: WEEKDAY_LABELS[index][0],
+  label: WEEKDAY_LABELS[index],
+  value,
+}));
 
 interface Props {
   habit: Habit | null;
@@ -43,7 +55,7 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
     handleSubmit,
     reset,
   } = useForm<HabitFormData>({
-    defaultValues: { name: '', weeklyTarget: 3 },
+    defaultValues: { name: '', plannedDays: [] },
   });
 
   // Sync form values and clear stale mutation errors whenever the modal opens.
@@ -53,14 +65,19 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
     resetUpdate();
     reset({
       name: habit?.name ?? '',
-      weeklyTarget: habit?.weeklyTarget ?? 3,
+      plannedDays: habit?.plannedDays ?? [],
     });
   }, [open, habit, reset, resetCreate, resetUpdate]);
 
   const onSubmit = (data: HabitFormData) => {
     if (isEdit) {
       update.mutate(
-        { ...habit, name: data.name, weeklyTarget: data.weeklyTarget },
+        {
+          ...habit,
+          name: data.name,
+          plannedDays: data.plannedDays,
+          weeklyTarget: data.plannedDays.length,
+        },
         { onSuccess: onClose },
       );
     } else {
@@ -93,6 +110,7 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
               name="name"
               render={({ field }) => (
                 <Input
+                  assistiveText="Name your habit."
                   disabled={isPending}
                   errorText={errors.name && 'Please name your habit.'}
                   id="habit-name"
@@ -106,46 +124,45 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
 
             <Controller
               control={control}
-              name="weeklyTarget"
+              name="plannedDays"
               render={({ field }) => (
-                <Input
+                <Pillbox
+                  assistiveText="Select the days you plan to do this habit."
                   disabled={isPending}
-                  errorText={errors.weeklyTarget && 'Pick a value from 1 to 7.'}
-                  id="habit-target"
-                  labelText="Days per week"
-                  max={7}
-                  min={1}
-                  type="number"
-                  {...field}
-                  onChange={(e) => {
-                    field.onChange(e.target.valueAsNumber);
-                  }}
+                  errorText={errors.plannedDays && 'Pick at least one day.'}
+                  labelText="Days"
+                  name={field.name}
+                  onChange={field.onChange}
+                  options={dayOptions}
+                  value={field.value}
                 />
               )}
-              rules={{ max: 7, min: 1, required: true }}
+              rules={{ validate: (days) => days.length > 0 }}
             />
 
-            <Button disabled={isPending} type="submit">
-              {isPending ? 'Saving' : 'Save'}
-            </Button>
-
-            {mutationError && (
-              <p className={styles.error} role="alert">
-                Something went wrong. Please try again.
-              </p>
-            )}
-
-            {isEdit && (
-              <Button
-                data-priority="secondary"
-                data-tone="danger"
-                disabled={isPending}
-                onClick={handleArchive}
-                type="button"
-              >
-                Archive habit
+            <FormActions>
+              <Button disabled={isPending} type="submit">
+                {isPending ? 'Saving' : 'Save'}
               </Button>
-            )}
+
+              {mutationError && (
+                <p className={styles.error} role="alert">
+                  Something went wrong. Please try again.
+                </p>
+              )}
+
+              {isEdit && (
+                <Button
+                  data-priority="secondary"
+                  data-tone="danger"
+                  disabled={isPending}
+                  onClick={handleArchive}
+                  type="button"
+                >
+                  Archive habit
+                </Button>
+              )}
+            </FormActions>
           </Section>
         </SectionContainer>
       </form>

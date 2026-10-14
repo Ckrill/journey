@@ -11,11 +11,11 @@ import { client } from '../api/contentful';
 import { useUser } from '../contexts/userContext';
 
 // Types
-import type { Habit, Habits } from '../types/types';
+import type { Habit, Habits, Weekday } from '../types/types';
 
 export interface HabitFormData {
   name: string;
-  weeklyTarget: number;
+  plannedDays: Weekday[];
 }
 
 const entryParams = (entryId: string) => ({
@@ -32,8 +32,9 @@ export const useHabitMutations = () => {
   /* eslint-disable perfectionist/sort-objects */
   const create = useMutation<Habit, Error, HabitFormData>({
     retry: false,
-    mutationFn: async ({ name, weeklyTarget }) => {
+    mutationFn: async ({ name, plannedDays }) => {
       if (!user) throw new Error('No user');
+      const weeklyTarget = plannedDays.length;
 
       const entry = await client.entry.create(
         {
@@ -45,6 +46,7 @@ export const useHabitMutations = () => {
           fields: {
             active: { 'en-US': true },
             name: { 'en-US': name },
+            plannedDays: { 'en-US': plannedDays },
             user: {
               'en-US': {
                 sys: { id: user.id, linkType: 'Entry', type: 'Link' },
@@ -65,6 +67,7 @@ export const useHabitMutations = () => {
         createdAt: published.sys.createdAt,
         id: published.sys.id,
         name,
+        plannedDays,
         weeklyTarget,
       };
     },
@@ -85,6 +88,7 @@ export const useHabitMutations = () => {
       type Fields = Record<string, Record<string, unknown>>;
       const fields = entry.fields as Fields;
       fields.name = { 'en-US': habit.name };
+      fields.plannedDays = { 'en-US': habit.plannedDays };
       fields.weeklyTarget = { 'en-US': habit.weeklyTarget };
       fields.active = { 'en-US': habit.active };
 

@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+
 import { useSettings } from '../../contexts/settingsContext';
 
 import styles from './TimeProgress.module.scss';
@@ -96,7 +98,7 @@ const TimeProgress = () => {
         <div className={styles.circles}>
           {rings.map((ring) => (
             <div
-              className={`${styles.ring} ${ring.className}`}
+              className={clsx(styles.ring, ring.className)}
               key={ring.label}
               style={{ '--progress': ring.progress } as React.CSSProperties}
             >
@@ -109,7 +111,7 @@ const TimeProgress = () => {
       <div className={styles.legend}>
         {rings.toReversed().map((ring) => (
           <span
-            className={`${styles.legendItem} ${ring.className}`}
+            className={clsx(styles.legendItem, ring.className)}
             key={ring.label}
           >
             <span className={styles.legendDot} />

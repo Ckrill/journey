@@ -1,5 +1,5 @@
 .code {
-  width: calc(100% - (2 * var(--spacing)));
+  inline-size: calc(100% - (2 * var(--spacing)));
   padding: var(--spacing);
   overflow-wrap: break-word;
   background-color: var(--stroke);

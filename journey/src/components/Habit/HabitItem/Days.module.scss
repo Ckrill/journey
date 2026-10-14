@@ -1,55 +1,78 @@
 .days {
   display: flex;
-  gap: 10px;
-  align-items: center;
+  align-items: stretch;
+  block-size: 44px;
+  overflow: hidden;
+  border: 2px solid var(--accent-color-2);
+  border-radius: 22px;
 }
 
 .day {
+  position: relative;
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 1;
-  padding: 5px;
+  padding: 0;
   font-size: calc(16rem / 16);
   font-weight: 900;
   color: var(--stroke);
   cursor: pointer;
   background-color: var(--background);
-  border: 2px solid var(--stroke);
-  border-radius: 50%;
+  border: none;
   transition:
     background-color var(--fast),
-    border-color var(--fast),
     color var(--fast),
-    filter var(--fast),
-    opacity var(--fast),
-    transform var(--rapid);
+    opacity var(--fast);
 
-  &:not(:disabled):active {
-    transform: scale(0.9);
+  & + & {
+    border-inline-start: 2px solid var(--accent-color-2);
   }
 
   &:not(:disabled):hover {
     @media (hover: hover) {
       color: var(--accent-color-2);
-      border-color: var(--accent-color-2);
-      transition:
-        color var(--rapid),
-        border-color var(--rapid);
+      transition: color var(--rapid);
     }
   }
 
   &:disabled {
-    cursor: default;
-    background-color: var(--background);
-    opacity: 0.3;
+    cursor: not-allowed;
+    border-color: var(--accent-color-2);
+  }
+
+  &.today::after {
+    position: absolute;
+    inset-block-start: 7px;
+    justify-self: center;
+    inline-size: 4px;
+    block-size: 4px;
+    content: '';
+    background-color: currentcolor;
+    border-radius: 50%;
+  }
+
+  // Always present so it can scale in and out without triggering layout.
+  &::before {
+    position: absolute;
+    inset-block-end: 10px;
+    justify-self: center;
+    inline-size: 12px;
+    block-size: 2px;
+    content: '';
+    background-color: currentcolor;
+    border-radius: 1px;
+    scale: 0 1;
+    transition: scale var(--fast);
+  }
+
+  &.planned::before {
+    scale: 1;
   }
 
   &.done:not(:disabled) {
     color: var(--accent-color-2);
     background-color: var(--accent-color);
-    border-color: var(--accent-color-2);
 
     &:hover {
       @media (hover: hover) {
@@ -61,6 +84,6 @@
 }
 
 .check {
-  width: 100%;
-  height: 100%;
+  inline-size: 24px;
+  block-size: 24px;
 }

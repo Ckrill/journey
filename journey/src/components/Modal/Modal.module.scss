@@ -1,9 +1,10 @@
 .dialog {
   position: fixed;
-  inset: auto 0 0;
+  inset-block: auto 0;
+  inset-inline: 0;
   box-sizing: border-box;
-  width: 100%;
-  max-width: none;
+  inline-size: 100%;
+  max-inline-size: none;
   padding: var(--spacing);
   overflow: hidden;
   background: var(--background);
@@ -25,8 +26,8 @@
   // On larger screens, center the dialog and fade/scale it in instead.
   @media (width >= 600px) {
     inset: 0;
-    max-width: var(--max-size);
-    height: fit-content;
+    max-inline-size: var(--max-size);
+    block-size: fit-content;
     margin: auto;
     opacity: 0;
     transform: scale(0.95);

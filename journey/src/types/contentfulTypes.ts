@@ -5,6 +5,8 @@ import type {
   Link,
 } from 'contentful-management/types';
 
+import type { Weekday } from './types';
+
 // Generic
 
 type EntryLink = Link<'Entry'>;
@@ -28,6 +30,7 @@ export type UsersContentful = CollectionProp<UserContentful>;
 interface HabitFields {
   active: boolean;
   name: string;
+  plannedDays: Weekday[];
   user: EntryLink;
   weeklyTarget: number;
 }

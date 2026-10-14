@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  inline-size: 100%;
   aspect-ratio: 1;
   padding: var(--spacing);
 }
@@ -18,8 +18,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
 }
 
 .ring {
@@ -32,8 +32,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--size);
-  height: var(--size);
+  inline-size: var(--size);
+  block-size: var(--size);
   background: conic-gradient(
     var(--ring-color) calc(var(--progress) * 1%),
     var(--ring-bg) calc(var(--progress) * 1%)
@@ -47,8 +47,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: calc(100% - var(--ring-thickness));
-  height: calc(100% - var(--ring-thickness));
+  inline-size: calc(100% - var(--ring-thickness));
+  block-size: calc(100% - var(--ring-thickness));
   background: var(--background);
   border-radius: 50%;
 }
@@ -88,7 +88,7 @@
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-  margin-top: var(--spacing);
+  margin-block-start: var(--spacing);
 }
 
 .legendItem {
@@ -101,8 +101,8 @@
 .legendDot {
   --size: calc(var(--multiplier) * 1px + 10px);
 
-  width: var(--size);
-  height: var(--size);
+  inline-size: var(--size);
+  block-size: var(--size);
   background-color: var(--ring-color);
   border-radius: 50%;
 }

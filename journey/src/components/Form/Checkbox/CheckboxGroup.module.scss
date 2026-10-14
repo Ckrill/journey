@@ -3,6 +3,6 @@
   gap: var(--spacing);
 
   h2 + & {
-    margin-top: 20px;
+    margin-block-start: 20px;
   }
 }

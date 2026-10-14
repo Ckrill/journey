@@ -1,3 +1,6 @@
+// Types
+import type { Weekday } from '../types/types';
+
 /** Day labels in ISO order (Monday first). */
 export const WEEKDAY_LABELS = [
   'Mon',
@@ -8,6 +11,17 @@ export const WEEKDAY_LABELS = [
   'Sat',
   'Sun',
 ] as const;
+
+/** Stored weekday keys, index-aligned with `WEEKDAY_LABELS` and `weekDates`. */
+export const WEEKDAYS: readonly Weekday[] = [
+  'mon',
+  'tue',
+  'wed',
+  'thu',
+  'fri',
+  'sat',
+  'sun',
+];
 
 /** Today's ISO calendar date (YYYY-MM-DD), device-local. */
 export const today = () => Temporal.Now.plainDateISO().toString();

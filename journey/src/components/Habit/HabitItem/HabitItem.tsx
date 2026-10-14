@@ -28,7 +28,6 @@ const HabitItem = ({
   ).length;
   const targetMet = completedCount >= habit.weeklyTarget;
 
-  const showTarget = !targetMet;
   const showStreak = targetMet && currentStreak > 0;
 
   return (
@@ -45,12 +44,6 @@ const HabitItem = ({
             <span>{habit.name}</span>
           </span>
         </button>
-
-        {showTarget && (
-          <span className={styles.target}>
-            {completedCount} / {habit.weeklyTarget}
-          </span>
-        )}
 
         {showStreak && (
           <span className={styles.streak}>

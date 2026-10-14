@@ -1,4 +1,5 @@
 // External
+import clsx from 'clsx';
 import React from 'react';
 
 // Styles
@@ -23,7 +24,7 @@ const FormInput = ({
     </label>
 
     <input
-      className={`${styles.input} ${errorText ? styles['input--error'] : ''}`}
+      className={clsx(styles.input, errorText && styles['input--error'])}
       {...props}
     />
 

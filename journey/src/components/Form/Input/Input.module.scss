@@ -1,15 +1,14 @@
 .container {
   box-sizing: border-box;
-  width: 100%;
-  max-width: var(--form-size);
-  padding-top: 10px;
-  padding-bottom: 10px;
+  inline-size: 100%;
+  max-inline-size: var(--form-size);
+  padding-block: 10px;
 }
 
 .label {
   display: block;
-  margin-bottom: 4px;
-  margin-left: 4px;
+  margin-block-end: 4px;
+  margin-inline-start: 4px;
   font-size: calc(12rem / 16);
   font-weight: 700;
   text-transform: uppercase;
@@ -19,8 +18,9 @@
 .input {
   box-sizing: border-box;
   display: block;
-  width: 100%;
-  padding: 10px 12px;
+  inline-size: 100%;
+  padding-block: 10px;
+  padding-inline: 12px;
   font-size: calc(18rem / 16);
   line-height: calc(24rem / 16);
   letter-spacing: 1px;
@@ -40,16 +40,18 @@
 }
 
 .assistive {
-  min-height: calc(18rem / 16);
-  margin: 4px 4px 0;
+  min-block-size: calc(18rem / 16);
+  margin-block: 4px 0;
+  margin-inline: 4px;
   font-size: calc(12rem / 16);
   font-style: italic;
   line-height: calc(18rem / 16);
 }
 
 .error {
-  min-height: calc(18rem / 16);
-  margin: 4px 4px 0;
+  min-block-size: calc(18rem / 16);
+  margin-block: 4px 0;
+  margin-inline: 4px;
   font-size: calc(12rem / 16);
   font-weight: 700;
   line-height: calc(18rem / 16);

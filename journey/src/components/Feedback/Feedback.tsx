@@ -1,4 +1,5 @@
 // External
+import clsx from 'clsx';
 import { useEffect, useMemo, useRef } from 'react';
 
 // Utilities
@@ -62,7 +63,7 @@ const Feedback = ({ setShow, show, streak }: Props) => {
 
   return (
     <div
-      className={`${styles.overlay} ${show ? styles.show : ''}`}
+      className={clsx(styles.overlay, show && styles.show)}
       onClick={() => {
         setShow(false);
       }}
@@ -76,9 +77,10 @@ const Feedback = ({ setShow, show, streak }: Props) => {
         {streak > 1 ? (
           <>
             <h1
-              className={`${styles.heading} ${
-                styles['heading--' + headingSize]
-              }`}
+              className={clsx(
+                styles.heading,
+                styles['heading--' + headingSize],
+              )}
             >
               {heading}
             </h1>

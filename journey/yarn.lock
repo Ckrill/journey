@@ -3976,6 +3976,7 @@ __metadata:
     "@types/react-dom": "npm:^19.3.0"
     "@vitejs/plugin-react": "npm:^6.1.2"
     babel-plugin-react-compiler: "npm:^1.0.0"
+    clsx: "npm:^2.1.1"
     contentful-management: "npm:^12.19.0"
     eslint: "npm:^10.12.0"
     eslint-plugin-depend: "npm:^1.5.0"

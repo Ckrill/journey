@@ -1,10 +1,8 @@
 .paragraph {
-  max-width: var(--max-size);
-  padding-right: 20px;
-  padding-left: 20px;
-  margin-top: 50px;
-  margin-right: auto;
-  margin-left: auto;
+  max-inline-size: var(--max-size);
+  padding-inline: 20px;
+  margin-block-start: 50px;
+  margin-inline: auto;
   font-size: calc(16rem / 16);
   line-height: calc(30rem / 16);
   text-align: center;
@@ -12,11 +10,10 @@
 
 h2 + .paragraph,
 .paragraph + .paragraph {
-  margin-top: 20px;
+  margin-block-start: 20px;
 }
 
 .paragraph[data-align='left'] {
-  padding-right: 0;
-  padding-left: 0;
-  text-align: left;
+  padding-inline: 0;
+  text-align: start;
 }

@@ -4,8 +4,8 @@
   align-items: center;
   justify-content: center;
   justify-content: space-between;
-  width: 100%;
-  max-width: var(--max-size);
+  inline-size: 100%;
+  max-inline-size: var(--max-size);
 }
 
 .arrow {
@@ -48,7 +48,7 @@
 }
 
 .date {
-  min-width: 11ch;
+  min-inline-size: 11ch;
   font-size: calc(16rem / 16);
   font-weight: 600;
   text-align: center;

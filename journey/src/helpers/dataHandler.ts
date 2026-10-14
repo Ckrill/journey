@@ -21,12 +21,14 @@ export const parseUser = (arr: UsersContentful): null | User => {
 
 export const parseHabits = (habitsContentful: HabitsContentful): Habits => {
   const habits: Habits = habitsContentful.items.map((item) => {
+    const { plannedDays } = item.fields;
     const habit: Habit = {
       active: item.fields.active,
       createdAt: item.sys.createdAt,
       id: item.sys.id,
       name: item.fields.name,
-      weeklyTarget: item.fields.weeklyTarget,
+      plannedDays,
+      weeklyTarget: plannedDays.length,
     };
 
     return habit;

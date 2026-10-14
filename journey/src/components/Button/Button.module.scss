@@ -5,9 +5,10 @@
   --button-background-disabled: var(--text-bright);
 
   display: inline-block;
-  width: 100%;
-  max-width: var(--form-size);
-  padding: 16px 30px;
+  inline-size: 100%;
+  max-inline-size: var(--form-size);
+  padding-block: 16px;
+  padding-inline: 30px;
   font-size: calc(14rem / 16);
   font-weight: 700;
   line-height: calc(18rem / 16);
@@ -27,11 +28,12 @@
 }
 
 .button:not([data-priority='secondary']) + .button {
-  margin-top: 10px;
+  margin-block-start: 10px;
 }
 
 .button[data-priority='secondary'] {
-  padding: 12px 20px;
+  padding-block: 12px;
+  padding-inline: 20px;
   font-size: calc(12rem / 16);
   color: var(--text);
   background-color: transparent;

@@ -2,45 +2,40 @@
   position: relative;
   display: flex;
   justify-content: center;
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  inline-size: 100%;
+  margin-block: 10px;
   text-align: center;
 }
 
 .divider[data-appearance='faint'] .ruler {
-  height: var(--stroke-width);
+  block-size: var(--stroke-width);
 }
 
 .divider[data-spacing='spacious'] {
-  margin-top: 25px;
-  margin-bottom: 25px;
+  margin-block: 25px;
 }
 
 .ruler {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: calc(2 * var(--stroke-width));
-  margin-top: auto;
-  margin-bottom: auto;
+  inset-block: 0;
+  inset-inline-start: 0;
+  inline-size: 100%;
+  block-size: calc(2 * var(--stroke-width));
+  margin-block: auto;
   background-color: var(--stroke);
   border: none;
 }
 
 .mask {
   position: relative;
-  padding-right: 20px;
-  padding-left: 20px;
+  padding-inline: 20px;
   text-align: center;
   background-color: var(--background);
 }
 
 .text {
   display: block;
-  margin-bottom: 5px;
+  margin-block-end: 5px;
   font-size: calc(16rem / 16);
   font-weight: 600;
   line-height: calc(22rem / 16);

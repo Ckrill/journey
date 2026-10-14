@@ -1,9 +1,10 @@
 // External
+import clsx from 'clsx';
 import { useState } from 'react';
 import { BsCheck } from 'react-icons/bs';
 
 // Utilities
-import { today, WEEKDAY_LABELS } from '../../../helpers/week';
+import { today, WEEKDAY_LABELS, WEEKDAYS } from '../../../helpers/week';
 
 // Hooks
 import { useToggleEvent } from '../../../hooks/useToggleEvent';
@@ -37,18 +38,32 @@ const Days = ({ completedDates, habit, weekDates }: Props) => {
     );
   };
 
+  const targetMet =
+    weekDates.filter((date) => completedDates.has(date)).length >=
+    habit.weeklyTarget;
+
   return (
     <div className={styles.days}>
       {weekDates.map((date, index) => {
         const done = completedDates.has(date);
         const isFuture = date > today();
         const isPending = pendingDate === date;
+        const isToday = date === today();
 
         return (
           <button
+            aria-current={isToday ? 'date' : undefined}
             aria-label={`${WEEKDAY_LABELS[index]} ${date}`}
             aria-pressed={done}
-            className={`${styles.day} ${done ? styles.done : ''}`}
+            className={clsx(
+              styles.day,
+              done && styles.done,
+              isToday && styles.today,
+              !targetMet &&
+                !done &&
+                habit.plannedDays.includes(WEEKDAYS[index]) &&
+                styles.planned,
+            )}
             disabled={isFuture || isPending}
             key={date}
             onClick={() => {
