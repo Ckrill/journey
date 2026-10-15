@@ -1,6 +1,5 @@
 // External
 import { getRouteApi } from '@tanstack/react-router';
-import { useState } from 'react';
 
 // Utilities
 import { currentWeekStart, shiftWeek, weekDates } from '../../helpers/week';
@@ -30,15 +29,12 @@ const WeekPager = ({ datesByHabit, events, habits, openEdit }: Props) => {
   const dates = weekDates(weekStart);
   const canGoNext = weekStart < currentWeekStart();
 
-  const [direction, setDirection] = useState(0);
-
   const goPrev = () => {
-    setDirection(-1);
     void navigate({ search: { week: shiftWeek(weekStart, -1) } });
   };
 
   const goNext = () => {
-    setDirection(1);
+    if (!canGoNext) return;
     const next = shiftWeek(weekStart, 1);
     void navigate({
       search: { week: next === currentWeekStart() ? undefined : next },
@@ -47,7 +43,6 @@ const WeekPager = ({ datesByHabit, events, habits, openEdit }: Props) => {
 
   const goCurrent = () => {
     if (weekStart === currentWeekStart()) return;
-    setDirection(1);
     void navigate({ search: { week: undefined } });
   };
 
@@ -61,12 +56,7 @@ const WeekPager = ({ datesByHabit, events, habits, openEdit }: Props) => {
         weekStart={weekStart}
       />
 
-      <Carousel
-        direction={direction}
-        onNext={canGoNext ? goNext : undefined}
-        onPrev={goPrev}
-        slideKey={weekStart}
-      >
+      <Carousel onNext={goNext} onPrev={goPrev} slideKey={weekStart}>
         <HabitList
           dates={dates}
           datesByHabit={datesByHabit}
