@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { BsFire } from 'react-icons/bs';
 
 import Days from './Days';
@@ -28,8 +29,6 @@ const HabitItem = ({
   ).length;
   const targetMet = completedCount >= habit.weeklyTarget;
 
-  const showStreak = targetMet && currentStreak > 0;
-
   return (
     <div className={styles.row}>
       <div className={styles.header}>
@@ -45,11 +44,19 @@ const HabitItem = ({
           </span>
         </button>
 
-        {showStreak && (
-          <span className={styles.streak}>
-            {currentStreak} <BsFire />
-          </span>
-        )}
+        <span
+          aria-hidden={currentStreak === 0}
+          aria-label={`${String(currentStreak)} week streak`}
+          className={clsx(
+            styles.streak,
+            currentStreak === 0 && styles.empty,
+            targetMet && styles.active,
+          )}
+          role="img"
+        >
+          <BsFire className={styles.flame} />
+          {currentStreak}
+        </span>
       </div>
 
       <Days

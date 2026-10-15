@@ -32,10 +32,32 @@
 
 .streak {
   display: flex;
-  gap: 2px;
+  gap: 4px;
   align-items: center;
   font-family: var(--font-family-mono);
   font-size: calc(16rem / 16);
   font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--stroke);
   white-space: nowrap;
+  opacity: 0.4;
+  transition:
+    color var(--fast),
+    opacity var(--fast);
+
+  // This week's target is met, so the streak is secured.
+  &.active {
+    color: var(--text);
+    opacity: 1;
+  }
+
+  // Keeps its size so the header doesn't shift when the first streak appears.
+  &.empty {
+    visibility: hidden;
+  }
+}
+
+.flame {
+  inline-size: 1.1em;
+  block-size: 1.1em;
 }
