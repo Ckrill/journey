@@ -1,77 +1,81 @@
 // External
-import { AnimatePresence, motion, type Variants } from 'motion/react';
-import { type ReactNode, useState } from 'react';
+import { type ReactNode, useEffect, useLayoutEffect, useRef } from 'react';
 
-// Direction-aware push: 1 = forward (new slide enters from the right),
-// -1 = backward (enters from the left). Old and new slide move together.
-const slideVariants: Variants = {
-  center: { x: 0 },
-  enter: (direction: number) => ({ x: direction > 0 ? '100%' : '-100%' }),
-  exit: (direction: number) => ({ x: direction > 0 ? '-100%' : '100%' }),
-};
+// Styles
+import styles from './Carousel.module.scss';
 
-const slideTransition = {
-  damping: 40,
-  stiffness: 400,
-  type: 'spring',
-} as const;
-
-// A swipe counts if it travels far enough (px) or is a fast flick (px/s).
-const SWIPE_DISTANCE = 80;
-const SWIPE_VELOCITY = 500;
-
-const slideStyle = { width: '100%' };
-// popLayout positions the exiting slide against this; clip hides the off-screen one.
-const viewportStyle = {
-  overflowX: 'clip',
-  position: 'relative',
-  width: '100%',
-} as const;
+type SnapEvent = Event & { snapTargetInline: Element | null };
 
 interface Props {
-  children: ReactNode;
-  onNext: () => void;
-  onPrev: () => void;
-  // Must sort in slide order; direction is derived from comparing keys.
+  // Pending slide while swiping, or null once the swipe returns to the current slide.
+  onPreview: (key: null | string) => void;
+  // A swipe settled on another slide.
+  onSettle: (key: string) => void;
   slideKey: string;
+  // Ordered slides including the current one, so a fast swipe has room before the edge.
+  slides: { key: string; node: ReactNode }[];
 }
 
-const Carousel = ({ children, onNext, onPrev, slideKey }: Props) => {
-  const [prevKey, setPrevKey] = useState(slideKey);
-  const [direction, setDirection] = useState(1);
+const Carousel = ({ onPreview, onSettle, slideKey, slides }: Props) => {
+  const pagerRef = useRef<HTMLDivElement>(null);
 
-  if (prevKey !== slideKey) {
-    setPrevKey(slideKey);
-    setDirection(slideKey > prevKey ? 1 : -1);
-  }
+  // Keep the current slide in view; this also recenters after a swipe shifts the window.
+  useLayoutEffect(() => {
+    const pager = pagerRef.current;
+    if (!pager) return;
+
+    const index = Array.from(pager.children).findIndex(
+      (child) => (child as HTMLElement).dataset.key === slideKey,
+    );
+    pager.scrollTo({ behavior: 'instant', left: index * pager.clientWidth });
+  }, [slideKey]);
+
+  // Fires as soon as the browser predicts the snap target, before the swipe settles.
+  useEffect(() => {
+    const pager = pagerRef.current;
+    if (!pager) return;
+
+    const handleSnapChanging = (event: Event) => {
+      const target = (event as SnapEvent).snapTargetInline;
+      const key =
+        target instanceof HTMLElement ? target.dataset.key : undefined;
+      if (key) onPreview(key);
+    };
+
+    pager.addEventListener('scrollsnapchanging', handleSnapChanging);
+    return () => {
+      pager.removeEventListener('scrollsnapchanging', handleSnapChanging);
+    };
+  }, [onPreview]);
+
+  const handleScrollEnd = () => {
+    const pager = pagerRef.current;
+    if (!pager) return;
+
+    const index = Math.round(pager.scrollLeft / pager.clientWidth);
+    const key = (pager.children[index] as HTMLElement | undefined)?.dataset.key;
+    if (!key) return;
+
+    if (key === slideKey) onPreview(null);
+    else onSettle(key);
+  };
 
   return (
-    <div style={viewportStyle}>
-      <AnimatePresence custom={direction} initial={false} mode="popLayout">
-        <motion.div
-          animate="center"
-          custom={direction}
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={1}
-          exit="exit"
-          initial="enter"
-          key={slideKey}
-          onDragEnd={(_event, { offset, velocity }) => {
-            const farEnough = Math.abs(offset.x) > SWIPE_DISTANCE;
-            const fastEnough = Math.abs(velocity.x) > SWIPE_VELOCITY;
-            if (!farEnough && !fastEnough) return;
-
-            const delta = farEnough ? offset.x : velocity.x;
-            (delta < 0 ? onNext : onPrev)();
-          }}
-          style={slideStyle}
-          transition={slideTransition}
-          variants={slideVariants}
-        >
-          {children}
-        </motion.div>
-      </AnimatePresence>
+    <div className={styles.pager} onScrollEnd={handleScrollEnd} ref={pagerRef}>
+      {slides.map(({ key, node }) => {
+        const isCurrent = key === slideKey;
+        return (
+          <div
+            aria-hidden={!isCurrent}
+            className={styles.slide}
+            data-key={key}
+            inert={!isCurrent}
+            key={key}
+          >
+            {node}
+          </div>
+        );
+      })}
     </div>
   );
 };

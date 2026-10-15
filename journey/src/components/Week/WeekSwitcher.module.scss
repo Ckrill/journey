@@ -1,11 +1,12 @@
 .switcher {
   display: flex;
-  gap: var(--spacing);
   align-items: center;
   justify-content: center;
   justify-content: space-between;
-  inline-size: 100%;
+  inline-size: calc(100% + 2 * var(--spacing));
   max-inline-size: var(--max-size);
+  margin-inline: calc(-1 * var(--spacing));
+  overflow: hidden;
 }
 
 .arrow {
@@ -19,17 +20,20 @@
   background: none;
   border: none;
   transition:
-    color var(--fast),
-    transform var(--fast);
+    color var(--rapid),
+    transform var(--rapid);
+
+  &:hover {
+    transform: scale(1.1);
+  }
 
   &:active {
     transform: scale(0.8);
-    transition: transform var(--instant);
   }
 
   &:disabled {
     color: var(--stroke);
-    cursor: default;
+    cursor: not-allowed;
     transform: scale(0.8);
   }
 }

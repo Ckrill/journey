@@ -1,5 +1,6 @@
 // External
 import { getRouteApi } from '@tanstack/react-router';
+import { useMemo, useState } from 'react';
 
 // Utilities
 import { currentWeekStart, shiftWeek, weekDates } from '../../helpers/week';
@@ -14,6 +15,9 @@ import type { Events, Habit } from '../../types/types';
 
 const route = getRouteApi('/');
 
+// Weeks rendered on each side of the current one, so a fast swipe doesn't hit the scroll edge.
+const SLIDE_RADIUS = 2;
+
 interface Props {
   datesByHabit: Map<string, Set<string>>;
   events: Events;
@@ -26,24 +30,55 @@ const WeekPager = ({ datesByHabit, events, habits, openEdit }: Props) => {
   const { week } = route.useSearch();
 
   const weekStart = week ?? currentWeekStart();
-  const dates = weekDates(weekStart);
   const canGoNext = weekStart < currentWeekStart();
 
-  const goPrev = () => {
-    void navigate({ search: { week: shiftWeek(weekStart, -1) } });
-  };
+  // Week the swipe is heading towards, shown in the switcher before the swipe settles.
+  const [preview, setPreview] = useState<null | string>(null);
+  const [previewedWeek, setPreviewedWeek] = useState(weekStart);
+  if (previewedWeek !== weekStart) {
+    setPreviewedWeek(weekStart);
+    setPreview(null);
+  }
 
-  const goNext = () => {
-    if (!canGoNext) return;
-    const next = shiftWeek(weekStart, 1);
+  // Memoized so previewing doesn't re-render every habit list.
+  const slides = useMemo(() => {
+    const current = currentWeekStart();
+    const result = [];
+    for (let offset = -SLIDE_RADIUS; offset <= SLIDE_RADIUS; offset++) {
+      const start = shiftWeek(weekStart, offset);
+      if (start > current) break;
+      result.push({
+        key: start,
+        node: (
+          <HabitList
+            dates={weekDates(start)}
+            datesByHabit={datesByHabit}
+            events={events}
+            habits={habits}
+            openEdit={openEdit}
+          />
+        ),
+      });
+    }
+    return result;
+  }, [datesByHabit, events, habits, openEdit, weekStart]);
+
+  const goTo = (start: string) => {
     void navigate({
-      search: { week: next === currentWeekStart() ? undefined : next },
+      search: { week: start === currentWeekStart() ? undefined : start },
     });
   };
 
+  const goPrev = () => {
+    goTo(shiftWeek(weekStart, -1));
+  };
+
+  const goNext = () => {
+    if (canGoNext) goTo(shiftWeek(weekStart, 1));
+  };
+
   const goCurrent = () => {
-    if (weekStart === currentWeekStart()) return;
-    void navigate({ search: { week: undefined } });
+    if (weekStart !== currentWeekStart()) goTo(currentWeekStart());
   };
 
   return (
@@ -53,18 +88,15 @@ const WeekPager = ({ datesByHabit, events, habits, openEdit }: Props) => {
         onCurrent={goCurrent}
         onNext={goNext}
         onPrev={goPrev}
-        weekStart={weekStart}
+        weekStart={preview ?? weekStart}
       />
 
-      <Carousel onNext={goNext} onPrev={goPrev} slideKey={weekStart}>
-        <HabitList
-          dates={dates}
-          datesByHabit={datesByHabit}
-          events={events}
-          habits={habits}
-          openEdit={openEdit}
-        />
-      </Carousel>
+      <Carousel
+        onPreview={setPreview}
+        onSettle={goTo}
+        slideKey={weekStart}
+        slides={slides}
+      />
     </>
   );
 };

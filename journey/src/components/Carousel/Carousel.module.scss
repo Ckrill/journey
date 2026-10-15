@@ -1,0 +1,17 @@
+.pager {
+  display: grid;
+  grid-auto-columns: 100%;
+  grid-auto-flow: column;
+  inline-size: calc(100% + 2 * var(--spacing));
+  margin-inline: calc(-1 * var(--spacing));
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.slide {
+  padding-inline: var(--spacing);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
