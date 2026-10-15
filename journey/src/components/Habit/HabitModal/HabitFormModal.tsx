@@ -91,9 +91,10 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
 
   const isPending = create.isPending || update.isPending;
   const mutationError = create.error ?? update.error;
+  const title = isEdit ? 'Edit habit' : 'New habit';
 
   return (
-    <Modal onClose={onClose} open={open}>
+    <Modal label={title} onClose={onClose} open={open}>
       <form
         onSubmit={(e) => {
           void handleSubmit(onSubmit)(e);
@@ -101,7 +102,7 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
       >
         <SectionContainer>
           <Section>
-            <Heading>{isEdit ? 'Edit habit' : 'New habit'}</Heading>
+            <Heading>{title}</Heading>
           </Section>
 
           <Section>

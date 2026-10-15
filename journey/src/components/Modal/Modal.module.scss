@@ -1,34 +1,88 @@
+// Below 600px the dialog is a full-viewport scroll-snap surface: the sheet sits
+// under a transparent spacer, and swiping it down scrolls back to "closed".
 .dialog {
   position: fixed;
-  inset-block: auto 0;
-  inset-inline: 0;
+  inset: 0;
   box-sizing: border-box;
   inline-size: 100%;
   max-inline-size: none;
-  padding: var(--spacing);
+  block-size: 100dvh;
+  max-block-size: none;
+  padding: 0;
+  margin: 0;
   overflow: hidden;
-  background: var(--background);
+  overscroll-behavior: contain;
+  background: transparent;
   border: none;
-  transform: translateY(100%);
-  transition:
-    transform var(--fast),
-    display var(--fast) allow-discrete,
-    overlay var(--fast) allow-discrete;
+  timeline-scope: --sheet-fade;
+  animation: fade-sheet-backdrop linear both;
+  animation-timeline: --sheet-fade;
 
-  &[open] {
-    transform: translateY(0);
+  &::backdrop {
+    overflow: hidden;
+    overscroll-behavior: contain;
+    background: black;
+    opacity: calc(var(--sheet-backdrop) * 0.35);
+  }
+}
 
-    @starting-style {
-      transform: translateY(100%);
-    }
+// Registered so the number interpolates instead of jumping.
+@property --sheet-backdrop {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@keyframes fade-sheet-backdrop {
+  0% {
+    --sheet-backdrop: 0;
   }
 
-  // On larger screens, center the dialog and fade/scale it in instead.
-  @media (width >= 600px) {
-    inset: 0;
+  100% {
+    --sheet-backdrop: 1;
+  }
+}
+
+.scroller {
+  display: grid;
+  grid-template-rows: 100% auto;
+  block-size: 100%;
+  overflow-y: scroll;
+  overscroll-behavior: none;
+  scroll-snap-type: y mandatory;
+  scroll-timeline: --sheet-fade y;
+  scrollbar-width: none;
+
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-behavior: smooth;
+  }
+
+  // Transparent spacer; resting here is the "closed" snap stop.
+  &::before {
+    content: '';
+    scroll-snap-align: start;
+  }
+}
+
+.sheet {
+  box-sizing: border-box;
+  padding: var(--spacing);
+
+  // Start-aligned so a tall sheet has a stop at its top edge; a short one clamps
+  // to the bottom. `always` stops momentum there instead of flinging into "closed".
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  background: var(--background);
+}
+
+// On larger screens, center the dialog and fade/scale it in instead.
+@media (width >= 600px) {
+  .dialog {
     max-inline-size: var(--max-size);
     block-size: fit-content;
+    max-block-size: calc(100dvh - 2 * var(--spacing));
     margin: auto;
+    overflow-y: auto;
     opacity: 0;
     transform: scale(0.95);
     transition:
@@ -46,22 +100,32 @@
         transform: scale(0.95);
       }
     }
-  }
 
-  &::backdrop {
-    background: rgb(0 0 0 / 35%);
-    opacity: 0;
-    transition:
-      opacity var(--fast),
-      display var(--fast) allow-discrete,
-      overlay var(--fast) allow-discrete;
-  }
-
-  &[open]::backdrop {
-    opacity: 1;
-
-    @starting-style {
+    &::backdrop {
+      background: rgb(0 0 0 / 35%);
       opacity: 0;
+      transition:
+        opacity var(--fast),
+        display var(--fast) allow-discrete,
+        overlay var(--fast) allow-discrete;
+    }
+
+    &[open]::backdrop {
+      opacity: 1;
+
+      @starting-style {
+        opacity: 0;
+      }
+    }
+  }
+
+  .scroller {
+    display: block;
+    block-size: auto;
+    overflow: visible;
+
+    &::before {
+      content: none;
     }
   }
 }
