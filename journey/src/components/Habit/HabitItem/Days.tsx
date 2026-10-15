@@ -71,11 +71,10 @@ const Days = ({ completedDates, habit, weekDates }: Props) => {
             }}
             type="button"
           >
-            {!done ? (
-              WEEKDAY_LABELS[index][0]
-            ) : (
+            <span className={styles.content}>
+              <span className={styles.label}>{WEEKDAY_LABELS[index][0]}</span>
               <BsCheck className={styles.check} />
-            )}
+            </span>
           </button>
         );
       })}

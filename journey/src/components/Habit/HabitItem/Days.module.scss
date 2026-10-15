@@ -70,20 +70,54 @@
     scale: 1;
   }
 
-  &.done:not(:disabled) {
+  // Not scoped to `:not(:disabled)`: the cell is disabled while pending, and
+  // the optimistic fill should show immediately.
+  &.done {
     color: var(--accent-color-2);
     background-color: var(--accent-color);
+  }
+}
 
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--background);
-        transition: background-color var(--rapid);
-      }
+.content {
+  display: grid;
+  place-items: center;
+  transition: scale var(--rapid);
+
+  @media (hover: hover) {
+    .day:not(:disabled):hover & {
+      scale: 1.1;
     }
   }
+
+  .day:active:not(:disabled) & {
+    scale: 0.85;
+  }
+}
+
+// Both always rendered and stacked, so toggling animates in both directions.
+.label,
+.check {
+  grid-area: 1 / 1;
+  transition:
+    opacity var(--fast),
+    scale var(--fast);
 }
 
 .check {
   inline-size: 24px;
   block-size: 24px;
+  opacity: 0;
+  scale: 0.4;
+}
+
+.day.done {
+  .label {
+    opacity: 0;
+    scale: 0.4;
+  }
+
+  .check {
+    opacity: 1;
+    scale: 1;
+  }
 }
