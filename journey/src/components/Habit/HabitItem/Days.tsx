@@ -29,7 +29,7 @@ const Days = ({ completedDates, habit, weekDates }: Props) => {
   const handleToggle = (date: string) => {
     setPendingDate(date);
     toggle.mutate(
-      { date, habitId: habit.id, habitName: habit.name },
+      { date, habitId: habit.id },
       {
         onSettled: () => {
           setPendingDate(null);

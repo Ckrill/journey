@@ -1,10 +1,12 @@
 // External
-import { SignIn as ClerkSignIn } from '@clerk/react';
 import { motion } from 'motion/react';
 
 // Miscellaneous
+import Heading from '../components/Heading/Heading';
+import Paragraph from '../components/Paragraph/Paragraph';
 import SectionContainer from '../components/Section/SectionContainer';
 import Page from '../components/SignIn/Page';
+import SignInForm from '../components/SignIn/SignIn';
 import Title from '../components/SignIn/Title';
 import {
   pageTransition,
@@ -45,7 +47,13 @@ const SignIn = () => {
           variants={variants2}
         >
           <SectionContainer>
-            <ClerkSignIn routing="hash" />
+            <Heading>Welcome friend</Heading>
+
+            <Paragraph>
+              Today is a great day to continue your journey!
+            </Paragraph>
+
+            <SignInForm />
           </SectionContainer>
         </motion.div>
       </Page>

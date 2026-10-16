@@ -26,9 +26,9 @@ export default defineConfig({
               test: /node_modules[\\/]motion[\\/]/,
             },
             {
-              name: 'vendor-contentful',
+              name: 'vendor-supabase',
               priority: 10,
-              test: /node_modules[\\/]contentful-management[\\/]/,
+              test: /node_modules[\\/]@supabase[\\/]/,
             },
           ],
         },

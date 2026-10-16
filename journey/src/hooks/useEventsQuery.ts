@@ -2,42 +2,46 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 // Utilities
-import { parseEvents } from '../helpers/dataHandler';
-import { getAll } from '../helpers/requests';
+import { toEvent } from '../helpers/mappers';
 
-// Contexts
-import { useUser } from '../contexts/userContext';
+// Hooks
+import { useUserId } from './useUserId';
+
+// Miscellaneous
+import { pageSize, supabase } from '../lib/supabase';
 
 // Types
-import type {
-  EventsContentful,
-  HabitsContentful,
-} from '../types/contentfulTypes';
+import type { EventRow } from '../types/rows';
 import type { Events } from '../types/types';
 
 export const eventsKey = (userId: string) => ['events', userId] as const;
 
 export const eventsQueryOptions = (userId: string) => ({
   queryFn: async (): Promise<Events> => {
-    // Events belong to habits, so scope them through the user's habits (active or archived).
-    const habitsContentful = await getAll<HabitsContentful>(
-      'habit',
-      `&fields.user.sys.id=${userId}&select=sys.id`,
-    );
-    const habitIds = habitsContentful.items.map((habit) => habit.sys.id);
-    if (habitIds.length === 0) return [];
+    // Row-level security limits this to the user's own events. Pages are
+    // fetched in order so the date/id sort keeps them stable.
+    const rows: EventRow[] = [];
 
-    const eventsContentful = await getAll<EventsContentful>(
-      'event',
-      `&fields.habit.sys.id[in]=${habitIds.join(',')}`,
-    );
-    return parseEvents(eventsContentful);
+    for (let from = 0; ; from += pageSize) {
+      const { data, error } = await supabase
+        .from('events')
+        .select('id, habit_id, date')
+        .order('date', { ascending: false })
+        .order('id')
+        .range(from, from + pageSize - 1)
+        .overrideTypes<EventRow[], { merge: false }>();
+
+      if (error) throw error;
+      rows.push(...data);
+      if (data.length < pageSize) break;
+    }
+
+    return rows.map((row) => toEvent(row));
   },
   queryKey: eventsKey(userId),
   staleTime: 30_000,
 });
 
 export const useEventsQuery = () => {
-  const user = useUser();
-  return useSuspenseQuery(eventsQueryOptions(user.id));
+  return useSuspenseQuery(eventsQueryOptions(useUserId()));
 };

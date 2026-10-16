@@ -1,5 +1,4 @@
 // External
-import { useClerk, useUser } from '@clerk/react';
 import { useQueryClient } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { motion } from 'motion/react';
@@ -30,18 +29,16 @@ import Heading from '../components/Heading/Heading';
 import Paragraph from '../components/Paragraph/Paragraph';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
+import { supabase } from '../lib/supabase';
 
 const currentYear = new Date().getFullYear();
 
 const Settings = () => {
   const { data: habits } = useHabitsQuery();
   const { data: events } = useEventsQuery();
-  const { user } = useUser();
-  const { signOut } = useClerk();
   const queryClient = useQueryClient();
   const settings = useSettings();
   const setSettings = useSettingsUpdate();
-  const name = user?.firstName ?? user?.username ?? 'friend';
 
   const bestStreak = overallBestStreak(habits, events);
   const currentBest = habits.reduce(
@@ -56,12 +53,13 @@ const Settings = () => {
   let profileMessage: React.ReactNode;
   if (!bestStreak) {
     profileMessage = (
-      <Paragraph>Hop on, {name}, and start your journey today!</Paragraph>
+      <Paragraph>Hop on, and start your journey today!</Paragraph>
     );
   } else if (currentBest === bestStreak) {
     profileMessage = (
       <Paragraph>
-        You are on fire, {name}.<br />
+        You are on fire.
+        <br />
         You pushed your streak to <CountUp countTo={bestStreak} />!
       </Paragraph>
     );
@@ -69,14 +67,14 @@ const Settings = () => {
     profileMessage = (
       <Paragraph>
         {' '}
-        {name}, your best streak was <CountUp countTo={bestStreak} /> weeks.
+        Your best streak was <CountUp countTo={bestStreak} /> weeks.
       </Paragraph>
     );
   }
 
   const handleSignOut = async () => {
     localStorage.clear();
-    await signOut();
+    await supabase.auth.signOut();
     // Drop cached data so the next account never sees this one's.
     queryClient.clear();
   };
@@ -115,7 +113,6 @@ const Settings = () => {
           {profileMessage}
 
           <Button
-            disabled={!user}
             onClick={() => {
               void handleSignOut();
             }}

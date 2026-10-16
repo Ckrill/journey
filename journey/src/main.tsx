@@ -1,13 +1,10 @@
 // External
-import { ClerkProvider } from '@clerk/react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 
-// Settings
-import { clerkAppearance } from './settings/clerkAppearance';
-
 // Contexts
+import { AuthProvider } from './contexts/authContext';
 import { SettingsProvider } from './contexts/settingsContext';
 
 // Miscellaneous
@@ -24,7 +21,7 @@ if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <ClerkProvider afterSignOutUrl="/" appearance={clerkAppearance}>
+      <AuthProvider>
         <QueryClientProvider client={queryClient}>
           <AuthGate>
             <SettingsProvider>
@@ -32,7 +29,7 @@ if (rootElement && !rootElement.innerHTML) {
             </SettingsProvider>
           </AuthGate>
         </QueryClientProvider>
-      </ClerkProvider>
+      </AuthProvider>
     </StrictMode>,
   );
 }

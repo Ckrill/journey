@@ -1,19 +1,18 @@
 // External
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-// Settings
-import { settings } from '../settings/settings';
-
-// API
-import { client } from '../api/contentful';
-
-// Contexts
-import { useUser } from '../contexts/userContext';
+// Utilities
+import { toHabit } from '../helpers/mappers';
 
 // Hooks
 import { habitsKey } from './useHabitsQuery';
+import { useUserId } from './useUserId';
+
+// Miscellaneous
+import { supabase } from '../lib/supabase';
 
 // Types
+import type { HabitRow } from '../types/rows';
 import type { Habit, Habits, Weekday } from '../types/types';
 
 export interface HabitFormData {
@@ -21,60 +20,30 @@ export interface HabitFormData {
   plannedDays: Weekday[];
 }
 
-const entryParams = (entryId: string) => ({
-  entryId,
-  environmentId: settings.environment,
-  spaceId: settings.space,
-});
+const columns = 'id, name, planned_days, active, created_at';
 
 /** Creates, edits, and archives habits. */
 export const useHabitMutations = () => {
   const queryClient = useQueryClient();
-  const user = useUser();
+  const userId = useUserId();
 
   /* eslint-disable perfectionist/sort-objects */
   const create = useMutation<Habit, Error, HabitFormData>({
     retry: false,
     mutationFn: async ({ name, plannedDays }) => {
-      const weeklyTarget = plannedDays.length;
+      // user_id fills itself in from the signed-in user.
+      const { data, error } = await supabase
+        .from('habits')
+        .insert({ name, planned_days: plannedDays })
+        .select(columns)
+        .single()
+        .overrideTypes<HabitRow, { merge: false }>();
 
-      const entry = await client.entry.create(
-        {
-          contentTypeId: 'habit',
-          environmentId: settings.environment,
-          spaceId: settings.space,
-        },
-        {
-          fields: {
-            active: { 'en-US': true },
-            name: { 'en-US': name },
-            plannedDays: { 'en-US': plannedDays },
-            user: {
-              'en-US': {
-                sys: { id: user.id, linkType: 'Entry', type: 'Link' },
-              },
-            },
-            weeklyTarget: { 'en-US': weeklyTarget },
-          },
-        },
-      );
-
-      const published = await client.entry.publish(
-        entryParams(entry.sys.id),
-        entry,
-      );
-
-      return {
-        active: true,
-        createdAt: published.sys.createdAt,
-        id: published.sys.id,
-        name,
-        plannedDays,
-        weeklyTarget,
-      };
+      if (error) throw error;
+      return toHabit(data);
     },
     onSuccess: (habit) => {
-      queryClient.setQueryData<Habits>(habitsKey(user.id), (old) => [
+      queryClient.setQueryData<Habits>(habitsKey(userId), (old) => [
         ...(old ?? []),
         habit,
       ]);
@@ -84,24 +53,25 @@ export const useHabitMutations = () => {
   const update = useMutation<Habit, Error, Habit>({
     retry: false,
     mutationFn: async (habit) => {
-      const params = entryParams(habit.id);
-      const entry = await client.entry.get(params);
+      const { data, error } = await supabase
+        .from('habits')
+        .update({
+          active: habit.active,
+          name: habit.name,
+          planned_days: habit.plannedDays,
+        })
+        .eq('id', habit.id)
+        .select(columns)
+        .single()
+        .overrideTypes<HabitRow, { merge: false }>();
 
-      type Fields = Record<string, Record<string, unknown>>;
-      const fields = entry.fields as Fields;
-      fields.name = { 'en-US': habit.name };
-      fields.plannedDays = { 'en-US': habit.plannedDays };
-      fields.weeklyTarget = { 'en-US': habit.weeklyTarget };
-      fields.active = { 'en-US': habit.active };
-
-      const updated = await client.entry.update(params, { ...entry, fields });
-      await client.entry.publish(params, updated);
-      return habit;
+      if (error) throw error;
+      return toHabit(data);
     },
     // The habits query only holds active habits, so an archived (inactive)
     // habit is dropped from the cache; an active one is replaced in place.
     onSuccess: (habit) => {
-      queryClient.setQueryData<Habits>(habitsKey(user.id), (old) => {
+      queryClient.setQueryData<Habits>(habitsKey(userId), (old) => {
         const others = (old ?? []).filter((item) => item.id !== habit.id);
         return habit.active ? [...others, habit] : others;
       });

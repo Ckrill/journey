@@ -1,27 +1,19 @@
 // External
-import { useUser } from '@clerk/react';
 import type { ReactNode } from 'react';
 
 // Contexts
-import { UserProvider } from '../contexts/userContext';
+import { useSession } from '../contexts/authContext';
 
 // Miscellaneous
 import SignIn from './SignIn';
 
 const AuthGate = ({ children }: { children: ReactNode }) => {
-  const { isLoaded, isSignedIn, user } = useUser();
+  const session = useSession();
 
-  if (!isLoaded) return <div>Authenticating...</div>;
-  if (!isSignedIn) return <SignIn />;
+  if (session === undefined) return <div>Authenticating...</div>;
+  if (!session) return <SignIn />;
 
-  return (
-    <UserProvider
-      clerkId={user.id}
-      name={user.firstName ?? user.username ?? 'friend'}
-    >
-      {children}
-    </UserProvider>
-  );
+  return <>{children}</>;
 };
 
 export default AuthGate;

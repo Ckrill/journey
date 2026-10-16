@@ -2,42 +2,34 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRef } from 'react';
 
-// Settings
-import { settings } from '../settings/settings';
-
-// API
-import { client } from '../api/contentful';
-
-// Contexts
-import { useUser } from '../contexts/userContext';
+// Utilities
+import { toEvent } from '../helpers/mappers';
 
 // Hooks
 import { eventsKey } from './useEventsQuery';
+import { useUserId } from './useUserId';
+
+// Miscellaneous
+import { supabase } from '../lib/supabase';
 
 // Types
+import type { EventRow } from '../types/rows';
 import type { Event, Events } from '../types/types';
 
 interface ToggleArgs {
   date: string;
   habitId: string;
-  habitName: string;
 }
 
 interface MutationContext {
   previous: Events | undefined;
 }
 
-const entryParams = (entryId: string) => ({
-  entryId,
-  environmentId: settings.environment,
-  spaceId: settings.space,
-});
-
 // A locally-unique placeholder id for the optimistic event. It only needs to be
 // distinct from other temp events currently in the cache (a user can't toggle
-// two cells in the same millisecond), and it's swapped for the real Contentful
-// id once the mutation resolves. Avoids crypto.randomUUID, which throws outside
-// a secure context (e.g. mobile over plain HTTP).
+// two cells in the same millisecond), and it's swapped for the real id once the
+// mutation resolves. Avoids crypto.randomUUID, which throws outside a secure
+// context (e.g. mobile over plain HTTP).
 const tempId = () => `temp${String(Date.now())}`;
 
 /**
@@ -47,8 +39,7 @@ const tempId = () => `temp${String(Date.now())}`;
  */
 export const useToggleEvent = () => {
   const queryClient = useQueryClient();
-  const user = useUser();
-  const queryKey = eventsKey(user.id);
+  const queryKey = eventsKey(useUserId());
   // Snapshots the existing event per cell, captured in onMutate (before the
   // optimistic cache update) so mutationFn can tell create from delete.
   const snapshotsRef = useRef(new Map<string, Event | undefined>());
@@ -56,42 +47,32 @@ export const useToggleEvent = () => {
   /* eslint-disable perfectionist/sort-objects */
   return useMutation<Event | null, Error, ToggleArgs, MutationContext>({
     retry: false,
-    mutationFn: async ({ date, habitId, habitName }) => {
+    mutationFn: async ({ date, habitId }) => {
       const key = `${habitId}|${date}`;
       const existing = snapshotsRef.current.get(key);
       snapshotsRef.current.delete(key);
 
       // Delete an existing (already-persisted) event.
       if (existing && !existing.id.startsWith('temp')) {
-        const params = entryParams(existing.id);
-        const entry = await client.entry.get(params);
-        await client.entry.unpublish(params, entry);
-        await client.entry.delete(params);
+        const { error } = await supabase
+          .from('events')
+          .delete()
+          .eq('id', existing.id);
+
+        if (error) throw error;
         return null;
       }
 
-      // Otherwise create a new one.
-      const created = await client.entry.create(
-        {
-          contentTypeId: 'event',
-          environmentId: settings.environment,
-          spaceId: settings.space,
-        },
-        {
-          fields: {
-            date: { 'en-US': date },
-            habit: {
-              'en-US': {
-                sys: { id: habitId, linkType: 'Entry', type: 'Link' },
-              },
-            },
-            name: { 'en-US': `${habitName} - ${date}` },
-          },
-        },
-      );
+      // Otherwise create a new one (user_id fills itself in from the token).
+      const { data, error } = await supabase
+        .from('events')
+        .insert({ date, habit_id: habitId })
+        .select('id, habit_id, date')
+        .single()
+        .overrideTypes<EventRow, { merge: false }>();
 
-      await client.entry.publish(entryParams(created.sys.id), created);
-      return { date, habitId, id: created.sys.id };
+      if (error) throw error;
+      return toEvent(data);
     },
 
     // Optimistically flip the cell.
@@ -125,9 +106,8 @@ export const useToggleEvent = () => {
       return { previous };
     },
 
-    // Reconcile the optimistic cache with the server result. We avoid refetching
-    // because reads hit the eventually-consistent CDN, which would briefly
-    // return stale data and revert the cell.
+    // Swap the optimistic entry for the server result. No refetch is needed:
+    // the cache already matches what was written.
     onSuccess: (result, { date, habitId }) => {
       queryClient.setQueryData<Events>(queryKey, (old) => {
         const events = old ?? [];
