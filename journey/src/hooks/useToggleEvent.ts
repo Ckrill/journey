@@ -8,6 +8,12 @@ import { settings } from '../settings/settings';
 // API
 import { client } from '../api/contentful';
 
+// Contexts
+import { useUser } from '../contexts/userContext';
+
+// Hooks
+import { eventsKey } from './useEventsQuery';
+
 // Types
 import type { Event, Events } from '../types/types';
 
@@ -41,6 +47,8 @@ const tempId = () => `temp${String(Date.now())}`;
  */
 export const useToggleEvent = () => {
   const queryClient = useQueryClient();
+  const user = useUser();
+  const queryKey = eventsKey(user.id);
   // Snapshots the existing event per cell, captured in onMutate (before the
   // optimistic cache update) so mutationFn can tell create from delete.
   const snapshotsRef = useRef(new Map<string, Event | undefined>());
@@ -88,8 +96,8 @@ export const useToggleEvent = () => {
 
     // Optimistically flip the cell.
     onMutate: async ({ date, habitId }) => {
-      await queryClient.cancelQueries({ queryKey: ['events'] });
-      const previous = queryClient.getQueryData<Events>(['events']);
+      await queryClient.cancelQueries({ queryKey });
+      const previous = queryClient.getQueryData<Events>(queryKey);
 
       // Capture the current event BEFORE mutating the cache below.
       const existing = previous?.find(
@@ -97,7 +105,7 @@ export const useToggleEvent = () => {
       );
       snapshotsRef.current.set(`${habitId}|${date}`, existing);
 
-      queryClient.setQueryData<Events>(['events'], (old) => {
+      queryClient.setQueryData<Events>(queryKey, (old) => {
         const events = old ?? [];
 
         if (existing) {
@@ -121,7 +129,7 @@ export const useToggleEvent = () => {
     // because reads hit the eventually-consistent CDN, which would briefly
     // return stale data and revert the cell.
     onSuccess: (result, { date, habitId }) => {
-      queryClient.setQueryData<Events>(['events'], (old) => {
+      queryClient.setQueryData<Events>(queryKey, (old) => {
         const events = old ?? [];
         const others = events.filter(
           (event) => !(event.habitId === habitId && event.date === date),
@@ -133,7 +141,7 @@ export const useToggleEvent = () => {
     // Roll the cell back to its pre-toggle state if the mutation fails.
     onError: (_err, _args, context) => {
       if (context?.previous) {
-        queryClient.setQueryData(['events'], context.previous);
+        queryClient.setQueryData(queryKey, context.previous);
       }
     },
   });

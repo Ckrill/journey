@@ -10,6 +10,9 @@ import { client } from '../api/contentful';
 // Contexts
 import { useUser } from '../contexts/userContext';
 
+// Hooks
+import { habitsKey } from './useHabitsQuery';
+
 // Types
 import type { Habit, Habits, Weekday } from '../types/types';
 
@@ -71,7 +74,7 @@ export const useHabitMutations = () => {
       };
     },
     onSuccess: (habit) => {
-      queryClient.setQueryData<Habits>(['habits'], (old) => [
+      queryClient.setQueryData<Habits>(habitsKey(user.id), (old) => [
         ...(old ?? []),
         habit,
       ]);
@@ -98,7 +101,7 @@ export const useHabitMutations = () => {
     // The habits query only holds active habits, so an archived (inactive)
     // habit is dropped from the cache; an active one is replaced in place.
     onSuccess: (habit) => {
-      queryClient.setQueryData<Habits>(['habits'], (old) => {
+      queryClient.setQueryData<Habits>(habitsKey(user.id), (old) => {
         const others = (old ?? []).filter((item) => item.id !== habit.id);
         return habit.active ? [...others, habit] : others;
       });

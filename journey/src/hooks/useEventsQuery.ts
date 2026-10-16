@@ -5,19 +5,39 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { parseEvents } from '../helpers/dataHandler';
 import { getAll } from '../helpers/requests';
 
+// Contexts
+import { useUser } from '../contexts/userContext';
+
 // Types
-import type { EventsContentful } from '../types/contentfulTypes';
+import type {
+  EventsContentful,
+  HabitsContentful,
+} from '../types/contentfulTypes';
 import type { Events } from '../types/types';
 
-export const eventsQueryOptions = {
+export const eventsKey = (userId: string) => ['events', userId] as const;
+
+export const eventsQueryOptions = (userId: string) => ({
   queryFn: async (): Promise<Events> => {
-    const data = await getAll<EventsContentful>('event');
-    return parseEvents(data);
+    // Events belong to habits, so scope them through the user's habits (active or archived).
+    const habitsContentful = await getAll<HabitsContentful>(
+      'habit',
+      `&fields.user.sys.id=${userId}&select=sys.id`,
+    );
+    const habitIds = habitsContentful.items.map((habit) => habit.sys.id);
+    if (habitIds.length === 0) return [];
+
+    const eventsContentful = await getAll<EventsContentful>(
+      'event',
+      `&fields.habit.sys.id[in]=${habitIds.join(',')}`,
+    );
+    return parseEvents(eventsContentful);
   },
-  queryKey: ['events'] as const,
+  queryKey: eventsKey(userId),
   staleTime: 30_000,
-};
+});
 
 export const useEventsQuery = () => {
-  return useSuspenseQuery(eventsQueryOptions);
+  const user = useUser();
+  return useSuspenseQuery(eventsQueryOptions(user.id));
 };

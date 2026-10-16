@@ -29,6 +29,7 @@ const RootComponent = () => {
 
 interface RouterContext {
   queryClient: QueryClient;
+  userId: string;
 }
 
 export const Route = createRootRouteWithContext<RouterContext>()({

@@ -5,24 +5,30 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { parseHabits } from '../helpers/dataHandler';
 import { getAll } from '../helpers/requests';
 
+// Contexts
+import { useUser } from '../contexts/userContext';
+
 // Types
 import type { HabitsContentful } from '../types/contentfulTypes';
 import type { Habits } from '../types/types';
 
-export const habitsQueryOptions = {
+export const habitsKey = (userId: string) => ['habits', userId] as const;
+
+export const habitsQueryOptions = (userId: string) => ({
   queryFn: async (): Promise<Habits> => {
-    // Active habits only, oldest first (createdAt is the streak-order tiebreaker).
-    const data = await getAll<HabitsContentful>(
+    // The user's active habits, oldest first (createdAt is the streak-order tiebreaker).
+    const habitsContentful = await getAll<HabitsContentful>(
       'habit',
-      '&fields.active=true&order=sys.createdAt',
+      `&fields.user.sys.id=${userId}&fields.active=true&order=sys.createdAt`,
     );
 
-    return parseHabits(data);
+    return parseHabits(habitsContentful);
   },
-  queryKey: ['habits'] as const,
+  queryKey: habitsKey(userId),
   staleTime: 30_000,
-};
+});
 
 export const useHabitsQuery = () => {
-  return useSuspenseQuery(habitsQueryOptions);
+  const user = useUser();
+  return useSuspenseQuery(habitsQueryOptions(user.id));
 };
