@@ -1,8 +1,7 @@
-import type { Settings, User } from '../types/types';
+import type { Settings } from '../types/types';
 
 interface StorageSchema {
   settings: Settings;
-  user: User;
 }
 
 // Parsed JSON is not validated; the schema is a contract with whatever this app saved earlier.

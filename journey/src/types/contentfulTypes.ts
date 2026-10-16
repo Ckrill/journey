@@ -18,6 +18,7 @@ export interface ArrayContentful extends CollectionProp<EntryProps<unknown>> {
 // User
 
 interface UserFields {
+  clerkId: string;
   name: string;
 }
 

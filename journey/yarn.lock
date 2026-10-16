@@ -384,6 +384,39 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@clerk/react@npm:^6.17.7":
+  version: 6.17.7
+  resolution: "@clerk/react@npm:6.17.7"
+  dependencies:
+    "@clerk/shared": "npm:^4.39.1"
+    tslib: "npm:2.8.1"
+  peerDependencies:
+    react: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
+    react-dom: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
+  checksum: 10/1a4abf68e675e9110604a940d568b0614285e1ccc67b5db84493307caebe888516259a01f3dfaf89caa9b1a78e13d491e393c9143278886f570e5ab44fec3f0e
+  languageName: node
+  linkType: hard
+
+"@clerk/shared@npm:^4.39.1":
+  version: 4.39.1
+  resolution: "@clerk/shared@npm:4.39.1"
+  dependencies:
+    "@tanstack/query-core": "npm:^5.101.4"
+    dequal: "npm:2.0.3"
+    glob-to-regexp: "npm:0.4.1"
+    js-cookie: "npm:3.0.8"
+  peerDependencies:
+    react: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
+    react-dom: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
+  peerDependenciesMeta:
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10/925a5178d40b24a1c1941fe8b10e9dc4561c003f6fb742d287a12c8add94488858f891d1783ba8bec7d23cffe12e7d88b2bea4047f79596a39b6aeb21f748c4e
+  languageName: node
+  linkType: hard
+
 "@contentful/rich-text-types@npm:^17.0.0":
   version: 17.2.7
   resolution: "@contentful/rich-text-types@npm:17.2.7"
@@ -1830,7 +1863,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:5.104.1":
+"@tanstack/query-core@npm:5.104.1, @tanstack/query-core@npm:^5.101.4":
   version: 5.104.1
   resolution: "@tanstack/query-core@npm:5.104.1"
   checksum: 10/05a4410e32e91eb471a7ca1f420c839b49a11367e15a3cebe8ca94e6bfdfbd3bf75a8c22da664746032113419da95d4a37a3be18471fab009d94601d9295d890
@@ -2850,6 +2883,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dequal@npm:2.0.3":
+  version: 2.0.3
+  resolution: "dequal@npm:2.0.3"
+  checksum: 10/6ff05a7561f33603df87c45e389c9ac0a95e3c056be3da1a0c4702149e3a7f6fe5ffbb294478687ba51a9e95f3a60e8b6b9005993acd79c292c7d15f71964b6b
+  languageName: node
+  linkType: hard
+
 "detect-libc@npm:^2.0.3":
   version: 2.1.2
   resolution: "detect-libc@npm:2.1.2"
@@ -3614,6 +3654,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"glob-to-regexp@npm:0.4.1":
+  version: 0.4.1
+  resolution: "glob-to-regexp@npm:0.4.1"
+  checksum: 10/9009529195a955c40d7b9690794aeff5ba665cc38f1519e111c58bb54366fd0c106bde80acf97ba4e533208eb53422c83b136611a54c5fefb1edd8dc267cb62e
+  languageName: node
+  linkType: hard
+
 "global-modules@npm:^2.0.0":
   version: 2.0.0
   resolution: "global-modules@npm:2.0.0"
@@ -3960,6 +4007,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "journey@workspace:."
   dependencies:
+    "@clerk/react": "npm:^6.17.7"
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@eslint-react/eslint-plugin": "npm:^5.24.8"
     "@eslint/js": "npm:^10.0.1"
@@ -4007,6 +4055,13 @@ __metadata:
       unplugged: true
   languageName: unknown
   linkType: soft
+
+"js-cookie@npm:3.0.8":
+  version: 3.0.8
+  resolution: "js-cookie@npm:3.0.8"
+  checksum: 10/6bc10dc1ef0ad4780cd43a0413702d0b8d9d8d167c4fb605ae66c388270dece6b4cad4c8944654cc67b6e0e7639da379a7b48e7b7ad8711a80f60aba6a915548
+  languageName: node
+  linkType: hard
 
 "js-tokens@npm:^4.0.0":
   version: 4.0.0
@@ -6039,7 +6094,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.1.0, tslib@npm:^2.4.0, tslib@npm:^2.8.0":
+"tslib@npm:2.8.1, tslib@npm:^2.1.0, tslib@npm:^2.4.0, tslib@npm:^2.8.0":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10/3e2e043d5c2316461cb54e5c7fe02c30ef6dccb3384717ca22ae5c6b5bc95232a6241df19c622d9c73b809bea33b187f6dbc73030963e29950c2141bc32a79f7

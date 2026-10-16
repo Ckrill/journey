@@ -12,13 +12,13 @@ import { client } from './contentful';
 import type { UsersContentful } from '../types/contentfulTypes';
 import type { User } from '../types/types';
 
-/** Fetch user by name.
- * @param userName
+/** Fetch user by Clerk id.
+ * @param clerkId
  * @returns user or null
  */
-export const fetchUser = async (userName: string): Promise<null | User> => {
+export const fetchUser = async (clerkId: string): Promise<null | User> => {
   const response: UsersContentful = await get(
-    getItemsByAttribute('user', 'fields.name', userName),
+    getItemsByAttribute('user', 'fields.clerkId', clerkId),
   );
 
   return parseUser(response);
@@ -26,10 +26,14 @@ export const fetchUser = async (userName: string): Promise<null | User> => {
 
 /**
  * Create and publish user.
- * @param userName
+ * @param clerkId auth id
+ * @param userName display name
  * @returns user
  */
-export const createUser = async (userName: string): Promise<User> => {
+export const createUser = async (
+  clerkId: string,
+  userName: string,
+): Promise<User> => {
   const entry = await client.entry.create(
     {
       contentTypeId: 'user',
@@ -38,6 +42,9 @@ export const createUser = async (userName: string): Promise<User> => {
     },
     {
       fields: {
+        clerkId: {
+          'en-US': clerkId,
+        },
         name: {
           'en-US': userName,
         },

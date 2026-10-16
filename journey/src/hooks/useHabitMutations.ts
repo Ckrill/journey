@@ -33,7 +33,6 @@ export const useHabitMutations = () => {
   const create = useMutation<Habit, Error, HabitFormData>({
     retry: false,
     mutationFn: async ({ name, plannedDays }) => {
-      if (!user) throw new Error('No user');
       const weeklyTarget = plannedDays.length;
 
       const entry = await client.entry.create(

@@ -1,16 +1,20 @@
 // External
+import { ClerkProvider } from '@clerk/react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 
+// Settings
+import { clerkAppearance } from './settings/clerkAppearance';
+
 // Contexts
 import { SettingsProvider } from './contexts/settingsContext';
-import { UserProvider } from './contexts/userContext';
 
 // Miscellaneous
 import { queryClient } from './lib/queryClient';
 import { routeTree } from './routeTree.gen';
+import AuthGate from './screens/AuthGate';
 
 // Styles
 import './index.css';
@@ -38,13 +42,15 @@ if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <UserProvider>
-          <SettingsProvider>
-            <RouterProvider router={router} />
-          </SettingsProvider>
-        </UserProvider>
-      </QueryClientProvider>
+      <ClerkProvider afterSignOutUrl="/" appearance={clerkAppearance}>
+        <QueryClientProvider client={queryClient}>
+          <AuthGate>
+            <SettingsProvider>
+              <RouterProvider router={router} />
+            </SettingsProvider>
+          </AuthGate>
+        </QueryClientProvider>
+      </ClerkProvider>
     </StrictMode>,
   );
 }
