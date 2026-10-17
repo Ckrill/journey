@@ -15,8 +15,16 @@
   background: transparent;
   border: none;
   timeline-scope: --sheet-fade;
-  animation: fade-sheet-backdrop linear both;
+
+  // Fallback: browsers without scroll-driven animations show a fixed backdrop.
+  --sheet-backdrop: 1;
+
+  // Longhands on purpose: the production minifier folds `animation` plus
+  // `animation-timeline` into one shorthand that Chrome drops entirely.
+  animation-name: fade-sheet-backdrop;
   animation-timeline: --sheet-fade;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
 
   &::backdrop {
     overflow: hidden;
