@@ -2,7 +2,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { motion } from 'motion/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 // Settings
 import { pageTransition, pageVariants } from '../settings/pageTransition';
@@ -20,6 +20,7 @@ import { habitsQueryOptions, useHabitsQuery } from '../hooks/useHabitsQuery';
 
 // Miscellaneous
 import Button from '../components/Button/Button';
+import ChangePasswordModal from '../components/ChangePassword/ChangePasswordModal';
 import CountUp from '../components/CountUp/CountUp';
 import Divider from '../components/Divider/Divider';
 import Checkbox from '../components/Form/Checkbox/Checkbox';
@@ -37,6 +38,8 @@ const Settings = () => {
   const { data: habits } = useHabitsQuery();
   const { data: events } = useEventsQuery();
   const queryClient = useQueryClient();
+  const [passwordOpen, setPasswordOpen] = useState(false);
+  const [passwordSaved, setPasswordSaved] = useState(false);
   const settings = useSettings();
   const setSettings = useSettingsUpdate();
 
@@ -119,6 +122,36 @@ const Settings = () => {
           >
             Sign out
           </Button>
+        </Section>
+
+        <Section>
+          <Divider data-appearance="faint" data-spacing="spacious" />
+        </Section>
+
+        <Section>
+          <Heading>Password</Heading>
+
+          <Button
+            onClick={() => {
+              setPasswordSaved(false);
+              setPasswordOpen(true);
+            }}
+          >
+            Change password
+          </Button>
+
+          {passwordSaved && <Paragraph>Password updated.</Paragraph>}
+
+          <ChangePasswordModal
+            onClose={() => {
+              setPasswordOpen(false);
+            }}
+            onSaved={() => {
+              setPasswordOpen(false);
+              setPasswordSaved(true);
+            }}
+            open={passwordOpen}
+          />
         </Section>
 
         <Section>
