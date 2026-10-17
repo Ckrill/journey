@@ -27,27 +27,32 @@ const minLength = 8;
 
 const ChangePasswordModal = ({ onClose, onSaved, open }: Props) => {
   const [submitting, setSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<null | string>(null);
-  const { control, getValues, handleSubmit, reset } = useForm<FieldValues>({
+  const {
+    control,
+    formState: { errors },
+    getValues,
+    handleSubmit,
+    reset,
+    setError,
+  } = useForm<FieldValues>({
     defaultValues: { confirm: '', password: '' },
   });
 
-  // Start from an empty form each time the modal opens.
+  // Start from an empty form (and no server error) each time the modal opens.
   useEffect(() => {
-    if (!open) return;
-    reset();
-    setSubmitError(null);
+    if (open) reset();
   }, [open, reset]);
 
+  const serverError = errors.root?.server;
+
   const onSubmit = async ({ password }: FieldValues) => {
-    setSubmitError(null);
     setSubmitting(true);
 
     const { error } = await supabase.auth.updateUser({ password });
     setSubmitting(false);
 
     if (error) {
-      setSubmitError(error.message);
+      setError('root.server', { message: error.message });
     } else {
       onSaved();
     }
@@ -96,9 +101,7 @@ const ChangePasswordModal = ({ onClose, onSaved, open }: Props) => {
                 <Input
                   autoComplete="new-password"
                   disabled={submitting}
-                  errorText={
-                    fieldState.error?.message ?? submitError ?? undefined
-                  }
+                  errorText={fieldState.error?.message ?? serverError?.message}
                   id="confirm-password"
                   labelText="Confirm new password"
                   type="password"
