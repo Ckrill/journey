@@ -22,7 +22,7 @@ export const habitsQueryOptions = (userId: string) => ({
     // first (createdAt is the streak-order tiebreaker).
     const { data, error } = await supabase
       .from('habits')
-      .select('id, name, planned_days, active, created_at')
+      .select('id, name, planned_days, weekly_target, active, created_at')
       .eq('active', true)
       .order('created_at')
       .overrideTypes<HabitRow[], { merge: false }>();

@@ -8,7 +8,7 @@ export const toHabit = (row: HabitRow): Habit => ({
   id: row.id,
   name: row.name,
   plannedDays: row.planned_days,
-  weeklyTarget: row.planned_days.length,
+  weeklyTarget: row.weekly_target,
 });
 
 export const toEvent = (row: EventRow): Event => ({

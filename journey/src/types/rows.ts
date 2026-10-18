@@ -8,6 +8,7 @@ export interface HabitRow {
   id: string;
   name: string;
   planned_days: Weekday[];
+  weekly_target: number;
 }
 
 export interface EventRow {

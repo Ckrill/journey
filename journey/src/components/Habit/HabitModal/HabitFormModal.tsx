@@ -53,9 +53,10 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
     control,
     formState: { errors },
     handleSubmit,
+    register,
     reset,
   } = useForm<HabitFormData>({
-    defaultValues: { name: '', plannedDays: [] },
+    defaultValues: { name: '', plannedDays: [], weeklyTarget: 1 },
   });
 
   // Sync form values and clear stale mutation errors whenever the modal opens.
@@ -66,6 +67,7 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
     reset({
       name: habit?.name ?? '',
       plannedDays: habit?.plannedDays ?? [],
+      weeklyTarget: habit?.weeklyTarget ?? 1,
     });
   }, [open, habit, reset, resetCreate, resetUpdate]);
 
@@ -76,7 +78,7 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
           ...habit,
           name: data.name,
           plannedDays: data.plannedDays,
-          weeklyTarget: data.plannedDays.length,
+          weeklyTarget: data.weeklyTarget,
         },
         { onSuccess: onClose },
       );
@@ -113,7 +115,7 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
                 <Input
                   assistiveText="Name your habit."
                   disabled={isPending}
-                  errorText={errors.name && 'Please name your habit.'}
+                  errorText={errors.name && 'Name your habit.'}
                   id="habit-name"
                   labelText="Name"
                   type="text"
@@ -123,14 +125,31 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
               rules={{ required: true }}
             />
 
+            <Input
+              assistiveText="How many days per week."
+              disabled={isPending}
+              errorText={errors.weeklyTarget?.message}
+              id="habit-weekly-target"
+              inputMode="numeric"
+              labelText="Weekly target"
+              max={7}
+              min={1}
+              type="number"
+              {...register('weeklyTarget', {
+                max: { message: 'Pick a number from 1 to 7.', value: 7 },
+                min: { message: 'Pick a number from 1 to 7.', value: 1 },
+                required: 'Pick a number from 1 to 7.',
+                valueAsNumber: true,
+              })}
+            />
+
             <Controller
               control={control}
               name="plannedDays"
               render={({ field }) => (
                 <Pillbox
-                  assistiveText="Select the days you plan to do this habit."
+                  assistiveText="Optional. Select the days you plan to do this habit."
                   disabled={isPending}
-                  errorText={errors.plannedDays && 'Pick at least one day.'}
                   labelText="Days"
                   name={field.name}
                   onChange={field.onChange}
@@ -138,7 +157,6 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
                   value={field.value}
                 />
               )}
-              rules={{ validate: (days) => days.length > 0 }}
             />
 
             <FormActions>
