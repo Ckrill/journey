@@ -8,6 +8,8 @@ import styles from './Modal.module.scss';
 
 interface Props {
   children: ReactNode;
+  /** When false, Esc, backdrop taps and sheet swipes cannot close the modal. */
+  dismissible?: boolean;
   label: string;
   onClose: () => void;
   open: boolean;
@@ -16,7 +18,20 @@ interface Props {
 // Mirrors the bottom-sheet breakpoint in Modal.module.scss.
 const isSheet = () => window.matchMedia('(width < 600px)').matches;
 
-const Modal = ({ children, label, onClose, open }: Props) => {
+// A sheet taller than the viewport stops at its top edge, not its bottom.
+const openScrollTop = (scroller: HTMLElement) =>
+  Math.min(
+    scroller.scrollHeight - scroller.clientHeight,
+    scroller.clientHeight,
+  );
+
+const Modal = ({
+  children,
+  dismissible = true,
+  label,
+  onClose,
+  open,
+}: Props) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
 
@@ -30,12 +45,7 @@ const Modal = ({ children, label, onClose, open }: Props) => {
     if (open) {
       dialog.showModal();
       if (isSheet()) {
-        // A sheet taller than the viewport stops at its top edge, not its bottom.
-        const top = Math.min(
-          scroller.scrollHeight - scroller.clientHeight,
-          scroller.clientHeight,
-        );
-        scroller.scrollTo({ behavior: 'auto', top });
+        scroller.scrollTo({ behavior: 'auto', top: openScrollTop(scroller) });
       }
     } else if (isSheet() && scroller.scrollTop > 0) {
       scroller.scrollTo({ behavior: 'auto', top: 0 });
@@ -47,7 +57,14 @@ const Modal = ({ children, label, onClose, open }: Props) => {
 
   // Resting at the top snap stop means the sheet was swiped (or scrolled) away.
   const handleScrollEnd = (event: UIEvent<HTMLDivElement>) => {
-    if (event.currentTarget.scrollTop === 0) dialogRef.current?.close();
+    const scroller = event.currentTarget;
+    if (scroller.scrollTop !== 0) return;
+
+    if (dismissible) {
+      dialogRef.current?.close();
+    } else {
+      scroller.scrollTo({ behavior: 'auto', top: openScrollTop(scroller) });
+    }
   };
 
   // The dialog closes itself on Esc / backdrop / platform controls; mirror that
@@ -58,7 +75,9 @@ const Modal = ({ children, label, onClose, open }: Props) => {
 
   // The sheet covers no backdrop of its own, so a tap above it dismisses it.
   const handleScrollerClick = (event: MouseEvent<HTMLDivElement>) => {
-    if (event.target !== event.currentTarget || !isSheet()) return;
+    if (event.target !== event.currentTarget || !isSheet() || !dismissible) {
+      return;
+    }
     event.currentTarget.scrollTo({ behavior: 'auto', top: 0 });
   };
 
@@ -66,7 +85,10 @@ const Modal = ({ children, label, onClose, open }: Props) => {
     <dialog
       aria-label={label}
       className={styles.dialog}
-      closedby="any"
+      closedby={dismissible ? 'any' : 'none'}
+      onCancel={(event) => {
+        if (!dismissible) event.preventDefault();
+      }}
       onClose={handleClose}
       ref={dialogRef}
     >

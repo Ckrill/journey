@@ -38,3 +38,15 @@ create policy "own habits" on habits for all to authenticated
 create policy "own events" on events for all to authenticated
   using ((select auth.uid()) = user_id)
   with check ((select auth.uid()) = user_id);
+
+-- Lets a signed-in user delete their own auth user; habits and events cascade.
+create function public.delete_account() returns void
+  language sql
+  security definer
+  set search_path = ''
+as $$
+  delete from auth.users where id = (select auth.uid());
+$$;
+
+revoke execute on function public.delete_account() from public, anon;
+grant execute on function public.delete_account() to authenticated;

@@ -22,6 +22,7 @@ import { habitsQueryOptions, useHabitsQuery } from '../hooks/useHabitsQuery';
 import Button from '../components/Button/Button';
 import ChangePasswordModal from '../components/ChangePassword/ChangePasswordModal';
 import CountUp from '../components/CountUp/CountUp';
+import DeleteAccountModal from '../components/DeleteAccount/DeleteAccountModal';
 import Divider from '../components/Divider/Divider';
 import Checkbox from '../components/Form/Checkbox/Checkbox';
 import CheckboxGroup from '../components/Form/Checkbox/CheckboxGroup';
@@ -40,6 +41,7 @@ const Settings = () => {
   const queryClient = useQueryClient();
   const [passwordOpen, setPasswordOpen] = useState(false);
   const [passwordSaved, setPasswordSaved] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const settings = useSettings();
   const setSettings = useSettingsUpdate();
 
@@ -79,6 +81,13 @@ const Settings = () => {
     localStorage.clear();
     await supabase.auth.signOut();
     // Drop cached data so the next account never sees this one's.
+    queryClient.clear();
+  };
+
+  const handleAccountDeleted = async () => {
+    localStorage.clear();
+    // The user no longer exists server-side, so only end the local session.
+    await supabase.auth.signOut({ scope: 'local' });
     queryClient.clear();
   };
 
@@ -210,8 +219,8 @@ const Settings = () => {
           <Heading>Data</Heading>
 
           <Paragraph>
-            The data you save in this app, is saved on a server. It is not
-            shared with anyone and is only visible to you.
+            Your data is stored on servers in the EU and is never shared with
+            anyone. Your data is yours. Download it or delete it at any time.
           </Paragraph>
 
           {/* <Button onClick={showData}>See my data</Button>
@@ -219,6 +228,26 @@ const Settings = () => {
           <Button onClick={clearData} data-priority="secondary">
             Clear data
           </Button> */}
+
+          <Button
+            data-priority="secondary"
+            data-tone="danger"
+            onClick={() => {
+              setDeleteOpen(true);
+            }}
+          >
+            Delete account
+          </Button>
+
+          <DeleteAccountModal
+            onClose={() => {
+              setDeleteOpen(false);
+            }}
+            onDeleted={() => {
+              void handleAccountDeleted();
+            }}
+            open={deleteOpen}
+          />
         </Section>
       </SectionContainer>
     </motion.div>
