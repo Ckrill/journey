@@ -1,18 +1,7 @@
-import type { Weekday } from './types';
+import type { Tables } from './database.types';
 
-// Shapes of the rows in supabase/schema.sql.
+// Row shapes come from the generated database types (yarn gen:types).
 
-export interface HabitRow {
-  active: boolean;
-  created_at: string;
-  id: string;
-  name: string;
-  planned_days: Weekday[];
-  weekly_target: number;
-}
+export type HabitRow = Omit<Tables<'habits'>, 'user_id'>;
 
-export interface EventRow {
-  date: string;
-  habit_id: string;
-  id: string;
-}
+export type EventRow = Pick<Tables<'events'>, 'date' | 'habit_id' | 'id'>;

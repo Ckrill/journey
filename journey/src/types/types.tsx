@@ -1,10 +1,12 @@
+import type { Enums } from './database.types';
+
 export interface Settings {
   birthYear?: number;
   sound: boolean;
   vibration: boolean;
 }
 
-export type Weekday = 'fri' | 'mon' | 'sat' | 'sun' | 'thu' | 'tue' | 'wed';
+export type Weekday = Enums<'weekday'>;
 
 export interface Habit {
   active: boolean;

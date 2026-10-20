@@ -13,7 +13,6 @@ import { useUserId } from './useUserId';
 import { supabase } from '../lib/supabase';
 
 // Types
-import type { EventRow } from '../types/rows';
 import type { Event, Events } from '../types/types';
 
 interface ToggleArgs {
@@ -68,8 +67,7 @@ export const useToggleEvent = () => {
         .from('events')
         .insert({ date, habit_id: habitId })
         .select('id, habit_id, date')
-        .single()
-        .overrideTypes<EventRow, { merge: false }>();
+        .single();
 
       if (error) throw error;
       return toEvent(data);

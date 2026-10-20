@@ -5,7 +5,12 @@
   "singleQuote": true,
   "printWidth": 80,
   "trailingComma": "all",
-  "ignorePatterns": ["src/routeTree.gen.ts", ".yarn/**", ".pnp.*"],
+  "ignorePatterns": [
+    "src/routeTree.gen.ts",
+    "src/types/database.types.ts",
+    ".yarn/**",
+    ".pnp.*",
+  ],
   "sortImports": {
     "newlinesBetween": true,
     "sortSideEffects": true,

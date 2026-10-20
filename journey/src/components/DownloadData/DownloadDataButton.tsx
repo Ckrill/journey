@@ -18,16 +18,12 @@ import { supabase } from '../../lib/supabase';
 import Button from '../Button/Button';
 import Paragraph from '../Paragraph/Paragraph';
 
-// Types
-import type { HabitRow } from '../../types/rows';
-
 // The habits query only holds active habits; this one includes archived ones.
 const fetchAllHabits = async () => {
   const { data, error } = await supabase
     .from('habits')
     .select('id, name, planned_days, weekly_target, active, created_at')
-    .order('created_at')
-    .overrideTypes<HabitRow[], { merge: false }>();
+    .order('created_at');
 
   if (error) throw error;
   return data.map((row) => toHabit(row));
@@ -48,7 +44,7 @@ const DownloadDataButton = () => {
     try {
       const [habits, events] = await Promise.all([
         fetchAllHabits(),
-        queryClient.fetchQuery(eventsQueryOptions(userId)),
+        queryClient.query(eventsQueryOptions(userId)),
       ]);
 
       const data = {

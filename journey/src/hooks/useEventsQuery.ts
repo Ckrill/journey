@@ -28,8 +28,7 @@ export const eventsQueryOptions = (userId: string) => ({
         .select('id, habit_id, date')
         .order('date', { ascending: false })
         .order('id')
-        .range(from, from + pageSize - 1)
-        .overrideTypes<EventRow[], { merge: false }>();
+        .range(from, from + pageSize - 1);
 
       if (error) throw error;
       rows.push(...data);

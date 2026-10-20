@@ -12,7 +12,6 @@ import { useUserId } from './useUserId';
 import { supabase } from '../lib/supabase';
 
 // Types
-import type { HabitRow } from '../types/rows';
 import type { Habit, Habits, Weekday } from '../types/types';
 
 export interface HabitFormData {
@@ -41,8 +40,7 @@ export const useHabitMutations = () => {
           weekly_target: weeklyTarget,
         })
         .select(columns)
-        .single()
-        .overrideTypes<HabitRow, { merge: false }>();
+        .single();
 
       if (error) throw error;
       return toHabit(data);
@@ -68,8 +66,7 @@ export const useHabitMutations = () => {
         })
         .eq('id', habit.id)
         .select(columns)
-        .single()
-        .overrideTypes<HabitRow, { merge: false }>();
+        .single();
 
       if (error) throw error;
       return toHabit(data);

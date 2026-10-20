@@ -20,6 +20,7 @@ export default defineConfig([
     '.pnp.cjs',
     '.pnp.loader.mjs',
     'public/**',
+    'src/types/database.types.ts',
   ]),
 
   js.configs.recommended,

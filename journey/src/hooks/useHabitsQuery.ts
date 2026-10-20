@@ -11,7 +11,6 @@ import { useUserId } from './useUserId';
 import { supabase } from '../lib/supabase';
 
 // Types
-import type { HabitRow } from '../types/rows';
 import type { Habits } from '../types/types';
 
 export const habitsKey = (userId: string) => ['habits', userId] as const;
@@ -24,8 +23,7 @@ export const habitsQueryOptions = (userId: string) => ({
       .from('habits')
       .select('id, name, planned_days, weekly_target, active, created_at')
       .eq('active', true)
-      .order('created_at')
-      .overrideTypes<HabitRow[], { merge: false }>();
+      .order('created_at');
 
     if (error) throw error;
     return data.map((row) => toHabit(row));
