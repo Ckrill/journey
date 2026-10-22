@@ -24,17 +24,32 @@ create table events (
   foreign key (habit_id, user_id) references habits (id, user_id) on delete cascade
 );
 
+-- Latest weekly retrospective answers; saving a new one overwrites the old.
+create table reflections (
+  user_id uuid primary key default auth.uid() references auth.users (id) on delete cascade,
+  went_well text not null default '' check (char_length(went_well) <= 2000),
+  blockers text not null default '' check (char_length(blockers) <= 2000),
+  next_steps text not null default '' check (char_length(next_steps) <= 2000),
+  plan text not null default '' check (char_length(plan) <= 2000),
+  updated_at timestamptz not null default now()
+);
+
 create index habits_user_id_idx on habits (user_id);
 create index events_user_id_idx on events (user_id);
 
 alter table habits enable row level security;
 alter table events enable row level security;
+alter table reflections enable row level security;
 
 create policy "own habits" on habits for all to authenticated
   using ((select auth.uid()) = user_id)
   with check ((select auth.uid()) = user_id);
 
 create policy "own events" on events for all to authenticated
+  using ((select auth.uid()) = user_id)
+  with check ((select auth.uid()) = user_id);
+
+create policy "own reflections" on reflections for all to authenticated
   using ((select auth.uid()) = user_id)
   with check ((select auth.uid()) = user_id);
 

@@ -26,3 +26,10 @@ export interface Event {
 }
 
 export type Events = Event[];
+
+export interface Reflection {
+  blockers: string;
+  nextSteps: string;
+  plan: string;
+  wentWell: string;
+}

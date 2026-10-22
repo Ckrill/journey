@@ -1,5 +1,5 @@
 // External
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { motion } from 'motion/react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
@@ -27,6 +27,7 @@ import WeekPager from '../components/Week/WeekPager';
 import type { Habit } from '../types/types';
 
 const Journey = () => {
+  const navigate = useNavigate();
   const { data: habits } = useHabitsQuery();
   const { data: events } = useEventsQuery();
 
@@ -116,6 +117,16 @@ const Journey = () => {
         <Section>
           <Button onClick={openCreate} type="button">
             + Add habit
+          </Button>
+
+          <Button
+            data-priority="secondary"
+            onClick={() => {
+              void navigate({ to: '/retro' });
+            }}
+            type="button"
+          >
+            Weekly retro
           </Button>
         </Section>
       </SectionContainer>

@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RetroRouteImport } from './routes/retro'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as TimeRouteImport } from './routes/time'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RetroRoute = RetroRouteImport.update({
+  id: '/retro',
+  path: '/retro',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SettingsRoute = SettingsRouteImport.update({
@@ -31,30 +37,34 @@ const TimeRoute = TimeRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/retro': typeof RetroRoute
   '/settings': typeof SettingsRoute
   '/time': typeof TimeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/retro': typeof RetroRoute
   '/settings': typeof SettingsRoute
   '/time': typeof TimeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/retro': typeof RetroRoute
   '/settings': typeof SettingsRoute
   '/time': typeof TimeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/settings' | '/time'
+  fullPaths: '/' | '/retro' | '/settings' | '/time'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/settings' | '/time'
-  id: '__root__' | '/' | '/settings' | '/time'
+  to: '/' | '/retro' | '/settings' | '/time'
+  id: '__root__' | '/' | '/retro' | '/settings' | '/time'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  RetroRoute: typeof RetroRoute
   SettingsRoute: typeof SettingsRoute
   TimeRoute: typeof TimeRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/retro': {
+      id: '/retro'
+      path: '/retro'
+      fullPath: '/retro'
+      preLoaderRoute: typeof RetroRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/settings': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  RetroRoute: RetroRoute,
   SettingsRoute: SettingsRoute,
   TimeRoute: TimeRoute,
 }

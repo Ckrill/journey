@@ -3,7 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 
 // Utilities
-import { toHabit } from '../../helpers/mappers';
+import { toHabit, toReflection } from '../../helpers/mappers';
 
 // Contexts
 import { useSession } from '../../contexts/authContext';
@@ -29,6 +29,16 @@ const fetchAllHabits = async () => {
   return data.map((row) => toHabit(row));
 };
 
+const fetchReflection = async () => {
+  const { data, error } = await supabase
+    .from('reflections')
+    .select('went_well, blockers, next_steps, plan')
+    .maybeSingle();
+
+  if (error) throw error;
+  return data ? toReflection(data) : null;
+};
+
 const DownloadDataButton = () => {
   const queryClient = useQueryClient();
   const userId = useUserId();
@@ -42,9 +52,10 @@ const DownloadDataButton = () => {
     setFailed(false);
 
     try {
-      const [habits, events] = await Promise.all([
+      const [habits, events, reflection] = await Promise.all([
         fetchAllHabits(),
         queryClient.query(eventsQueryOptions(userId)),
+        fetchReflection(),
       ]);
 
       const data = {
@@ -59,6 +70,7 @@ const DownloadDataButton = () => {
           plannedDays: habit.plannedDays,
           weeklyTarget: habit.weeklyTarget,
         })),
+        reflection,
         // Kept in this browser's local storage, not on the server.
         settings: {
           birthYear: settings.birthYear,

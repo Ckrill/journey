@@ -1,6 +1,6 @@
 // Types
-import type { EventRow, HabitRow } from '../types/rows';
-import type { Event, Habit } from '../types/types';
+import type { EventRow, HabitRow, ReflectionRow } from '../types/rows';
+import type { Event, Habit, Reflection } from '../types/types';
 
 export const toHabit = (row: HabitRow): Habit => ({
   active: row.active,
@@ -15,4 +15,11 @@ export const toEvent = (row: EventRow): Event => ({
   date: row.date,
   habitId: row.habit_id,
   id: row.id,
+});
+
+export const toReflection = (row: ReflectionRow): Reflection => ({
+  blockers: row.blockers,
+  nextSteps: row.next_steps,
+  plan: row.plan,
+  wentWell: row.went_well,
 });

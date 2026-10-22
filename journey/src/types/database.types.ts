@@ -73,6 +73,33 @@ export type Database = {
         }
         Relationships: []
       }
+      reflections: {
+        Row: {
+          blockers: string
+          next_steps: string
+          plan: string
+          updated_at: string
+          user_id: string
+          went_well: string
+        }
+        Insert: {
+          blockers?: string
+          next_steps?: string
+          plan?: string
+          updated_at?: string
+          user_id?: string
+          went_well?: string
+        }
+        Update: {
+          blockers?: string
+          next_steps?: string
+          plan?: string
+          updated_at?: string
+          user_id?: string
+          went_well?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
