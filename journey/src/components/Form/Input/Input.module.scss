@@ -15,6 +15,20 @@
   letter-spacing: var(--letter-spacing-spacious);
 }
 
+.required {
+  margin-inline-start: 4px;
+  color: var(--error-color);
+}
+
+.field {
+  position: relative;
+  transition: transform var(--rapid);
+
+  &:focus-within {
+    transform: scale(1.02);
+  }
+}
+
 .input {
   box-sizing: border-box;
   display: block;
@@ -24,19 +38,35 @@
   font-size: calc(18rem / 16);
   line-height: calc(24rem / 16);
   letter-spacing: 1px;
+  appearance: textfield;
   border: 2px solid #eee;
   border-radius: 4px;
-  transition: transform var(--rapid);
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    margin: 0;
+    appearance: none;
+  }
 
   &:focus {
     outline: none;
     border-color: #ff6c55;
-    transform: scale(1.02);
   }
 
   &--error {
     border-color: var(--error-color);
   }
+}
+
+.suffix {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 14px;
+  display: flex;
+  align-items: center;
+  font-size: calc(14rem / 16);
+  pointer-events: none;
+  opacity: 0.6;
 }
 
 .assistive {

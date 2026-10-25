@@ -5,6 +5,8 @@ import type { Event, Habit, Reflection } from '../types/types';
 export const toHabit = (row: HabitRow): Habit => ({
   active: row.active,
   createdAt: row.created_at,
+  goalDescription: row.goal_description,
+  goalMonths: row.goal_months,
   id: row.id,
   name: row.name,
   plannedDays: row.planned_days,

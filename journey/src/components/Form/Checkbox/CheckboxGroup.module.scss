@@ -1,6 +1,7 @@
 .group {
   display: grid;
   gap: var(--spacing);
+  justify-content: center;
 
   h2 + & {
     margin-block-start: 20px;

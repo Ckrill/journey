@@ -81,6 +81,7 @@ const ChangePasswordModal = ({ onClose, onSaved, open }: Props) => {
                   errorText={fieldState.error?.message}
                   id="new-password"
                   labelText="New password"
+                  required
                   type="password"
                   {...field}
                 />
@@ -104,6 +105,7 @@ const ChangePasswordModal = ({ onClose, onSaved, open }: Props) => {
                   errorText={fieldState.error?.message ?? serverError?.message}
                   id="confirm-password"
                   labelText="Confirm new password"
+                  required
                   type="password"
                   {...field}
                 />

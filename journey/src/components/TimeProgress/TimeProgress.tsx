@@ -1,125 +1,51 @@
 import clsx from 'clsx';
 
+import { getTimeBars } from './helpers/timeBars';
+
 import { useSettings } from '../../contexts/settingsContext';
+
+import { useHabitsQuery } from '../../hooks/useHabitsQuery';
+
+import BarDetail from './BarDetail';
 
 import styles from './TimeProgress.module.scss';
 
-const getProgess = (ticks: number, elapsed: number) => {
-  const progress = (elapsed / ticks) * 100;
-  return progress;
-};
-
-const getLifeProgress = (birthYear: number) => {
-  const today = Temporal.Now.plainDateISO();
-  const birth = Temporal.PlainDate.from({ day: 1, month: 1, year: birthYear });
-  const end = Temporal.PlainDate.from({
-    day: 1,
-    month: 1,
-    year: birthYear + 80,
-  });
-  const ticks = birth.until(end, { largestUnit: 'days' }).days;
-  const elapsed = birth.until(today, { largestUnit: 'days' }).days;
-
-  return getProgess(ticks, elapsed);
-};
-
-const getYearProgress = () => {
-  const today = Temporal.Now.plainDateISO();
-  const ticks = today.daysInYear;
-  const elapsed = today.dayOfYear;
-
-  return getProgess(ticks, elapsed);
-};
-
-const getMonthProgress = () => {
-  const today = Temporal.Now.plainDateISO();
-  const ticks = today.daysInMonth;
-  const elapsed = today.day;
-
-  return getProgess(ticks, elapsed);
-};
-
-const getWeekProgress = () => {
-  const elapsed = Temporal.Now.plainDateISO().dayOfWeek;
-
-  return getProgess(7, elapsed);
-};
-
-const getDayProgress = () => {
-  const elapsed = Temporal.Now.plainTimeISO().hour;
-
-  return getProgess(24, elapsed);
-};
-
-interface Ring {
-  className: string;
-  label: string;
-  progress: number;
-}
-
 const TimeProgress = () => {
   const settings = useSettings();
+  const { data: habits } = useHabitsQuery();
 
-  const rings: Ring[] = [
-    ...(settings.birthYear
-      ? [
-          {
-            className: styles.life,
-            label: 'Life',
-            progress: getLifeProgress(settings.birthYear),
-          },
-        ]
-      : []),
-    {
-      className: styles.year,
-      label: 'Year',
-      progress: getYearProgress(),
-    },
-    {
-      className: styles.month,
-      label: 'Month',
-      progress: getMonthProgress(),
-    },
-    {
-      className: styles.week,
-      label: 'Week',
-      progress: getWeekProgress(),
-    },
-    {
-      className: styles.day,
-      label: 'Day',
-      progress: getDayProgress(),
-    },
-  ];
+  const bars = getTimeBars(habits, settings.birthYear);
 
   return (
-    <>
-      <div className={styles.container}>
-        <div className={styles.circles}>
-          {rings.map((ring) => (
-            <div
-              className={clsx(styles.ring, ring.className)}
-              key={ring.label}
-              style={{ '--progress': ring.progress } as React.CSSProperties}
-            >
-              <div className={styles.ringInner} />
-            </div>
-          ))}
-        </div>
-      </div>
+    <ul className={styles.list}>
+      {bars.map((bar) => (
+        <li className={clsx(styles.item, styles[bar.kind])} key={bar.id}>
+          <div className={styles.header}>
+            <span className={styles.name}>{bar.label}</span>
 
-      <div className={styles.legend}>
-        {rings.toReversed().map((ring) => (
-          <span
-            className={clsx(styles.legendItem, ring.className)}
-            key={ring.label}
+            <BarDetail
+              elapsed={bar.detail.elapsed}
+              kind={bar.kind}
+              total={bar.detail.total}
+            />
+          </div>
+
+          <div
+            aria-label={`${bar.label} progress`}
+            aria-valuemax={100}
+            aria-valuemin={0}
+            aria-valuenow={Math.round(bar.progress)}
+            className={styles.track}
+            role="progressbar"
           >
-            <span className={styles.legendDot} />
-            {ring.label}
-          </span>
-        ))}
-      </div>
-    </>
+            <div
+              className={styles.fill}
+              style={{ '--progress': bar.progress } as React.CSSProperties}
+            />
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 };
 

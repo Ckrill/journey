@@ -47,6 +47,8 @@ export type Database = {
         Row: {
           active: boolean
           created_at: string
+          goal_description: string
+          goal_months: number | null
           id: string
           name: string
           planned_days: Database["public"]["Enums"]["weekday"][]
@@ -56,6 +58,8 @@ export type Database = {
         Insert: {
           active?: boolean
           created_at?: string
+          goal_description?: string
+          goal_months?: number | null
           id?: string
           name: string
           planned_days?: Database["public"]["Enums"]["weekday"][]
@@ -65,6 +69,8 @@ export type Database = {
         Update: {
           active?: boolean
           created_at?: string
+          goal_description?: string
+          goal_months?: number | null
           id?: string
           name?: string
           planned_days?: Database["public"]["Enums"]["weekday"][]

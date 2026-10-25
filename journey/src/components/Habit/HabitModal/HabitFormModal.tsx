@@ -16,6 +16,7 @@ import Button from '../../Button/Button';
 import FormActions from '../../Form/FormActions/FormActions';
 import Input from '../../Form/Input/Input';
 import Pillbox from '../../Form/Pillbox/Pillbox';
+import Textarea from '../../Form/Textarea/Textarea';
 import Heading from '../../Heading/Heading';
 import Modal from '../../Modal/Modal';
 import Section from '../../Section/Section';
@@ -56,7 +57,12 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
     register,
     reset,
   } = useForm<HabitFormData>({
-    defaultValues: { name: '', plannedDays: [], weeklyTarget: 1 },
+    defaultValues: {
+      goalDescription: '',
+      goalMonths: null,
+      name: '',
+      plannedDays: [],
+    },
   });
 
   // Sync form values and clear stale mutation errors whenever the modal opens.
@@ -65,17 +71,29 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
     resetCreate();
     resetUpdate();
     reset({
+      goalDescription: habit?.goalDescription ?? '',
+      goalMonths: habit?.goalMonths ?? null,
       name: habit?.name ?? '',
       plannedDays: habit?.plannedDays ?? [],
-      weeklyTarget: habit?.weeklyTarget ?? 1,
+      weeklyTarget: habit?.weeklyTarget,
     });
   }, [open, habit, reset, resetCreate, resetUpdate]);
 
-  const onSubmit = (data: HabitFormData) => {
+  const onSubmit = (formData: HabitFormData) => {
+    // An empty duration input comes through as NaN.
+    const data = {
+      ...formData,
+      goalMonths: Number.isNaN(formData.goalMonths)
+        ? null
+        : formData.goalMonths,
+    };
+
     if (isEdit) {
       update.mutate(
         {
           ...habit,
+          goalDescription: data.goalDescription,
+          goalMonths: data.goalMonths,
           name: data.name,
           plannedDays: data.plannedDays,
           weeklyTarget: data.weeklyTarget,
@@ -114,10 +132,13 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
               render={({ field }) => (
                 <Input
                   assistiveText="Name your habit."
+                  autoComplete="off"
+                  data-1p-ignore
                   disabled={isPending}
                   errorText={errors.name && 'Name your habit.'}
                   id="habit-name"
                   labelText="Name"
+                  required
                   type="text"
                   {...field}
                 />
@@ -126,7 +147,7 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
             />
 
             <Input
-              assistiveText="How many days per week."
+              assistiveText="How many days per week?"
               disabled={isPending}
               errorText={errors.weeklyTarget?.message}
               id="habit-weekly-target"
@@ -134,6 +155,8 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
               labelText="Weekly target"
               max={7}
               min={1}
+              required
+              suffix="days"
               type="number"
               {...register('weeklyTarget', {
                 max: { message: 'Pick a number from 1 to 7.', value: 7 },
@@ -148,7 +171,7 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
               name="plannedDays"
               render={({ field }) => (
                 <Pillbox
-                  assistiveText="Optional. Select the days you plan to do this habit."
+                  assistiveText="Select the days you plan to do this habit."
                   disabled={isPending}
                   labelText="Days"
                   name={field.name}
@@ -157,6 +180,37 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
                   value={field.value}
                 />
               )}
+            />
+
+            <Textarea
+              assistiveText="What does reaching your goal look like?"
+              disabled={isPending}
+              errorText={errors.goalDescription?.message}
+              id="habit-goal-description"
+              labelText="Make it tangible"
+              maxLength={500}
+              rows={3}
+              {...register('goalDescription')}
+            />
+
+            <Input
+              assistiveText="When do you reach your goal?"
+              autoComplete="off"
+              data-1p-ignore
+              disabled={isPending}
+              errorText={errors.goalMonths?.message}
+              id="habit-goal-months"
+              inputMode="numeric"
+              labelText="Duration"
+              max={60}
+              min={1}
+              suffix="months"
+              type="number"
+              {...register('goalMonths', {
+                max: { message: 'Pick a number from 1 to 60.', value: 60 },
+                min: { message: 'Pick a number from 1 to 60.', value: 1 },
+                valueAsNumber: true,
+              })}
             />
 
             <FormActions>

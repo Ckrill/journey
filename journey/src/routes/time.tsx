@@ -5,6 +5,9 @@ import { motion } from 'motion/react';
 // Settings
 import { pageTransition, pageVariants } from '../settings/pageTransition';
 
+// Hooks
+import { habitsQueryOptions } from '../hooks/useHabitsQuery';
+
 // Miscellaneous
 import Heading from '../components/Heading/Heading';
 import Section from '../components/Section/Section';
@@ -33,4 +36,10 @@ const Time = () => {
 
 export const Route = createFileRoute('/time')({
   component: Time,
+  loader: async ({ context }) => {
+    await context.queryClient.query({
+      ...habitsQueryOptions(context.userId),
+      staleTime: 'static',
+    });
+  },
 });

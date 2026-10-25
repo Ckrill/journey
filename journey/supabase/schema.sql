@@ -9,6 +9,9 @@ create table habits (
   weekly_target smallint not null check (weekly_target between 1 and 7),
   -- optional: which days the habit is planned for (empty = any day)
   planned_days weekday[] not null default '{}' check (cardinality(planned_days) <= 7),
+  -- optional goal: what it looks like, and the estimated months to reach it
+  goal_description text not null default '' check (char_length(goal_description) <= 500),
+  goal_months smallint check (goal_months between 1 and 600),
   active boolean not null default true,
   created_at timestamptz not null default now(),
   unique (id, user_id)

@@ -10,23 +10,40 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   errorText?: string;
   id: string;
   labelText: string;
+  suffix?: string;
 };
 
 const FormInput = ({
   assistiveText,
   errorText,
   labelText,
+  required,
+  suffix,
   ...props
 }: Props) => (
   <div className={styles.container}>
     <label className={styles.label} htmlFor={props.id}>
       {labelText}
+      {required && (
+        <span aria-hidden className={styles.required}>
+          *
+        </span>
+      )}
     </label>
 
-    <input
-      className={clsx(styles.input, errorText && styles['input--error'])}
-      {...props}
-    />
+    <div className={styles.field}>
+      <input
+        aria-required={required}
+        className={clsx(styles.input, errorText && styles['input--error'])}
+        {...props}
+      />
+
+      {suffix && (
+        <span aria-hidden className={styles.suffix}>
+          {suffix}
+        </span>
+      )}
+    </div>
 
     {!errorText && <p className={styles.assistive}>{assistiveText}</p>}
 

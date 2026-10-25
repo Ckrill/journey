@@ -45,6 +45,7 @@ const SignInForm = () => {
               autoComplete="email"
               id="email"
               labelText="Email"
+              required
               type="email"
               {...field}
             />
@@ -62,6 +63,7 @@ const SignInForm = () => {
               errorText={submitError ?? undefined}
               id="password"
               labelText="Password"
+              required
               type="password"
               {...field}
             />

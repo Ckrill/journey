@@ -11,6 +11,8 @@ export type Weekday = Enums<'weekday'>;
 export interface Habit {
   active: boolean;
   createdAt: string;
+  goalDescription: string;
+  goalMonths: null | number;
   id: string;
   name: string;
   plannedDays: Weekday[];

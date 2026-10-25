@@ -15,12 +15,15 @@ import { supabase } from '../lib/supabase';
 import type { Habit, Habits, Weekday } from '../types/types';
 
 export interface HabitFormData {
+  goalDescription: string;
+  goalMonths: null | number;
   name: string;
   plannedDays: Weekday[];
   weeklyTarget: number;
 }
 
-const columns = 'id, name, planned_days, weekly_target, active, created_at';
+const columns =
+  'id, name, planned_days, weekly_target, goal_description, goal_months, active, created_at';
 
 /** Creates, edits, and archives habits. */
 export const useHabitMutations = () => {
@@ -30,11 +33,19 @@ export const useHabitMutations = () => {
   /* eslint-disable perfectionist/sort-objects */
   const create = useMutation<Habit, Error, HabitFormData>({
     retry: false,
-    mutationFn: async ({ name, plannedDays, weeklyTarget }) => {
+    mutationFn: async ({
+      goalDescription,
+      goalMonths,
+      name,
+      plannedDays,
+      weeklyTarget,
+    }) => {
       // user_id fills itself in from the signed-in user.
       const { data, error } = await supabase
         .from('habits')
         .insert({
+          goal_description: goalDescription,
+          goal_months: goalMonths,
           name,
           planned_days: plannedDays,
           weekly_target: weeklyTarget,
@@ -60,6 +71,8 @@ export const useHabitMutations = () => {
         .from('habits')
         .update({
           active: habit.active,
+          goal_description: habit.goalDescription,
+          goal_months: habit.goalMonths,
           name: habit.name,
           planned_days: habit.plannedDays,
           weekly_target: habit.weeklyTarget,

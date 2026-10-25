@@ -112,6 +112,7 @@ const DeleteAccountModal = ({ onClose, onDeleted, open }: Props) => {
                   errorText={fieldState.error?.message ?? serverError?.message}
                   id="delete-confirmation"
                   labelText="Confirmation"
+                  required
                   type="text"
                   {...field}
                 />

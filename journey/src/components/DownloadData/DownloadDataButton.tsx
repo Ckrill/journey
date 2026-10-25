@@ -22,7 +22,9 @@ import Paragraph from '../Paragraph/Paragraph';
 const fetchAllHabits = async () => {
   const { data, error } = await supabase
     .from('habits')
-    .select('id, name, planned_days, weekly_target, active, created_at')
+    .select(
+      'id, name, planned_days, weekly_target, goal_description, goal_months, active, created_at',
+    )
     .order('created_at');
 
   if (error) throw error;
