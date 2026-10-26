@@ -1,7 +1,7 @@
 .code {
-  inline-size: calc(100% - (2 * var(--spacing)));
-  padding: var(--spacing);
+  inline-size: calc(100% - (2 * var(--space-base)));
+  padding: var(--space-base);
   overflow-wrap: break-word;
-  background-color: var(--stroke);
-  border-radius: 4px;
+  background-color: var(--color-border);
+  border-radius: var(--radius-base);
 }

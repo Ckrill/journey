@@ -1,7 +1,7 @@
 .container {
   box-sizing: border-box;
   inline-size: 100%;
-  max-inline-size: var(--form-size);
+  max-inline-size: var(--size-form);
   padding-block: 10px;
 }
 
@@ -17,15 +17,15 @@
 
 .required {
   margin-inline-start: 4px;
-  color: var(--error-color);
+  color: var(--color-error);
 }
 
 .field {
   position: relative;
-  transition: transform var(--rapid);
+  transition: transform var(--duration-rapid);
 
   &:focus-within {
-    transform: scale(1.02);
+    transform: scale(var(--scale-focus));
   }
 }
 
@@ -39,8 +39,9 @@
   line-height: calc(24rem / 16);
   letter-spacing: 1px;
   appearance: textfield;
-  border: 2px solid #eee;
-  border-radius: 4px;
+  background-color: var(--color-field);
+  border: 2px solid var(--color-border-subtle);
+  border-radius: var(--radius-base);
 
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button {
@@ -50,11 +51,11 @@
 
   &:focus {
     outline: none;
-    border-color: #ff6c55;
+    border-color: var(--color-brand-secondary);
   }
 
   &--error {
-    border-color: var(--error-color);
+    border-color: var(--color-error);
   }
 }
 
@@ -85,7 +86,7 @@
   font-size: calc(12rem / 16);
   font-weight: 700;
   line-height: calc(18rem / 16);
-  color: var(--error-color);
+  color: var(--color-error);
   text-transform: uppercase;
   word-spacing: var(--word-spacing-spacious);
   letter-spacing: var(--letter-spacing-spacious);

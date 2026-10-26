@@ -1,7 +1,7 @@
 .container {
   box-sizing: border-box;
   inline-size: 100%;
-  max-inline-size: var(--form-size);
+  max-inline-size: var(--size-form);
   padding-block: 10px;
 }
 
@@ -26,18 +26,19 @@
   font-size: calc(18rem / 16);
   line-height: calc(24rem / 16);
   resize: vertical;
-  border: 2px solid #eee;
-  border-radius: 4px;
-  transition: transform var(--rapid);
+  background-color: var(--color-field);
+  border: 2px solid var(--color-border-subtle);
+  border-radius: var(--radius-base);
+  transition: transform var(--duration-rapid);
 
   &:focus {
     outline: none;
-    border-color: #ff6c55;
-    transform: scale(1.02);
+    border-color: var(--color-brand-secondary);
+    transform: scale(var(--scale-focus));
   }
 
   &--error {
-    border-color: var(--error-color);
+    border-color: var(--color-error);
   }
 }
 
@@ -57,7 +58,7 @@
   font-size: calc(12rem / 16);
   font-weight: 700;
   line-height: calc(18rem / 16);
-  color: var(--error-color);
+  color: var(--color-error);
   text-transform: uppercase;
   word-spacing: var(--word-spacing-spacious);
   letter-spacing: var(--letter-spacing-spacious);

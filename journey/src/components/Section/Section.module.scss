@@ -5,8 +5,8 @@
   display: flex;
   flex-direction: column;
   inline-size: 100%;
-  max-inline-size: var(--max-size);
-  padding-inline: var(--spacing);
+  max-inline-size: var(--size-content-max);
+  padding-inline: var(--space-base);
   margin-block-start: 20px;
 }
 

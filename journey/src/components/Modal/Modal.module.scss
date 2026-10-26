@@ -74,30 +74,30 @@
 
 .sheet {
   box-sizing: border-box;
-  padding: var(--spacing);
+  padding: var(--space-base);
 
   // Start-aligned so a tall sheet has a stop at its top edge; a short one clamps
   // to the bottom. `always` stops momentum there instead of flinging into "closed".
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  background: var(--background);
+  background: var(--color-background);
 }
 
 // On larger screens, center the dialog and fade/scale it in instead.
 @media (width >= 600px) {
   .dialog {
-    max-inline-size: var(--max-size);
+    max-inline-size: var(--size-content-max);
     block-size: fit-content;
-    max-block-size: calc(100dvh - 2 * var(--spacing));
+    max-block-size: calc(100dvh - 2 * var(--space-base));
     margin: auto;
     overflow-y: auto;
     opacity: 0;
     transform: scale(0.95);
     transition:
-      transform var(--fast),
-      opacity var(--fast),
-      display var(--fast) allow-discrete,
-      overlay var(--fast) allow-discrete;
+      transform var(--duration-fast),
+      opacity var(--duration-fast),
+      display var(--duration-fast) allow-discrete,
+      overlay var(--duration-fast) allow-discrete;
 
     &[open] {
       opacity: 1;
@@ -113,9 +113,9 @@
       background: rgb(0 0 0 / 35%);
       opacity: 0;
       transition:
-        opacity var(--fast),
-        display var(--fast) allow-discrete,
-        overlay var(--fast) allow-discrete;
+        opacity var(--duration-fast),
+        display var(--duration-fast) allow-discrete,
+        overlay var(--duration-fast) allow-discrete;
     }
 
     &[open]::backdrop {

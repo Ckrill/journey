@@ -2,8 +2,8 @@
   display: grid;
   grid-auto-columns: 100%;
   grid-auto-flow: column;
-  inline-size: calc(100% + 2 * var(--spacing));
-  margin-inline: calc(-1 * var(--spacing));
+  inline-size: calc(100% + 2 * var(--space-base));
+  margin-inline: calc(-1 * var(--space-base));
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
@@ -11,7 +11,7 @@
 }
 
 .slide {
-  padding-inline: var(--spacing);
+  padding-inline: var(--space-base);
   scroll-snap-align: start;
   scroll-snap-stop: always;
 }

@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 6px;
   inline-size: 100%;
-  padding-block: var(--spacing);
+  padding-block: var(--space-base);
 }
 
 .header {
@@ -21,7 +21,7 @@
   padding: 0;
   font-size: calc(16rem / 16);
   font-weight: 600;
-  color: var(--text);
+  color: var(--color-text);
   text-align: start;
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-tight);
@@ -38,16 +38,16 @@
   font-size: calc(16rem / 16);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
-  color: var(--stroke);
+  color: var(--color-text-faint);
   white-space: nowrap;
   opacity: 0.4;
   transition:
-    color var(--fast),
-    opacity var(--fast);
+    color var(--duration-fast),
+    opacity var(--duration-fast);
 
   // This week's target is met, so the streak is secured.
   &.active {
-    color: var(--text);
+    color: var(--color-text);
     opacity: 1;
   }
 

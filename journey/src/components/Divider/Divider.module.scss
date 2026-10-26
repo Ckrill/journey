@@ -8,7 +8,7 @@
 }
 
 .divider[data-appearance='faint'] .ruler {
-  block-size: var(--stroke-width);
+  block-size: var(--border-width);
 }
 
 .divider[data-spacing='spacious'] {
@@ -20,9 +20,9 @@
   inset-block: 0;
   inset-inline-start: 0;
   inline-size: 100%;
-  block-size: calc(2 * var(--stroke-width));
+  block-size: calc(2 * var(--border-width));
   margin-block: auto;
-  background-color: var(--stroke);
+  background-color: var(--color-border);
   border: none;
 }
 
@@ -30,7 +30,7 @@
   position: relative;
   padding-inline: 20px;
   text-align: center;
-  background-color: var(--background);
+  background-color: var(--color-background);
 }
 
 .text {

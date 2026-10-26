@@ -2,7 +2,7 @@
   box-sizing: border-box;
   inline-size: 100%;
   padding-block: 20px;
-  background-color: #ff6c55;
+  background-color: var(--color-brand-primary);
 }
 
 .list {
@@ -22,7 +22,7 @@
   position: relative;
   padding: 10px;
   font-weight: 700;
-  color: #62355c;
+  color: var(--color-brand-secondary);
   text-transform: uppercase;
   text-decoration: none;
   user-select: none;
@@ -35,6 +35,6 @@
     inset-inline-start: 10px;
     inline-size: calc(100% - 20px);
     block-size: 2px;
-    background-color: #62355c;
+    background-color: var(--color-brand-secondary);
   }
 }

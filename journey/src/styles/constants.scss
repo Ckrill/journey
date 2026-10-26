@@ -1,61 +1,58 @@
 :root {
-  --primary-color: #34495e;
-  --primary-color--darker: #2c3e50;
-  --text: #424242;
-  --text-bright: #787987;
-  --stroke: #bbb;
-  --accent-color: #ff6c55;
-  --accent-color-2: #62355c;
-
-  /* --stroke-dark: var(--text); */
-
-  /* --highlight: #e9edf0; */
-
-  --background: #f5f5f5;
-  --error-color: orange;
-
-  //  Logo colors
-  // --primary-color: #FF6C55;
-  // --text-bright: #62355C;
-  // --font-family: "Rubik Black Italic", "Arial Black", sans-serif;
+  /* Colors */
+  --color-ui: #34495e;
+  --color-ui-dark: #2c3e50;
+  --color-brand-primary: #ff6c55;
+  --color-brand-secondary: #62355c;
+  --color-text: #424242;
+  --color-text-muted: #787987;
+  --color-text-faint: #bbb;
+  --color-on-ui: #fff;
+  --color-border: #bbb;
+  --color-border-subtle: #eee;
+  --color-border-strong: #9098a9;
+  --color-background: #f5f5f5;
+  --color-field: #fff;
+  --color-error: orange;
+  --color-info: #3498db;
 
   /* Sizes */
-  --max-size: 500px;
-  --form-size: 350px;
+  --size-content-max: 500px;
+  --size-form: 350px;
+  --border-width: 1px;
+  --radius-base: 4px;
 
   /* Spacing */
-  --spacing: 20px;
-  --stroke-width: 1px;
+  --space-base: 20px;
 
   /* Animations */
-  --instant: 0s;
-  --rapid: 0.1s;
-  --fast: 0.3s;
-  --slow: 0.5s;
-  --turtle: 1s;
+  --duration-instant: 0s;
+  --duration-rapid: 0.1s;
+  --duration-fast: 0.3s;
+  --duration-slow: 0.5s;
+  --duration-turtle: 1s;
+  --scale-focus: 1.02;
+  --scale-press: 0.98;
 
   /* Typography */
   --font-family: 'IBM Plex Sans', 'Helvetica Neue', arial, sans-serif;
-  --font-family-mono: 'IBM Plex Mono', 'IBM Plex Mono', courier, monospace;
-
-  /* Letter spacing */
+  --font-family-mono: 'IBM Plex Mono', courier, monospace;
   --letter-spacing-tight: 0.025em;
   --letter-spacing-spacious: 0.075em;
   --word-spacing-spacious: 0.15em;
 
-  // Old ring colors
+  // --stroke-dark: var(--text);
+  // --highlight: #e9edf0;
+
+  /* Old ring colors */
   // --ring-color: #ff6c55;
   // --ring-bg: #ff6c5522;
-
   // --ring-color: #62355c;
   // --ring-bg: #62355c22;
-
   // --ring-color: #34495e;
   // --ring-bg: #34495e22;
-
   // --ring-color: #3498db;
   // --ring-bg: #3498db22;
-
   // --ring-color: #2ecc71;
   // --ring-bg: #2ecc7122;
 }

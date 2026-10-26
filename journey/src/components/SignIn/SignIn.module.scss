@@ -4,7 +4,7 @@
   inline-size: 100%;
   block-size: 100vh;
   overflow: hidden;
-  background-color: #ff6c55;
+  background-color: var(--color-brand-primary);
 }
 
 .title {
@@ -17,7 +17,7 @@
   font-family: Rubik, Arial, Helvetica, sans-serif;
   font-size: clamp(30rem / 16, 15vw, 150rem / 16);
   font-weight: 900;
-  color: #62355c;
+  color: var(--color-brand-secondary);
   text-transform: uppercase;
   overflow-wrap: break-word;
   transform: skewY(-20deg);

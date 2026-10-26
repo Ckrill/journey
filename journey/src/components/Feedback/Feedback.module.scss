@@ -7,11 +7,11 @@
   overflow: hidden;
   pointer-events: none;
   opacity: 0;
-  transition: opacity var(--fast) var(--rapid);
+  transition: opacity var(--duration-fast) var(--duration-rapid);
 
   &.show {
     opacity: 1;
-    transition: opacity var(--instant);
+    transition: opacity var(--duration-instant);
   }
 
   &::before {
@@ -21,10 +21,10 @@
     inline-size: 150vmax;
     block-size: 150vmax;
     content: '';
-    background-color: #ff6c55;
+    background-color: var(--color-brand-primary);
     border-radius: 150vmax;
     transform: translate(-50%, -50%) scale(0);
-    transition: transform var(--instant) calc(var(--rapid) + var(--fast)); // Wait for .overlay to finish animation
+    transition: transform var(--duration-instant) calc(var(--duration-rapid) + var(--duration-fast)); // Wait for .overlay to finish animation
     will-change: transform;
   }
 
@@ -33,7 +33,7 @@
 
     &::before {
       transform: translate(-50%, -50%) scale(1);
-      transition: transform var(--slow);
+      transition: transform var(--duration-slow);
     }
   }
 }
@@ -49,13 +49,13 @@
   justify-content: center;
   inline-size: 100%;
   block-size: 100%;
-  padding: var(--spacing);
-  color: #62355c;
+  padding: var(--space-base);
+  color: var(--color-brand-secondary);
 }
 
 .heading {
   inline-size: 100%;
-  padding-inline: var(--spacing);
+  padding-inline: var(--space-base);
   margin-block: 0 20px;
   font-family: Rubik, Arial, Helvetica, sans-serif;
   font-size: clamp(75rem / 16, 25vw, 150rem / 16);
@@ -65,7 +65,7 @@
   text-transform: uppercase;
   overflow-wrap: break-word;
   transform: skewY(-20deg) translateX(100%);
-  transition: transform var(--fast);
+  transition: transform var(--duration-fast);
   will-change: transform;
 
   &--l {
@@ -94,13 +94,13 @@
 
   .show & {
     transform: skewY(-20deg);
-    transition: transform var(--fast) var(--slow);
+    transition: transform var(--duration-fast) var(--duration-slow);
   }
 }
 
 .paragraph {
   inline-size: 100%;
-  padding-inline: var(--spacing);
+  padding-inline: var(--space-base);
   margin-block: 0 50px;
   font-family: Rubik, Arial, Helvetica, sans-serif;
   font-size: clamp(20rem / 16, 7vw, 50rem / 16);
@@ -108,11 +108,11 @@
   text-align: center;
   text-transform: uppercase;
   transform: skewY(-20deg) translateX(-100%);
-  transition: transform var(--fast);
+  transition: transform var(--duration-fast);
   will-change: transform;
 
   .show & {
     transform: skewY(-20deg);
-    transition: transform var(--fast) var(--slow);
+    transition: transform var(--duration-fast) var(--duration-slow);
   }
 }

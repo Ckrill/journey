@@ -2,7 +2,7 @@
   box-sizing: border-box;
   inline-size: 100%;
   min-inline-size: 0;
-  max-inline-size: var(--form-size);
+  max-inline-size: var(--size-form);
   padding-block: 10px;
   padding-inline: 0;
   margin: 0;
@@ -23,14 +23,26 @@
 }
 
 .pill {
+  --pill-border: 2px;
+  --pill-radius: 4px;
+  --pill-border-color: var(--color-border-subtle);
+
   clear: both;
   display: flex;
   align-items: stretch;
   block-size: 44px;
   overflow: hidden;
-  border: 2px solid var(--accent-color-2);
-  border-radius: 22px;
-  transition: opacity var(--fast);
+  border: var(--pill-border) solid var(--pill-border-color);
+  border-radius: var(--pill-radius);
+  transition:
+    opacity var(--duration-fast),
+    transform var(--duration-rapid);
+
+  &:focus-within {
+    --pill-border-color: var(--color-brand-secondary);
+
+    transform: scale(var(--scale-focus));
+  }
 
   .container:disabled & {
     opacity: 0.3;
@@ -43,7 +55,18 @@
   flex: 1;
 
   & + & {
-    border-inline-start: 2px solid var(--accent-color-2);
+    border-inline-start: var(--pill-border) solid var(--pill-border-color);
+  }
+
+  // Inner radius sits inside the border.
+  &:first-child .face {
+    border-start-start-radius: calc(var(--pill-radius) - var(--pill-border));
+    border-end-start-radius: calc(var(--pill-radius) - var(--pill-border));
+  }
+
+  &:last-child .face {
+    border-start-end-radius: calc(var(--pill-radius) - var(--pill-border));
+    border-end-end-radius: calc(var(--pill-radius) - var(--pill-border));
   }
 }
 
@@ -67,20 +90,20 @@
   justify-content: center;
   font-size: calc(16rem / 16);
   font-weight: 900;
-  color: var(--stroke);
-  background-color: var(--background);
+  color: var(--color-text-faint);
+  background-color: var(--color-field);
   transition:
-    background-color var(--fast),
-    color var(--fast);
+    background-color var(--duration-fast),
+    color var(--duration-fast);
 
   .input:checked + & {
-    color: var(--accent-color-2);
-    background-color: var(--accent-color);
+    color: var(--color-brand-secondary);
+    background-color: var(--color-brand-primary);
   }
 
   .input:focus-visible + & {
-    outline: 2px solid var(--accent-color-2);
-    outline-offset: -6px;
+    outline: 2px solid var(--color-brand-secondary);
+    outline-offset: -2px;
   }
 }
 
@@ -100,7 +123,7 @@
   font-size: calc(12rem / 16);
   font-weight: 700;
   line-height: calc(18rem / 16);
-  color: var(--error-color);
+  color: var(--color-error);
   text-transform: uppercase;
   word-spacing: var(--word-spacing-spacious);
   letter-spacing: var(--letter-spacing-spacious);

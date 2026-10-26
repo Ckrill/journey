@@ -3,6 +3,6 @@
   flex-direction: column;
   align-items: center;
   inline-size: 100%;
-  max-inline-size: var(--form-size);
-  margin-block-start: var(--spacing);
+  max-inline-size: var(--size-form);
+  margin-block-start: var(--space-base);
 }

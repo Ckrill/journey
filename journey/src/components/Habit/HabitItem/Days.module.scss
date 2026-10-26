@@ -3,7 +3,7 @@
   align-items: stretch;
   block-size: 44px;
   overflow: hidden;
-  border: 2px solid var(--accent-color-2);
+  border: 2px solid var(--color-brand-secondary);
   border-radius: 22px;
 }
 
@@ -16,29 +16,29 @@
   padding: 0;
   font-size: calc(16rem / 16);
   font-weight: 900;
-  color: var(--stroke);
+  color: var(--color-text-faint);
   cursor: pointer;
-  background-color: var(--background);
+  background-color: var(--color-field);
   border: none;
   transition:
-    background-color var(--fast),
-    color var(--fast),
-    opacity var(--fast);
+    background-color var(--duration-fast),
+    color var(--duration-fast),
+    opacity var(--duration-fast);
 
   & + & {
-    border-inline-start: 2px solid var(--accent-color-2);
+    border-inline-start: 2px solid var(--color-brand-secondary);
   }
 
   &:not(:disabled):hover {
     @media (hover: hover) {
-      color: var(--accent-color-2);
-      transition: color var(--rapid);
+      color: var(--color-brand-secondary);
+      transition: color var(--duration-rapid);
     }
   }
 
   &:disabled {
     cursor: not-allowed;
-    border-color: var(--accent-color-2);
+    border-color: var(--color-brand-secondary);
   }
 
   &.today::after {
@@ -63,7 +63,7 @@
     background-color: currentcolor;
     border-radius: 1px;
     scale: 0 1;
-    transition: scale var(--fast);
+    transition: scale var(--duration-fast);
   }
 
   &.planned::before {
@@ -73,15 +73,15 @@
   // Not scoped to `:not(:disabled)`: the cell is disabled while pending, and
   // the optimistic fill should show immediately.
   &.done {
-    color: var(--accent-color-2);
-    background-color: var(--accent-color);
+    color: var(--color-brand-secondary);
+    background-color: var(--color-brand-primary);
   }
 }
 
 .content {
   display: grid;
   place-items: center;
-  transition: scale var(--rapid);
+  transition: scale var(--duration-rapid);
 
   @media (hover: hover) {
     .day:not(:disabled):hover & {
@@ -99,8 +99,8 @@
 .check {
   grid-area: 1 / 1;
   transition:
-    opacity var(--fast),
-    scale var(--fast);
+    opacity var(--duration-fast),
+    scale var(--duration-fast);
 }
 
 .check {

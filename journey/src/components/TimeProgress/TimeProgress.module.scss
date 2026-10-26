@@ -14,14 +14,14 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing);
+  gap: var(--space-base);
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
 .item {
-  --bar-color: #3498db;
+  --bar-color: var(--color-info);
   --multiplier: sibling-index();
 
   display: flex;
@@ -36,12 +36,12 @@
 // }
 
 .time {
-  --bar-color: #62355c;
+  --bar-color: var(--color-brand-secondary);
 }
 
 .header {
   display: flex;
-  gap: var(--spacing);
+  gap: var(--space-base);
   align-items: baseline;
   justify-content: space-between;
 }
@@ -90,7 +90,7 @@
   background: var(--bar-color);
   border-radius: 8px;
   animation: progress-fill calc(var(--progress) * 10ms) ease-in-out both;
-  animation-delay: calc(var(--multiplier) * 0.3s);
+  animation-delay: calc(var(--multiplier) * var(--duration-fast));
 }
 
 @keyframes progress-fill {
