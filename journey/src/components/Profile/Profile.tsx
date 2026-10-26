@@ -98,8 +98,8 @@ const Profile = () => {
         your time.
       </Paragraph>
 
-      <Paragraph>
-        Source: UN World Population Prospects 2024, via Our World in Data.
+      <Paragraph size="fine">
+        Source: UN World Population Prospects 2024.
       </Paragraph>
     </>
   );

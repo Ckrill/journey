@@ -120,10 +120,10 @@ const Journey = () => {
           </Button>
 
           <Button
-            data-priority="secondary"
             onClick={() => {
               void navigate({ to: '/retro' });
             }}
+            priority="secondary"
             type="button"
           >
             Weekly retro

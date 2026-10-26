@@ -57,7 +57,7 @@ const Retro = () => {
         </Section>
 
         <Section>
-          <Divider data-appearance="faint" data-spacing="spacious" />
+          <Divider appearance="faint" spacing="spacious" />
         </Section>
 
         <Section>

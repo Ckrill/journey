@@ -10,6 +10,7 @@ import { pageTransition, pageVariants } from '../settings/pageTransition';
 // Utilities
 import { saveToLocalStorage } from '../helpers/localStorage';
 
+import { useSession } from '../contexts/authContext';
 // Contexts
 import { useSettings } from '../contexts/settingsContext';
 
@@ -23,6 +24,7 @@ import ChangePasswordModal from '../components/ChangePassword/ChangePasswordModa
 import DeleteAccountModal from '../components/DeleteAccount/DeleteAccountModal';
 import Divider from '../components/Divider/Divider';
 import DownloadDataButton from '../components/DownloadData/DownloadDataButton';
+import Input from '../components/Form/Input/Input';
 import Heading from '../components/Heading/Heading';
 import Paragraph from '../components/Paragraph/Paragraph';
 import Preferences from '../components/Preferences/Preferences';
@@ -33,6 +35,7 @@ import { supabase } from '../lib/supabase';
 
 const Settings = () => {
   const queryClient = useQueryClient();
+  const session = useSession();
   const [passwordOpen, setPasswordOpen] = useState(false);
   const [passwordSaved, setPasswordSaved] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
@@ -70,15 +73,23 @@ const Settings = () => {
         </Section>
 
         <Section>
-          <Divider data-appearance="faint" data-spacing="spacious" />
+          <Divider appearance="faint" spacing="spacious" />
         </Section>
 
         <Section>
           <Profile />
 
-          <Divider data-appearance="faint" data-spacing="spacious" />
+          <Divider appearance="faint" spacing="spacious" />
 
-          <Heading>Password</Heading>
+          <Heading>Account</Heading>
+
+          <Input
+            disabled
+            id="email"
+            labelText="Email"
+            type="email"
+            value={session?.user.email ?? ''}
+          />
 
           <Button
             onClick={() => {
@@ -104,7 +115,7 @@ const Settings = () => {
         </Section>
 
         <Section>
-          <Divider data-appearance="faint" data-spacing="spacious" />
+          <Divider appearance="faint" spacing="spacious" />
         </Section>
 
         <Section>
@@ -118,11 +129,11 @@ const Settings = () => {
           <DownloadDataButton />
 
           <Button
-            data-priority="secondary"
-            data-tone="danger"
             onClick={() => {
               setDeleteOpen(true);
             }}
+            priority="secondary"
+            tone="danger"
           >
             Delete account
           </Button>
@@ -139,7 +150,7 @@ const Settings = () => {
         </Section>
 
         <Section>
-          <Divider data-appearance="faint" data-spacing="spacious" />
+          <Divider appearance="faint" spacing="spacious" />
         </Section>
 
         <Section>

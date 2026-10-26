@@ -125,7 +125,7 @@ const DeleteAccountModal = ({ onClose, onDeleted, open }: Props) => {
             />
 
             <FormActions>
-              <Button data-tone="danger" disabled={deleting} type="submit">
+              <Button disabled={deleting} tone="danger" type="submit">
                 {deleting ? 'Deleting' : 'Delete account'}
               </Button>
             </FormActions>

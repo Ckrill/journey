@@ -5,12 +5,14 @@ import React from 'react';
 import styles from './Paragraph.module.scss';
 
 interface Props {
+  align?: 'left';
   children: React.ReactNode;
+  size?: 'fine';
 }
 
-const Paragraph = (props: Props) => (
-  <p className={styles.paragraph} {...props}>
-    {props.children}
+const Paragraph = ({ align, children, size }: Props) => (
+  <p className={styles.paragraph} data-align={align} data-size={size}>
+    {children}
   </p>
 );
 

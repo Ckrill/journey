@@ -226,10 +226,10 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
 
               {isEdit && (
                 <Button
-                  data-priority="secondary"
-                  data-tone="danger"
                   disabled={isPending}
                   onClick={handleArchive}
+                  priority="secondary"
+                  tone="danger"
                   type="button"
                 >
                   Archive habit

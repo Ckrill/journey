@@ -4,12 +4,16 @@ import React from 'react';
 // Styles
 import styles from './Button.module.scss';
 
-type Props = React.ButtonHTMLAttributes<HTMLButtonElement>;
+type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  priority?: 'primary' | 'secondary';
+  tone?: 'danger';
+};
 
-const Button = ({ children, ...rest }: Props) => (
+const Button = ({ children, priority = 'primary', tone, ...rest }: Props) => (
   <button
     className={styles.button}
-    data-priority="primary"
+    data-priority={priority}
+    data-tone={tone}
     type="button"
     {...rest}
   >

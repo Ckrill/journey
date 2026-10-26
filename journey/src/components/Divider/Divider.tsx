@@ -2,15 +2,21 @@
 import styles from './Divider.module.scss';
 
 interface Props {
+  appearance?: 'faint';
+  spacing?: 'spacious';
   text?: string;
 }
 
-const Divider = (props: Props) => (
-  <div className={styles.divider} {...props}>
+const Divider = ({ appearance, spacing, text }: Props) => (
+  <div
+    className={styles.divider}
+    data-appearance={appearance}
+    data-spacing={spacing}
+  >
     <hr className={styles.ruler} />
-    {props.text && (
+    {text && (
       <span className={styles.mask}>
-        <span className={styles.text}>{props.text}</span>
+        <span className={styles.text}>{text}</span>
       </span>
     )}
   </div>

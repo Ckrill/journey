@@ -17,3 +17,14 @@ h2 + .paragraph,
   padding-inline: 0;
   text-align: start;
 }
+
+.paragraph[data-size='fine'] {
+  font-size: calc(12rem / 16);
+  font-style: italic;
+  line-height: calc(18rem / 16);
+  color: var(--color-text-muted);
+}
+
+.paragraph + .paragraph[data-size='fine'] {
+  margin-block-start: 10px;
+}
