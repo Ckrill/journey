@@ -4,14 +4,15 @@ import { createContext, type ReactNode, use, useState } from 'react';
 // Utilities
 import { getFromLocalStorage } from '../helpers/localStorage';
 
-const SettingsContext = createContext<{
-  birthYear?: number;
-  sound: boolean;
-  vibration: boolean;
-}>({ birthYear: undefined, sound: true, vibration: true });
-const SettingsUpdateContext = createContext<
-  (settings: { birthYear?: number; sound: boolean; vibration: boolean }) => void
->(() => null);
+// Types
+import type { Settings } from '../types/types';
+
+const defaultSettings: Settings = { sound: true, vibration: true };
+
+const SettingsContext = createContext<Settings>(defaultSettings);
+const SettingsUpdateContext = createContext<(settings: Settings) => void>(
+  () => null,
+);
 
 export const useSettings = () => use(SettingsContext);
 export const useSettingsUpdate = () => use(SettingsUpdateContext);
@@ -21,16 +22,8 @@ interface Props {
 }
 
 export const SettingsProvider = ({ children }: Props) => {
-  const [settings, setSettings] = useState<{
-    birthYear?: number;
-    sound: boolean;
-    vibration: boolean;
-  }>(
-    () =>
-      getFromLocalStorage('settings') ?? {
-        sound: true,
-        vibration: true,
-      },
+  const [settings, setSettings] = useState<Settings>(
+    () => getFromLocalStorage('settings') ?? defaultSettings,
   );
 
   return (

@@ -1,0 +1,37 @@
+{
+  "world": {
+    "lifeExpectancy": { "average": 73.2, "female": 75.9, "male": 70.5 }
+  },
+  "regions": [
+    {
+      "name": "Africa",
+      "lifeExpectancy": { "average": 63.8, "female": 65.9, "male": 61.8 },
+      "value": "africa"
+    },
+    {
+      "name": "Asia",
+      "lifeExpectancy": { "average": 74.6, "female": 77.2, "male": 72.1 },
+      "value": "asia"
+    },
+    {
+      "name": "Europe",
+      "lifeExpectancy": { "average": 79.1, "female": 82.6, "male": 75.5 },
+      "value": "europe"
+    },
+    {
+      "name": "Latin America and the Caribbean",
+      "lifeExpectancy": { "average": 75.7, "female": 78.6, "male": 72.8 },
+      "value": "latin-america-and-the-caribbean"
+    },
+    {
+      "name": "Northern America",
+      "lifeExpectancy": { "average": 79.6, "female": 82.2, "male": 77.2 },
+      "value": "northern-america"
+    },
+    {
+      "name": "Oceania",
+      "lifeExpectancy": { "average": 79.1, "female": 81.5, "male": 76.9 },
+      "value": "oceania"
+    }
+  ]
+}

@@ -14,8 +14,6 @@ interface Bar {
   progress: number;
 }
 
-const LIFE_YEARS = 80;
-
 const getProgress = (ticks: number, elapsed: number) =>
   Math.min(Math.max((elapsed / ticks) * 100, 0), 100);
 
@@ -75,7 +73,11 @@ const toTimeBar = (
 };
 
 /** Habits (least progressed first), then the year, then life if a birth year is set. */
-export const getTimeBars = (habits: Habits, birthYear?: number): Bar[] => {
+export const getTimeBars = (
+  habits: Habits,
+  lifeYears: number,
+  birthYear?: number,
+): Bar[] => {
   const habitBars = habits
     .map((habit) => toHabitBar(habit))
     .toSorted((a, b) => a.progress - b.progress);
@@ -95,7 +97,7 @@ export const getTimeBars = (habits: Habits, birthYear?: number): Bar[] => {
             'life',
             'Life',
             Temporal.PlainDate.from({ day: 1, month: 1, year: birthYear }),
-            { years: LIFE_YEARS },
+            { years: lifeYears },
           ),
         ]
       : []),

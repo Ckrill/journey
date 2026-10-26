@@ -76,6 +76,8 @@ const DownloadDataButton = () => {
         // Kept in this browser's local storage, not on the server.
         settings: {
           birthYear: settings.birthYear,
+          region: settings.region,
+          sex: settings.sex,
           sound: settings.sound,
           vibration: settings.vibration,
         },

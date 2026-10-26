@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 
+import { getLifeExpectancyYears } from '../../helpers/lifeExpectancy';
 import { getTimeBars } from './helpers/timeBars';
 
 import { useSettings } from '../../contexts/settingsContext';
@@ -14,7 +15,11 @@ const TimeProgress = () => {
   const settings = useSettings();
   const { data: habits } = useHabitsQuery();
 
-  const bars = getTimeBars(habits, settings.birthYear);
+  const bars = getTimeBars(
+    habits,
+    getLifeExpectancyYears(settings.region, settings.sex),
+    settings.birthYear,
+  );
 
   return (
     <ul className={styles.list}>

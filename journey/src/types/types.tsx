@@ -1,7 +1,11 @@
 import type { Enums } from './database.types';
 
+export type Sex = 'female' | 'male';
+
 export interface Settings {
   birthYear?: number;
+  region?: string;
+  sex?: Sex;
   sound: boolean;
   vibration: boolean;
 }

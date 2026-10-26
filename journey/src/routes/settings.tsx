@@ -11,7 +11,7 @@ import { pageTransition, pageVariants } from '../settings/pageTransition';
 import { saveToLocalStorage } from '../helpers/localStorage';
 
 // Contexts
-import { useSettings, useSettingsUpdate } from '../contexts/settingsContext';
+import { useSettings } from '../contexts/settingsContext';
 
 // Hooks
 import { eventsQueryOptions } from '../hooks/useEventsQuery';
@@ -23,15 +23,13 @@ import ChangePasswordModal from '../components/ChangePassword/ChangePasswordModa
 import DeleteAccountModal from '../components/DeleteAccount/DeleteAccountModal';
 import Divider from '../components/Divider/Divider';
 import DownloadDataButton from '../components/DownloadData/DownloadDataButton';
-import Input from '../components/Form/Input/Input';
 import Heading from '../components/Heading/Heading';
 import Paragraph from '../components/Paragraph/Paragraph';
 import Preferences from '../components/Preferences/Preferences';
+import Profile from '../components/Profile/Profile';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 import { supabase } from '../lib/supabase';
-
-const currentYear = new Date().getFullYear();
 
 const Settings = () => {
   const queryClient = useQueryClient();
@@ -39,11 +37,6 @@ const Settings = () => {
   const [passwordSaved, setPasswordSaved] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const settings = useSettings();
-  const setSettings = useSettingsUpdate();
-
-  const birthError =
-    settings.birthYear !== undefined &&
-    (settings.birthYear < 1900 || settings.birthYear > currentYear);
 
   const handleSignOut = async () => {
     localStorage.clear();
@@ -57,11 +50,6 @@ const Settings = () => {
     // The user no longer exists server-side, so only end the local session.
     await supabase.auth.signOut({ scope: 'local' });
     queryClient.clear();
-  };
-
-  const handleBirthYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.valueAsNumber;
-    setSettings({ ...settings, birthYear: value || undefined });
   };
 
   useEffect(() => {
@@ -86,19 +74,7 @@ const Settings = () => {
         </Section>
 
         <Section>
-          <Heading>Profile</Heading>
-
-          <Input
-            assistiveText="Optional. Used for your personal clock."
-            errorText={birthError ? 'Please enter a valid year.' : undefined}
-            id="birthYear"
-            labelText="Year of birth"
-            max={currentYear}
-            min={1900}
-            onChange={handleBirthYearChange}
-            type="number"
-            value={settings.birthYear}
-          />
+          <Profile />
 
           <Divider data-appearance="faint" data-spacing="spacious" />
 
