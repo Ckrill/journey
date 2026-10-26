@@ -2,6 +2,9 @@
 import clsx from 'clsx';
 import React from 'react';
 
+// Miscellaneous
+import FieldMessage from '../FieldMessage/FieldMessage';
+
 // Styles
 import styles from './Input.module.scss';
 
@@ -45,9 +48,7 @@ const FormInput = ({
       )}
     </div>
 
-    {!errorText && <p className={styles.assistive}>{assistiveText}</p>}
-
-    {errorText && <p className={styles.error}>{errorText}</p>}
+    <FieldMessage assistiveText={assistiveText} errorText={errorText} />
   </div>
 );
 

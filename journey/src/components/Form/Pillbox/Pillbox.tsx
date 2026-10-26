@@ -1,3 +1,6 @@
+// Miscellaneous
+import FieldMessage from '../FieldMessage/FieldMessage';
+
 // Styles
 import styles from './Pillbox.module.scss';
 
@@ -63,9 +66,7 @@ const Pillbox = <T extends string>({
         ))}
       </div>
 
-      {!errorText && <p className={styles.assistive}>{assistiveText}</p>}
-
-      {errorText && <p className={styles.error}>{errorText}</p>}
+      <FieldMessage assistiveText={assistiveText} errorText={errorText} />
     </fieldset>
   );
 };

@@ -3,6 +3,9 @@ import clsx from 'clsx';
 import React from 'react';
 import { BsCheck, BsChevronDown } from 'react-icons/bs';
 
+// Miscellaneous
+import FieldMessage from '../FieldMessage/FieldMessage';
+
 // Styles
 import styles from './Select.module.scss';
 
@@ -69,9 +72,7 @@ const FormSelect = ({
       <BsChevronDown aria-hidden className={styles.chevron} />
     </div>
 
-    {!errorText && <p className={styles.assistive}>{assistiveText}</p>}
-
-    {errorText && <p className={styles.error}>{errorText}</p>}
+    <FieldMessage assistiveText={assistiveText} errorText={errorText} />
   </div>
 );
 

@@ -41,25 +41,3 @@
     border-color: var(--color-error);
   }
 }
-
-.assistive {
-  min-block-size: calc(18rem / 16);
-  margin-block: 4px 0;
-  margin-inline: 4px;
-  font-size: calc(12rem / 16);
-  font-style: italic;
-  line-height: calc(18rem / 16);
-}
-
-.error {
-  min-block-size: calc(18rem / 16);
-  margin-block: 4px 0;
-  margin-inline: 4px;
-  font-size: calc(12rem / 16);
-  font-weight: 700;
-  line-height: calc(18rem / 16);
-  color: var(--color-error);
-  text-transform: uppercase;
-  word-spacing: var(--word-spacing-spacious);
-  letter-spacing: var(--letter-spacing-spacious);
-}
