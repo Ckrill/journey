@@ -4,6 +4,7 @@ import React from 'react';
 import { BsCheck, BsChevronDown } from 'react-icons/bs';
 
 // Miscellaneous
+import FieldLabel from '../FieldLabel/FieldLabel';
 import FieldMessage from '../FieldMessage/FieldMessage';
 
 // Styles
@@ -34,14 +35,9 @@ const FormSelect = ({
   ...props
 }: Props) => (
   <div className={styles.container}>
-    <label className={styles.label} htmlFor={props.id}>
+    <FieldLabel htmlFor={props.id} required={required}>
       {labelText}
-      {required && (
-        <span aria-hidden className={styles.required}>
-          *
-        </span>
-      )}
-    </label>
+    </FieldLabel>
 
     <div className={styles.field}>
       <select

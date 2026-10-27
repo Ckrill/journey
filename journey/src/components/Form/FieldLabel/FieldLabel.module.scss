@@ -1,0 +1,18 @@
+.label {
+  display: flex;
+  align-items: center;
+  margin-block-end: 4px;
+  margin-inline-start: 4px;
+  font-size: calc(12rem / 16);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-spacious);
+}
+
+// .text {
+// }
+
+.required {
+  margin-inline-start: 3px;
+  color: var(--color-error);
+}

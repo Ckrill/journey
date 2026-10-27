@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import React from 'react';
 
 // Miscellaneous
+import FieldLabel from '../FieldLabel/FieldLabel';
 import FieldMessage from '../FieldMessage/FieldMessage';
 
 // Styles
@@ -25,14 +26,9 @@ const FormInput = ({
   ...props
 }: Props) => (
   <div className={styles.container}>
-    <label className={styles.label} htmlFor={props.id}>
+    <FieldLabel htmlFor={props.id} required={required}>
       {labelText}
-      {required && (
-        <span aria-hidden className={styles.required}>
-          *
-        </span>
-      )}
-    </label>
+    </FieldLabel>
 
     <div className={styles.field}>
       <input

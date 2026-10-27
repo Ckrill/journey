@@ -5,16 +5,6 @@
   padding-block: 10px;
 }
 
-.label {
-  display: block;
-  margin-block-end: 4px;
-  margin-inline-start: 4px;
-  font-size: calc(12rem / 16);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-spacious);
-}
-
 .textarea {
   box-sizing: border-box;
   display: block;

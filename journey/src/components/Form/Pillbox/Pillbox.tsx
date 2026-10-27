@@ -1,7 +1,11 @@
+// External
+import clsx from 'clsx';
+
 // Miscellaneous
 import FieldMessage from '../FieldMessage/FieldMessage';
 
 // Styles
+import labelStyles from '../FieldLabel/FieldLabel.module.scss';
 import styles from './Pillbox.module.scss';
 
 export interface PillboxOption<T extends string> {
@@ -44,7 +48,9 @@ const Pillbox = <T extends string>({
 
   return (
     <fieldset className={styles.container} disabled={disabled}>
-      <legend className={styles.label}>{labelText}</legend>
+      <legend className={clsx(labelStyles.label, styles.legend)}>
+        {labelText}
+      </legend>
 
       <div className={styles.pill}>
         {options.map((option) => (

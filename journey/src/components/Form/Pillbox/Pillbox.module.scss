@@ -9,17 +9,12 @@
   border: none;
 }
 
-// Floating the legend opts it out of the browser's border-edge placement.
-.label {
+// Text styles come from FieldLabel; floating the legend opts it out of the
+// browser's border-edge placement.
+.legend {
   float: inline-start;
   inline-size: 100%;
   padding: 0;
-  margin-block-end: 4px;
-  margin-inline-start: 4px;
-  font-size: calc(12rem / 16);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-spacious);
 }
 
 .pill {
