@@ -1,95 +1,56 @@
 .container {
-  --checkbox-background: var(--color-ui);
-}
-
-.inputCheckbox {
-  display: none;
-}
-
-.checkbox {
-  margin: auto;
+  position: relative;
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+}
 
-  span {
-    box-sizing: border-box;
-    display: inline-block;
-    vertical-align: middle;
-    transform: translate3d(0, 0, 0);
+// Covers the whole row so the native control stays focusable and clickable.
+.input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+  opacity: 0;
+}
 
-    &:first-child {
-      position: relative;
-      inline-size: 28px;
-      block-size: 28px;
-      vertical-align: middle;
-      border: 1px solid var(--color-border-strong);
-      border-radius: 3px;
-      transform: scale(1);
-      transition: all 0.2s ease;
+.box {
+  box-sizing: border-box;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  inline-size: 44px;
+  block-size: 44px;
+  font-size: calc(24rem / 16);
+  color: var(--color-brand-secondary);
+  background-color: var(--color-field);
+  border: 2px solid var(--color-border-subtle);
+  border-radius: var(--radius-base);
 
-      svg {
-        position: absolute;
-        inset-block-start: 3px;
-        inset-inline-start: 2px;
-        fill: none;
-        stroke: var(--color-on-ui);
-        stroke-width: 2;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-dasharray: 16px;
-        stroke-dashoffset: 16px;
-        transform: translate3d(0, 0, 0);
-        transition: all var(--duration-fast) ease;
-        transition-delay: 0.1s;
-      }
-
-      &::before {
-        z-index: -1;
-        display: block;
-        inline-size: 100%;
-        block-size: 100%;
-        pointer-events: none;
-        content: '';
-        background: var(--checkbox-background);
-        border-radius: 50%;
-        opacity: 1;
-        transform: scale(0);
-      }
-    }
-
-    &:last-child {
-      padding-inline-start: 8px;
-    }
-  }
-
-  &:hover span:first-child {
-    border-color: var(--checkbox-background);
+  .input:focus-visible + & {
+    border-color: 2px solid var(--color-brand-secondary);
   }
 }
 
-.inputCheckbox:checked + .checkbox {
-  span {
-    &:first-child {
-      background: var(--checkbox-background);
-      border-color: var(--checkbox-background);
-      animation: wave 0.4s ease;
+.icon {
+  font-size: calc(30rem / 16);
+  opacity: 0;
+  transform: scale(0.5);
+  transition:
+    opacity var(--duration-fast),
+    transform var(--duration-rapid);
 
-      svg {
-        stroke-dashoffset: 0;
-      }
-
-      &::before {
-        opacity: 0;
-        transform: scale(3.5);
-        transition: all 0.6s ease;
-      }
-    }
+  .input:checked + .box & {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
-@keyframes wave {
-  50% {
-    transform: scale(0.9);
-  }
+.label {
+  font-size: calc(18rem / 16);
+  letter-spacing: 1px;
 }

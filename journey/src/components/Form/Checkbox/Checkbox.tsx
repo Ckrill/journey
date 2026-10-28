@@ -1,3 +1,8 @@
+// External
+import clsx from 'clsx';
+import { useState } from 'react';
+import { BsCheck } from 'react-icons/bs';
+
 // Styles
 import styles from './Checkbox.module.scss';
 
@@ -8,24 +13,33 @@ interface Props {
   label: string;
 }
 
-const Checkbox = ({ callback, checked, id, label }: Props) => (
-  <div className={styles.container}>
-    <input
-      checked={checked}
-      className={styles.inputCheckbox}
-      id={id}
-      onChange={callback}
-      type="checkbox"
-    />{' '}
-    <label className={styles.checkbox} htmlFor={id}>
-      <span>
-        <svg height="20px" viewBox="0 0 12 10" width="22px">
-          <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-        </svg>
+const Checkbox = ({ callback, checked, id, label }: Props) => {
+  // Only set after a click, so boxes that start checked don't pulse on load.
+  const [pulsing, setPulsing] = useState(false);
+
+  return (
+    <label className={styles.container}>
+      <input
+        checked={checked}
+        className={styles.input}
+        id={id}
+        onChange={(e) => {
+          setPulsing(e.target.checked);
+          callback();
+        }}
+        type="checkbox"
+      />
+      <span
+        className={clsx(styles.box, pulsing && styles.pulse)}
+        onAnimationEnd={() => {
+          setPulsing(false);
+        }}
+      >
+        <BsCheck aria-hidden className={styles.icon} />
       </span>
-      <span>{label}</span>
+      <span className={styles.label}>{label}</span>
     </label>
-  </div>
-);
+  );
+};
 
 export default Checkbox;

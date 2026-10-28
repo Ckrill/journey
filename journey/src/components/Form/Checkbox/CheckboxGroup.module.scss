@@ -1,6 +1,6 @@
 .group {
   display: grid;
-  gap: var(--space-base);
+  gap: 12px;
   justify-content: center;
 
   h2 + & {
