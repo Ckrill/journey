@@ -87,7 +87,16 @@ const Modal = ({
       className={styles.dialog}
       closedby={dismissible ? 'any' : 'none'}
       onCancel={(event) => {
-        if (!dismissible) event.preventDefault();
+        if (!dismissible) {
+          event.preventDefault();
+          return;
+        }
+        // Back-swipe/Esc would close instantly; animate the sheet away instead.
+        const scroller = scrollerRef.current;
+        if (isSheet() && scroller && scroller.scrollTop > 0) {
+          event.preventDefault();
+          scroller.scrollTo({ behavior: 'auto', top: 0 });
+        }
       }}
       onClose={handleClose}
       ref={dialogRef}
