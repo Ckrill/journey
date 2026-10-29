@@ -26,7 +26,7 @@ import WeekPager from '../components/Week/WeekPager';
 // Types
 import type { Habit } from '../types/types';
 
-const Journey = () => {
+const Habits = () => {
   const navigate = useNavigate();
   const { data: habits } = useHabitsQuery();
   const { data: events } = useEventsQuery();
@@ -102,7 +102,7 @@ const Journey = () => {
     >
       <SectionContainer>
         <Section>
-          <Heading>Journey</Heading>
+          <Heading>Habits</Heading>
         </Section>
 
         <Section>
@@ -151,7 +151,7 @@ interface WeekSearch {
 }
 
 export const Route = createFileRoute('/')({
-  component: Journey,
+  component: Habits,
   validateSearch: (search: Record<string, unknown>): WeekSearch => ({
     week: typeof search.week === 'string' ? search.week : undefined,
   }),

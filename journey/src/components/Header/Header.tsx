@@ -6,8 +6,8 @@ import { motion } from 'motion/react';
 import styles from './Header.module.scss';
 
 const navigationItems = [
-  { name: 'Journey', url: '/' },
-  { name: 'Time', url: '/time' },
+  { name: 'Habits', url: '/' },
+  { name: 'Journey', url: '/journey' },
   { name: 'Settings', url: '/settings' },
 ];
 

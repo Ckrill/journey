@@ -10,13 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as JourneyRouteImport } from './routes/journey'
 import { Route as RetroRouteImport } from './routes/retro'
 import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as TimeRouteImport } from './routes/time'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JourneyRoute = JourneyRouteImport.update({
+  id: '/journey',
+  path: '/journey',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RetroRoute = RetroRouteImport.update({
@@ -29,44 +34,39 @@ const SettingsRoute = SettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TimeRoute = TimeRouteImport.update({
-  id: '/time',
-  path: '/time',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/journey': typeof JourneyRoute
   '/retro': typeof RetroRoute
   '/settings': typeof SettingsRoute
-  '/time': typeof TimeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/journey': typeof JourneyRoute
   '/retro': typeof RetroRoute
   '/settings': typeof SettingsRoute
-  '/time': typeof TimeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/journey': typeof JourneyRoute
   '/retro': typeof RetroRoute
   '/settings': typeof SettingsRoute
-  '/time': typeof TimeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/retro' | '/settings' | '/time'
+  fullPaths: '/' | '/journey' | '/retro' | '/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/retro' | '/settings' | '/time'
-  id: '__root__' | '/' | '/retro' | '/settings' | '/time'
+  to: '/' | '/journey' | '/retro' | '/settings'
+  id: '__root__' | '/' | '/journey' | '/retro' | '/settings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  JourneyRoute: typeof JourneyRoute
   RetroRoute: typeof RetroRoute
   SettingsRoute: typeof SettingsRoute
-  TimeRoute: typeof TimeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -76,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/journey': {
+      id: '/journey'
+      path: '/journey'
+      fullPath: '/journey'
+      preLoaderRoute: typeof JourneyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/retro': {
@@ -92,21 +99,14 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/time': {
-      id: '/time'
-      path: '/time'
-      fullPath: '/time'
-      preLoaderRoute: typeof TimeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  JourneyRoute: JourneyRoute,
   RetroRoute: RetroRoute,
   SettingsRoute: SettingsRoute,
-  TimeRoute: TimeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

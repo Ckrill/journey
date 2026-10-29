@@ -14,7 +14,7 @@ import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 import TimeProgress from '../components/TimeProgress/TimeProgress';
 
-const Time = () => {
+const Journey = () => {
   return (
     <motion.div
       animate="animate"
@@ -25,7 +25,7 @@ const Time = () => {
     >
       <SectionContainer>
         <Section>
-          <Heading>Time</Heading>
+          <Heading>Journey</Heading>
 
           <TimeProgress />
         </Section>
@@ -34,8 +34,8 @@ const Time = () => {
   );
 };
 
-export const Route = createFileRoute('/time')({
-  component: Time,
+export const Route = createFileRoute('/journey')({
+  component: Journey,
   loader: async ({ context }) => {
     await context.queryClient.query({
       ...habitsQueryOptions(context.userId),
