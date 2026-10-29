@@ -2,6 +2,8 @@
   display: grid;
   gap: 12px;
   justify-content: center;
+  inline-size: 100%;
+  max-inline-size: var(--size-form);
 
   h2 + & {
     margin-block-start: 20px;

@@ -4,6 +4,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  align-items: center;
   inline-size: 100%;
   max-inline-size: var(--size-content-max);
   padding-inline: var(--space-base);
