@@ -59,6 +59,18 @@ const Settings = () => {
     saveToLocalStorage('settings', settings);
   }, [settings]);
 
+  useEffect(() => {
+    if (!passwordSaved) return;
+
+    const timeout = setTimeout(() => {
+      setPasswordSaved(false);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [passwordSaved]);
+
   return (
     <motion.div
       animate="animate"
@@ -97,10 +109,17 @@ const Settings = () => {
               setPasswordOpen(true);
             }}
           >
-            Change password
+            {passwordSaved ? 'Password changed' : 'Change password'}
           </Button>
 
-          {passwordSaved && <Paragraph>Password updated.</Paragraph>}
+          <Button
+            onClick={() => {
+              void handleSignOut();
+            }}
+            priority="secondary"
+          >
+            Sign out
+          </Button>
 
           <ChangePasswordModal
             onClose={() => {
@@ -147,22 +166,6 @@ const Settings = () => {
             }}
             open={deleteOpen}
           />
-        </Section>
-
-        <Section>
-          <Divider appearance="faint" spacing="spacious" />
-        </Section>
-
-        <Section>
-          <Heading>Leaving?</Heading>
-
-          <Button
-            onClick={() => {
-              void handleSignOut();
-            }}
-          >
-            Sign out
-          </Button>
         </Section>
       </SectionContainer>
     </motion.div>
