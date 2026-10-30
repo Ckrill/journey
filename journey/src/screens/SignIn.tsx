@@ -1,9 +1,8 @@
 // External
 import { motion } from 'motion/react';
+import { useState } from 'react';
 
 // Miscellaneous
-import Heading from '../components/Heading/Heading';
-import Paragraph from '../components/Paragraph/Paragraph';
 import SectionContainer from '../components/Section/SectionContainer';
 import Page from '../components/SignIn/Page';
 import SignInForm from '../components/SignIn/SignIn';
@@ -18,6 +17,8 @@ import {
 } from '../components/SignIn/transition';
 
 const SignIn = () => {
+  const [showForm, setShowForm] = useState(false);
+
   return (
     <motion.div
       animate="animate"
@@ -27,11 +28,14 @@ const SignIn = () => {
       variants={pageVariants}
     >
       <Page>
-        <Title>
+        <Title animate={showForm}>
           <motion.div
             animate="animate"
             exit={'exit'}
             initial="initial"
+            onAnimationComplete={() => {
+              setShowForm(true);
+            }}
             transition={transition}
             variants={variants}
           >
@@ -39,23 +43,19 @@ const SignIn = () => {
           </motion.div>
         </Title>
 
-        <motion.div
-          animate="animate"
-          initial="initial"
-          style={{ display: 'flex', justifyContent: 'center' }}
-          transition={transition2}
-          variants={variants2}
-        >
-          <SectionContainer>
-            <Heading>Welcome friend</Heading>
-
-            <Paragraph>
-              Today is a great day to continue your journey!
-            </Paragraph>
-
-            <SignInForm />
-          </SectionContainer>
-        </motion.div>
+        {showForm && (
+          <motion.div
+            animate="animate"
+            initial="initial"
+            style={{ display: 'flex', justifyContent: 'center' }}
+            transition={transition2}
+            variants={variants2}
+          >
+            <SectionContainer>
+              <SignInForm />
+            </SectionContainer>
+          </motion.div>
+        )}
       </Page>
     </motion.div>
   );

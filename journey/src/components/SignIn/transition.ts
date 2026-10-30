@@ -16,13 +16,14 @@ export const pageTransition: Transition = {
 
 /* eslint-disable perfectionist/sort-objects */
 export const variants = {
-  initial: { transform: 'translateX(1000px)' },
-  animate: { transform: 'translateX(0px)' },
+  initial: { opacity: 0, x: 1000 },
+  animate: { opacity: 1, x: 0 },
 };
 /* eslint-enable perfectionist/sort-objects */
 
 export const transition: Transition = {
-  duration: 0.3,
+  delay: 0.3,
+  duration: 0.5,
   ease: 'easeOut',
 };
 
@@ -34,7 +35,13 @@ export const variants2 = {
 /* eslint-enable perfectionist/sort-objects */
 
 export const transition2: Transition = {
-  delay: 0.25,
+  delay: 0.7,
   duration: 0.3,
   ease: 'easeOut',
+};
+
+export const layoutTransition: Transition = {
+  delay: 0.5,
+  duration: 0.5,
+  ease: 'easeInOut',
 };
