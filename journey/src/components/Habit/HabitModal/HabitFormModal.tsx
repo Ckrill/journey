@@ -19,6 +19,8 @@ import Pillbox from '../../Form/Pillbox/Pillbox';
 import Textarea from '../../Form/Textarea/Textarea';
 import Heading from '../../Heading/Heading';
 import Modal from '../../Modal/Modal';
+import Paragraph from '../../Paragraph/Paragraph';
+import ParagraphGroup from '../../ParagraphGroup/ParagraphGroup';
 import Section from '../../Section/Section';
 import SectionContainer from '../../Section/SectionContainer';
 
@@ -123,6 +125,21 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
         <SectionContainer>
           <Section>
             <Heading>{title}</Heading>
+
+            <ParagraphGroup
+              more={
+                <Paragraph>
+                  Use the retro to reflect on your progress and adjust your
+                  habits accordingly.
+                </Paragraph>
+              }
+            >
+              <Paragraph>
+                The best way to build a habit is to start small and be
+                consistent. It is OK to miss a day, it happens to everyone, but
+                try not to miss two days.
+              </Paragraph>
+            </ParagraphGroup>
           </Section>
 
           <Section>

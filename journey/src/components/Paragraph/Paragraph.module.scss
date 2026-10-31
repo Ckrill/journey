@@ -1,7 +1,8 @@
 .paragraph {
   max-inline-size: var(--size-content-max);
-  padding-inline: 20px;
-  margin-block-start: 50px;
+  padding-inline: var(--paragraph-space-inline, 20px);
+  margin-block: var(--paragraph-space-before, 50px)
+    var(--paragraph-space-after, 20px);
   margin-inline: auto;
   font-size: calc(16rem / 16);
   line-height: calc(30rem / 16);
@@ -10,7 +11,7 @@
 
 h2 + .paragraph,
 .paragraph + .paragraph {
-  margin-block-start: 20px;
+  margin-block-start: var(--paragraph-space-before, 20px);
 }
 
 .paragraph[data-align='left'] {
@@ -26,5 +27,5 @@ h2 + .paragraph,
 }
 
 .paragraph + .paragraph[data-size='fine'] {
-  margin-block-start: 10px;
+  margin-block-start: var(--paragraph-space-before, 10px);
 }

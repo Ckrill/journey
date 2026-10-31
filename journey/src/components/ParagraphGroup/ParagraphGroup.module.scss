@@ -1,0 +1,74 @@
+.group {
+  // Paragraphs inside only get a small gap; the group owns the outer spacing.
+  --paragraph-space-before: 10px;
+  --paragraph-space-after: 0;
+  --paragraph-space-inline: 0;
+
+  max-inline-size: var(--size-content-max);
+  padding-inline: 20px;
+  margin-block: 50px 20px;
+  margin-inline: auto;
+  text-align: center;
+
+  > :first-child {
+    --paragraph-space-before: 0;
+  }
+}
+
+h2 + .group,
+.group + .group {
+  margin-block-start: 20px;
+}
+
+.more {
+  display: flex;
+  flex-direction: column-reverse;
+  inline-size: 100%;
+  interpolate-size: allow-keywords;
+
+  &::details-content {
+    display: flow-root;
+    block-size: 0;
+    min-block-size: 0;
+    overflow: clip;
+    opacity: 0;
+    transition:
+      block-size var(--duration-fast) ease-in-out,
+      opacity var(--duration-fast) ease-in-out,
+      content-visibility var(--duration-fast) allow-discrete;
+  }
+
+  &[open]::details-content {
+    block-size: auto;
+    opacity: 1;
+  }
+
+  &[open] .showMore,
+  &:not([open]) .showLess {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::details-content {
+      transition: none;
+    }
+  }
+}
+
+.toggle {
+  align-self: center;
+  padding: 0;
+  margin-block-start: 10px;
+  font: inherit;
+  font-size: calc(12rem / 16);
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+  list-style: none;
+  background: none;
+  border: 0;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}

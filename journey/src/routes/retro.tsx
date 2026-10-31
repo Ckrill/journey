@@ -22,6 +22,7 @@ import {
 import Divider from '../components/Divider/Divider';
 import Heading from '../components/Heading/Heading';
 import Paragraph from '../components/Paragraph/Paragraph';
+import ParagraphGroup from '../components/ParagraphGroup/ParagraphGroup';
 import ReflectionForm from '../components/Retro/ReflectionForm';
 import WeekSummary from '../components/Retro/WeekSummary';
 import Section from '../components/Section/Section';
@@ -63,11 +64,35 @@ const Retro = () => {
         <Section>
           <Heading>Reflect</Heading>
 
-          <Paragraph>
-            Do the retro at the end of each week. Remember that you do retro for
-            you, and you alone. Be honest and avoid blame. Your answers from
-            last time are shown as hints.
-          </Paragraph>
+          <ParagraphGroup
+            more={
+              <>
+                <Paragraph>
+                  Changing habits is hard. Many have failed before you. But
+                  every week is an opportunity to break old patterns and build
+                  new ones.
+                </Paragraph>
+
+                <Paragraph>
+                  Generally, consistency beats intensity. Focus on building
+                  habits consistently rather than trying to do too much at once.
+                  If you repeatedly miss your target, ask yourself whether your
+                  goals are realistic and whether you need to adjust your
+                  habits.
+                </Paragraph>
+
+                <Paragraph size="fine">
+                  Your answers from last time are shown as hints and will be
+                  overwritten when you save new ones.
+                </Paragraph>
+              </>
+            }
+          >
+            <Paragraph>
+              Do the retro at the end of each week. Remember that you do retro
+              for you, and you alone. Be honest and avoid blame.
+            </Paragraph>
+          </ParagraphGroup>
 
           <ReflectionForm previous={reflection} />
         </Section>

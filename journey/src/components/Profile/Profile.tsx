@@ -12,6 +12,7 @@ import Input from '../Form/Input/Input';
 import Select from '../Form/Select/Select';
 import Heading from '../Heading/Heading';
 import Paragraph from '../Paragraph/Paragraph';
+import ParagraphGroup from '../ParagraphGroup/ParagraphGroup';
 
 // Types
 import type { Sex } from '../../types/types';
@@ -92,15 +93,17 @@ const Profile = () => {
         value={settings.region ?? ''}
       />
 
-      <Paragraph>
-        Your life expectancy is <strong>{lifeExpectancyYears}</strong> years or{' '}
-        <strong>{lifeExpectancyYears * 12}</strong> months. Be intentional with
-        your time.
-      </Paragraph>
+      <ParagraphGroup>
+        <Paragraph>
+          Your life expectancy is <strong>{lifeExpectancyYears}</strong> years
+          or <strong>{lifeExpectancyYears * 12}</strong> months. Try to be
+          intentional with your time.
+        </Paragraph>
 
-      <Paragraph size="fine">
-        Source: UN World Population Prospects 2024.
-      </Paragraph>
+        <Paragraph size="fine">
+          Source: UN World Population Prospects 2024.
+        </Paragraph>
+      </ParagraphGroup>
     </>
   );
 };
