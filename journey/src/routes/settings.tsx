@@ -27,6 +27,7 @@ import DownloadDataButton from '../components/DownloadData/DownloadDataButton';
 import Input from '../components/Form/Input/Input';
 import Heading from '../components/Heading/Heading';
 import Paragraph from '../components/Paragraph/Paragraph';
+import ParagraphGroup from '../components/ParagraphGroup/ParagraphGroup';
 import Preferences from '../components/Preferences/Preferences';
 import Profile from '../components/Profile/Profile';
 import Section from '../components/Section/Section';
@@ -138,12 +139,29 @@ const Settings = () => {
         </Section>
 
         <Section>
-          <Heading>Data</Heading>
+          <Heading>Data & Privacy</Heading>
 
-          <Paragraph>
-            Your data is stored on servers in the EU and is never shared with
-            anyone. Your data is yours. Download it or delete it at any time.
-          </Paragraph>
+          <ParagraphGroup
+            more={
+              <>
+                <Paragraph>
+                  Your profile information and preferences are stored on your
+                  device. If you switch device, you will have to set it again.
+                </Paragraph>
+
+                <Paragraph>
+                  The rest (email, habits, progress and latest retro) is stored
+                  on servers in the EU and is never shared with anyone.
+                </Paragraph>
+
+                <Paragraph>No tracking, no analytics and no cookies.</Paragraph>
+              </>
+            }
+          >
+            <Paragraph>
+              Your data is yours. Download it or delete it at any time.
+            </Paragraph>
+          </ParagraphGroup>
 
           <DownloadDataButton />
 

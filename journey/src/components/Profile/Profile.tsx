@@ -62,7 +62,7 @@ const Profile = () => {
       <Heading>Profile</Heading>
 
       <Input
-        assistiveText="Used for your personal clock."
+        assistiveText="Enable your custom timeline."
         errorText={birthError ? 'Please enter a valid year.' : undefined}
         id="birthYear"
         labelText="Year of birth"
@@ -74,7 +74,7 @@ const Profile = () => {
       />
 
       <Select
-        assistiveText="Used for your personal clock."
+        assistiveText="Improve life expectancy estimates."
         id="sex"
         labelText="Sex"
         onChange={handleSexChange}
@@ -84,7 +84,7 @@ const Profile = () => {
       />
 
       <Select
-        assistiveText="Used for your personal clock."
+        assistiveText="Improve life expectancy estimates."
         id="region"
         labelText="Region of residence"
         onChange={handleRegionChange}
