@@ -6,6 +6,9 @@ import { BsCheck } from 'react-icons/bs';
 // Utilities
 import { today, WEEKDAY_LABELS, WEEKDAYS } from '../../../helpers/week';
 
+// Contexts
+import { useSettings } from '../../../contexts/settingsContext';
+
 // Hooks
 import { useToggleEvent } from '../../../hooks/useToggleEvent';
 
@@ -22,11 +25,16 @@ interface Props {
 }
 
 const Days = ({ completedDates, habit, weekDates }: Props) => {
+  const settings = useSettings();
   const toggle = useToggleEvent();
 
   const [pendingDate, setPendingDate] = useState<null | string>(null);
 
   const handleToggle = (date: string) => {
+    if (settings.vibration && 'vibrate' in navigator) {
+      navigator.vibrate(30);
+    }
+
     setPendingDate(date);
     toggle.mutate(
       { date, habitId: habit.id },

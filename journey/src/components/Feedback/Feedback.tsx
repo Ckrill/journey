@@ -52,7 +52,7 @@ const Feedback = ({ setShow, show, streak }: Props) => {
         // vibration API supported
         const timeout = setTimeout(() => {
           navigator.vibrate(200);
-        }, 100);
+        }, 200);
 
         return () => {
           clearTimeout(timeout);
