@@ -17,14 +17,14 @@ import { eventsQueryOptions } from '../hooks/useEventsQuery';
 import { habitsQueryOptions } from '../hooks/useHabitsQuery';
 
 // Miscellaneous
-import About from '../components/About/About';
-import Account from '../components/Account/Account';
-import DataPrivacy from '../components/DataPrivacy/DataPrivacy';
 import Divider from '../components/Divider/Divider';
-import Preferences from '../components/Preferences/Preferences';
-import Profile from '../components/Profile/Profile';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
+import About from '../components/Settings/About';
+import Account from '../components/Settings/Account';
+import DataPrivacy from '../components/Settings/DataPrivacy';
+import Preferences from '../components/Settings/Preferences';
+import Profile from '../components/Settings/Profile';
 
 const Settings = () => {
   const settings = useSettings();
