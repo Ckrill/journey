@@ -185,6 +185,33 @@ const Settings = () => {
             open={deleteOpen}
           />
         </Section>
+
+        <Section>
+          <Divider appearance="faint" spacing="spacious" />
+        </Section>
+
+        <Section>
+          <Heading>About</Heading>
+
+          <ParagraphGroup>
+            <Paragraph>
+              Journey makes use of newer web features that is not yet supported
+              in all browsers. For the best experience, use Chrome.
+            </Paragraph>
+
+            <Paragraph>
+              You can add Journey to your home screen for a native experience.
+              iOS's web app support is limited. For the best experience, use
+              Android.
+            </Paragraph>
+
+            <Paragraph>
+              Journey is a hobby project. It is under development and is subject
+              to change. You are always welcome to provide feedback or
+              suggestions.
+            </Paragraph>
+          </ParagraphGroup>
+        </Section>
       </SectionContainer>
     </motion.div>
   );

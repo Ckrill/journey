@@ -232,7 +232,7 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
 
             <FormActions>
               <Button disabled={isPending} type="submit">
-                {isPending ? 'Saving' : 'Save'}
+                {isPending ? 'Saving' : 'Save habit'}
               </Button>
 
               {mutationError && (
