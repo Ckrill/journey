@@ -79,6 +79,33 @@ export type Database = {
         }
         Relationships: []
       }
+      push_subscriptions: {
+        Row: {
+          auth: string
+          created_at: string
+          endpoint: string
+          id: string
+          p256dh: string
+          user_id: string
+        }
+        Insert: {
+          auth: string
+          created_at?: string
+          endpoint: string
+          id?: string
+          p256dh: string
+          user_id?: string
+        }
+        Update: {
+          auth?: string
+          created_at?: string
+          endpoint?: string
+          id?: string
+          p256dh?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       reflections: {
         Row: {
           blockers: string
@@ -103,6 +130,36 @@ export type Database = {
           updated_at?: string
           user_id?: string
           went_well?: string
+        }
+        Relationships: []
+      }
+      reminders: {
+        Row: {
+          id: string
+          kind: string
+          last_sent_on: string | null
+          remind_time: string
+          timezone: string
+          user_id: string
+          weekday: Database["public"]["Enums"]["weekday"]
+        }
+        Insert: {
+          id?: string
+          kind: string
+          last_sent_on?: string | null
+          remind_time: string
+          timezone: string
+          user_id?: string
+          weekday: Database["public"]["Enums"]["weekday"]
+        }
+        Update: {
+          id?: string
+          kind?: string
+          last_sent_on?: string | null
+          remind_time?: string
+          timezone?: string
+          user_id?: string
+          weekday?: Database["public"]["Enums"]["weekday"]
         }
         Relationships: []
       }

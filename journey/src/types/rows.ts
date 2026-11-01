@@ -10,3 +10,8 @@ export type ReflectionRow = Pick<
   Tables<'reflections'>,
   'blockers' | 'next_steps' | 'plan' | 'went_well'
 >;
+
+export type ReminderRow = Pick<
+  Tables<'reminders'>,
+  'remind_time' | 'timezone' | 'weekday'
+>;

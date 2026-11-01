@@ -29,3 +29,13 @@ h2 + .paragraph,
 .paragraph + .paragraph[data-size='fine'] {
   margin-block-start: var(--paragraph-space-before, 10px);
 }
+
+.paragraph[data-type='warning'] {
+  font-size: calc(12rem / 16);
+  font-weight: 700;
+  line-height: calc(18rem / 16);
+  color: var(--color-error);
+  text-transform: uppercase;
+  word-spacing: var(--word-spacing-spacious);
+  letter-spacing: var(--letter-spacing-spacious);
+}

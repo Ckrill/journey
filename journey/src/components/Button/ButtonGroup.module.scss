@@ -1,0 +1,19 @@
+.group {
+  box-sizing: border-box;
+  inline-size: 100%;
+  max-inline-size: var(--size-form);
+
+  // Keeps the gap Button gives its adjacent siblings.
+  & + & {
+    margin-block-start: 10px;
+  }
+}
+
+// Aligns the message under the buttons.
+.group[data-align='center'] {
+  text-align: center;
+}
+
+.group[data-align='left'] {
+  text-align: start;
+}

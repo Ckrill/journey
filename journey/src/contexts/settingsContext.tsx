@@ -2,12 +2,19 @@
 import { createContext, type ReactNode, use, useState } from 'react';
 
 // Utilities
-import { getFromLocalStorage } from '../helpers/localStorage';
+import { getFromLocalStorage, settingsKey } from '../helpers/localStorage';
+
+// Hooks
+import { useUserId } from '../hooks/useUserId';
 
 // Types
 import type { Settings } from '../types/types';
 
-const defaultSettings: Settings = { sound: true, vibration: true };
+const defaultSettings: Settings = {
+  notifications: false,
+  sound: true,
+  vibration: true,
+};
 
 const SettingsContext = createContext<Settings>(defaultSettings);
 const SettingsUpdateContext = createContext<(settings: Settings) => void>(
@@ -22,9 +29,11 @@ interface Props {
 }
 
 export const SettingsProvider = ({ children }: Props) => {
-  const [settings, setSettings] = useState<Settings>(
-    () => getFromLocalStorage('settings') ?? defaultSettings,
-  );
+  const userId = useUserId();
+  const [settings, setSettings] = useState<Settings>(() => ({
+    ...defaultSettings,
+    ...getFromLocalStorage(settingsKey(userId)),
+  }));
 
   return (
     <SettingsContext value={settings}>

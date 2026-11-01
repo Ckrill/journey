@@ -9,11 +9,12 @@ import styles from './Checkbox.module.scss';
 interface Props {
   callback: () => void;
   checked: boolean;
+  disabled?: boolean;
   id: string;
   label: string;
 }
 
-const Checkbox = ({ callback, checked, id, label }: Props) => {
+const Checkbox = ({ callback, checked, disabled, id, label }: Props) => {
   // Only set after a click, so boxes that start checked don't pulse on load.
   const [pulsing, setPulsing] = useState(false);
 
@@ -22,6 +23,7 @@ const Checkbox = ({ callback, checked, id, label }: Props) => {
       <input
         checked={checked}
         className={styles.input}
+        disabled={disabled}
         id={id}
         onChange={(e) => {
           setPulsing(e.target.checked);

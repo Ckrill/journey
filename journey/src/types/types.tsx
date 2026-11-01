@@ -4,6 +4,7 @@ export type Sex = 'female' | 'male';
 
 export interface Settings {
   birthYear?: number;
+  notifications: boolean;
   region?: string;
   sex?: Sex;
   sound: boolean;
@@ -38,4 +39,10 @@ export interface Reflection {
   nextSteps: string;
   plan: string;
   wentWell: string;
+}
+
+export interface RetroReminder {
+  time: string; // HH:MM, in `timeZone`
+  timeZone: string; // IANA zone, e.g. Europe/Copenhagen
+  weekday: Weekday;
 }

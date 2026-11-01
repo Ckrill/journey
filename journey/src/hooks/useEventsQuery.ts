@@ -14,8 +14,16 @@ import { pageSize, supabase } from '../lib/supabase';
 import type { EventRow } from '../types/rows';
 import type { Events } from '../types/types';
 
+/**
+ * Cache key for the user's events.
+ * @param userId The signed-in user's id, so accounts never share a cache entry.
+ */
 export const eventsKey = (userId: string) => ['events', userId] as const;
 
+/**
+ * Query options for all of the user's events, newest first.
+ * @param userId The signed-in user's id.
+ */
 export const eventsQueryOptions = (userId: string) => ({
   queryFn: async (): Promise<Events> => {
     // Row-level security limits this to the user's own events. Pages are
@@ -41,6 +49,10 @@ export const eventsQueryOptions = (userId: string) => ({
   staleTime: 30_000,
 });
 
+/**
+ * Reads the user's events, suspending until they have loaded.
+ * @returns The suspense query result holding the events.
+ */
 export const useEventsQuery = () => {
   return useSuspenseQuery(eventsQueryOptions(useUserId()));
 };

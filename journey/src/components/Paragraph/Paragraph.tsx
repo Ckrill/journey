@@ -8,10 +8,16 @@ interface Props {
   align?: 'left';
   children: React.ReactNode;
   size?: 'fine';
+  type?: 'warning';
 }
 
-const Paragraph = ({ align, children, size }: Props) => (
-  <p className={styles.paragraph} data-align={align} data-size={size}>
+const Paragraph = ({ align, children, size, type }: Props) => (
+  <p
+    className={styles.paragraph}
+    data-align={align}
+    data-size={size}
+    data-type={type}
+  >
     {children}
   </p>
 );

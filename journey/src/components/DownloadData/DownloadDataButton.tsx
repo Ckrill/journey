@@ -11,12 +11,13 @@ import { useSettings } from '../../contexts/settingsContext';
 
 // Hooks
 import { eventsQueryOptions } from '../../hooks/useEventsQuery';
+import { retroReminderQueryOptions } from '../../hooks/useRetroReminderQuery';
 import { useUserId } from '../../hooks/useUserId';
 
 // Miscellaneous
 import { supabase } from '../../lib/supabase';
 import Button from '../Button/Button';
-import Paragraph from '../Paragraph/Paragraph';
+import ButtonGroup from '../Button/ButtonGroup';
 
 // The habits query only holds active habits; this one includes archived ones.
 const fetchAllHabits = async () => {
@@ -54,10 +55,11 @@ const DownloadDataButton = () => {
     setFailed(false);
 
     try {
-      const [habits, events, reflection] = await Promise.all([
+      const [habits, events, reflection, retroReminder] = await Promise.all([
         fetchAllHabits(),
         queryClient.query(eventsQueryOptions(userId)),
         fetchReflection(),
+        queryClient.query(retroReminderQueryOptions(userId)),
       ]);
 
       const data = {
@@ -73,9 +75,11 @@ const DownloadDataButton = () => {
           weeklyTarget: habit.weeklyTarget,
         })),
         reflection,
+        retroReminder,
         // Kept in this browser's local storage, not on the server.
         settings: {
           birthYear: settings.birthYear,
+          notifications: settings.notifications,
           region: settings.region,
           sex: settings.sex,
           sound: settings.sound,
@@ -99,7 +103,9 @@ const DownloadDataButton = () => {
   };
 
   return (
-    <>
+    <ButtonGroup
+      errorText={failed ? 'Something went wrong. Please try again.' : undefined}
+    >
       <Button
         disabled={busy}
         onClick={() => {
@@ -108,9 +114,7 @@ const DownloadDataButton = () => {
       >
         {busy ? 'Preparing' : 'Download data'}
       </Button>
-
-      {failed && <Paragraph>Something went wrong. Please try again.</Paragraph>}
-    </>
+    </ButtonGroup>
   );
 };
 

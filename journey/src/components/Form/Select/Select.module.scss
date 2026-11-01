@@ -7,11 +7,17 @@
 
 .field {
   position: relative;
+  color: var(--color-text);
   transition: transform var(--duration-rapid);
 
   &:focus-within,
   &:has(.select:open) {
     transform: scale(var(--scale-focus));
+  }
+
+  // The select and its chevron both inherit this.
+  &:has(.select:disabled) {
+    color: var(--color-text-muted);
   }
 }
 
@@ -24,6 +30,7 @@
   font-family: inherit;
   font-size: calc(18rem / 16);
   line-height: calc(24rem / 16);
+  color: inherit;
   letter-spacing: 1px;
   appearance: none;
   background-color: var(--color-field);
@@ -38,6 +45,12 @@
 
   &--error {
     border-color: var(--color-error);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: var(--color-background);
+    opacity: 1;
   }
 }
 

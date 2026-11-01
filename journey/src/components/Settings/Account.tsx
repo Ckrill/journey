@@ -2,12 +2,16 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
+// Utilities
+import { disablePush, pushSupported } from '../../helpers/push';
+
 // Contexts
 import { useSession } from '../../contexts/authContext';
 
 // Miscellaneous
 import { supabase } from '../../lib/supabase';
 import Button from '../Button/Button';
+import ButtonGroup from '../Button/ButtonGroup';
 import ChangePasswordModal from '../ChangePassword/ChangePasswordModal';
 import Input from '../Form/Input/Input';
 import Heading from '../Heading/Heading';
@@ -19,7 +23,8 @@ const Account = () => {
   const [passwordSaved, setPasswordSaved] = useState(false);
 
   const handleSignOut = async () => {
-    localStorage.clear();
+    // Stop a signed out user on this device from receiving reminders.
+    if (pushSupported) await disablePush().catch(() => undefined);
     await supabase.auth.signOut();
     // Drop cached data so the next account never sees this one's.
     queryClient.clear();
@@ -49,23 +54,28 @@ const Account = () => {
         value={session?.user.email ?? ''}
       />
 
-      <Button
-        onClick={() => {
-          setPasswordSaved(false);
-          setPasswordOpen(true);
-        }}
+      <ButtonGroup
+        align="center"
+        assistiveText="Signing out will pause your notifications on this device."
       >
-        {passwordSaved ? 'Password changed' : 'Change password'}
-      </Button>
+        <Button
+          onClick={() => {
+            setPasswordSaved(false);
+            setPasswordOpen(true);
+          }}
+        >
+          {passwordSaved ? 'Password changed' : 'Change password'}
+        </Button>
 
-      <Button
-        onClick={() => {
-          void handleSignOut();
-        }}
-        priority="secondary"
-      >
-        Sign out
-      </Button>
+        <Button
+          onClick={() => {
+            void handleSignOut();
+          }}
+          priority="secondary"
+        >
+          Sign out
+        </Button>
+      </ButtonGroup>
 
       <ChangePasswordModal
         onClose={() => {

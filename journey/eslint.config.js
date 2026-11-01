@@ -21,6 +21,8 @@ export default defineConfig([
     '.pnp.loader.mjs',
     'public/**',
     'src/types/database.types.ts',
+    // Deno edge functions, not part of the app's TypeScript project.
+    'supabase/functions/**',
   ]),
 
   js.configs.recommended,
