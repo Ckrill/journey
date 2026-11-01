@@ -24,7 +24,10 @@
     background-color: var(--color-brand-primary);
     border-radius: 150vmax;
     transform: translate(-50%, -50%) scale(0);
-    transition: transform var(--duration-instant) calc(var(--duration-rapid) + var(--duration-fast)); // Wait for .overlay to finish animation
+
+    // Wait for .overlay to finish animation
+    transition: transform var(--duration-instant)
+      calc(var(--duration-rapid) + var(--duration-fast));
     will-change: transform;
   }
 

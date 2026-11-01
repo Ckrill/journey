@@ -1,8 +1,7 @@
 // External
-import { useQueryClient } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { motion } from 'motion/react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 // Settings
 import { pageTransition, pageVariants } from '../settings/pageTransition';
@@ -10,7 +9,6 @@ import { pageTransition, pageVariants } from '../settings/pageTransition';
 // Utilities
 import { saveToLocalStorage } from '../helpers/localStorage';
 
-import { useSession } from '../contexts/authContext';
 // Contexts
 import { useSettings } from '../contexts/settingsContext';
 
@@ -19,58 +17,21 @@ import { eventsQueryOptions } from '../hooks/useEventsQuery';
 import { habitsQueryOptions } from '../hooks/useHabitsQuery';
 
 // Miscellaneous
-import Button from '../components/Button/Button';
-import ChangePasswordModal from '../components/ChangePassword/ChangePasswordModal';
-import DeleteAccountModal from '../components/DeleteAccount/DeleteAccountModal';
+import About from '../components/About/About';
+import Account from '../components/Account/Account';
+import DataPrivacy from '../components/DataPrivacy/DataPrivacy';
 import Divider from '../components/Divider/Divider';
-import DownloadDataButton from '../components/DownloadData/DownloadDataButton';
-import Input from '../components/Form/Input/Input';
-import Heading from '../components/Heading/Heading';
-import Paragraph from '../components/Paragraph/Paragraph';
-import ParagraphGroup from '../components/ParagraphGroup/ParagraphGroup';
 import Preferences from '../components/Preferences/Preferences';
 import Profile from '../components/Profile/Profile';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
-import { supabase } from '../lib/supabase';
 
 const Settings = () => {
-  const queryClient = useQueryClient();
-  const session = useSession();
-  const [passwordOpen, setPasswordOpen] = useState(false);
-  const [passwordSaved, setPasswordSaved] = useState(false);
-  const [deleteOpen, setDeleteOpen] = useState(false);
   const settings = useSettings();
-
-  const handleSignOut = async () => {
-    localStorage.clear();
-    await supabase.auth.signOut();
-    // Drop cached data so the next account never sees this one's.
-    queryClient.clear();
-  };
-
-  const handleAccountDeleted = async () => {
-    localStorage.clear();
-    // The user no longer exists server-side, so only end the local session.
-    await supabase.auth.signOut({ scope: 'local' });
-    queryClient.clear();
-  };
 
   useEffect(() => {
     saveToLocalStorage('settings', settings);
   }, [settings]);
-
-  useEffect(() => {
-    if (!passwordSaved) return;
-
-    const timeout = setTimeout(() => {
-      setPasswordSaved(false);
-    }, 3000);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [passwordSaved]);
 
   return (
     <motion.div
@@ -91,47 +52,6 @@ const Settings = () => {
 
         <Section>
           <Profile />
-
-          <Divider appearance="faint" spacing="spacious" />
-
-          <Heading>Account</Heading>
-
-          <Input
-            disabled
-            id="email"
-            labelText="Email"
-            type="email"
-            value={session?.user.email ?? ''}
-          />
-
-          <Button
-            onClick={() => {
-              setPasswordSaved(false);
-              setPasswordOpen(true);
-            }}
-          >
-            {passwordSaved ? 'Password changed' : 'Change password'}
-          </Button>
-
-          <Button
-            onClick={() => {
-              void handleSignOut();
-            }}
-            priority="secondary"
-          >
-            Sign out
-          </Button>
-
-          <ChangePasswordModal
-            onClose={() => {
-              setPasswordOpen(false);
-            }}
-            onSaved={() => {
-              setPasswordOpen(false);
-              setPasswordSaved(true);
-            }}
-            open={passwordOpen}
-          />
         </Section>
 
         <Section>
@@ -139,51 +59,7 @@ const Settings = () => {
         </Section>
 
         <Section>
-          <Heading>Data & Privacy</Heading>
-
-          <ParagraphGroup
-            more={
-              <>
-                <Paragraph>
-                  Your profile information and preferences are stored on your
-                  device. If you switch device, you will have to set it again.
-                </Paragraph>
-
-                <Paragraph>
-                  The rest (email, habits, progress and latest retro) is stored
-                  on servers in the EU and is never shared with anyone.
-                </Paragraph>
-
-                <Paragraph>No tracking, no analytics and no cookies.</Paragraph>
-              </>
-            }
-          >
-            <Paragraph>
-              Your data is yours. Download it or delete it at any time.
-            </Paragraph>
-          </ParagraphGroup>
-
-          <DownloadDataButton />
-
-          <Button
-            onClick={() => {
-              setDeleteOpen(true);
-            }}
-            priority="secondary"
-            tone="danger"
-          >
-            Delete account
-          </Button>
-
-          <DeleteAccountModal
-            onClose={() => {
-              setDeleteOpen(false);
-            }}
-            onDeleted={() => {
-              void handleAccountDeleted();
-            }}
-            open={deleteOpen}
-          />
+          <Account />
         </Section>
 
         <Section>
@@ -191,32 +67,15 @@ const Settings = () => {
         </Section>
 
         <Section>
-          <Heading>About</Heading>
+          <DataPrivacy />
+        </Section>
 
-          <ParagraphGroup
-            more={
-              <>
-                <Paragraph>
-                  Journey makes use of newer web features that are not yet
-                  supported in all browsers.
-                </Paragraph>
+        <Section>
+          <Divider appearance="faint" spacing="spacious" />
+        </Section>
 
-                <Paragraph>
-                  You can add Journey to your home screen for an app-like
-                  experience. Web app support on iOS is limited.
-                </Paragraph>
-
-                <Paragraph>
-                  You are always welcome to provide feedback or suggestions.
-                </Paragraph>
-              </>
-            }
-          >
-            <Paragraph>
-              Journey is a hobby project that is under development and subject
-              to change. For the best experience, use Chrome on Android.
-            </Paragraph>
-          </ParagraphGroup>
+        <Section>
+          <About />
         </Section>
       </SectionContainer>
     </motion.div>
