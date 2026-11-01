@@ -193,22 +193,28 @@ const Settings = () => {
         <Section>
           <Heading>About</Heading>
 
-          <ParagraphGroup>
-            <Paragraph>
-              Journey makes use of newer web features that is not yet supported
-              in all browsers. For the best experience, use Chrome.
-            </Paragraph>
+          <ParagraphGroup
+            more={
+              <>
+                <Paragraph>
+                  Journey makes use of newer web features that are not yet
+                  supported in all browsers.
+                </Paragraph>
 
-            <Paragraph>
-              You can add Journey to your home screen for a native experience.
-              iOS's web app support is limited. For the best experience, use
-              Android.
-            </Paragraph>
+                <Paragraph>
+                  You can add Journey to your home screen for an app-like
+                  experience. Web app support on iOS is limited.
+                </Paragraph>
 
+                <Paragraph>
+                  You are always welcome to provide feedback or suggestions.
+                </Paragraph>
+              </>
+            }
+          >
             <Paragraph>
-              Journey is a hobby project. It is under development and is subject
-              to change. You are always welcome to provide feedback or
-              suggestions.
+              Journey is a hobby project that is under development and subject
+              to change. For the best experience, use Chrome on Android.
             </Paragraph>
           </ParagraphGroup>
         </Section>
