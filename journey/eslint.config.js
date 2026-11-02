@@ -1,9 +1,9 @@
 // External
+import e18e from '@e18e/eslint-plugin';
 import react from '@eslint-react/eslint-plugin';
 import js from '@eslint/js';
 import query from '@tanstack/eslint-plugin-query';
 import router from '@tanstack/eslint-plugin-router';
-import depend from 'eslint-plugin-depend';
 import perfectionist from 'eslint-plugin-perfectionist';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
@@ -26,7 +26,7 @@ export default defineConfig([
   ]),
 
   js.configs.recommended,
-  depend.configs['flat/recommended'],
+  e18e.configs.recommended,
 
   tseslint.configs.strictTypeChecked,
   tseslint.configs.stylisticTypeChecked,

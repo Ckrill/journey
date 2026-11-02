@@ -286,6 +286,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@e18e/eslint-plugin@npm:^0.8.1":
+  version: 0.8.1
+  resolution: "@e18e/eslint-plugin@npm:0.8.1"
+  dependencies:
+    empathic: "npm:^2.0.1"
+    module-replacements: "npm:^3.3.0"
+    verkit: "npm:^0.4.0"
+  peerDependencies:
+    eslint: ^9.0.0 || ^10.0.0
+    oxlint: ^1.72.0
+  peerDependenciesMeta:
+    eslint:
+      optional: true
+    oxlint:
+      optional: true
+  checksum: 10/089a250978d5932b7f488675db228d3d330d0b22b0d630869bb4b51c752f8e4995af9ef8ec3bc1842dae0f3523bea7c41b68160266c3ddc4b29daaca5083f586
+  languageName: node
+  linkType: hard
+
 "@ecies/ciphers@npm:^0.2.6":
   version: 0.2.6
   resolution: "@ecies/ciphers@npm:0.2.6"
@@ -2668,7 +2687,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"empathic@npm:^2.0.0":
+"empathic@npm:^2.0.1":
   version: 2.1.0
   resolution: "empathic@npm:2.1.0"
   checksum: 10/8f90322f559a0097c4da7abd177131a2589334a9056e5af9b71c79861b76f4f5b7c8043f93ad6a88f1016b21ee683c0fe3be564b87c8db4bfa9ed360be962aac
@@ -2702,19 +2721,6 @@ __metadata:
   version: 4.0.0
   resolution: "escape-string-regexp@npm:4.0.0"
   checksum: 10/98b48897d93060f2322108bf29db0feba7dd774be96cd069458d1453347b25ce8682ecc39859d4bca2203cc0ab19c237bcc71755eff49a0f8d90beadeeba5cc5
-  languageName: node
-  linkType: hard
-
-"eslint-plugin-depend@npm:^1.5.0":
-  version: 1.5.0
-  resolution: "eslint-plugin-depend@npm:1.5.0"
-  dependencies:
-    empathic: "npm:^2.0.0"
-    module-replacements: "npm:^2.10.1"
-    semver: "npm:^7.6.3"
-  peerDependencies:
-    eslint: ">=8.40.0"
-  checksum: 10/f7acdfe22bdaa9ae17a843731a245e0a6fbbd597ea819a53ea9ae87baf0cf0c20b5873997f6b6f84d780148392c7bce618bd5e544155a1fc8675086e13655b9e
   languageName: node
   linkType: hard
 
@@ -3581,6 +3587,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "journey@workspace:."
   dependencies:
+    "@e18e/eslint-plugin": "npm:^0.8.1"
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@eslint-react/eslint-plugin": "npm:^5.28.8"
     "@eslint/js": "npm:^10.0.1"
@@ -3600,7 +3607,6 @@ __metadata:
     babel-plugin-react-compiler: "npm:^1.0.0"
     clsx: "npm:^2.1.1"
     eslint: "npm:^10.13.0"
-    eslint-plugin-depend: "npm:^1.5.0"
     eslint-plugin-perfectionist: "npm:^5.13.0"
     eslint-plugin-react-hooks: "npm:^7.1.1"
     eslint-plugin-react-refresh: "npm:^0.5.7"
@@ -3988,10 +3994,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"module-replacements@npm:^2.10.1":
-  version: 2.11.0
-  resolution: "module-replacements@npm:2.11.0"
-  checksum: 10/bc75664d541202e5a03d4307daf8fce5af9b771f83d6ddd560e1716ac85bf56ea5075e462e34abbace13570786a3ef9ca49a3580a009f5fc43ed258fff5cfed9
+"module-replacements@npm:^3.3.0":
+  version: 3.4.0
+  resolution: "module-replacements@npm:3.4.0"
+  checksum: 10/ee7dee99f236b5ef5be34bc147c892523cc08d59d8a7f8dffe37f06799a3f2cecef352e6f25e31199427ebf732038075cc90aad975f7d3312e6b4a9a621aa5f0
   languageName: node
   linkType: hard
 
@@ -5016,7 +5022,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.3.5, semver@npm:^7.6.3, semver@npm:^7.7.3, semver@npm:^7.8.5":
+"semver@npm:^7.3.5, semver@npm:^7.7.3, semver@npm:^7.8.5":
   version: 7.8.5
   resolution: "semver@npm:7.8.5"
   bin:
@@ -5690,6 +5696,13 @@ __metadata:
   version: 6.0.0
   resolution: "varint@npm:6.0.0"
   checksum: 10/7684113c9d497c01e40396e50169c502eb2176203219b96e1c5ac965a3e15b4892bd22b7e48d87148e10fffe638130516b6dbeedd0efde2b2d0395aa1772eea7
+  languageName: node
+  linkType: hard
+
+"verkit@npm:^0.4.0":
+  version: 0.4.1
+  resolution: "verkit@npm:0.4.1"
+  checksum: 10/49492e6ec86d22c9f5ee4d2c62513c2f61eb73dce524c1c24f84659dd37ce2de3aa092100619e19624349379bd21e6dedd3adff28ca548649ca00259a6906068
   languageName: node
   linkType: hard
 

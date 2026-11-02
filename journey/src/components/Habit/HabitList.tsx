@@ -39,7 +39,7 @@ const HabitList = ({
   }, [habits, events]);
 
   const sortedHabits = useMemo(
-    () => [...habits].sort((a, b) => (a.createdAt < b.createdAt ? -1 : 1)),
+    () => habits.toSorted((a, b) => (a.createdAt < b.createdAt ? -1 : 1)),
     [habits],
   );
 

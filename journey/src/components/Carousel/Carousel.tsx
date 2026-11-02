@@ -24,7 +24,7 @@ const Carousel = ({ onPreview, onSettle, slideKey, slides }: Props) => {
     const pager = pagerRef.current;
     if (!pager) return;
 
-    const index = Array.from(pager.children).findIndex(
+    const index = [...pager.children].findIndex(
       (child) => (child as HTMLElement).dataset.key === slideKey,
     );
     pager.scrollTo({ behavior: 'instant', left: index * pager.clientWidth });
