@@ -1,5 +1,4 @@
 // External
-import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 
 // Utilities
@@ -19,7 +18,6 @@ import Paragraph from '../Paragraph/Paragraph';
 import ParagraphGroup from '../ParagraphGroup/ParagraphGroup';
 
 const DataPrivacy = () => {
-  const queryClient = useQueryClient();
   const userId = useUserId();
   const [deleteOpen, setDeleteOpen] = useState(false);
 
@@ -27,7 +25,6 @@ const DataPrivacy = () => {
     localStorage.removeItem(settingsKey(userId));
     // The user no longer exists server-side, so only end the local session.
     await supabase.auth.signOut({ scope: 'local' });
-    queryClient.clear();
   };
 
   return (

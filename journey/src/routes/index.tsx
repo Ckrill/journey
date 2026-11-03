@@ -1,10 +1,6 @@
 // External
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { motion } from 'motion/react';
 import { useEffect, useMemo, useRef, useState } from 'react';
-
-// Settings
-import { pageTransition, pageVariants } from '../settings/pageTransition';
 
 // Utilities
 import { calculateStreak } from '../helpers/streak';
@@ -19,6 +15,7 @@ import Button from '../components/Button/Button';
 import Feedback from '../components/Feedback/Feedback';
 import HabitFormModal from '../components/Habit/HabitModal/HabitFormModal';
 import Heading from '../components/Heading/Heading';
+import PageTransition from '../components/PageTransition/PageTransition';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 import WeekPager from '../components/Week/WeekPager';
@@ -93,13 +90,7 @@ const Habits = () => {
   };
 
   return (
-    <motion.div
-      animate="animate"
-      exit="exit"
-      initial="initial"
-      transition={pageTransition}
-      variants={pageVariants}
-    >
+    <PageTransition>
       <SectionContainer>
         <Section>
           <Heading>Habits</Heading>
@@ -142,7 +133,7 @@ const Habits = () => {
         show={showFeedback}
         streak={celebrateStreak}
       />
-    </motion.div>
+    </PageTransition>
   );
 };
 

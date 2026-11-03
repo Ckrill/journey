@@ -1,5 +1,4 @@
 // External
-import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 // Utilities
@@ -17,17 +16,20 @@ import Input from '../Form/Input/Input';
 import Heading from '../Heading/Heading';
 
 const Account = () => {
-  const queryClient = useQueryClient();
   const session = useSession();
   const [passwordOpen, setPasswordOpen] = useState(false);
   const [passwordSaved, setPasswordSaved] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
 
   const handleSignOut = async () => {
+    setSigningOut(true);
+
     // Stop a signed out user on this device from receiving reminders.
     if (pushSupported) await disablePush().catch(() => undefined);
-    await supabase.auth.signOut();
-    // Drop cached data so the next account never sees this one's.
-    queryClient.clear();
+    const { error } = await supabase.auth.signOut();
+
+    // On success the page unmounts, so only a failure needs the button back.
+    if (error) setSigningOut(false);
   };
 
   useEffect(() => {
@@ -68,12 +70,13 @@ const Account = () => {
         </Button>
 
         <Button
+          disabled={signingOut}
           onClick={() => {
             void handleSignOut();
           }}
           priority="secondary"
         >
-          Sign out
+          {signingOut ? 'Signing out' : 'Sign out'}
         </Button>
       </ButtonGroup>
 

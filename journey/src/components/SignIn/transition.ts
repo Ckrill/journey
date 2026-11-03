@@ -4,13 +4,14 @@ import type { Transition } from 'motion/react';
 export const pageVariants = {
   initial: { opacity: 0 },
   animate: { opacity: 1 },
+  exit: { opacity: 0 },
 };
 /* eslint-enable perfectionist/sort-objects */
 
 export const pageTransition: Transition = {
   delay: 0,
-  duration: 0.1,
-  ease: 'easeOut',
+  duration: 0.5,
+  ease: 'easeInOut',
   type: 'tween',
 };
 

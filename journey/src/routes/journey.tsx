@@ -1,28 +1,19 @@
 // External
 import { createFileRoute } from '@tanstack/react-router';
-import { motion } from 'motion/react';
-
-// Settings
-import { pageTransition, pageVariants } from '../settings/pageTransition';
 
 // Hooks
 import { habitsQueryOptions } from '../hooks/useHabitsQuery';
 
 // Miscellaneous
 import Heading from '../components/Heading/Heading';
+import PageTransition from '../components/PageTransition/PageTransition';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 import TimeProgress from '../components/TimeProgress/TimeProgress';
 
 const Journey = () => {
   return (
-    <motion.div
-      animate="animate"
-      exit="exit"
-      initial="initial"
-      transition={pageTransition}
-      variants={pageVariants}
-    >
+    <PageTransition>
       <SectionContainer>
         <Section>
           <Heading>Journey</Heading>
@@ -30,7 +21,7 @@ const Journey = () => {
           <TimeProgress />
         </Section>
       </SectionContainer>
-    </motion.div>
+    </PageTransition>
   );
 };
 

@@ -1,10 +1,6 @@
 // External
 import { createFileRoute } from '@tanstack/react-router';
-import { motion } from 'motion/react';
 import { useEffect } from 'react';
-
-// Settings
-import { pageTransition, pageVariants } from '../settings/pageTransition';
 
 // Utilities
 import { saveToLocalStorage, settingsKey } from '../helpers/localStorage';
@@ -20,6 +16,7 @@ import { useUserId } from '../hooks/useUserId';
 
 // Miscellaneous
 import Divider from '../components/Divider/Divider';
+import PageTransition from '../components/PageTransition/PageTransition';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 import About from '../components/Settings/About';
@@ -38,13 +35,7 @@ const Settings = () => {
   }, [settings, userId]);
 
   return (
-    <motion.div
-      animate="animate"
-      exit="exit"
-      initial="initial"
-      transition={pageTransition}
-      variants={pageVariants}
-    >
+    <PageTransition>
       <SectionContainer>
         <Section>
           <Profile />
@@ -90,7 +81,7 @@ const Settings = () => {
           <About />
         </Section>
       </SectionContainer>
-    </motion.div>
+    </PageTransition>
   );
 };
 

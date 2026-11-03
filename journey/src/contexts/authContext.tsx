@@ -6,7 +6,7 @@ import { createContext, type ReactNode, use, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 
 // undefined while the stored session is still being read, null when signed out.
-const AuthContext = createContext<null | Session | undefined>(undefined);
+export const AuthContext = createContext<null | Session | undefined>(undefined);
 
 export const useSession = () => use(AuthContext);
 

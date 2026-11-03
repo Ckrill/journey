@@ -16,22 +16,32 @@ import {
   variants2,
 } from '../components/SignIn/transition';
 
-const SignIn = () => {
+interface Props {
+  /** Called once the page fully covers the screen, so what's beneath can go. */
+  onCovered: () => void;
+}
+
+const SignIn = ({ onCovered }: Props) => {
+  const [covered, setCovered] = useState(false);
   const [showForm, setShowForm] = useState(false);
 
   return (
-    <motion.div
+    <Page
       animate="animate"
       exit="exit"
       initial="initial"
+      onAnimationComplete={(definition) => {
+        if (definition !== 'animate') return;
+        setCovered(true);
+        onCovered();
+      }}
       transition={pageTransition}
       variants={pageVariants}
     >
-      <Page>
+      {covered && (
         <Title animate={showForm}>
           <motion.div
             animate="animate"
-            exit={'exit'}
             initial="initial"
             onAnimationComplete={() => {
               setShowForm(true);
@@ -42,22 +52,22 @@ const SignIn = () => {
             Journey
           </motion.div>
         </Title>
+      )}
 
-        {showForm && (
-          <motion.div
-            animate="animate"
-            initial="initial"
-            style={{ display: 'flex', justifyContent: 'center' }}
-            transition={transition2}
-            variants={variants2}
-          >
-            <SectionContainer>
-              <SignInForm />
-            </SectionContainer>
-          </motion.div>
-        )}
-      </Page>
-    </motion.div>
+      {showForm && (
+        <motion.div
+          animate="animate"
+          initial="initial"
+          style={{ display: 'flex', justifyContent: 'center' }}
+          transition={transition2}
+          variants={variants2}
+        >
+          <SectionContainer>
+            <SignInForm />
+          </SectionContainer>
+        </motion.div>
+      )}
+    </Page>
   );
 };
 

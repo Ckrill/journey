@@ -1,10 +1,6 @@
 // External
 import { createFileRoute } from '@tanstack/react-router';
-import { motion } from 'motion/react';
 import { useMemo } from 'react';
-
-// Settings
-import { pageTransition, pageVariants } from '../settings/pageTransition';
 
 // Utilities
 import { summarizeWeek } from '../helpers/retro';
@@ -21,6 +17,7 @@ import {
 // Miscellaneous
 import Divider from '../components/Divider/Divider';
 import Heading from '../components/Heading/Heading';
+import PageTransition from '../components/PageTransition/PageTransition';
 import Paragraph from '../components/Paragraph/Paragraph';
 import ParagraphGroup from '../components/ParagraphGroup/ParagraphGroup';
 import ReflectionForm from '../components/Retro/ReflectionForm';
@@ -41,13 +38,7 @@ const Retro = () => {
   );
 
   return (
-    <motion.div
-      animate="animate"
-      exit="exit"
-      initial="initial"
-      transition={pageTransition}
-      variants={pageVariants}
-    >
+    <PageTransition>
       <SectionContainer>
         <Section>
           <Heading>Retro</Heading>
@@ -97,7 +88,7 @@ const Retro = () => {
           <ReflectionForm previous={reflection} />
         </Section>
       </SectionContainer>
-    </motion.div>
+    </PageTransition>
   );
 };
 
