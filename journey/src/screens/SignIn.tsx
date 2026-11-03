@@ -42,9 +42,10 @@ const SignIn = ({ onCovered }: Props) => {
         <Title animate={showForm}>
           <motion.div
             animate="animate"
+            exit="exit"
             initial="initial"
-            onAnimationComplete={() => {
-              setShowForm(true);
+            onAnimationComplete={(definition) => {
+              if (definition === 'animate') setShowForm(true);
             }}
             transition={transition}
             variants={variants}
@@ -57,6 +58,7 @@ const SignIn = ({ onCovered }: Props) => {
       {showForm && (
         <motion.div
           animate="animate"
+          exit="exit"
           initial="initial"
           style={{ display: 'flex', justifyContent: 'center' }}
           transition={transition2}
