@@ -6,15 +6,15 @@ import { useState } from 'react';
 import SectionContainer from '../components/Section/SectionContainer';
 import Page from '../components/SignIn/Page';
 import SignInForm from '../components/SignIn/SignIn';
-import Title from '../components/SignIn/Title';
 import {
+  formVariants,
   pageTransition,
   pageVariants,
-  transition,
-  transition2,
-  variants,
-  variants2,
+  titleVariants,
 } from '../components/SignIn/transition';
+
+// Styles
+import styles from '../components/SignIn/SignIn.module.scss';
 
 interface Props {
   /** Called once the page fully covers the screen, so what's beneath can go. */
@@ -23,7 +23,7 @@ interface Props {
 
 const SignIn = ({ onCovered }: Props) => {
   const [covered, setCovered] = useState(false);
-  const [showForm, setShowForm] = useState(false);
+  const [formReady, setFormReady] = useState(false);
 
   return (
     <Page
@@ -39,35 +39,35 @@ const SignIn = ({ onCovered }: Props) => {
       variants={pageVariants}
     >
       {covered && (
-        <Title animate={showForm}>
+        <>
+          <div className={styles.title}>
+            <motion.div
+              animate="animate"
+              exit="exit"
+              initial="initial"
+              variants={titleVariants}
+            >
+              Journey
+            </motion.div>
+          </div>
+
+          {/* Mounted from the start so its space is reserved; inert until it has risen into view. */}
           <motion.div
             animate="animate"
             exit="exit"
+            inert={!formReady}
             initial="initial"
             onAnimationComplete={(definition) => {
-              if (definition === 'animate') setShowForm(true);
+              if (definition === 'animate') setFormReady(true);
             }}
-            transition={transition}
-            variants={variants}
+            style={{ display: 'flex', justifyContent: 'center' }}
+            variants={formVariants}
           >
-            Journey
+            <SectionContainer>
+              <SignInForm />
+            </SectionContainer>
           </motion.div>
-        </Title>
-      )}
-
-      {showForm && (
-        <motion.div
-          animate="animate"
-          exit="exit"
-          initial="initial"
-          style={{ display: 'flex', justifyContent: 'center' }}
-          transition={transition2}
-          variants={variants2}
-        >
-          <SectionContainer>
-            <SignInForm />
-          </SectionContainer>
-        </motion.div>
+        </>
       )}
     </Page>
   );

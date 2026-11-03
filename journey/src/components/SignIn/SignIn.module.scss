@@ -9,6 +9,8 @@
 }
 
 .title {
+  position: relative;
+  inset-block-start: 5vh;
   display: flex;
   flex-grow: 1;
   flex-direction: column;
@@ -20,8 +22,5 @@
   color: var(--color-brand-secondary);
   text-transform: uppercase;
   overflow-wrap: break-word;
-}
-
-.titleText {
   transform: skewY(-20deg);
 }
