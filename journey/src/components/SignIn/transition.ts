@@ -36,16 +36,16 @@ const slideUpTransition: Transition = {
 
 const slideInTransition: Transition = {
   delay: 0.3,
-  duration: 0.5,
+  duration: 0.3,
   ease: 'easeOut',
 };
 
 /* eslint-disable perfectionist/sort-objects */
 export const titleVariants: Variants = {
-  initial: { opacity: 0, x: 1000, y: slideDistance },
+  initial: { opacity: 0, x: '100vw', y: slideDistance },
   animate: {
     opacity: 1,
-    x: 0,
+    x: '0vw',
     y: '0vh',
     transition: {
       opacity: slideInTransition,

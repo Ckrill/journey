@@ -20,12 +20,14 @@ const Notifications = () => {
   const settings = useSettings();
   const setSettings = useSettingsUpdate();
   const [failed, setFailed] = useState(false);
+  const [toggling, setToggling] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
   const blocked = pushSupported && Notification.permission === 'denied';
 
   const handleNotificationsToggle = async () => {
     setFailed(false);
+    setToggling(true);
 
     try {
       if (settings.notifications) {
@@ -37,6 +39,8 @@ const Notifications = () => {
       }
     } catch {
       setFailed(true);
+    } finally {
+      setToggling(false);
     }
   };
 
@@ -65,7 +69,7 @@ const Notifications = () => {
             void handleNotificationsToggle();
           }}
           checked={settings.notifications}
-          disabled={!pushSupported || blocked}
+          disabled={!pushSupported || blocked || toggling}
           id="notifications"
           label="Notifications"
         />

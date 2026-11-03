@@ -23,9 +23,11 @@ const SignInForm = () => {
     setSubmitting(true);
 
     const { error } = await supabase.auth.signInWithPassword(values);
-    if (error) setSubmitError(error.message);
-
-    setSubmitting(false);
+    // On success the form fades out, so keep the button busy until it's gone.
+    if (error) {
+      setSubmitError(error.message);
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -72,7 +74,7 @@ const SignInForm = () => {
         />
 
         <Button disabled={submitting} type="submit">
-          Sign in
+          {submitting ? 'Signing in' : 'Sign in'}
         </Button>
       </Section>
     </form>
