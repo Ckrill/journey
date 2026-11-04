@@ -23,8 +23,6 @@ const AuthGate = ({ children }: { children: ReactNode }) => {
     if (!retainedSession) queryClient.clear();
   }, [retainedSession, queryClient]);
 
-  if (session === undefined) return <div>Authenticating...</div>;
-
   return (
     <>
       {retainedSession && (
@@ -38,6 +36,7 @@ const AuthGate = ({ children }: { children: ReactNode }) => {
             onCovered={() => {
               setRetainedSession(null);
             }}
+            restoringSession={session === undefined}
           />
         )}
       </AnimatePresence>

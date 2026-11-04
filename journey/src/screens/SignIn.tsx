@@ -19,17 +19,20 @@ import styles from '../components/SignIn/SignIn.module.scss';
 interface Props {
   /** Called once the page fully covers the screen, so what's beneath can go. */
   onCovered: () => void;
+  /** The stored session is still being read, so only the red page shows. */
+  restoringSession: boolean;
 }
 
-const SignIn = ({ onCovered }: Props) => {
-  const [covered, setCovered] = useState(false);
+const SignIn = ({ onCovered, restoringSession }: Props) => {
+  // Already opaque on first load, when the page was red before React started.
+  const [covered, setCovered] = useState(restoringSession);
   const [formReady, setFormReady] = useState(false);
 
   return (
     <Page
       animate="animate"
       exit="exit"
-      initial="initial"
+      initial={restoringSession ? false : 'initial'}
       onAnimationComplete={(definition) => {
         if (definition !== 'animate') return;
         setCovered(true);
@@ -38,7 +41,19 @@ const SignIn = ({ onCovered }: Props) => {
       transition={pageTransition}
       variants={pageVariants}
     >
-      {covered && (
+      {restoringSession && (
+        // Delayed so a quick restore never shows it.
+        <motion.div
+          animate={{ opacity: 1 }}
+          aria-label="Authenticating"
+          className={styles.spinner}
+          initial={{ opacity: 0 }}
+          role="status"
+          transition={{ delay: 1, duration: 0.3 }}
+        />
+      )}
+
+      {covered && !restoringSession && (
         <>
           <div className={styles.title}>
             <motion.div
