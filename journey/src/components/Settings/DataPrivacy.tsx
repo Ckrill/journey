@@ -42,8 +42,7 @@ const DataPrivacy = () => {
             <Paragraph>
               The rest (email, habits, progress, latest retro and notification
               settings) is stored on servers in the EU and is never shared with
-              anyone. Notifications are delivered through your browser's push
-              service.
+              anyone.
             </Paragraph>
 
             <Paragraph>No tracking, no analytics and no cookies.</Paragraph>

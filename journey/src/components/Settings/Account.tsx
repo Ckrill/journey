@@ -56,10 +56,7 @@ const Account = () => {
         value={session?.user.email ?? ''}
       />
 
-      <ButtonGroup
-        align="center"
-        assistiveText="Signing out will pause your notifications on this device."
-      >
+      <ButtonGroup>
         <Button
           onClick={() => {
             setPasswordSaved(false);
