@@ -12,6 +12,7 @@ import {
   pageVariants,
   titleVariants,
 } from '../components/SignIn/transition';
+import Spinner from '../components/Spinner/Spinner';
 
 // Styles
 import styles from '../components/SignIn/SignIn.module.scss';
@@ -41,17 +42,7 @@ const SignIn = ({ onCovered, restoringSession }: Props) => {
       transition={pageTransition}
       variants={pageVariants}
     >
-      {restoringSession && (
-        // Delayed so a quick restore never shows it.
-        <motion.div
-          animate={{ opacity: 1 }}
-          aria-label="Authenticating"
-          className={styles.spinner}
-          initial={{ opacity: 0 }}
-          role="status"
-          transition={{ delay: 1, duration: 0.3 }}
-        />
-      )}
+      {restoringSession && <Spinner aria-label="Authenticating" />}
 
       {covered && !restoringSession && (
         <>

@@ -1,0 +1,8 @@
+.pending {
+  position: fixed;
+  inset: 0;
+  display: flex;
+
+  // Clicks pass through so the header stays usable.
+  pointer-events: none;
+}

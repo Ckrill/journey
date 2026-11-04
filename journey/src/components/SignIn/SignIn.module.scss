@@ -8,22 +8,6 @@
   background-color: var(--color-brand-primary);
 }
 
-.spinner {
-  inline-size: 60px;
-  block-size: 60px;
-  margin: auto;
-  border: 4px solid color-mix(in srgb, var(--color-brand-secondary) 25%, transparent);
-  border-block-start-color: var(--color-brand-secondary);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .title {
   position: relative;
   inset-block-start: 5vh;
