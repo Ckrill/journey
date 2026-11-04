@@ -24,9 +24,16 @@
       'header';
     grid-template-rows: 1fr auto;
 
+    // Chrome's edge-to-edge pattern: pad by the max inset, pull down by the live one.
+    // https://developer.chrome.com/docs/css-ui/edge-to-edge#using-the-safe-area-bottom-inset-and-the-safe-area-bottom-maximum-inset
     > header {
+      inset-block-end: calc(
+        env(safe-area-inset-bottom, 0px) - env(safe-area-max-inset-bottom, 36px)
+      );
       padding-block: var(--header-padding-block)
-        calc(var(--header-padding-block) + env(safe-area-inset-bottom));
+        calc(
+          var(--header-padding-block) + env(safe-area-max-inset-bottom, 36px)
+        );
     }
   }
 }

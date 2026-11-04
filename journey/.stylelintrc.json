@@ -5,6 +5,10 @@
   ],
   "rules": {
     "custom-property-pattern": null,
+    "declaration-block-no-redundant-longhand-properties": [
+      true,
+      { "ignoreShorthands": ["grid-template"] }
+    ],
     "selector-class-pattern": null
   }
 }
