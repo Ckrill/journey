@@ -44,7 +44,7 @@ const SignInForm = () => {
           name="email"
           render={({ field }) => (
             <Input
-              autoComplete="email"
+              autoComplete="username"
               id="email"
               labelText="Email"
               required
