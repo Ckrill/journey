@@ -1,0 +1,28 @@
+.layout {
+  display: grid;
+  grid-template-areas:
+    'header'
+    'main';
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 100%;
+  min-block-size: 100dvh;
+
+  > header {
+    grid-area: header;
+  }
+
+  > main {
+    grid-area: main;
+  }
+
+  &.bottomNavigation {
+    grid-template-areas:
+      'main'
+      'header';
+    grid-template-rows: 1fr auto;
+
+    > header {
+      padding-block-end: calc(20px + env(safe-area-inset-bottom));
+    }
+  }
+}

@@ -10,7 +10,9 @@ const Preferences = () => {
   const settings = useSettings();
   const setSettings = useSettingsUpdate();
 
-  const handleToggle = (setting: 'sound' | 'vibration') => {
+  const handleToggle = (
+    setting: 'bottomNavigation' | 'sound' | 'vibration',
+  ) => {
     setSettings({ ...settings, [setting]: !settings[setting] });
   };
 
@@ -35,6 +37,15 @@ const Preferences = () => {
           checked={settings.vibration}
           id="vibration"
           label="Vibration"
+        />
+
+        <Checkbox
+          callback={() => {
+            handleToggle('bottomNavigation');
+          }}
+          checked={settings.bottomNavigation}
+          id="bottomNavigation"
+          label="Upside Down"
         />
       </CheckboxGroup>
     </>

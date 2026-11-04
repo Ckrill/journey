@@ -4,6 +4,7 @@ export type Sex = 'female' | 'male';
 
 export interface Settings {
   birthYear?: number;
+  bottomNavigation: boolean;
   notifications: boolean;
   region?: string;
   sex?: Sex;

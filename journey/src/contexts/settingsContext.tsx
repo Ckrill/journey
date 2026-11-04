@@ -11,6 +11,7 @@ import { useUserId } from '../hooks/useUserId';
 import type { Settings } from '../types/types';
 
 const defaultSettings: Settings = {
+  bottomNavigation: false,
   notifications: false,
   sound: true,
   vibration: true,

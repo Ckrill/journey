@@ -5,20 +5,30 @@ import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { AnimatePresence } from 'motion/react';
 
+// Contexts
+import { useSettings } from '../contexts/settingsContext';
+
 // Miscellaneous
 import Header from '../components/Header/Header';
+import Layout from '../components/Layout/Layout';
 
 // styles
 import '../App.scss';
 
 const RootComponent = () => {
+  const { bottomNavigation } = useSettings();
+
   return (
     <>
-      <Header />
+      <Layout bottomNavigation={bottomNavigation}>
+        <Header />
 
-      <AnimatePresence mode="wait">
-        <Outlet />
-      </AnimatePresence>
+        <main>
+          <AnimatePresence mode="wait">
+            <Outlet />
+          </AnimatePresence>
+        </main>
+      </Layout>
 
       <ReactQueryDevtools />
 
