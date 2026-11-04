@@ -1,5 +1,6 @@
 // External
 import { Link, useLocation } from '@tanstack/react-router';
+import clsx from 'clsx';
 import { motion } from 'motion/react';
 
 // Styles
@@ -11,11 +12,22 @@ const navigationItems = [
   { name: 'Settings', url: '/settings' },
 ];
 
-const Header = () => {
+interface HeaderProps {
+  bottomNavigation: boolean;
+}
+
+const Header = ({ bottomNavigation }: HeaderProps) => {
   const location = useLocation();
+  const offscreen = { y: bottomNavigation ? '100%' : '-100%' };
 
   return (
-    <header className={styles.header}>
+    <motion.header
+      animate={{ y: 0 }}
+      className={clsx(styles.header, bottomNavigation && styles.bottom)}
+      exit={offscreen}
+      initial={offscreen}
+      transition={{ duration: 0.1 }}
+    >
       <ul className={styles.list}>
         {navigationItems.map((item) => {
           const active = location.pathname === item.url;
@@ -28,7 +40,9 @@ const Header = () => {
                 {active ? (
                   <motion.div
                     className={styles.underline}
-                    layoutId="underline"
+                    layoutId={
+                      bottomNavigation ? 'underline-bottom' : 'underline-top'
+                    }
                     transition={{ duration: 0.1 }}
                   />
                 ) : null}
@@ -37,7 +51,7 @@ const Header = () => {
           );
         })}
       </ul>
-    </header>
+    </motion.header>
   );
 };
 

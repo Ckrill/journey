@@ -44,6 +44,18 @@ const Notifications = () => {
     }
   };
 
+  if (!pushSupported) {
+    return (
+      <>
+        <Heading>Notifications</Heading>
+
+        <Paragraph type="warning">
+          This browser does not support notifications.
+        </Paragraph>
+      </>
+    );
+  }
+
   return (
     <>
       <Heading>Notifications</Heading>
@@ -69,7 +81,7 @@ const Notifications = () => {
             void handleNotificationsToggle();
           }}
           checked={settings.notifications}
-          disabled={!pushSupported || blocked || toggling}
+          disabled={blocked || toggling}
           id="notifications"
           label="Notifications"
         />
@@ -90,12 +102,6 @@ const Notifications = () => {
         }}
         open={modalOpen}
       />
-
-      {!pushSupported && (
-        <Paragraph type="warning">
-          This browser does not support notifications.
-        </Paragraph>
-      )}
 
       {blocked && (
         <Paragraph type="warning">

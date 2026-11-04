@@ -20,8 +20,13 @@ const RootComponent = () => {
 
   return (
     <>
-      <Layout bottomNavigation={bottomNavigation}>
-        <Header />
+      <Layout>
+        <AnimatePresence initial={false} mode="wait">
+          <Header
+            bottomNavigation={bottomNavigation}
+            key={String(bottomNavigation)}
+          />
+        </AnimatePresence>
 
         <main>
           <AnimatePresence mode="wait">

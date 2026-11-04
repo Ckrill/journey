@@ -5,8 +5,21 @@
   inset-block: 0;
   z-index: 1;
   box-sizing: border-box;
-  padding-block: var(--header-padding-block);
+  grid-area: header-top;
+  padding-block: calc(var(--header-padding-block) + env(safe-area-inset-top))
+    var(--header-padding-block);
   background-color: var(--color-brand-primary);
+
+  // Chrome's edge-to-edge pattern: pad by the max inset, pull down by the live one.
+  // https://developer.chrome.com/docs/css-ui/edge-to-edge#using-the-safe-area-bottom-inset-and-the-safe-area-bottom-maximum-inset
+  &.bottom {
+    inset-block-end: calc(
+      env(safe-area-inset-bottom, 0px) - env(safe-area-max-inset-bottom, 36px)
+    );
+    grid-area: header-bottom;
+    padding-block: var(--header-padding-block)
+      calc(var(--header-padding-block) + env(safe-area-max-inset-bottom, 36px));
+  }
 }
 
 .list {
