@@ -9,6 +9,9 @@
 
   > header {
     grid-area: header;
+    padding-block-start: calc(
+      var(--header-padding-block) + env(safe-area-inset-top)
+    );
   }
 
   > main {
@@ -22,7 +25,8 @@
     grid-template-rows: 1fr auto;
 
     > header {
-      padding-block-end: calc(20px + env(safe-area-inset-bottom));
+      padding-block: var(--header-padding-block)
+        calc(var(--header-padding-block) + env(safe-area-inset-bottom));
     }
   }
 }
