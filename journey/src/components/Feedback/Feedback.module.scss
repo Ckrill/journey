@@ -1,5 +1,6 @@
 .overlay {
   position: fixed;
+  z-index: 2;
   inset-block-start: 0;
   inset-inline-start: 0;
   inline-size: 100%;

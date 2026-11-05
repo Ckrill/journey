@@ -7,12 +7,12 @@ import { calculateStreak } from '../helpers/streak';
 import { getHeading } from '../helpers/synonyms';
 import { currentWeekStart, weekDates } from '../helpers/week';
 
-// Data
-import feedbackHeading from '../data/synonyms/feedback-heading.json';
-
 // Hooks
 import { eventsQueryOptions, useEventsQuery } from '../hooks/useEventsQuery';
 import { habitsQueryOptions, useHabitsQuery } from '../hooks/useHabitsQuery';
+
+// Data
+import feedbackHeading from '../data/synonyms/feedback-heading.json';
 
 // Miscellaneous
 import Button from '../components/Button/Button';
