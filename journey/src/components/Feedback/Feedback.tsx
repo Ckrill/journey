@@ -3,13 +3,10 @@ import clsx from 'clsx';
 import { useEffect, useMemo, useRef } from 'react';
 
 // Utilities
-import { getHeading, getHeadingSize } from '../../helpers/synonyms';
+import { getHeadingSize } from '../../helpers/synonyms';
 
 // Contexts
 import { useSettings } from '../../contexts/settingsContext';
-
-// Data
-import feedbackHeading from '../../data/synonyms/feedback-heading.json';
 
 // Assets
 import thump from '../../assets/sounds/thump.mp3';
@@ -18,18 +15,15 @@ import thump from '../../assets/sounds/thump.mp3';
 import styles from './Feedback.module.scss';
 
 interface Props {
+  heading: string;
   setShow: (show: boolean) => void;
   show: boolean;
   streak: number;
 }
 
-const Feedback = ({ setShow, show, streak }: Props) => {
+const Feedback = ({ heading, setShow, show, streak }: Props) => {
   const settings = useSettings();
 
-  const heading = useMemo(
-    () => (show ? getHeading(feedbackHeading, streak) : ''),
-    [show, streak],
-  );
   const headingSize = useMemo(
     () => (heading ? getHeadingSize(heading) : 'm'),
     [heading],

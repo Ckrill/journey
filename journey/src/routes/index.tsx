@@ -4,7 +4,11 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 
 // Utilities
 import { calculateStreak } from '../helpers/streak';
+import { getHeading } from '../helpers/synonyms';
 import { currentWeekStart, weekDates } from '../helpers/week';
+
+// Data
+import feedbackHeading from '../data/synonyms/feedback-heading.json';
 
 // Hooks
 import { eventsQueryOptions, useEventsQuery } from '../hooks/useEventsQuery';
@@ -32,6 +36,7 @@ const Habits = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
   const [celebrateStreak, setCelebrateStreak] = useState(0);
+  const [celebrateHeading, setCelebrateHeading] = useState('');
 
   // Map each habit to the set of dates it was completed on.
   const datesByHabit = useMemo(() => {
@@ -66,7 +71,9 @@ const Habits = () => {
         const was = prevMetRef.current.get(habit.id) ?? false;
         const now = met.get(habit.id) ?? false;
         if (!was && now) {
-          setCelebrateStreak(calculateStreak(habit, events).current);
+          const streak = calculateStreak(habit, events).current;
+          setCelebrateStreak(streak);
+          setCelebrateHeading(getHeading(feedbackHeading, streak));
           setShowFeedback(true);
           break;
         }
@@ -129,6 +136,7 @@ const Habits = () => {
       />
 
       <Feedback
+        heading={celebrateHeading}
         setShow={setShowFeedback}
         show={showFeedback}
         streak={celebrateStreak}
