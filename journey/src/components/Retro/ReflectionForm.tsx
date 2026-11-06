@@ -8,6 +8,7 @@ import { useSaveReflection } from '../../hooks/useSaveReflection';
 import Button from '../Button/Button';
 import FormActions from '../Form/FormActions/FormActions';
 import Textarea from '../Form/Textarea/Textarea';
+import ErrorMessage from '../Notice/ErrorMessage';
 
 // Types
 import type { Reflection } from '../../types/types';
@@ -99,9 +100,7 @@ const ReflectionForm = ({ previous }: Props) => {
         </Button>
 
         {save.isError && (
-          <p className={styles.message} role="alert">
-            Something went wrong. Please try again.
-          </p>
+          <ErrorMessage>Something went wrong. Please try again.</ErrorMessage>
         )}
 
         {save.isSuccess && !isDirty && (

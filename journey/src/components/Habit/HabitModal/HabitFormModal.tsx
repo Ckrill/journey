@@ -19,6 +19,7 @@ import Pillbox from '../../Form/Pillbox/Pillbox';
 import Textarea from '../../Form/Textarea/Textarea';
 import Heading from '../../Heading/Heading';
 import Modal from '../../Modal/Modal';
+import ErrorMessage from '../../Notice/ErrorMessage';
 import Paragraph from '../../Paragraph/Paragraph';
 import ParagraphGroup from '../../ParagraphGroup/ParagraphGroup';
 import Section from '../../Section/Section';
@@ -27,9 +28,6 @@ import SectionContainer from '../../Section/SectionContainer';
 // Types
 import type { Habit, Weekday } from '../../../types/types';
 import type { PillboxOption } from '../../Form/Pillbox/Pillbox';
-
-// Styles
-import styles from './HabitFormModal.module.scss';
 
 const dayOptions: PillboxOption<Weekday>[] = WEEKDAYS.map((value, index) => ({
   display: WEEKDAY_LABELS[index][0],
@@ -236,9 +234,9 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
               </Button>
 
               {mutationError && (
-                <p className={styles.error} role="alert">
+                <ErrorMessage>
                   Something went wrong. Please try again.
-                </p>
+                </ErrorMessage>
               )}
 
               {isEdit && (

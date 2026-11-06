@@ -52,7 +52,7 @@
 }
 
 .button[data-priority='primary'][data-tone='danger'] {
-  --button-color: var(--color-ui);
+  --button-color: var(--color-on-ui);
   --button-background: var(--color-error);
   --button-background-hover: color-mix(
     in srgb,

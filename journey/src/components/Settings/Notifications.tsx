@@ -12,6 +12,7 @@ import Button from '../Button/Button';
 import Checkbox from '../Form/Checkbox/Checkbox';
 import CheckboxGroup from '../Form/Checkbox/CheckboxGroup';
 import Heading from '../Heading/Heading';
+import Warning from '../Notice/Warning';
 import NotificationsModal from '../NotificationsModal/NotificationsModal';
 import Paragraph from '../Paragraph/Paragraph';
 import ParagraphGroup from '../ParagraphGroup/ParagraphGroup';
@@ -44,17 +45,7 @@ const Notifications = () => {
     }
   };
 
-  if (!pushSupported) {
-    return (
-      <>
-        <Heading>Notifications</Heading>
-
-        <Paragraph type="warning">
-          This browser does not support notifications.
-        </Paragraph>
-      </>
-    );
-  }
+  const showWarning = blocked || !pushSupported;
 
   return (
     <>
@@ -71,43 +62,46 @@ const Notifications = () => {
         </Paragraph>
       </ParagraphGroup>
 
-      <CheckboxGroup
-        errorText={
-          failed ? 'Something went wrong. Please try again.' : undefined
-        }
-      >
-        <Checkbox
-          callback={() => {
-            void handleNotificationsToggle();
-          }}
-          checked={settings.notifications}
-          disabled={blocked || toggling}
-          id="notifications"
-          label="Notifications"
-        />
-      </CheckboxGroup>
+      {showWarning ? (
+        <Warning>
+          {blocked
+            ? "Notifications are blocked. Allow them in your browser's site settings to turn them on."
+            : 'This browser does not support notifications.'}
+        </Warning>
+      ) : (
+        <>
+          <CheckboxGroup
+            errorText={
+              failed ? 'Something went wrong. Please try again.' : undefined
+            }
+          >
+            <Checkbox
+              callback={() => {
+                void handleNotificationsToggle();
+              }}
+              checked={settings.notifications}
+              disabled={toggling}
+              id="notifications"
+              label="Notifications"
+            />
+          </CheckboxGroup>
 
-      <Button
-        disabled={!settings.notifications}
-        onClick={() => {
-          setModalOpen(true);
-        }}
-      >
-        Configure notifications
-      </Button>
+          <Button
+            disabled={!settings.notifications}
+            onClick={() => {
+              setModalOpen(true);
+            }}
+          >
+            Configure notifications
+          </Button>
 
-      <NotificationsModal
-        onClose={() => {
-          setModalOpen(false);
-        }}
-        open={modalOpen}
-      />
-
-      {blocked && (
-        <Paragraph type="warning">
-          Notifications are blocked. Allow them in your browser's site settings
-          to turn them on.
-        </Paragraph>
+          <NotificationsModal
+            onClose={() => {
+              setModalOpen(false);
+            }}
+            open={modalOpen}
+          />
+        </>
       )}
     </>
   );
