@@ -1,9 +1,12 @@
 import clsx from 'clsx';
 import { BsFire } from 'react-icons/bs';
 
+// Hooks
+import { useToggleEvent } from '../../../hooks/useToggleEvent';
+
+import DayStripRow from '../../DayStrip/DayStripRow/DayStripRow';
 // Miscellaneous
-import HabitRow from '../HabitRow/HabitRow';
-import Days from './Days';
+import DayToggleStrip from '../../DayStrip/DayToggleStrip/DayToggleStrip';
 
 // Types
 import type { Habit } from '../../../types/types';
@@ -26,13 +29,14 @@ const HabitItem = ({
   onEdit,
   weekDates,
 }: Props) => {
+  const { mutateAsync } = useToggleEvent();
   const completedCount = weekDates.filter((date) =>
     completedDates.has(date),
   ).length;
   const targetMet = completedCount >= habit.weeklyTarget;
 
   return (
-    <HabitRow
+    <DayStripRow
       className={styles.row}
       name={
         <button
@@ -63,12 +67,13 @@ const HabitItem = ({
         </span>
       }
     >
-      <Days
+      <DayToggleStrip
         completedDates={completedDates}
-        habit={habit}
+        markedDays={targetMet ? [] : habit.plannedDays}
+        onToggle={(date) => mutateAsync({ date, habitId: habit.id })}
         weekDates={weekDates}
       />
-    </HabitRow>
+    </DayStripRow>
   );
 };
 

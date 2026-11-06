@@ -2,8 +2,8 @@
 import clsx from 'clsx';
 
 // Styles
-import shared from '../Habit/DayStrip.module.scss';
-import styles from './WeekDay.module.scss';
+import shared from '../DayStrip.module.scss';
+import styles from './DayStatus.module.scss';
 
 interface Props {
   done: boolean;
@@ -11,7 +11,7 @@ interface Props {
   label: string;
 }
 
-const WeekDay = ({ done, label }: Props) => (
+const DayStatus = ({ done, label }: Props) => (
   <li className={clsx(shared.day, styles.day)} data-done={done}>
     <span aria-hidden>{label[0]}</span>
 
@@ -21,4 +21,4 @@ const WeekDay = ({ done, label }: Props) => (
   </li>
 );
 
-export default WeekDay;
+export default DayStatus;

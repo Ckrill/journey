@@ -15,12 +15,12 @@ import {
 
 // Miscellaneous
 import Divider from '../components/Divider/Divider';
+import HabitSummary from '../components/Habit/HabitSummary/HabitSummary';
 import Heading from '../components/Heading/Heading';
 import PageTransition from '../components/PageTransition/PageTransition';
 import Paragraph from '../components/Paragraph/Paragraph';
 import ParagraphGroup from '../components/ParagraphGroup/ParagraphGroup';
-import ReflectionForm from '../components/Retro/ReflectionForm';
-import WeekSummary from '../components/Retro/WeekSummary';
+import ReflectionForm from '../components/Reflection/ReflectionForm';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 
@@ -41,7 +41,7 @@ const Retro = () => {
 
           <Paragraph>{formatWeekRange(weekStart)}</Paragraph>
 
-          <WeekSummary summary={summary} />
+          <HabitSummary summary={summary} />
         </Section>
 
         <Section>

@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import type { ReactNode } from 'react';
 
 // Styles
-import styles from './HabitRow.module.scss';
+import styles from './DayStripRow.module.scss';
 
 interface Props {
   /** The week's day cells. */
@@ -13,7 +13,7 @@ interface Props {
   trailing: ReactNode;
 }
 
-const HabitRow = ({ children, className, name, trailing }: Props) => (
+const DayStripRow = ({ children, className, name, trailing }: Props) => (
   <div className={clsx(styles.row, className)}>
     <div className={styles.header}>
       {name}
@@ -24,4 +24,4 @@ const HabitRow = ({ children, className, name, trailing }: Props) => (
   </div>
 );
 
-export default HabitRow;
+export default DayStripRow;

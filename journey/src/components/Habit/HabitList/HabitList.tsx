@@ -2,14 +2,14 @@
 import { useMemo } from 'react';
 
 // Utilities
-import { calculateStreak } from '../../helpers/streak';
+import { calculateStreak } from '../../../helpers/streak';
 
 // Miscellaneous
-import Paragraph from '../Paragraph/Paragraph';
-import HabitItem from './HabitItem/HabitItem';
+import Paragraph from '../../Paragraph/Paragraph';
+import HabitItem from './HabitItem';
 
 // Types
-import type { Events, Habit } from '../../types/types';
+import type { Events, Habit } from '../../../types/types';
 
 // Styles
 import styles from './HabitList.module.scss';

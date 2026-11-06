@@ -7,7 +7,7 @@ import { currentWeekStart, shiftWeek, weekDates } from '../../helpers/week';
 
 // Miscellaneous
 import Carousel from '../Carousel/Carousel';
-import HabitList from '../Habit/HabitList';
+import HabitList from '../Habit/HabitList/HabitList';
 import WeekSwitcher from './WeekSwitcher';
 
 // Types

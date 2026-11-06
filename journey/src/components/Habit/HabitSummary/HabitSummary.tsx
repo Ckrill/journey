@@ -1,18 +1,18 @@
 // Types
-import type { WeekSummary as WeekSummaryData } from '../../helpers/retro';
+import type { WeekSummaryData } from '../../../helpers/retro';
 
 // Miscellaneous
-import Paragraph from '../Paragraph/Paragraph';
-import WeekSummaryItem from './WeekSummaryItem';
+import Paragraph from '../../Paragraph/Paragraph';
+import HabitSummaryItem from './HabitSummaryItem';
 
 // Styles
-import styles from './WeekSummary.module.scss';
+import styles from './HabitSummary.module.scss';
 
 interface Props {
   summary: WeekSummaryData;
 }
 
-const WeekSummary = ({ summary }: Props) => {
+const HabitSummary = ({ summary }: Props) => {
   if (summary.habits.length === 0) {
     return <Paragraph>No habits were being tracked this week.</Paragraph>;
   }
@@ -28,10 +28,10 @@ const WeekSummary = ({ summary }: Props) => {
       </p>
 
       <ul className={styles.list}>
-        {summary.habits.map(({ completed, days, habit, met }) => (
-          <WeekSummaryItem
+        {summary.habits.map(({ completed, completedDays, habit, met }) => (
+          <HabitSummaryItem
             completed={completed}
-            days={days}
+            completedDays={completedDays}
             habit={habit}
             key={habit.id}
             met={met}
@@ -42,4 +42,4 @@ const WeekSummary = ({ summary }: Props) => {
   );
 };
 
-export default WeekSummary;
+export default HabitSummary;

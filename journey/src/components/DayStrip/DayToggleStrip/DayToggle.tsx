@@ -9,9 +9,9 @@ import { vibrateError } from '../../../helpers/vibrate';
 // Contexts
 import { useSettings } from '../../../contexts/settingsContext';
 
-// Styles
 import shared from '../DayStrip.module.scss';
-import styles from './Day.module.scss';
+// Styles
+import styles from './DayToggle.module.scss';
 
 interface Props {
   date: string;
@@ -24,7 +24,7 @@ interface Props {
   planned: boolean;
 }
 
-const Day = ({
+const DayToggle = ({
   date,
   done,
   isFuture,
@@ -84,4 +84,4 @@ const Day = ({
   );
 };
 
-export default Day;
+export default DayToggle;
