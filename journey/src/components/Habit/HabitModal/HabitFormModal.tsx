@@ -233,12 +233,6 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
                 {isPending ? 'Saving' : 'Save habit'}
               </Button>
 
-              {mutationError && (
-                <ErrorMessage>
-                  Something went wrong. Please try again.
-                </ErrorMessage>
-              )}
-
               {isEdit && (
                 <Button
                   disabled={isPending}
@@ -249,6 +243,10 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
                 >
                   Archive habit
                 </Button>
+              )}
+
+              {mutationError && (
+                <ErrorMessage>Something went wrong. Try again.</ErrorMessage>
               )}
             </FormActions>
           </Section>

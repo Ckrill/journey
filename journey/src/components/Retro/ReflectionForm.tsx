@@ -9,12 +9,10 @@ import Button from '../Button/Button';
 import FormActions from '../Form/FormActions/FormActions';
 import Textarea from '../Form/Textarea/Textarea';
 import ErrorMessage from '../Notice/ErrorMessage';
+import SuccessMessage from '../Notice/SuccessMessage';
 
 // Types
 import type { Reflection } from '../../types/types';
-
-// Styles
-import styles from './ReflectionForm.module.scss';
 
 const MAX_LENGTH = 2000;
 
@@ -100,13 +98,11 @@ const ReflectionForm = ({ previous }: Props) => {
         </Button>
 
         {save.isError && (
-          <ErrorMessage>Something went wrong. Please try again.</ErrorMessage>
+          <ErrorMessage>Something went wrong. Try again.</ErrorMessage>
         )}
 
         {save.isSuccess && !isDirty && (
-          <p className={styles.message} role="status">
-            Saved. Saving again replaces it.
-          </p>
+          <SuccessMessage>Saved. Saving again replaces it.</SuccessMessage>
         )}
       </FormActions>
     </form>

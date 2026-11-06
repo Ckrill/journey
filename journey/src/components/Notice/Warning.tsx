@@ -1,12 +1,12 @@
 // External
-import React from 'react';
+import type { ReactNode } from 'react';
 import { BsExclamationTriangleFill } from 'react-icons/bs';
 
 // Miscellaneous
 import Notice from './Notice';
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const Warning = ({ children }: Props) => (

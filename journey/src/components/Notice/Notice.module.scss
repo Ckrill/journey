@@ -9,6 +9,7 @@
   margin-block: var(--notice-space-before, 20px) var(--notice-space-after, 20px);
   margin-inline: auto;
   color: var(--notice-color);
+  scroll-margin-block: calc(4 * var(--space-base));
   background: color-mix(in srgb, var(--notice-color) 10%, transparent);
   border: 2px solid color-mix(in srgb, var(--notice-color) 40%, transparent);
   border-radius: var(--radius-base);
@@ -19,6 +20,10 @@
 
   &[data-tone='error'] {
     --notice-color: var(--color-error);
+  }
+
+  &[data-tone='success'] {
+    --notice-color: var(--color-success);
   }
 }
 
