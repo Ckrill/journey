@@ -12,7 +12,7 @@ import type { Weekday } from '../../../types/types';
 
 import shared from '../DayStrip.module.scss';
 // Styles
-import styles from './DayToggleStrip.module.scss';
+import styles from './DayToggleGroup.module.scss';
 
 interface Props {
   completedDates: Set<string>;
@@ -22,7 +22,7 @@ interface Props {
   weekDates: string[];
 }
 
-const DayToggleStrip = ({
+const DayToggleGroup = ({
   completedDates,
   markedDays,
   onToggle,
@@ -48,4 +48,4 @@ const DayToggleStrip = ({
   </div>
 );
 
-export default DayToggleStrip;
+export default DayToggleGroup;

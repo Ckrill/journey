@@ -1,6 +1,6 @@
 // Miscellaneous
-import DayStatusStrip from '../../DayStrip/DayStatusStrip/DayStatusStrip';
-import DayStripRow from '../../DayStrip/DayStripRow/DayStripRow';
+import DayStatusGroup from '../../DayStrip/DayStatus/DayStatusGroup';
+import DayStrip from '../../DayStrip/DayStrip';
 
 // Types
 import type { Habit, Weekday } from '../../../types/types';
@@ -17,7 +17,7 @@ interface Props {
 
 const HabitSummaryItem = ({ completed, completedDays, habit, met }: Props) => (
   <li>
-    <DayStripRow
+    <DayStrip
       name={<span className={styles.name}>{habit.name}</span>}
       trailing={
         <span className={styles.result} data-met={met}>
@@ -25,8 +25,8 @@ const HabitSummaryItem = ({ completed, completedDays, habit, met }: Props) => (
         </span>
       }
     >
-      <DayStatusStrip completedDays={completedDays} name={habit.name} />
-    </DayStripRow>
+      <DayStatusGroup completedDays={completedDays} name={habit.name} />
+    </DayStrip>
   </li>
 );
 

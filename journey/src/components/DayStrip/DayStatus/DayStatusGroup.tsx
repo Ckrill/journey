@@ -12,14 +12,14 @@ import type { Weekday } from '../../../types/types';
 
 import shared from '../DayStrip.module.scss';
 // Styles
-import styles from './DayStatusStrip.module.scss';
+import styles from './DayStatusGroup.module.scss';
 
 interface Props {
   completedDays: Weekday[];
   name: string;
 }
 
-const DayStatusStrip = ({ completedDays, name }: Props) => (
+const DayStatusGroup = ({ completedDays, name }: Props) => (
   <ol aria-label={`${name} days`} className={clsx(shared.strip, styles.days)}>
     {WEEKDAYS.map((day, index) => (
       <DayStatus
@@ -31,4 +31,4 @@ const DayStatusStrip = ({ completedDays, name }: Props) => (
   </ol>
 );
 
-export default DayStatusStrip;
+export default DayStatusGroup;

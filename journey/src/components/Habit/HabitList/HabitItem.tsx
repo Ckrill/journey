@@ -4,9 +4,9 @@ import { BsFire } from 'react-icons/bs';
 // Hooks
 import { useToggleEvent } from '../../../hooks/useToggleEvent';
 
-import DayStripRow from '../../DayStrip/DayStripRow/DayStripRow';
+import DayStrip from '../../DayStrip/DayStrip';
 // Miscellaneous
-import DayToggleStrip from '../../DayStrip/DayToggleStrip/DayToggleStrip';
+import DayToggleGroup from '../../DayStrip/DayToggle/DayToggleGroup';
 
 // Types
 import type { Habit } from '../../../types/types';
@@ -36,7 +36,7 @@ const HabitItem = ({
   const targetMet = completedCount >= habit.weeklyTarget;
 
   return (
-    <DayStripRow
+    <DayStrip
       className={styles.row}
       name={
         <button
@@ -67,13 +67,13 @@ const HabitItem = ({
         </span>
       }
     >
-      <DayToggleStrip
+      <DayToggleGroup
         completedDates={completedDates}
         markedDays={targetMet ? [] : habit.plannedDays}
         onToggle={(date) => mutateAsync({ date, habitId: habit.id })}
         weekDates={weekDates}
       />
-    </DayStripRow>
+    </DayStrip>
   );
 };
 

@@ -1,4 +1,16 @@
-// A bordered strip of seven days, shared by the interactive and read-only rows.
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+// A bordered strip of seven days, shared by the interactive and read-only groups.
 .strip {
   display: flex;
   overflow: hidden;
