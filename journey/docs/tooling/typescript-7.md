@@ -1,8 +1,8 @@
-# TypeScript 7 — Upgrade Blockers
+# TypeScript 7 upgrade blockers
 
-Status: **waiting**. Stay on TypeScript 6.x. No aliases, no side-by-side TS installs.
+Status: waiting. Stay on TypeScript 6.x. No aliases, no side-by-side TS installs.
 
-Checked 2026-10-11 against TypeScript 7.0.2 (`latest`). `tsc --noEmit` on this project passes with 0 errors, so the code is not the blocker. The tooling is.
+Checked 2026-10-11 against TypeScript 7.0.2 (`latest`). `tsc --noEmit` on this project passes with 0 errors, so the blockers are in the tooling and not in the code.
 
 ## Blockers
 
@@ -28,8 +28,8 @@ Checked 2026-10-11 against TypeScript 7.0.2 (`latest`). `tsc --noEmit` on this p
 - `@typescript-eslint/*` (or the TanStack ESLint plugins) widen their `typescript` peer range, and
 - the VS Code TypeScript 7 setup is settled.
 
-Then: bump `typescript`, update the `.vscode` tsdk settings, run `yarn validate`.
+Then bump `typescript`, update the `.vscode` tsdk settings and run `yarn validate`.
 
 ## References
 
-- https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/
+- <https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/>/>

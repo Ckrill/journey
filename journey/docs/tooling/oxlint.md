@@ -1,8 +1,8 @@
-# Oxlint Migration — Blockers
+# Oxlint migration blockers
 
-Status: **waiting**. Stay on ESLint. No hacks, no ESLint kept around as a peer dependency, no multiple TypeScript versions.
+Status: waiting. Stay on ESLint. No hacks, no ESLint kept around as a peer dependency, no multiple TypeScript versions.
 
-Evaluated 2026-10-11 with oxlint 1.87.0 and oxlint-tsgolint 7.0.2003. A trial migration lint-checks and builds the project, and the React Compiler rules are covered natively. The blockers below are about tooling gaps.
+Evaluated 2026-10-11 with oxlint 1.87.0 and oxlint-tsgolint 7.0.2003. A trial migration lint-checks and builds the project, and the React Compiler rules are covered natively. The blockers are tooling gaps.
 
 ## Blockers
 
