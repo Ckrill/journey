@@ -1,6 +1,9 @@
 // External
 import { useForm } from 'react-hook-form';
 
+// Utilities
+import { errorMessage } from '../../helpers/errors';
+
 // Hooks
 import { useSaveReflection } from '../../hooks/useSaveReflection';
 
@@ -98,7 +101,7 @@ const ReflectionForm = ({ previous }: Props) => {
         </Button>
 
         {save.isError && (
-          <ErrorMessage>Something went wrong. Try again.</ErrorMessage>
+          <ErrorMessage>{errorMessage(save.error)}</ErrorMessage>
         )}
 
         {save.isSuccess && !isDirty && (

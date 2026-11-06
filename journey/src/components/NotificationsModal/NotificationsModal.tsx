@@ -2,6 +2,9 @@
 import { useEffect } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 
+// Utilities
+import { errorMessage } from '../../helpers/errors';
+
 // Hooks
 import { useRetroReminderMutations } from '../../hooks/useRetroReminderMutations';
 import { useRetroReminderQuery } from '../../hooks/useRetroReminderQuery';
@@ -74,10 +77,8 @@ const NotificationsModal = ({ onClose, open }: Props) => {
       return;
     }
     const callbacks = {
-      onError: () => {
-        setError('root.server', {
-          message: 'Something went wrong. Please try again.',
-        });
+      onError: (error: Error) => {
+        setError('root.server', { message: errorMessage(error) });
       },
       onSuccess: onClose,
     };

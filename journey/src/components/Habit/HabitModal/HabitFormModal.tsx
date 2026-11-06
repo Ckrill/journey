@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 // Utilities
+import { errorMessage } from '../../../helpers/errors';
 import { WEEKDAY_LABELS, WEEKDAYS } from '../../../helpers/week';
 
 // Hooks
@@ -246,7 +247,7 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
               )}
 
               {mutationError && (
-                <ErrorMessage>Something went wrong. Try again.</ErrorMessage>
+                <ErrorMessage>{errorMessage(mutationError)}</ErrorMessage>
               )}
             </FormActions>
           </Section>
