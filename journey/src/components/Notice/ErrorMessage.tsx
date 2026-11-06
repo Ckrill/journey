@@ -5,15 +5,13 @@ import { BsExclamationOctagonFill } from 'react-icons/bs';
 
 // Utilities
 import { scrollIntoViewSmoothly } from '../../helpers/scroll';
+import { vibrateError } from '../../helpers/vibrate';
 
 // Contexts
 import { useSettings } from '../../contexts/settingsContext';
 
 // Miscellaneous
 import Notice from './Notice';
-
-// Two short buzzes then a long one reads as "no".
-const ERROR_VIBRATION = [60, 50, 60, 50, 200];
 
 interface Props {
   children: ReactNode;
@@ -23,9 +21,7 @@ const ErrorMessage = ({ children }: Props) => {
   const { vibration } = useSettings();
 
   useEffect(() => {
-    if (vibration && 'vibrate' in navigator) {
-      navigator.vibrate(ERROR_VIBRATION);
-    }
+    if (vibration) vibrateError();
   }, [vibration]);
 
   return (

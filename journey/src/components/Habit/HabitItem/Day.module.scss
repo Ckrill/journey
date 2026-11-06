@@ -1,0 +1,153 @@
+.day {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: calc(16rem / 16);
+  font-weight: 900;
+  color: var(--color-text-faint);
+  cursor: pointer;
+  background-color: var(--color-field);
+  border: none;
+  transition:
+    background-color var(--duration-fast),
+    color var(--duration-fast),
+    opacity var(--duration-fast);
+
+  & + & {
+    border-inline-start: 2px solid var(--color-brand-secondary);
+  }
+
+  &:not(:disabled):hover {
+    @media (hover: hover) {
+      color: var(--color-brand-secondary);
+      transition: color var(--duration-rapid);
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    border-color: var(--color-brand-secondary);
+  }
+
+  &.today::after {
+    position: absolute;
+    inset-block-start: 7px;
+    justify-self: center;
+    inline-size: 4px;
+    block-size: 4px;
+    content: '';
+    background-color: currentcolor;
+    border-radius: 50%;
+  }
+
+  // Always present so it can scale in and out without triggering layout.
+  &::before {
+    position: absolute;
+    inset-block-end: 10px;
+    justify-self: center;
+    inline-size: 12px;
+    block-size: 2px;
+    content: '';
+    background-color: currentcolor;
+    border-radius: 1px;
+    scale: 0 1;
+    transition: scale var(--duration-fast);
+  }
+
+  &.planned::before {
+    scale: 1;
+  }
+
+  // Not scoped to `:not(:disabled)`: the cell is disabled while pending, and
+  // the optimistic fill should show immediately.
+  &.done {
+    color: var(--color-brand-secondary);
+    background-color: var(--color-brand-primary);
+  }
+
+  // Plum flash, since the error color matches a filled cell.
+  &.failed {
+    animation: flash var(--duration-slow) ease-in-out;
+
+    &::before {
+      animation: retract var(--duration-slow) ease-in-out;
+    }
+  }
+}
+
+@keyframes flash {
+  25% {
+    color: var(--color-brand-secondary);
+    background-color: var(--color-brand-primary);
+  }
+}
+
+@keyframes retract {
+  25% {
+    scale: 0 1;
+  }
+}
+
+.content {
+  display: grid;
+  place-items: center;
+  scale: 1;
+  transition: scale var(--duration-rapid);
+
+  @media (hover: hover) {
+    .day:not(:disabled):hover & {
+      scale: 1.1;
+    }
+  }
+
+  .day:active:not(:disabled) & {
+    scale: 0.85;
+  }
+
+  // Shrinks and recovers, as if it almost worked.
+  .day.failed & {
+    animation: dip var(--duration-slow) ease-in-out;
+  }
+}
+
+@keyframes dip {
+  0%,
+  100% {
+    scale: 1;
+  }
+
+  25% {
+    scale: 0.6;
+  }
+}
+
+// Both always rendered and stacked, so toggling animates in both directions.
+.label,
+.check {
+  grid-area: 1 / 1;
+  transition:
+    opacity var(--duration-fast),
+    scale var(--duration-fast);
+}
+
+.check {
+  inline-size: 24px;
+  block-size: 24px;
+  opacity: 0;
+  scale: 0.4;
+}
+
+.day.done {
+  .label {
+    opacity: 0;
+    scale: 0.4;
+  }
+
+  .check {
+    opacity: 1;
+    scale: 1;
+  }
+}

@@ -1,16 +1,11 @@
-// External
-import clsx from 'clsx';
-import { useState } from 'react';
-import { BsCheck } from 'react-icons/bs';
-
 // Utilities
 import { today, WEEKDAY_LABELS, WEEKDAYS } from '../../../helpers/week';
 
-// Contexts
-import { useSettings } from '../../../contexts/settingsContext';
-
 // Hooks
 import { useToggleEvent } from '../../../hooks/useToggleEvent';
+
+// Miscellaneous
+import Day from './Day';
 
 // Types
 import type { Habit } from '../../../types/types';
@@ -25,26 +20,7 @@ interface Props {
 }
 
 const Days = ({ completedDates, habit, weekDates }: Props) => {
-  const settings = useSettings();
-  const toggle = useToggleEvent();
-
-  const [pendingDate, setPendingDate] = useState<null | string>(null);
-
-  const handleToggle = (date: string) => {
-    if (settings.vibration && 'vibrate' in navigator) {
-      navigator.vibrate(30);
-    }
-
-    setPendingDate(date);
-    toggle.mutate(
-      { date, habitId: habit.id },
-      {
-        onSettled: () => {
-          setPendingDate(null);
-        },
-      },
-    );
-  };
+  const { mutateAsync } = useToggleEvent();
 
   const targetMet =
     weekDates.filter((date) => completedDates.has(date)).length >=
@@ -54,36 +30,22 @@ const Days = ({ completedDates, habit, weekDates }: Props) => {
     <div className={styles.days}>
       {weekDates.map((date, index) => {
         const done = completedDates.has(date);
-        const isFuture = date > today();
-        const isPending = pendingDate === date;
-        const isToday = date === today();
 
         return (
-          <button
-            aria-current={isToday ? 'date' : undefined}
-            aria-label={`${WEEKDAY_LABELS[index]} ${date}`}
-            aria-pressed={done}
-            className={clsx(
-              styles.day,
-              done && styles.done,
-              isToday && styles.today,
-              !targetMet &&
-                !done &&
-                habit.plannedDays.includes(WEEKDAYS[index]) &&
-                styles.planned,
-            )}
-            disabled={isFuture || isPending}
+          <Day
+            date={date}
+            done={done}
+            isFuture={date > today()}
+            isToday={date === today()}
             key={date}
-            onClick={() => {
-              handleToggle(date);
-            }}
-            type="button"
-          >
-            <span className={styles.content}>
-              <span className={styles.label}>{WEEKDAY_LABELS[index][0]}</span>
-              <BsCheck className={styles.check} />
-            </span>
-          </button>
+            label={WEEKDAY_LABELS[index]}
+            onToggle={(toggledDate) =>
+              mutateAsync({ date: toggledDate, habitId: habit.id })
+            }
+            planned={
+              !targetMet && !done && habit.plannedDays.includes(WEEKDAYS[index])
+            }
+          />
         );
       })}
     </div>
