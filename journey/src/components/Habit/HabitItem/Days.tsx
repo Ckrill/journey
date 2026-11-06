@@ -1,3 +1,6 @@
+// External
+import clsx from 'clsx';
+
 // Utilities
 import { today, WEEKDAY_LABELS, WEEKDAYS } from '../../../helpers/week';
 
@@ -11,6 +14,7 @@ import Day from './Day';
 import type { Habit } from '../../../types/types';
 
 // Styles
+import shared from '../DayStrip.module.scss';
 import styles from './Days.module.scss';
 
 interface Props {
@@ -27,7 +31,7 @@ const Days = ({ completedDates, habit, weekDates }: Props) => {
     habit.weeklyTarget;
 
   return (
-    <div className={styles.days}>
+    <div className={clsx(shared.strip, styles.days)}>
       {weekDates.map((date, index) => {
         const done = completedDates.has(date);
 

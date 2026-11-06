@@ -10,6 +10,7 @@ import { vibrateError } from '../../../helpers/vibrate';
 import { useSettings } from '../../../contexts/settingsContext';
 
 // Styles
+import shared from '../DayStrip.module.scss';
 import styles from './Day.module.scss';
 
 interface Props {
@@ -58,12 +59,13 @@ const Day = ({
       aria-label={`${label} ${date}`}
       aria-pressed={done}
       className={clsx(
+        shared.day,
         styles.day,
-        done && styles.done,
         isToday && styles.today,
         failed && styles.failed,
         planned && styles.planned,
       )}
+      data-done={done}
       disabled={isFuture || pending}
       onAnimationEnd={() => {
         setFailed(false);
@@ -75,6 +77,7 @@ const Day = ({
     >
       <span className={styles.content}>
         <span className={styles.label}>{label[0]}</span>
+
         <BsCheck className={styles.check} />
       </span>
     </button>

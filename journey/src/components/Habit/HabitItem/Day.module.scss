@@ -1,13 +1,6 @@
 .day {
-  position: relative;
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
   padding: 0;
   font-size: calc(16rem / 16);
-  font-weight: 900;
-  color: var(--color-text-faint);
   cursor: pointer;
   background-color: var(--color-field);
   border: none;
@@ -15,10 +8,6 @@
     background-color var(--duration-fast),
     color var(--duration-fast),
     opacity var(--duration-fast);
-
-  & + & {
-    border-inline-start: 2px solid var(--color-brand-secondary);
-  }
 
   &:not(:disabled):hover {
     @media (hover: hover) {
@@ -59,13 +48,6 @@
 
   &.planned::before {
     scale: 1;
-  }
-
-  // Not scoped to `:not(:disabled)`: the cell is disabled while pending, and
-  // the optimistic fill should show immediately.
-  &.done {
-    color: var(--color-brand-secondary);
-    background-color: var(--color-brand-primary);
   }
 
   // Plum flash, since the error color matches a filled cell.
@@ -140,7 +122,7 @@
   scale: 0.4;
 }
 
-.day.done {
+.day[data-done='true'] {
   .label {
     opacity: 0;
     scale: 0.4;

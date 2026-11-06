@@ -1,6 +1,5 @@
 // External
 import { createFileRoute } from '@tanstack/react-router';
-import { useMemo } from 'react';
 
 // Utilities
 import { summarizeWeek } from '../helpers/retro';
@@ -32,10 +31,7 @@ const Retro = () => {
   const { data: events } = useEventsQuery();
   const { data: reflection } = useReflectionQuery();
 
-  const summary = useMemo(
-    () => summarizeWeek(habits, events, weekDates(weekStart)),
-    [habits, events, weekStart],
-  );
+  const summary = summarizeWeek(habits, events, weekDates(weekStart));
 
   return (
     <PageTransition>

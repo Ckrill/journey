@@ -1,0 +1,13 @@
+.day {
+  block-size: 36px;
+  font-size: calc(14rem / 16);
+}
+
+.screenReaderOnly {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}

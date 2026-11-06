@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import { BsFire } from 'react-icons/bs';
 
+// Miscellaneous
+import HabitRow from '../HabitRow/HabitRow';
 import Days from './Days';
 
 // Types
@@ -30,8 +32,9 @@ const HabitItem = ({
   const targetMet = completedCount >= habit.weeklyTarget;
 
   return (
-    <div className={styles.row}>
-      <div className={styles.header}>
+    <HabitRow
+      className={styles.row}
+      name={
         <button
           className={styles.name}
           onClick={() => {
@@ -43,7 +46,8 @@ const HabitItem = ({
             <span>{habit.name}</span>
           </span>
         </button>
-
+      }
+      trailing={
         <span
           aria-hidden={currentStreak === 0}
           aria-label={`${String(currentStreak)} week streak`}
@@ -57,14 +61,14 @@ const HabitItem = ({
           <BsFire className={styles.flame} />
           {currentStreak}
         </span>
-      </div>
-
+      }
+    >
       <Days
         completedDates={completedDates}
         habit={habit}
         weekDates={weekDates}
       />
-    </div>
+    </HabitRow>
   );
 };
 

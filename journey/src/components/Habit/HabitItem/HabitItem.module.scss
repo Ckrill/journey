@@ -1,15 +1,6 @@
 .row {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
   inline-size: 100%;
   padding-block: var(--space-base);
-}
-
-.header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
 }
 
 .name {
