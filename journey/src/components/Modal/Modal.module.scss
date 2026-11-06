@@ -55,7 +55,7 @@
   display: grid;
   grid-template-rows: 100% auto;
   block-size: 100%;
-  overflow-y: scroll;
+  overflow-block: scroll;
   overscroll-behavior: none;
   scroll-snap-type: y mandatory;
   scroll-timeline: --sheet-fade y;
@@ -90,7 +90,7 @@
     block-size: fit-content;
     max-block-size: calc(100dvh - 2 * var(--space-base));
     margin: auto;
-    overflow-y: auto;
+    overflow-block: auto;
     opacity: 0;
     transform: scale(0.95);
     transition:

@@ -17,7 +17,7 @@ import ParagraphGroup from '../ParagraphGroup/ParagraphGroup';
 // Types
 import type { Sex } from '../../types/types';
 
-const currentYear = new Date().getFullYear();
+const currentYear = Temporal.Now.plainDateISO().year;
 
 const { regions } = lifeExpectancyData;
 

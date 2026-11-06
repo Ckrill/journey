@@ -1,6 +1,3 @@
-// External
-import { useMemo } from 'react';
-
 // Utilities
 import { calculateStreak } from '../../../helpers/streak';
 
@@ -30,17 +27,13 @@ const HabitList = ({
   openEdit,
 }: Props) => {
   // Current streak per habit (always relative to the real current week).
-  const streaks = useMemo(() => {
-    const map = new Map<string, number>();
-    for (const habit of habits) {
-      map.set(habit.id, calculateStreak(habit, events).current);
-    }
-    return map;
-  }, [habits, events]);
+  const streaks = new Map<string, number>();
+  for (const habit of habits) {
+    streaks.set(habit.id, calculateStreak(habit, events).current);
+  }
 
-  const sortedHabits = useMemo(
-    () => habits.toSorted((a, b) => (a.createdAt < b.createdAt ? -1 : 1)),
-    [habits],
+  const sortedHabits = habits.toSorted((a, b) =>
+    a.createdAt < b.createdAt ? -1 : 1,
   );
 
   if (sortedHabits.length === 0) {

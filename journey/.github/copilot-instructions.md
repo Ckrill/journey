@@ -13,20 +13,21 @@
 
 ## Conventions
 
-- Imports are grouped under comments (`// External`, `// Utilities`, `// Contexts`, `// Hooks`, `// Miscellaneous`, `// Types`, `// Styles`). Use `import type` for type-only imports.
+- Imports are grouped under comments (`// External`, `// Utilities`, `// Contexts`, `// Hooks`, `// Data`, `// Assets`, `// Miscellaneous`, `// Types`, `// Styles`). Use `import type` for type-only imports.
 - Object keys and JSX props are alphabetized (enforced by the `perfectionist` ESLint rule).
-- CSS lives in a per-component `.module.scss`. Use logical properties (`inline-size`, `margin-block`) and `calc(16rem / 16)` for font sizes.
+- CSS lives in a per-component `.module.scss`. Use logical instead of physical properties (for example, `inline-size` rather than `width`) and `calc(16rem / 16)` for font sizes.
 
 ## React 19
 
 - Pass `ref` as a normal prop; do not use `forwardRef`.
 - Ref callbacks are called with `null` on unmount, so guard against it.
 - The React Compiler is enabled. Do not add `useMemo`, `useCallback` or `memo` for cheap work.
+- `@eslint-react/exhaustive-deps` warns about values built during render even though the React Compiler memoizes them. Compute the value inside the effect instead of adding `useMemo`.
 
 ## App behavior
 
 - The app is online-only. Queries and mutations use `networkMode: 'always'` so offline requests fail visibly instead of pausing. Do not add offline support unless asked.
-- Show user feedback with `Warning`, `ErrorMessage` and `SuccessMessage` from `components/Notice`. Haptics go through `src/helpers/vibrate.ts` and respect `settings.vibration`.
+- Show user feedback with `Warning`, `ErrorMessage` and `SuccessMessage` from `components/Notice`. Shared haptic patterns live in `src/helpers/vibrate.ts`. All haptics must be feature-detected and respect `settings.vibration`.
 
 ## Stack
 

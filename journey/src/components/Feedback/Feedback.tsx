@@ -1,6 +1,6 @@
 // External
 import clsx from 'clsx';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 // Utilities
 import { getHeadingSize } from '../../helpers/synonyms';
@@ -24,10 +24,7 @@ interface Props {
 const Feedback = ({ heading, setShow, show, streak }: Props) => {
   const settings = useSettings();
 
-  const headingSize = useMemo(
-    () => (heading ? getHeadingSize(heading) : 'm'),
-    [heading],
-  );
+  const headingSize = heading ? getHeadingSize(heading) : 'm';
 
   const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
 

@@ -4,7 +4,7 @@
   grid-auto-flow: column;
   inline-size: calc(100% + 2 * var(--space-base));
   margin-inline: calc(-1 * var(--space-base));
-  overflow-x: auto;
+  overflow-inline: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;

@@ -1,11 +1,12 @@
+// External
 import clsx from 'clsx';
 import { BsFire } from 'react-icons/bs';
 
 // Hooks
 import { useToggleEvent } from '../../../hooks/useToggleEvent';
 
-import DayStrip from '../../DayStrip/DayStrip';
 // Miscellaneous
+import DayStrip from '../../DayStrip/DayStrip';
 import DayToggleGroup from '../../DayStrip/DayToggle/DayToggleGroup';
 
 // Types

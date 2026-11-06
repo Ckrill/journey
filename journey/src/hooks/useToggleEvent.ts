@@ -29,7 +29,7 @@ interface MutationContext {
 // two cells in the same millisecond), and it's swapped for the real id once the
 // mutation resolves. Avoids crypto.randomUUID, which throws outside a secure
 // context (e.g. mobile over plain HTTP).
-const tempId = () => `temp${String(Date.now())}`;
+const tempId = () => `temp${String(Temporal.Now.instant().epochMilliseconds)}`;
 
 /**
  * Toggles a single event for a habit on a given date.

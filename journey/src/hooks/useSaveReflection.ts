@@ -31,7 +31,7 @@ export const useSaveReflection = () => {
             blockers,
             next_steps: nextSteps,
             plan,
-            updated_at: new Date().toISOString(),
+            updated_at: Temporal.Now.instant().toString(),
             went_well: wentWell,
           },
           { onConflict: 'user_id' },

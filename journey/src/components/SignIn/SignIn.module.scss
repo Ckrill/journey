@@ -17,7 +17,7 @@
   align-items: center;
   justify-content: center;
   font-family: Rubik, Arial, Helvetica, sans-serif;
-  font-size: clamp(30rem / 16, 15vw, 150rem / 16);
+  font-size: clamp(calc(30rem / 16), 15vw, calc(150rem / 16));
   font-weight: 900;
   color: var(--color-brand-secondary);
   text-transform: uppercase;

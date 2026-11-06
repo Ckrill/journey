@@ -1,3 +1,4 @@
+// External
 import type { Transition, Variants } from 'motion/react';
 
 export const pageTransition: Transition = {

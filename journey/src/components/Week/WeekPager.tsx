@@ -1,6 +1,6 @@
 // External
 import { getRouteApi } from '@tanstack/react-router';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 // Utilities
 import { currentWeekStart, shiftWeek, weekDates } from '../../helpers/week';
@@ -40,28 +40,24 @@ const WeekPager = ({ datesByHabit, events, habits, openEdit }: Props) => {
     setPreview(null);
   }
 
-  // Memoized so previewing doesn't re-render every habit list.
-  const slides = useMemo(() => {
-    const current = currentWeekStart();
-    const result = [];
-    for (let offset = -SLIDE_RADIUS; offset <= SLIDE_RADIUS; offset++) {
-      const start = shiftWeek(weekStart, offset);
-      if (start > current) break;
-      result.push({
-        key: start,
-        node: (
-          <HabitList
-            dates={weekDates(start)}
-            datesByHabit={datesByHabit}
-            events={events}
-            habits={habits}
-            openEdit={openEdit}
-          />
-        ),
-      });
-    }
-    return result;
-  }, [datesByHabit, events, habits, openEdit, weekStart]);
+  const slides = [];
+  const current = currentWeekStart();
+  for (let offset = -SLIDE_RADIUS; offset <= SLIDE_RADIUS; offset++) {
+    const start = shiftWeek(weekStart, offset);
+    if (start > current) break;
+    slides.push({
+      key: start,
+      node: (
+        <HabitList
+          dates={weekDates(start)}
+          datesByHabit={datesByHabit}
+          events={events}
+          habits={habits}
+          openEdit={openEdit}
+        />
+      ),
+    });
+  }
 
   const goTo = (start: string) => {
     void navigate({

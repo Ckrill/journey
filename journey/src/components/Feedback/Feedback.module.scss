@@ -17,8 +17,8 @@
 
   &::before {
     position: fixed;
-    top: 50%;
-    left: 50%;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
     inline-size: 150vmax;
     block-size: 150vmax;
     content: '';
@@ -62,7 +62,7 @@
   padding-inline: var(--space-base);
   margin-block: 0 20px;
   font-family: Rubik, Arial, Helvetica, sans-serif;
-  font-size: clamp(75rem / 16, 25vw, 150rem / 16);
+  font-size: clamp(calc(75rem / 16), 25vw, calc(150rem / 16));
   font-weight: 900;
   line-height: 0.9em;
   text-align: center;
@@ -74,26 +74,26 @@
 
   &--l {
     // ~110rem om mobile
-    font-size: clamp(75rem / 16, 27vw, 150rem / 16);
+    font-size: clamp(calc(75rem / 16), 27vw, calc(150rem / 16));
   }
 
   &--m {
     // ~100rem om mobile
-    font-size: clamp(75rem / 16, 23vw, 150rem / 16);
+    font-size: clamp(calc(75rem / 16), 23vw, calc(150rem / 16));
   }
 
   &--s {
     // ~90rem om mobile
-    font-size: clamp(75rem / 16, 20vw, 150rem / 16);
+    font-size: clamp(calc(75rem / 16), 20vw, calc(150rem / 16));
   }
 
   &--xs {
     // ~70rem om mobile
-    font-size: clamp(50rem / 16, 15vw, 150rem / 16);
+    font-size: clamp(calc(50rem / 16), 15vw, calc(150rem / 16));
   }
 
   &--xxs {
-    font-size: clamp(30rem / 16, 12vw, 150rem / 16);
+    font-size: clamp(calc(30rem / 16), 12vw, calc(150rem / 16));
   }
 
   .show & {
@@ -107,7 +107,7 @@
   padding-inline: var(--space-base);
   margin-block: 0 50px;
   font-family: Rubik, Arial, Helvetica, sans-serif;
-  font-size: clamp(20rem / 16, 7vw, 50rem / 16);
+  font-size: clamp(calc(20rem / 16), 7vw, calc(50rem / 16));
   font-weight: 900;
   text-align: center;
   text-transform: uppercase;

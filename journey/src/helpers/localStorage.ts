@@ -1,3 +1,4 @@
+// Types
 import type { Settings } from '../types/types';
 
 // Settings are kept per account, so signing out doesn't have to erase them.

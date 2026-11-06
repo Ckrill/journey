@@ -1,6 +1,6 @@
 // External
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 // Utilities
 import { calculateStreak } from '../helpers/streak';
@@ -39,18 +39,15 @@ const Habits = () => {
   const [celebrateHeading, setCelebrateHeading] = useState('');
 
   // Map each habit to the set of dates it was completed on.
-  const datesByHabit = useMemo(() => {
-    const map = new Map<string, Set<string>>();
-    for (const event of events) {
-      let set = map.get(event.habitId);
-      if (!set) {
-        set = new Set<string>();
-        map.set(event.habitId, set);
-      }
-      set.add(event.date);
+  const datesByHabit = new Map<string, Set<string>>();
+  for (const event of events) {
+    let set = datesByHabit.get(event.habitId);
+    if (!set) {
+      set = new Set<string>();
+      datesByHabit.set(event.habitId, set);
     }
-    return map;
-  }, [events]);
+    set.add(event.date);
+  }
 
   // Fire the celebration when a habit newly meets its target this week.
   const prevMetRef = useRef<Map<string, boolean> | null>(null);
@@ -59,10 +56,10 @@ const Habits = () => {
     const currentDates = weekDates(currentWeekStart());
     const met = new Map<string, boolean>();
     for (const habit of habits) {
-      const set = datesByHabit.get(habit.id);
-      const count = set
-        ? currentDates.filter((date) => set.has(date)).length
-        : 0;
+      const count = events.filter(
+        (event) =>
+          event.habitId === habit.id && currentDates.includes(event.date),
+      ).length;
       met.set(habit.id, count >= habit.weeklyTarget);
     }
 
@@ -80,7 +77,7 @@ const Habits = () => {
       }
     }
     prevMetRef.current = met;
-  }, [habits, events, datesByHabit]);
+  }, [habits, events]);
 
   const openCreate = () => {
     setEditing(null);

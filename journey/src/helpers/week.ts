@@ -59,11 +59,7 @@ export const formatWeekRange = (weekStart: string): string => {
   const end = start.add({ days: 6 });
   const locale = 'en-US';
   const fmt = (d: Temporal.PlainDate) =>
-    new Date(d.toString()).toLocaleDateString(locale, {
-      day: 'numeric',
-      month: 'long',
-      timeZone: 'UTC',
-    });
+    d.toLocaleString(locale, { day: 'numeric', month: 'long' });
   return `${fmt(start)} — ${fmt(end)}`;
 };
 

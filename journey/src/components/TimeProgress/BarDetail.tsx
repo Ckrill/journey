@@ -1,7 +1,10 @@
+// External
 import { BsRepeat, BsStopwatch, BsWatch } from 'react-icons/bs';
 
+// Types
 import type { BarKind } from './helpers/timeBars';
 
+// Styles
 import styles from './TimeProgress.module.scss';
 
 const icons: Record<BarKind, React.ReactNode> = {

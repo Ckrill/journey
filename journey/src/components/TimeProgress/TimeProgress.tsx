@@ -1,14 +1,20 @@
+// External
 import clsx from 'clsx';
 
+// Utilities
 import { getLifeExpectancyYears } from '../../helpers/lifeExpectancy';
 import { getTimeBars } from './helpers/timeBars';
 
+// Contexts
 import { useSettings } from '../../contexts/settingsContext';
 
+// Hooks
 import { useHabitsQuery } from '../../hooks/useHabitsQuery';
 
+// Miscellaneous
 import BarDetail from './BarDetail';
 
+// Styles
 import styles from './TimeProgress.module.scss';
 
 const TimeProgress = () => {
