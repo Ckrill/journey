@@ -121,6 +121,7 @@ const NotificationsModal = ({ onClose, open }: Props) => {
             </CheckboxGroup>
 
             <Select
+              autoComplete="off"
               disabled={!enabled}
               id="retro-reminder-day"
               labelText="Day"
@@ -131,6 +132,7 @@ const NotificationsModal = ({ onClose, open }: Props) => {
 
             <Input
               assistiveText={`Time zone: ${timeZone}. Saving updates it to this device's time zone.`}
+              autoComplete="off"
               disabled={!enabled}
               errorText={errors.time?.message}
               id="retro-reminder-time"

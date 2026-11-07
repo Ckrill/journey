@@ -32,8 +32,14 @@
   list-style: none;
 }
 
-// .item {
-// }
+.item {
+  scale: 1;
+  transition: scale var(--duration-rapid);
+
+  &:has(.link:focus-visible) {
+    scale: var(--scale-focus-strong);
+  }
+}
 
 .link {
   position: relative;
@@ -43,8 +49,13 @@
   text-transform: uppercase;
   text-decoration: none;
   user-select: none;
-  outline: none;
+  border-radius: var(--radius-base);
   -webkit-tap-highlight-color: transparent;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-brand-secondary);
+    outline-offset: -2px;
+  }
 
   .underline {
     position: absolute;

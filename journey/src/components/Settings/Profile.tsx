@@ -1,3 +1,6 @@
+// External
+import { useState } from 'react';
+
 // Utilities
 import { getLifeExpectancyYears } from '../../helpers/lifeExpectancy';
 
@@ -34,19 +37,19 @@ const sexOptions: { label: string; value: Sex }[] = [
 const Profile = () => {
   const settings = useSettings();
   const setSettings = useSettingsUpdate();
-
-  const birthError =
-    settings.birthYear !== undefined &&
-    (settings.birthYear < 1900 || settings.birthYear > currentYear);
+  const [birthError, setBirthError] = useState(false);
 
   const lifeExpectancyYears = getLifeExpectancyYears(
     settings.region,
     settings.sex,
   );
 
+  // The input's own min, max and step decide validity; an invalid year is never saved.
   const handleBirthYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.valueAsNumber;
-    setSettings({ ...settings, birthYear: value || undefined });
+    const { validity, valueAsNumber } = e.target;
+    if (!validity.valid) return;
+    setBirthError(false);
+    setSettings({ ...settings, birthYear: valueAsNumber || undefined });
   };
 
   const handleRegionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -63,18 +66,24 @@ const Profile = () => {
 
       <Input
         assistiveText="Enable your custom timeline."
+        autoComplete="bday-year"
+        defaultValue={settings.birthYear}
         errorText={birthError ? 'Please enter a valid year.' : undefined}
         id="birthYear"
+        inputMode="numeric"
         labelText="Year of birth"
         max={currentYear}
         min={1900}
+        onBlur={(e) => {
+          setBirthError(!e.target.validity.valid);
+        }}
         onChange={handleBirthYearChange}
         type="number"
-        value={settings.birthYear}
       />
 
       <Select
         assistiveText="Improve life expectancy estimates."
+        autoComplete="sex"
         id="sex"
         labelText="Sex"
         onChange={handleSexChange}
@@ -85,6 +94,7 @@ const Profile = () => {
 
       <Select
         assistiveText="Improve life expectancy estimates."
+        autoComplete="off"
         id="region"
         labelText="Region of residence"
         onChange={handleRegionChange}

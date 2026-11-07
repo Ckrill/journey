@@ -158,6 +158,7 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
 
             <Input
               assistiveText="How many days per week?"
+              autoComplete="off"
               disabled={isPending}
               errorText={errors.weeklyTarget?.message}
               id="habit-weekly-target"
@@ -186,6 +187,7 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
 
             <Textarea
               assistiveText="What does reaching your goal look like?"
+              autoComplete="off"
               disabled={isPending}
               errorText={errors.goalDescription?.message}
               id="habit-goal-description"

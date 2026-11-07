@@ -31,13 +31,9 @@ Guide advice that the project rules reject is under "Conflicts with project rule
 
 ## 1. Real bugs
 
-- [ ] `src/components/Form/Checkbox/Checkbox.module.scss` (line 36): `border-color: 2px solid var(...)` is an invalid declaration, so the checkbox shows no focus indicator.
-- [ ] `src/components/Header/Header.module.scss` (line 46): `.link` sets `outline: none` with no `:focus-visible` style, so keyboard focus on the nav links is invisible. The guide marks this mandatory.
-- [ ] `public/site.webmanifest` shortcuts (lines 31, 44 and 57) open `/?name=Stretching`, `/?name=Yoga` and `/?name=Running`, but the `/` route's `validateSearch` keeps only `week`, so the shortcuts do nothing.
 - [ ] `supabase/functions/send-reminders/index.ts` (lines 49-70, 72-82 and 141) extracts the local time with `Intl.DateTimeFormat#formatToParts()` and minutes-since-midnight arithmetic. The 60-minute window cannot cross midnight, so a Sunday 23:30 reminder is not due at 00:10 on Monday. Use `Temporal.ZonedDateTime`. Check Temporal support in the Deno edge runtime first.
 - [ ] `src/helpers/retro.ts` (line 44) compares `habit.createdAt.slice(0, 10)`, a UTC date, with a device-local week date. A habit created near midnight lands in the wrong week. Reuse the conversion in `timeBars.ts` `getHabitStart`.
 - [ ] The reminder time zone is stored only on save (`useRetroReminderMutations.ts` line 39). `NotificationsModal.tsx` (lines 74-78) closes without saving when the form is not dirty, which contradicts the text on line 142, so a traveling user keeps the old zone.
-- [ ] `src/components/Settings/Profile.tsx` (lines 47-50 and 66): the birth year is written to settings on every keystroke and shows "Please enter a valid year." immediately, so typing "198" flashes an error. Drop the live `errorText`, forward `min` and `max`, and style `:user-invalid`.
 
 ## 2. Quick wins
 
@@ -75,7 +71,7 @@ Loading and layout
 
 CSS
 
-- [ ] Single-transform states use the `transform` shorthand with no identity value on the base element. The guide wants `scale: 1` on the base, `scale: ...` on the state, and `transition: scale`. Files: `Button`, `Input`, `Select`, `Textarea`, `Pillbox`, `WeekSwitcher`, `Checkbox`, `Modal`, `Feedback` and `Spinner` (use `rotate`). `DayToggle` already does this. The `skewY` in `Feedback.module.scss` (lines 71 and 114) cannot be converted.
+- [ ] Single-transform states use the `transform` shorthand with no identity value on the base element. The guide wants `scale: 1` on the base, `scale: ...` on the state, and `transition: scale`. Files: `Button`, `Input`, `Select`, `Textarea`, `Pillbox`, `WeekSwitcher`, `Modal`, `Feedback` and `Spinner` (use `rotate`). `DayToggle` and `Checkbox` already do this. The `skewY` in `Feedback.module.scss` (lines 71 and 114) cannot be converted.
 - [ ] `allow-discrete` is written inside the `transition` shorthand in `Modal.module.scss` (lines 96-100 and 115-118) and `ParagraphGroup.module.scss` (lines 35-38). The guide says to use a separate `transition-behavior`. Harmless in current Chrome.
 - [ ] Dead or duplicate code: `SectionContainer.module.scss` (lines 12-14) targets `[is-first-on-page='true']` that no component sets, `generic.scss` (lines 9-12) repeats lines 1-7, `src/index.css` is a leftover, and `WeekSwitcher.module.scss` (lines 4-5) declares `justify-content` twice.
 - [ ] Token drift: `--border-width` is used only by `Divider` while `2px` is literal in many files, `--pill-radius` duplicates `--radius-base`, `Spinner` uses a literal `1s` instead of `--duration-turtle`, `WeekSwitcher`, `DayToggle` and `Modal` use literal scales instead of `--scale-*`, the Rubik stack appears three times, and the Modal backdrop `0.35` appears twice.
@@ -99,7 +95,6 @@ Fields and validation
 - [ ] `ChangePasswordModal.tsx` (lines 98-119) asks for the new password twice. The guide advises against repeated fields. Remove the confirm field and add the show-password toggle.
 - [ ] `ChangePasswordModal.tsx` (line 51) calls `updateUser({ password })` with no re-authentication. Check Supabase's secure password change setting.
 - [ ] Hints render below the input (`Input.tsx` line 47). The guide wants format hints above so autofill popovers do not cover them. `DeleteAccountModal.tsx` (line 109) puts the "Type ... to confirm" instruction there.
-- [ ] No `autocomplete` token on the birth year (`bday-year`, `Profile.tsx` lines 64-74) or the weekly target (`HabitFormModal.tsx` lines 165-183).
 - [ ] Selected or done state is shown by color only in `Pillbox.module.scss` (lines 94-97, checked option) and `DayStrip.module.scss` (lines 34-37, done day). Add a check mark or underline. `DayToggle` already has a check icon.
 - [ ] Optional: textareas are fixed at `min-block-size: 96px` (`Textarea.module.scss` lines 12 and 18), while the retro textareas hold up to 2000 characters. `field-sizing: content` with a `max-block-size` would fit the content.
 - [ ] Low priority and unverified: `Input.tsx` hides the suffix ("days", "months") with `aria-hidden`, so screen reader users lose the unit. No guide rule covers it.

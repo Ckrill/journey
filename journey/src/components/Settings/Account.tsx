@@ -49,6 +49,7 @@ const Account = () => {
       <Heading>Account</Heading>
 
       <Input
+        autoComplete="email"
         disabled
         id="email"
         labelText="Email"

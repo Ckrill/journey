@@ -57,6 +57,7 @@ const ReflectionForm = ({ previous }: Props) => {
     >
       <Textarea
         assistiveText="Celebrate your wins, big or small."
+        autoComplete="off"
         disabled={save.isPending}
         id="retro-went-well"
         labelText="What went well?"
@@ -67,6 +68,7 @@ const ReflectionForm = ({ previous }: Props) => {
 
       <Textarea
         assistiveText="Honest reflections are the key to improvement."
+        autoComplete="off"
         disabled={save.isPending}
         id="retro-blockers"
         labelText="What got in your way?"
@@ -77,6 +79,7 @@ const ReflectionForm = ({ previous }: Props) => {
 
       <Textarea
         assistiveText="Pick something small and concrete."
+        autoComplete="off"
         disabled={save.isPending}
         id="retro-next-steps"
         labelText="How can you remove some friction?"
@@ -87,6 +90,7 @@ const ReflectionForm = ({ previous }: Props) => {
 
       <Textarea
         assistiveText="What is the minimum you can do?"
+        autoComplete="off"
         disabled={save.isPending}
         id="retro-plan"
         labelText="Plan for next week. How will you meet your goal?"

@@ -13,7 +13,6 @@
   }
 }
 
-// Covers the whole row so the native control stays focusable and clickable.
 .input {
   position: absolute;
   inset: 0;
@@ -39,9 +38,16 @@
   background-color: var(--color-field);
   border: 2px solid var(--color-border-subtle);
   border-radius: var(--radius-base);
+  scale: 1;
+  transition: scale var(--duration-rapid);
 
   .input:focus-visible + & {
-    border-color: 2px solid var(--color-brand-secondary);
+    border-color: var(--color-brand-secondary);
+    scale: var(--scale-focus-strong);
+  }
+
+  .input:enabled:active + & {
+    scale: var(--scale-press-strong);
   }
 }
 

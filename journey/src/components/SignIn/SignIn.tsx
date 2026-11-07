@@ -47,6 +47,7 @@ const SignInForm = () => {
           autoComplete="username"
           errorText={errors.email?.message}
           id="email"
+          inputMode="email"
           labelText="Email"
           required
           type="email"
