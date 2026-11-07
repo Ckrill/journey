@@ -1,6 +1,6 @@
 // External
 import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 // Miscellaneous
 import { supabase } from '../../lib/supabase';
@@ -16,7 +16,11 @@ interface FieldValues {
 const SignInForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<null | string>(null);
-  const { control, handleSubmit } = useForm<FieldValues>();
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+  } = useForm<FieldValues>();
 
   const onSubmit = async (values: FieldValues) => {
     setSubmitError(null);
@@ -32,45 +36,31 @@ const SignInForm = () => {
 
   return (
     <form
+      noValidate
       onSubmit={(e) => {
         void handleSubmit(onSubmit)(e);
       }}
       style={{ display: 'contents' }}
     >
       <Section>
-        <Controller
-          control={control}
-          defaultValue=""
-          name="email"
-          render={({ field }) => (
-            <Input
-              autoComplete="username"
-              id="email"
-              labelText="Email"
-              required
-              type="email"
-              {...field}
-            />
-          )}
-          rules={{ required: true }}
+        <Input
+          autoComplete="username"
+          errorText={errors.email?.message}
+          id="email"
+          labelText="Email"
+          required
+          type="email"
+          {...register('email', { required: 'Enter your email.' })}
         />
 
-        <Controller
-          control={control}
-          defaultValue=""
-          name="password"
-          render={({ field }) => (
-            <Input
-              autoComplete="current-password"
-              errorText={submitError ?? undefined}
-              id="password"
-              labelText="Password"
-              required
-              type="password"
-              {...field}
-            />
-          )}
-          rules={{ required: true }}
+        <Input
+          autoComplete="current-password"
+          errorText={errors.password?.message ?? submitError ?? undefined}
+          id="password"
+          labelText="Password"
+          required
+          type="password"
+          {...register('password', { required: 'Enter your password.' })}
         />
 
         <Button disabled={submitting} type="submit">

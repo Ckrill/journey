@@ -1,6 +1,6 @@
 // External
 import { useEffect } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 // Utilities
 import { errorMessage } from '../../../helpers/errors';
@@ -27,10 +27,10 @@ import Section from '../../Section/Section';
 import SectionContainer from '../../Section/SectionContainer';
 
 // Types
-import type { Habit, Weekday } from '../../../types/types';
+import type { Habit } from '../../../types/types';
 import type { PillboxOption } from '../../Form/Pillbox/Pillbox';
 
-const dayOptions: PillboxOption<Weekday>[] = WEEKDAYS.map((value, index) => ({
+const dayOptions: PillboxOption[] = WEEKDAYS.map((value, index) => ({
   display: WEEKDAY_LABELS[index][0],
   label: WEEKDAY_LABELS[index],
   value,
@@ -52,7 +52,6 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
   const { reset: resetUpdate } = update;
 
   const {
-    control,
     formState: { errors },
     handleSubmit,
     register,
@@ -117,6 +116,7 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
   return (
     <Modal label={title} onClose={onClose} open={open}>
       <form
+        noValidate
         onSubmit={(e) => {
           void handleSubmit(onSubmit)(e);
         }}
@@ -142,24 +142,18 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
           </Section>
 
           <Section>
-            <Controller
-              control={control}
-              name="name"
-              render={({ field }) => (
-                <Input
-                  assistiveText="Name your habit."
-                  autoComplete="off"
-                  data-1p-ignore
-                  disabled={isPending}
-                  errorText={errors.name && 'Name your habit.'}
-                  id="habit-name"
-                  labelText="Name"
-                  required
-                  type="text"
-                  {...field}
-                />
-              )}
-              rules={{ required: true }}
+            {/* Registered with `register` like the fields below, so the error focus order follows the page. */}
+            <Input
+              assistiveText="Name your habit."
+              autoComplete="off"
+              data-1p-ignore
+              disabled={isPending}
+              errorText={errors.name && 'Name your habit.'}
+              id="habit-name"
+              labelText="Name"
+              required
+              type="text"
+              {...register('name', { required: true })}
             />
 
             <Input
@@ -182,20 +176,12 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
               })}
             />
 
-            <Controller
-              control={control}
-              name="plannedDays"
-              render={({ field }) => (
-                <Pillbox
-                  assistiveText="Select the days you plan to do this habit."
-                  disabled={isPending}
-                  labelText="Days"
-                  name={field.name}
-                  onChange={field.onChange}
-                  options={dayOptions}
-                  value={field.value}
-                />
-              )}
+            <Pillbox
+              assistiveText="Select the days you plan to do this habit."
+              disabled={isPending}
+              labelText="Days"
+              options={dayOptions}
+              {...register('plannedDays')}
             />
 
             <Textarea

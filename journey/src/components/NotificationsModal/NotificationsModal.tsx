@@ -1,6 +1,6 @@
 // External
 import { useEffect } from 'react';
-import { Controller, useForm, useWatch } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 
 // Utilities
 import { errorMessage } from '../../helpers/errors';
@@ -59,6 +59,7 @@ const NotificationsModal = ({ onClose, open }: Props) => {
     control,
     formState: { errors, isDirty },
     handleSubmit,
+    register,
     reset,
     setError,
   } = useForm<FieldValues>({ defaultValues: toFieldValues(reminder) });
@@ -100,6 +101,7 @@ const NotificationsModal = ({ onClose, open }: Props) => {
   return (
     <Modal label="Configure notifications" onClose={onClose} open={open}>
       <form
+        noValidate
         onSubmit={(e) => {
           void handleSubmit(onSubmit)(e);
         }}
@@ -110,57 +112,35 @@ const NotificationsModal = ({ onClose, open }: Props) => {
           </Section>
 
           <Section>
-            <Controller
-              control={control}
-              name="enabled"
-              render={({ field }) => (
-                <CheckboxGroup>
-                  <Checkbox
-                    callback={() => {
-                      field.onChange(!field.value);
-                    }}
-                    checked={field.value}
-                    id="retro-reminder"
-                    label="Retro reminder"
-                  />
-                </CheckboxGroup>
-              )}
+            <CheckboxGroup>
+              <Checkbox
+                id="retro-reminder"
+                label="Retro reminder"
+                {...register('enabled')}
+              />
+            </CheckboxGroup>
+
+            <Select
+              disabled={!enabled}
+              id="retro-reminder-day"
+              labelText="Day"
+              options={weekdayOptions}
+              required={enabled}
+              {...register('weekday')}
             />
 
-            <Controller
-              control={control}
-              name="weekday"
-              render={({ field }) => (
-                <Select
-                  disabled={!enabled}
-                  id="retro-reminder-day"
-                  labelText="Day"
-                  options={weekdayOptions}
-                  required={enabled}
-                  {...field}
-                />
-              )}
-            />
-
-            <Controller
-              control={control}
-              name="time"
-              render={({ field, fieldState }) => (
-                <Input
-                  assistiveText={`Time zone: ${timeZone}. Saving updates it to this device's time zone.`}
-                  disabled={!enabled}
-                  errorText={fieldState.error?.message}
-                  id="retro-reminder-time"
-                  labelText="Time"
-                  required={enabled}
-                  type="time"
-                  {...field}
-                />
-              )}
-              rules={{
+            <Input
+              assistiveText={`Time zone: ${timeZone}. Saving updates it to this device's time zone.`}
+              disabled={!enabled}
+              errorText={errors.time?.message}
+              id="retro-reminder-time"
+              labelText="Time"
+              required={enabled}
+              type="time"
+              {...register('time', {
                 validate: (value, { enabled: on }) =>
                   !on || value !== '' || 'Enter a time.',
-              }}
+              })}
             />
 
             <FormActions>

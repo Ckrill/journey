@@ -1,5 +1,6 @@
 // External
 import clsx from 'clsx';
+import type { InputHTMLAttributes, ReactNode } from 'react';
 
 // Miscellaneous
 import FieldMessage from '../FieldMessage/FieldMessage';
@@ -8,73 +9,52 @@ import FieldMessage from '../FieldMessage/FieldMessage';
 import labelStyles from '../FieldLabel/FieldLabel.module.scss';
 import styles from './Pillbox.module.scss';
 
-export interface PillboxOption<T extends string> {
+export interface PillboxOption {
   /** What the cell shows. Defaults to `label`. */
-  display?: React.ReactNode;
+  display?: ReactNode;
   /** Full accessible name, announced by screen readers. */
   label: string;
-  value: T;
+  value: string;
 }
 
-interface Props<T extends string> {
+// The input props go on every checkbox, so the group submits as one named field.
+type Props = InputHTMLAttributes<HTMLInputElement> & {
   assistiveText?: string;
-  disabled?: boolean;
   errorText?: string;
   labelText: string;
-  name?: string;
-  onChange: (value: T[]) => void;
-  options: readonly PillboxOption<T>[];
-  value: T[];
-}
+  options: readonly PillboxOption[];
+};
 
-const Pillbox = <T extends string>({
+const Pillbox = ({
   assistiveText,
   disabled,
   errorText,
   labelText,
-  name,
-  onChange,
   options,
-  value,
-}: Props<T>) => {
-  const toggle = (option: T) => {
-    // Rebuild from `options` so the selection keeps the option order.
-    onChange(
-      options
-        .map((o) => o.value)
-        .filter((v) => (v === option ? !value.includes(v) : value.includes(v))),
-    );
-  };
+  ...props
+}: Props) => (
+  <fieldset className={styles.container} disabled={disabled}>
+    <legend className={clsx(labelStyles.label, styles.legend)}>
+      {labelText}
+    </legend>
 
-  return (
-    <fieldset className={styles.container} disabled={disabled}>
-      <legend className={clsx(labelStyles.label, styles.legend)}>
-        {labelText}
-      </legend>
+    <div className={styles.pill}>
+      {options.map((option) => (
+        <label className={styles.option} key={option.value}>
+          <input
+            {...props}
+            aria-label={option.label}
+            className={styles.input}
+            type="checkbox"
+            value={option.value}
+          />
+          <span className={styles.face}>{option.display ?? option.label}</span>
+        </label>
+      ))}
+    </div>
 
-      <div className={styles.pill}>
-        {options.map((option) => (
-          <label className={styles.option} key={option.value}>
-            <input
-              aria-label={option.label}
-              checked={value.includes(option.value)}
-              className={styles.input}
-              name={name}
-              onChange={() => {
-                toggle(option.value);
-              }}
-              type="checkbox"
-            />
-            <span className={styles.face}>
-              {option.display ?? option.label}
-            </span>
-          </label>
-        ))}
-      </div>
-
-      <FieldMessage assistiveText={assistiveText} errorText={errorText} />
-    </fieldset>
-  );
-};
+    <FieldMessage assistiveText={assistiveText} errorText={errorText} />
+  </fieldset>
+);
 
 export default Pillbox;

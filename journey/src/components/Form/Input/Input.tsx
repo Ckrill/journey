@@ -32,8 +32,8 @@ const FormInput = ({
     <div className={styles.field}>
       <input
         aria-invalid={errorText ? true : undefined}
-        aria-required={required}
         className={styles.input}
+        required={required}
         {...props}
       />
 

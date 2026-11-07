@@ -22,30 +22,30 @@ const Preferences = () => {
 
       <CheckboxGroup>
         <Checkbox
-          callback={() => {
-            handleToggle('sound');
-          }}
           checked={settings.sound}
           id="sound"
           label="Sound"
+          onChange={() => {
+            handleToggle('sound');
+          }}
         />
 
         <Checkbox
-          callback={() => {
-            handleToggle('vibration');
-          }}
           checked={settings.vibration}
           id="vibration"
           label="Vibration"
+          onChange={() => {
+            handleToggle('vibration');
+          }}
         />
 
         <Checkbox
-          callback={() => {
-            handleToggle('bottomNavigation');
-          }}
           checked={settings.bottomNavigation}
           id="bottomNavigation"
           label="Upside Down"
+          onChange={() => {
+            handleToggle('bottomNavigation');
+          }}
         />
       </CheckboxGroup>
     </>

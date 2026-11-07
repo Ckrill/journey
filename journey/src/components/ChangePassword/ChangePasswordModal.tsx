@@ -1,6 +1,6 @@
 // External
 import { useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 // Miscellaneous
 import { supabase } from '../../lib/supabase';
@@ -28,10 +28,10 @@ const minLength = 8;
 const ChangePasswordModal = ({ onClose, onSaved, open }: Props) => {
   const [submitting, setSubmitting] = useState(false);
   const {
-    control,
     formState: { errors },
     getValues,
     handleSubmit,
+    register,
     reset,
     setError,
   } = useForm<FieldValues>({
@@ -61,6 +61,7 @@ const ChangePasswordModal = ({ onClose, onSaved, open }: Props) => {
   return (
     <Modal label="Change password" onClose={onClose} open={open}>
       <form
+        noValidate
         onSubmit={(e) => {
           void handleSubmit(onSubmit)(e);
         }}
@@ -71,51 +72,37 @@ const ChangePasswordModal = ({ onClose, onSaved, open }: Props) => {
           </Section>
 
           <Section>
-            <Controller
-              control={control}
-              name="password"
-              render={({ field, fieldState }) => (
-                <Input
-                  autoComplete="new-password"
-                  disabled={submitting}
-                  errorText={fieldState.error?.message}
-                  id="new-password"
-                  labelText="New password"
-                  required
-                  type="password"
-                  {...field}
-                />
-              )}
-              rules={{
+            <Input
+              autoComplete="new-password"
+              disabled={submitting}
+              errorText={errors.password?.message}
+              id="new-password"
+              labelText="New password"
+              required
+              type="password"
+              {...register('password', {
                 minLength: {
                   message: `Use at least ${String(minLength)} characters.`,
                   value: minLength,
                 },
                 required: 'Enter a new password.',
-              }}
+              })}
             />
 
-            <Controller
-              control={control}
-              name="confirm"
-              render={({ field, fieldState }) => (
-                <Input
-                  autoComplete="new-password"
-                  disabled={submitting}
-                  errorText={fieldState.error?.message ?? serverError?.message}
-                  id="confirm-password"
-                  labelText="Confirm new password"
-                  required
-                  type="password"
-                  {...field}
-                />
-              )}
-              rules={{
+            <Input
+              autoComplete="new-password"
+              disabled={submitting}
+              errorText={errors.confirm?.message ?? serverError?.message}
+              id="confirm-password"
+              labelText="Confirm new password"
+              required
+              type="password"
+              {...register('confirm', {
                 required: 'Repeat the new password.',
                 validate: (value) =>
                   value === getValues('password') ||
                   'The passwords do not match.',
-              }}
+              })}
             />
 
             <FormActions>

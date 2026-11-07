@@ -41,7 +41,6 @@ const FormSelect = ({
     <div className={styles.field}>
       <select
         aria-invalid={errorText ? true : undefined}
-        aria-required={required}
         className={styles.select}
         required={required}
         {...props}

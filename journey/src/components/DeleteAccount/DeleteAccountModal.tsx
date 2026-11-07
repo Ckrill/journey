@@ -1,6 +1,6 @@
 // External
 import { useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 // Miscellaneous
 import { supabase } from '../../lib/supabase';
@@ -29,9 +29,9 @@ const DeleteAccountModal = ({ onClose, onDeleted, open }: Props) => {
   const [deleting, setDeleting] = useState(false);
   const [deleted, setDeleted] = useState(false);
   const {
-    control,
     formState: { errors },
     handleSubmit,
+    register,
     reset,
     setError,
   } = useForm<FieldValues>({
@@ -86,6 +86,7 @@ const DeleteAccountModal = ({ onClose, onDeleted, open }: Props) => {
       open={open}
     >
       <form
+        noValidate
         onSubmit={(e) => {
           void handleSubmit(onSubmit)(e);
         }}
@@ -101,27 +102,20 @@ const DeleteAccountModal = ({ onClose, onDeleted, open }: Props) => {
           </Section>
 
           <Section>
-            <Controller
-              control={control}
-              name="confirmation"
-              render={({ field, fieldState }) => (
-                <Input
-                  assistiveText={`Type "${phrase}" to confirm.`}
-                  autoComplete="off"
-                  disabled={deleting}
-                  errorText={fieldState.error?.message ?? serverError?.message}
-                  id="delete-confirmation"
-                  labelText="Confirmation"
-                  required
-                  type="text"
-                  {...field}
-                />
-              )}
-              rules={{
+            <Input
+              assistiveText={`Type "${phrase}" to confirm.`}
+              autoComplete="off"
+              disabled={deleting}
+              errorText={errors.confirmation?.message ?? serverError?.message}
+              id="delete-confirmation"
+              labelText="Confirmation"
+              required
+              type="text"
+              {...register('confirmation', {
                 validate: (value) =>
                   value.trim().toLowerCase() === phrase.toLowerCase() ||
                   `Type "${phrase}" to confirm.`,
-              }}
+              })}
             />
 
             <FormActions>

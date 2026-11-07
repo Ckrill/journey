@@ -31,7 +31,6 @@ Guide advice that the project rules reject is under "Conflicts with project rule
 
 ## 1. Real bugs
 
-- [ ] `src/components/Form/Input/Input.tsx` destructures `required` and never passes it to the `<input>`. It only feeds the label asterisk and `aria-required`, so native `required` does not apply anywhere `Input` is used (no `:invalid` or `:user-invalid`, no native validation). On the sign-in form the `required: true` rules have no message, so an empty submit fails silently. Forward `required` to the input. `Select` does forward it, and also sets `aria-required`, which is redundant there.
 - [ ] `src/components/Form/Checkbox/Checkbox.module.scss` (line 36): `border-color: 2px solid var(...)` is an invalid declaration, so the checkbox shows no focus indicator.
 - [ ] `src/components/Header/Header.module.scss` (line 46): `.link` sets `outline: none` with no `:focus-visible` style, so keyboard focus on the nav links is invisible. The guide marks this mandatory.
 - [ ] `public/site.webmanifest` shortcuts (lines 31, 44 and 57) open `/?name=Stretching`, `/?name=Yoga` and `/?name=Running`, but the `/` route's `validateSearch` keeps only `week`, so the shortcuts do nothing.
@@ -78,7 +77,7 @@ CSS
 
 - [ ] Single-transform states use the `transform` shorthand with no identity value on the base element. The guide wants `scale: 1` on the base, `scale: ...` on the state, and `transition: scale`. Files: `Button`, `Input`, `Select`, `Textarea`, `Pillbox`, `WeekSwitcher`, `Checkbox`, `Modal`, `Feedback` and `Spinner` (use `rotate`). `DayToggle` already does this. The `skewY` in `Feedback.module.scss` (lines 71 and 114) cannot be converted.
 - [ ] `allow-discrete` is written inside the `transition` shorthand in `Modal.module.scss` (lines 96-100 and 115-118) and `ParagraphGroup.module.scss` (lines 35-38). The guide says to use a separate `transition-behavior`. Harmless in current Chrome.
-- [ ] Dead or duplicate code: `Checkbox.tsx` (line 35) applies `styles.pulse` with no matching rule, `SectionContainer.module.scss` (lines 12-14) targets `[is-first-on-page='true']` that no component sets, `generic.scss` (lines 9-12) repeats lines 1-7, `src/index.css` is a leftover, and `WeekSwitcher.module.scss` (lines 4-5) declares `justify-content` twice.
+- [ ] Dead or duplicate code: `SectionContainer.module.scss` (lines 12-14) targets `[is-first-on-page='true']` that no component sets, `generic.scss` (lines 9-12) repeats lines 1-7, `src/index.css` is a leftover, and `WeekSwitcher.module.scss` (lines 4-5) declares `justify-content` twice.
 - [ ] Token drift: `--border-width` is used only by `Divider` while `2px` is literal in many files, `--pill-radius` duplicates `--radius-base`, `Spinner` uses a literal `1s` instead of `--duration-turtle`, `WeekSwitcher`, `DayToggle` and `Modal` use literal scales instead of `--scale-*`, the Rubik stack appears three times, and the Modal backdrop `0.35` appears twice.
 - [ ] Low priority: `color-mix(in srgb, ...)` in `Button` (lines 57-61 and 68), `Select` (lines 96-100), `Notice` (lines 13-14), `Spinner` (lines 5-6) and `TimeProgress` (line 84). Use `in oklab`. Only `Button` lines 57-61 change visibly.
 - [ ] Low priority: no `accent-color` is set, which affects the native time input in `NotificationsModal.tsx` (line 156). `Modal.module.scss` (line 62) sets `scrollbar-width: none` on a scrollable region, with little effect on Android.
@@ -197,7 +196,7 @@ These are guide recommendations that the project rules reject, so they are not t
   - Read the sections of the `accessibility` guide that were skipped (images, SVG, skip links), and the `built-in-ai`, `wasm` and `webmcp` guides beyond their opening paragraphs.
   - Verify at runtime with axe or Lighthouse and manual keyboard and screen reader checks. Several findings are unconfirmed (Feedback overlay in the accessibility tree, Button focus contrast, the Header height estimate, the streak benchmark on a real phone).
 - [ ] Check areas the guides do not cover.
-  - Instructions file: run `yarn knip`, check that ref callbacks guard against `null`, check that `docs/habit-redesign.md` still matches the code, and decide whether `stats.html` in the repo root (a build artifact) should be committed.
+  - Instructions file: `yarn knip` reports two unused files (`src/components/Code/Code.tsx` and `Code.module.scss`), two unused exports (`overallBestStreak` in `src/helpers/streak.ts` and `weekStartOf` in `src/helpers/week.ts`) and 15 stale entries in `knip.json` to remove. Also check that ref callbacks guard against `null`, check that `docs/habit-redesign.md` still matches the code, and decide whether `stats.html` in the repo root (a build artifact) should be committed.
   - Backend security: review row-level security in `supabase/schema.sql`. `send-reminders` was reviewed for its time logic and its secret check, but not for how `pg_cron` calls it.
   - PWA: check manifest icons (maskable) and the notification options in `public/sw.js` such as `badge`.
   - Dependencies: check for outdated or unused packages and review bundle size.

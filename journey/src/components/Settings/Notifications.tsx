@@ -76,13 +76,13 @@ const Notifications = () => {
             }
           >
             <Checkbox
-              callback={() => {
-                void handleNotificationsToggle();
-              }}
               checked={settings.notifications}
               disabled={toggling}
               id="notifications"
               label="Notifications"
+              onChange={() => {
+                void handleNotificationsToggle();
+              }}
             />
           </CheckboxGroup>
 
