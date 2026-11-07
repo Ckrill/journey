@@ -4,6 +4,7 @@
 - The primary target is the installed web app (PWA) in Chrome on Android. Use modern web platform features freely there (Vibration API, Web Push, scroll-driven animations, `color-mix`).
 - Support other browsers only when it is an easy fix. Otherwise degrade gracefully, e.g. feature-detect with `'vibrate' in navigator` and skip the effect.
 - Use the `modern-web-guidance` skill first for HTML, CSS and client-side JS work, and prefer the platform features it recommends over polyfills or extra libraries.
+- Skills installed globally live in `~/.agents/skills/`. Not every skill is there, but check it first. The `modern-web-guidance` guides are in `~/.agents/skills/modern-web-guidance/guides/`, grouped by category. Read them from there instead of running `npx modern-web-guidance`, which also breaks the `yarn`-only rule below.
 
 ## Workflow
 
