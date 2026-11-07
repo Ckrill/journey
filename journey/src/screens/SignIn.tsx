@@ -47,14 +47,15 @@ const SignIn = ({ onCovered, restoringSession }: Props) => {
       {covered && !restoringSession && (
         <>
           <div className={styles.title}>
-            <motion.div
+            <motion.h1
               animate="animate"
+              className={styles.titleText}
               exit="exit"
               initial="initial"
               variants={titleVariants}
             >
               Journey
-            </motion.div>
+            </motion.h1>
           </div>
 
           {/* Mounted from the start so its space is reserved; inert until it has risen into view. */}

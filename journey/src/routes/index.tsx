@@ -97,7 +97,7 @@ const Habits = () => {
     <PageTransition>
       <SectionContainer>
         <Section>
-          <Heading>Habits</Heading>
+          <Heading level={1}>Habits</Heading>
         </Section>
 
         <Section>

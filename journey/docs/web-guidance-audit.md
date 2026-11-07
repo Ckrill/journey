@@ -17,6 +17,18 @@ Work through the batches in order. Run `yarn validate` after each batch and tick
 
 Guide advice that the project rules reject is under "Conflicts with project rules", and what is left to review is under "Follow-up".
 
+## Decisions
+
+- Contrast: no changes. The color contrast items were removed from this list. The two keyboard focus indicator items (`Button` and the `Select` picker) stay in batch 4.
+- Color scheme: light only for now. Done: `color-scheme: light` in `src/styles/constants.scss` and `<meta name="color-scheme" content="light">` in `index.html`. Dark mode is not planned.
+- Text selection: keep the global `user-select: none` in `src/styles/generic.scss`. That item was removed.
+- Heading levels: done. `Heading` takes a `level` prop (default 2) and a `visuallyHidden` prop. Page and modal titles are `<h1>`, the settings page has a visually hidden `<h1>Settings</h1>`, and the sign-in title is an `<h1>`. Section headings stay `<h2>`. The look is unchanged. The Feedback overlay still renders its own `<h1>`s (see batch 3).
+- Typography, partly done: `text-wrap: balance` on `Heading` (not on the Feedback title and subtitle, where the size classes and wrapping are tuned by hand), `text-wrap: pretty` on `Paragraph` and `Notice` text, and `letter-spacing` in form fields now uses `--letter-spacing-field` (`0.055em`) instead of `1px`. `text-transform: uppercase` is deliberate and stays.
+- Class modifiers: the BEM-style `--error` and `--l`, `--m` and similar modifiers are replaced by `[aria-invalid='true']` (`Input`, `Select`, `Textarea`) and `[data-size]` (Feedback title). `Input` and `Textarea` now set `aria-invalid`, as `Select` already did.
+- Spinner: `role="progressbar"` instead of `role="status"`.
+- Browser target: the newest stable Chrome on Android, now stated in `.github/copilot-instructions.md`. So `text-fit` and other new features are allowed without fallbacks.
+- Still open: the rest of typography (unitless `line-height`, `clamp()` ranges, `text-fit`, font fallbacks), the Header, motion and the other batch 4 items.
+
 ## 1. Real bugs
 
 - [ ] `src/components/Form/Input/Input.tsx` destructures `required` and never passes it to the `<input>`. It only feeds the label asterisk and `aria-required`, so native `required` does not apply anywhere `Input` is used (no `:invalid` or `:user-invalid`, no native validation). On the sign-in form the `required: true` rules have no message, so an empty submit fails silently. Forward `required` to the input. `Select` does forward it, and also sets `aria-required`, which is redundant there.
@@ -82,7 +94,7 @@ Dates
 
 Fields and validation
 
-- [ ] `src/components/Form/FieldMessage/FieldMessage.tsx`, `Input.tsx`, `Textarea.tsx`, `Select.tsx`: help and error text is not linked to its field with `aria-describedby`, errors are not announced, and only `Select` sets `aria-invalid`. `FieldMessage` also renders an empty `<p>` when there is no text.
+- [ ] `src/components/Form/FieldMessage/FieldMessage.tsx`, `Input.tsx`, `Textarea.tsx`, `Select.tsx`: help and error text is not linked to its field with `aria-describedby`, errors are not announced. `Select`, `Input` and `Textarea` now set `aria-invalid`. `FieldMessage` also renders an empty `<p>` when there is no text.
 - [ ] `src/components/SignIn/SignIn.tsx`: the email field only needs `spellCheck={false}`, because the guide says `autocorrect` and `autocapitalize` are always off for `type="email"`. Add `enterKeyHint` (`next` on email, `go` on password), a show/hide toggle on the password field and a "Forgot password" link.
 - [ ] `src/components/ChangePassword/ChangePasswordModal.tsx` (lines 78-96): the 8-character rule only appears after a failed submit. Add `minLength={8}` and a hint.
 - [ ] `ChangePasswordModal.tsx` (lines 98-119) asks for the new password twice. The guide advises against repeated fields. Remove the confirm field and add the show-password toggle.
@@ -107,38 +119,21 @@ Dialogs and overlays
 
 Decide these first, because they touch many files.
 
-Contrast
+Focus indicators
 
-Ratios are WCAG 2.x values computed against `--color-background` (#f5f5f5, "bg") and `--color-field` (#fff, "field"). Disabled controls are exempt.
-
-- [ ] Input, select, textarea, checkbox and pillbox boundaries are a 2px `--color-border-subtle` (#eee) border, which is 1.16:1 on field. The guide wants 3:1 for control boundaries. A border near #8a8a8a gives 3.17:1 on bg. `--color-border-strong` (#9098a9) is not enough either (2.66:1).
-- [ ] Orange `--color-warning` (#ffa500) is used for error and required text, 1.81:1 on bg. Use a text-safe token near #9a5b00 (4.98:1) and keep orange for fills. Files: `FieldMessage.module.scss`, `FieldLabel.module.scss`.
-- [ ] `Notice.module.scss` colors its text with the tone color on its own 10% tint: warning 1.70:1, error 2.32:1, success 2.40:1. Keep the tone for the icon, border and tint and use `--color-text` (9.2:1) for the text.
-- [ ] `--color-text-faint` (#bbb) is used for real content at 1.76:1 on bg: `DayStrip.module.scss` (line 28), `Pillbox.module.scss` (line 88), `WeekSwitcher.module.scss` (line 63) and `HabitItem.module.scss` (line 32, dimmed further with `opacity: 0.4`). A text token near #6f6f6f gives 4.61:1 on bg.
-- [ ] `--color-brand-secondary` on `--color-brand-primary` is 3.45:1 for 16px bold text, which needs 4.5:1. Files: `DayStrip.module.scss`, `Pillbox.module.scss`, `Header.module.scss` (nav links), `DayToggle.module.scss`. Darkening secondary to about #4a2846 gives 4.47:1.
-- [ ] White on `--color-error` (#ff6c55) is 2.79:1 in the danger button (`Button.module.scss` line 55). Error-colored text on bg is 2.56:1 (line 76). A token near #c73a25 gives white 5.17:1. `Button.module.scss` (lines 2, 3 and 55) hard-codes white, so `contrast-color(var(--button-background))` would pick a readable color instead, and would pick black on the error background.
-- [ ] `--color-text-muted` (#787987) is 3.94:1 on bg for small text in `Paragraph.module.scss` (line 26) and `ParagraphGroup.module.scss` (line 64). A token near #696a79 gives 4.89:1.
-- [ ] Text dimmed with opacity: `HabitSummaryItem.module.scss` (line 13, `opacity: .5`, 2.52:1) and `TimeProgress.module.scss` (line 70, `opacity: .6`, 3.17:1). Use a solid color of at least 4.5:1.
-- [ ] The TimeProgress info bar (`--color-info`, #3498db) is 2.89:1 on bg and 2.55:1 against its own track (`TimeProgress.module.scss` line 25). Needs 3:1 as a non-text element.
 - [ ] `src/components/Button/Button.module.scss` (line 22): `outline: none`. The replacement is a small background shift (`#34495e` to `#2c3e50`) plus a scale, which is probably below the 3:1 contrast the guide requires. Not measured.
 - [ ] Unverified: picker option hover and `:focus-visible` in `Select.module.scss` (lines 108-111) use `#eee` on a `#fff` picker, which is a weak keyboard focus indicator.
 
-Color schemes
+Forced colors
 
-- [ ] No dark mode and no `color-scheme` anywhere. Missing `<meta name="color-scheme">` in `index.html`, `color-scheme: light dark` in `src/styles/constants.scss`, and `light-dark()` color tokens. Native controls and `<audio>` render light only.
 - [ ] Low priority: no `forced-colors` handling. State is carried only by background color in `Pillbox.module.scss` (checked option) and `Header.module.scss` (active underline). Chrome on Android does not support forced colors, so this has little value for the primary target.
 
 Structure and layout
 
-- [ ] No view has an `<h1>`. Every page heading in `src/components/Heading/Heading.tsx` is an `<h2>`, the Feedback overlay renders `<h1>`s instead, and the sign-in title in `src/screens/SignIn.tsx` (lines 49-58) is a `<div>`.
 - [ ] The sticky `Header` never hides. By my estimate it is about 81px tall, or about 117px with bottom navigation (roughly 14% of an 800px viewport), and the guide says to keep fixed bars under 12%. Confirm in devtools. The guide suggests hiding it on scroll down with a `scroll-state` container query.
-- [ ] `src/styles/generic.scss` (line 14): a global `* { user-select: none; ... }`. The guide says no global resets, and it blocks text selection and copying everywhere.
-- [ ] Low priority: BEM-style modifiers (`input--error`, `select--error`, `heading--m`), which the guide advises against.
-- [ ] Low priority: `src/components/Spinner/Spinner.tsx` uses `role="status"`. The guide recommends `progress` or a `progressbar` role for loading states.
 
 Typography and text scaling
 
-- [ ] No `text-wrap` anywhere. Use `balance` on headings (`Heading.module.scss`, `Feedback.module.scss` `.heading` and `.paragraph`) and `pretty` on body text (`Paragraph.module.scss`, `Notice.module.scss`).
 - [ ] Fixed-length `line-height` values instead of unitless ones in `Button`, `Divider`, `FieldMessage`, `Input`, `Select`, `Textarea`, `Heading`, `Notice` and `Paragraph`. `body` in `src/styles/generic.scss` sets none, so it is `normal`. Use ratios such as `1.5` and add `body { line-height: 1.5 }`.
 - [ ] The `clamp()` font sizes in `Feedback.module.scss` and `SignIn.module.scss` use `vw` alone as the middle term (the guide combines viewport and font-relative units, for example `calc(1rem + 2vw)`), and some ranges exceed the guide's 2.5x limit: `Feedback.module.scss` (line 92, 3x, and line 96, 5x) and `SignIn.module.scss` (line 20, 5x). At 200% zoom the viewport term falls below the floor and the text stops scaling.
 - [ ] `Feedback.module.scss` (lines 60-97) has five hand-tuned size classes picked in JS by `getHeadingSize` (`src/helpers/synonyms.ts` lines 35-54), and `SignIn.module.scss` (line 20) hand-tunes `15vw`. `text-fit: grow per-line-all` (Chrome 150 and later) would replace both. Keep `clamp()` as the fallback.
@@ -146,8 +141,6 @@ Typography and text scaling
 - [ ] Fonts: `src/styles/fonts.scss` has no `size-adjust` or metric overrides, nothing sets `font-size-adjust`, and the Rubik fallback is a literal `Arial, Helvetica, sans-serif` in `Feedback.module.scss` (lines 64 and 109) and `SignIn.module.scss` (line 19). Use `font-size-adjust` or metric-matched fallback faces.
 - [ ] Plex Mono is loaded at weight 500 only (`fonts.scss` lines 78-91), but weight 600 is requested in `HabitSummary`, `HabitItem` and `HabitSummaryItem`, so bold is probably synthesized. Not checked in a browser.
 - [ ] Sans and mono text sit side by side in `HabitItem.module.scss` (line 28), `HabitSummaryItem.module.scss` (line 9) and `TimeProgress.module.scss` (line 66). The mono fallback (`courier`) is not metric-matched, so use `font-size-adjust`.
-- [ ] Low priority: `text-transform: uppercase` in about 13 files (Button, HabitItem, Header, FieldLabel and others). The guide advises against all-caps for emphasis, but it looks like deliberate visual identity.
-- [ ] Low priority: `letter-spacing: 1px` in `Input`, `Select` and `Checkbox` does not scale with font size. No guide rule covers it. `0.055em` would scale.
 - [ ] Low priority: `TimeProgress.module.scss` (lines 54-58) uses `white-space: nowrap` with an ellipsis on the habit name. The pixel breakpoint `600px` in `Modal.module.scss` (line 87) could be `38em`. `Modal.tsx` (line 19) reads `window.matchMedia('(width < 600px)')` once, duplicating that breakpoint, with no `change` listener.
 - [ ] Low priority: `text-box: trim-both cap alphabetic` would simplify the padding on `Button.module.scss` (lines 11-19) and the icon alignment in `Notice.module.scss` (lines 30-42).
 
@@ -202,7 +195,7 @@ These are guide recommendations that the project rules reject, so they are not t
 - [ ] Finish the review of what the guide pass did not cover.
   - Read the `journey`, `retro` and `settings` routes, `Reflection`, `Notice` and `DownloadData` in full. Only parts of them were read.
   - Read the sections of the `accessibility` guide that were skipped (images, SVG, skip links), and the `built-in-ai`, `wasm` and `webmcp` guides beyond their opening paragraphs.
-  - Verify at runtime with axe or Lighthouse and manual keyboard and screen reader checks. Contrast ratios come from token values, and several findings are unconfirmed (Feedback overlay in the accessibility tree, Button focus contrast, the Header height estimate, the streak benchmark on a real phone).
+  - Verify at runtime with axe or Lighthouse and manual keyboard and screen reader checks. Several findings are unconfirmed (Feedback overlay in the accessibility tree, Button focus contrast, the Header height estimate, the streak benchmark on a real phone).
 - [ ] Check areas the guides do not cover.
   - Instructions file: run `yarn knip`, check that ref callbacks guard against `null`, check that `docs/habit-redesign.md` still matches the code, and decide whether `stats.html` in the repo root (a build artifact) should be committed.
   - Backend security: review row-level security in `supabase/schema.sql`. `send-reminders` was reviewed for its time logic and its secret check, but not for how `pg_cron` calls it.

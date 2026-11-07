@@ -15,7 +15,7 @@
   }
 }
 
-h2 + .group,
+:is(h1, h2) + .group,
 .group + .group {
   margin-block-start: 20px;
 }

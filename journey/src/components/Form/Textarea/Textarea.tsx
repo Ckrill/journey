@@ -1,5 +1,4 @@
 // External
-import clsx from 'clsx';
 import React from 'react';
 
 // Miscellaneous
@@ -26,7 +25,8 @@ const FormTextarea = ({
     <FieldLabel htmlFor={props.id}>{labelText}</FieldLabel>
 
     <textarea
-      className={clsx(styles.textarea, errorText && styles['textarea--error'])}
+      aria-invalid={errorText ? true : undefined}
+      className={styles.textarea}
       {...props}
     />
 

@@ -61,5 +61,5 @@
 
 .label {
   font-size: calc(18rem / 16);
-  letter-spacing: 1px;
+  letter-spacing: var(--letter-spacing-field);
 }

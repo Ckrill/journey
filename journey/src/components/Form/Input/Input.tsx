@@ -1,5 +1,4 @@
 // External
-import clsx from 'clsx';
 import React from 'react';
 
 // Miscellaneous
@@ -32,8 +31,9 @@ const FormInput = ({
 
     <div className={styles.field}>
       <input
+        aria-invalid={errorText ? true : undefined}
         aria-required={required}
-        className={clsx(styles.input, errorText && styles['input--error'])}
+        className={styles.input}
         {...props}
       />
 

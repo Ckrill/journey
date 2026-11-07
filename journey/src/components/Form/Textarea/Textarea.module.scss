@@ -21,14 +21,14 @@
   border-radius: var(--radius-base);
   transition: transform var(--duration-rapid);
 
+  &[aria-invalid='true'] {
+    border-color: var(--color-warning);
+  }
+
   &:focus {
     outline: none;
     border-color: var(--color-brand-secondary);
     transform: scale(var(--scale-focus));
-  }
-
-  &--error {
-    border-color: var(--color-warning);
   }
 
   &:disabled {

@@ -31,20 +31,20 @@
   font-size: calc(18rem / 16);
   line-height: calc(24rem / 16);
   color: inherit;
-  letter-spacing: 1px;
+  letter-spacing: var(--letter-spacing-field);
   appearance: none;
   background-color: var(--color-field);
   border: 2px solid var(--color-border-subtle);
   border-radius: var(--radius-base);
 
+  &[aria-invalid='true'] {
+    border-color: var(--color-warning);
+  }
+
   &:focus,
   &:open {
     outline: none;
     border-color: var(--color-brand-secondary);
-  }
-
-  &--error {
-    border-color: var(--color-warning);
   }
 
   &:disabled {

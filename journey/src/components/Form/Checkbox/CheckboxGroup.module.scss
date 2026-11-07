@@ -5,7 +5,7 @@
   max-inline-size: var(--size-form);
   padding-block-end: 10px;
 
-  h2 + & {
+  :is(h1, h2) + & {
     margin-block-start: 20px;
   }
 }

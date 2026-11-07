@@ -16,7 +16,7 @@ const Journey = () => {
     <PageTransition>
       <SectionContainer>
         <Section>
-          <Heading>Journey</Heading>
+          <Heading level={1}>Journey</Heading>
 
           <TimeProgress />
         </Section>

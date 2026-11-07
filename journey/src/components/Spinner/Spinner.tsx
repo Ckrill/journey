@@ -10,7 +10,7 @@ const Spinner = (props: HTMLMotionProps<'div'>) => (
     aria-label="Loading"
     className={styles.spinner}
     initial={{ opacity: 0 }}
-    role="status"
+    role="progressbar"
     transition={{ delay: 1, duration: 0.5, ease: 'easeInOut' }}
     {...props}
   />

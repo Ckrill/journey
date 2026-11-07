@@ -37,7 +37,7 @@ const Retro = () => {
     <PageTransition>
       <SectionContainer>
         <Section>
-          <Heading>Retro</Heading>
+          <Heading level={1}>Retro</Heading>
 
           <Paragraph>{formatWeekRange(weekStart)}</Paragraph>
 

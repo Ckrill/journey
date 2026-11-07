@@ -72,27 +72,27 @@
   transition: transform var(--duration-fast);
   will-change: transform;
 
-  &--l {
+  &[data-size='l'] {
     // ~110rem om mobile
     font-size: clamp(calc(75rem / 16), 27vw, calc(150rem / 16));
   }
 
-  &--m {
+  &[data-size='m'] {
     // ~100rem om mobile
     font-size: clamp(calc(75rem / 16), 23vw, calc(150rem / 16));
   }
 
-  &--s {
+  &[data-size='s'] {
     // ~90rem om mobile
     font-size: clamp(calc(75rem / 16), 20vw, calc(150rem / 16));
   }
 
-  &--xs {
+  &[data-size='xs'] {
     // ~70rem om mobile
     font-size: clamp(calc(50rem / 16), 15vw, calc(150rem / 16));
   }
 
-  &--xxs {
+  &[data-size='xxs'] {
     font-size: clamp(calc(30rem / 16), 12vw, calc(150rem / 16));
   }
 

@@ -106,7 +106,7 @@ const NotificationsModal = ({ onClose, open }: Props) => {
       >
         <SectionContainer>
           <Section>
-            <Heading>Notifications</Heading>
+            <Heading level={1}>Notifications</Heading>
           </Section>
 
           <Section>

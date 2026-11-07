@@ -6,4 +6,14 @@
   text-transform: uppercase;
   word-spacing: var(--word-spacing-spacious);
   letter-spacing: var(--letter-spacing-spacious);
+  text-wrap: balance;
+}
+
+.visuallyHidden {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
 }

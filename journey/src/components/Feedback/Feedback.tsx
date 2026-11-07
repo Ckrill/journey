@@ -67,12 +67,7 @@ const Feedback = ({ heading, setShow, show, streak }: Props) => {
       <div className={styles.container}>
         {streak > 1 ? (
           <>
-            <h1
-              className={clsx(
-                styles.heading,
-                styles['heading--' + headingSize],
-              )}
-            >
+            <h1 className={styles.heading} data-size={headingSize}>
               {heading}
             </h1>
 

@@ -16,6 +16,7 @@ import { useUserId } from '../hooks/useUserId';
 
 // Miscellaneous
 import Divider from '../components/Divider/Divider';
+import Heading from '../components/Heading/Heading';
 import PageTransition from '../components/PageTransition/PageTransition';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
@@ -38,6 +39,10 @@ const Settings = () => {
     <PageTransition>
       <SectionContainer>
         <Section>
+          <Heading level={1} visuallyHidden>
+            Settings
+          </Heading>
+
           <Profile />
         </Section>
 

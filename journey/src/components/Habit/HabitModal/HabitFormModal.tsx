@@ -123,7 +123,7 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
       >
         <SectionContainer>
           <Section>
-            <Heading>{title}</Heading>
+            <Heading level={1}>{title}</Heading>
 
             <ParagraphGroup
               more={

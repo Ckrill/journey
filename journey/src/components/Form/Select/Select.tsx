@@ -1,5 +1,4 @@
 // External
-import clsx from 'clsx';
 import React from 'react';
 import { BsCheck, BsChevronDown } from 'react-icons/bs';
 
@@ -43,7 +42,7 @@ const FormSelect = ({
       <select
         aria-invalid={errorText ? true : undefined}
         aria-required={required}
-        className={clsx(styles.select, errorText && styles['select--error'])}
+        className={styles.select}
         required={required}
         {...props}
       >

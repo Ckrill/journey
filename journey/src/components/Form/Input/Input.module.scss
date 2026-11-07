@@ -22,7 +22,7 @@
   padding-inline: 12px;
   font-size: calc(18rem / 16);
   line-height: calc(24rem / 16);
-  letter-spacing: 1px;
+  letter-spacing: var(--letter-spacing-field);
   appearance: textfield;
   background-color: var(--color-field);
   border: 2px solid var(--color-border-subtle);
@@ -34,13 +34,13 @@
     appearance: none;
   }
 
+  &[aria-invalid='true'] {
+    border-color: var(--color-warning);
+  }
+
   &:focus {
     outline: none;
     border-color: var(--color-brand-secondary);
-  }
-
-  &--error {
-    border-color: var(--color-warning);
   }
 
   &:disabled {

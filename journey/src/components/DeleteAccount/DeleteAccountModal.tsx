@@ -64,7 +64,7 @@ const DeleteAccountModal = ({ onClose, onDeleted, open }: Props) => {
     <Modal label="Account deleted" onClose={onDeleted} open={open}>
       <SectionContainer>
         <Section>
-          <Heading>Account deleted</Heading>
+          <Heading level={1}>Account deleted</Heading>
 
           <Paragraph>
             Your account and all of your data have been deleted.
@@ -92,7 +92,7 @@ const DeleteAccountModal = ({ onClose, onDeleted, open }: Props) => {
       >
         <SectionContainer>
           <Section>
-            <Heading>Delete account</Heading>
+            <Heading level={1}>Delete account</Heading>
 
             <Paragraph>
               This permanently deletes your account and all of your habits and

@@ -67,7 +67,7 @@ const ChangePasswordModal = ({ onClose, onSaved, open }: Props) => {
       >
         <SectionContainer>
           <Section>
-            <Heading>Change password</Heading>
+            <Heading level={1}>Change password</Heading>
           </Section>
 
           <Section>
