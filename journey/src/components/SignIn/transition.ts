@@ -27,7 +27,7 @@ const exitTransition: Transition = {
 };
 
 // The title and form share the distance and transition, so they rise in lockstep.
-const slideDistance = '10vh';
+const slideDistance = '10dvh';
 
 const slideUpTransition: Transition = {
   delay: 1.1,
@@ -47,7 +47,7 @@ export const titleVariants: Variants = {
   animate: {
     opacity: 1,
     x: '0vw',
-    y: '0vh',
+    y: '0dvh',
     transition: {
       opacity: slideInTransition,
       x: slideInTransition,
@@ -59,7 +59,7 @@ export const titleVariants: Variants = {
 
 export const formVariants: Variants = {
   initial: { opacity: 0, y: slideDistance },
-  animate: { opacity: 1, y: '0vh', transition: slideUpTransition },
+  animate: { opacity: 1, y: '0dvh', transition: slideUpTransition },
   exit: { opacity: 0, y: slideDistance, transition: exitTransition },
 };
 /* eslint-enable perfectionist/sort-objects */

@@ -23,7 +23,7 @@ Guide advice that the project rules reject is under "Conflicts with project rule
 - Color scheme: light only for now. Done: `color-scheme: light` in `src/styles/constants.scss` and `<meta name="color-scheme" content="light">` in `index.html`. Dark mode is not planned.
 - Text selection: keep the global `user-select: none` in `src/styles/generic.scss`. That item was removed.
 - Heading levels: done. `Heading` takes a `level` prop (default 2) and a `visuallyHidden` prop. Page and modal titles are `<h1>`, the settings page has a visually hidden `<h1>Settings</h1>`, and the sign-in title is an `<h1>`. Section headings stay `<h2>`. The look is unchanged. The Feedback overlay still renders its own `<h1>`s (see batch 3).
-- Typography, partly done: `text-wrap: balance` on `Heading` (not on the Feedback title and subtitle, where the size classes and wrapping are tuned by hand), `text-wrap: pretty` on `Paragraph` and `Notice` text, and `letter-spacing` in form fields now uses `--letter-spacing-field` (`0.055em`) instead of `1px`. `text-transform: uppercase` is deliberate and stays.
+- Typography, partly done: `text-wrap: balance` on `Heading` (not on the Feedback title and subtitle, where the size classes and wrapping are tuned by hand), `text-wrap: pretty` on `Paragraph` text, and `letter-spacing` in form fields now uses `--letter-spacing-field` (`0.055em`) instead of `1px`. `text-transform: uppercase` is deliberate and stays.
 - Class modifiers: the BEM-style `--error` and `--l`, `--m` and similar modifiers are replaced by `[aria-invalid='true']` (`Input`, `Select`, `Textarea`) and `[data-size]` (Feedback title). `Input` and `Textarea` now set `aria-invalid`, as `Select` already did.
 - Spinner: `role="progressbar"` instead of `role="status"`.
 - Browser target: the newest stable Chrome on Android, now stated in `.github/copilot-instructions.md`. So `text-fit` and other new features are allowed without fallbacks.
@@ -51,12 +51,7 @@ Headers and security (`vercel.json`, `public/sw.js`, build)
 
 Loading and layout
 
-- [ ] `src/components/Feedback/Feedback.tsx` (line 62) always mounts `<audio preload="auto">`, so the 113 KB `thump.mp3` downloads on the home route even when `settings.sound` is off. Use `preload="none"`, or create the `Audio` only when sound is enabled.
-- [ ] `index.html` has no `preconnect` to the Supabase origin, which is the first request the app makes. Vite can substitute `%VITE_SUPABASE_URL%` in `index.html`.
 - [ ] Fonts use `font-display: swap` but are not preloaded, although Rubik 900 and Plex Regular are used on the first paint of the sign-in screen. When adding preloads, include `crossorigin` and limit them to two or three fonts.
-- [ ] `overflow: hidden` where only clipping is wanted. Use `overflow: clip` in `Feedback`, `DayStrip`, `DayStatus`, `Pillbox`, `SignIn`, `WeekSwitcher`, `TimeProgress` (two places) and `Modal.module.scss` (line 13). Line 30 of `Modal.module.scss` sets it on `::backdrop`, where it has no effect.
-- [ ] `vh` units in `SignIn.module.scss` (line 13, `5vh`) and `SignIn/transition.ts` (`10vh` and `0vh`). Use `dvh`.
-- [ ] Permanent `will-change: transform` in `Feedback.module.scss` (lines 32, 73 and 116) on layers that are always mounted, since `Feedback` renders unconditionally in `src/routes/index.tsx`. Remove them or apply them only under `.show`.
 
 CSS
 

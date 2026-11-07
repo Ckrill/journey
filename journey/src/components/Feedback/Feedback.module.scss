@@ -29,7 +29,6 @@
     // Wait for .overlay to finish animation
     transition: transform var(--duration-instant)
       calc(var(--duration-rapid) + var(--duration-fast));
-    will-change: transform;
   }
 
   &.show {
@@ -70,7 +69,6 @@
   overflow-wrap: break-word;
   transform: skewY(-20deg) translateX(100%);
   transition: transform var(--duration-fast);
-  will-change: transform;
 
   &[data-size='l'] {
     // ~110rem om mobile
@@ -113,7 +111,6 @@
   text-transform: uppercase;
   transform: skewY(-20deg) translateX(-100%);
   transition: transform var(--duration-fast);
-  will-change: transform;
 
   .show & {
     transform: skewY(-20deg);

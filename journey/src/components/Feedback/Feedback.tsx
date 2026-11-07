@@ -59,7 +59,7 @@ const Feedback = ({ heading, setShow, show, streak }: Props) => {
         setShow(false);
       }}
     >
-      <audio preload="auto" ref={audioPlayerRef}>
+      <audio preload={settings.sound ? 'auto' : 'none'} ref={audioPlayerRef}>
         <source src={thump} type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
