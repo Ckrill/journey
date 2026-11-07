@@ -28,29 +28,31 @@ const Header = ({ bottomNavigation }: HeaderProps) => {
       initial={offscreen}
       transition={{ duration: 0.1 }}
     >
-      <ul className={styles.list}>
-        {navigationItems.map((item) => {
-          const active = location.pathname === item.url;
+      <nav>
+        <ul className={styles.list}>
+          {navigationItems.map((item) => {
+            const active = location.pathname === item.url;
 
-          return (
-            <li className={styles.item} key={item.url}>
-              <Link className={styles.link} to={item.url}>
-                {item.name}
+            return (
+              <li className={styles.item} key={item.url}>
+                <Link className={styles.link} to={item.url}>
+                  {item.name}
 
-                {active ? (
-                  <motion.div
-                    className={styles.underline}
-                    layoutId={
-                      bottomNavigation ? 'underline-bottom' : 'underline-top'
-                    }
-                    transition={{ duration: 0.1 }}
-                  />
-                ) : null}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+                  {active ? (
+                    <motion.div
+                      className={styles.underline}
+                      layoutId={
+                        bottomNavigation ? 'underline-bottom' : 'underline-top'
+                      }
+                      transition={{ duration: 0.1 }}
+                    />
+                  ) : null}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
     </motion.header>
   );
 };

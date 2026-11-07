@@ -1,9 +1,3 @@
-@property --progress {
-  syntax: '<number>';
-  inherits: false;
-  initial-value: 0;
-}
-
 // Registered so sibling-index() resolves on .item instead of in the descendant that reads it.
 @property --multiplier {
   syntax: '<integer>';
@@ -81,27 +75,32 @@
   inline-size: 100%;
   block-size: 10px;
   overflow: hidden;
+  appearance: none;
   background: color-mix(in srgb, var(--bar-color) 13%, transparent);
+  border: 0;
   border-radius: 8px;
-}
 
-.fill {
-  inline-size: calc(var(--progress) * 1%);
-  block-size: 100%;
-  background: var(--bar-color);
-  border-radius: 8px;
-  animation: progress-fill calc(var(--progress) * 10ms) ease-in-out both;
-  animation-delay: calc(var(--multiplier) * var(--duration-fast));
+  &::-webkit-progress-bar {
+    background: none;
+  }
+
+  &::-webkit-progress-value {
+    background: var(--bar-color);
+    border-radius: 8px;
+    animation: progress-fill calc(var(--progress) * 10ms) ease-in-out both;
+    animation-delay: calc(var(--multiplier) * var(--duration-fast));
+  }
+
+  &::-moz-progress-bar {
+    background: var(--bar-color);
+    border-radius: 8px;
+    animation: progress-fill calc(var(--progress) * 10ms) ease-in-out both;
+    animation-delay: calc(var(--multiplier) * var(--duration-fast));
+  }
 }
 
 @keyframes progress-fill {
   from {
-    --progress: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .fill {
-    animation: none;
+    inline-size: 0;
   }
 }

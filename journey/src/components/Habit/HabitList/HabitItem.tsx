@@ -37,44 +37,46 @@ const HabitItem = ({
   const targetMet = completedCount >= habit.weeklyTarget;
 
   return (
-    <DayStrip
-      className={styles.row}
-      name={
-        <button
-          className={styles.name}
-          onClick={() => {
-            onEdit(habit);
-          }}
-          type="button"
-        >
-          <span>
-            <span>{habit.name}</span>
+    <li>
+      <DayStrip
+        className={styles.row}
+        name={
+          <button
+            className={styles.name}
+            onClick={() => {
+              onEdit(habit);
+            }}
+            type="button"
+          >
+            <span>
+              <span>{habit.name}</span>
+            </span>
+          </button>
+        }
+        trailing={
+          <span
+            aria-hidden={currentStreak === 0}
+            aria-label={`${String(currentStreak)} week streak`}
+            className={clsx(
+              styles.streak,
+              currentStreak === 0 && styles.empty,
+              targetMet && styles.active,
+            )}
+            role="img"
+          >
+            <BsFire className={styles.flame} />
+            {currentStreak}
           </span>
-        </button>
-      }
-      trailing={
-        <span
-          aria-hidden={currentStreak === 0}
-          aria-label={`${String(currentStreak)} week streak`}
-          className={clsx(
-            styles.streak,
-            currentStreak === 0 && styles.empty,
-            targetMet && styles.active,
-          )}
-          role="img"
-        >
-          <BsFire className={styles.flame} />
-          {currentStreak}
-        </span>
-      }
-    >
-      <DayToggleGroup
-        completedDates={completedDates}
-        markedDays={targetMet ? [] : habit.plannedDays}
-        onToggle={(date) => mutateAsync({ date, habitId: habit.id })}
-        weekDates={weekDates}
-      />
-    </DayStrip>
+        }
+      >
+        <DayToggleGroup
+          completedDates={completedDates}
+          markedDays={targetMet ? [] : habit.plannedDays}
+          onToggle={(date) => mutateAsync({ date, habitId: habit.id })}
+          weekDates={weekDates}
+        />
+      </DayStrip>
+    </li>
   );
 };
 

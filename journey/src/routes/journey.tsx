@@ -33,4 +33,5 @@ export const Route = createFileRoute('/journey')({
       staleTime: 'static',
     });
   },
+  head: () => ({ meta: [{ title: 'Your journey - Journey' }] }),
 });

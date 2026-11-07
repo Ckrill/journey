@@ -29,7 +29,7 @@ const WeekSwitcher = ({
       onClick={onPrev}
       type="button"
     >
-      <BsChevronLeft />
+      <BsChevronLeft aria-hidden />
     </button>
 
     <button className={styles.label} onClick={onCurrent} type="button">
@@ -44,7 +44,7 @@ const WeekSwitcher = ({
       onClick={onNext}
       type="button"
     >
-      <BsChevronRight />
+      <BsChevronRight aria-hidden />
     </button>
   </div>
 );

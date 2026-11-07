@@ -7,11 +7,17 @@ import styles from './Paragraph.module.scss';
 interface Props {
   align?: 'left';
   children: React.ReactNode;
+  role?: 'alert';
   size?: 'fine';
 }
 
-const Paragraph = ({ align, children, size }: Props) => (
-  <p className={styles.paragraph} data-align={align} data-size={size}>
+const Paragraph = ({ align, children, role, size }: Props) => (
+  <p
+    className={styles.paragraph}
+    data-align={align}
+    data-size={size}
+    role={role}
+  >
     {children}
   </p>
 );

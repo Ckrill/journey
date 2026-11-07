@@ -78,7 +78,7 @@ const DayToggle = ({
       <span className={styles.content}>
         <span className={styles.label}>{label[0]}</span>
 
-        <BsCheck className={styles.check} />
+        <BsCheck aria-hidden className={styles.check} />
       </span>
     </button>
   );

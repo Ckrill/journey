@@ -105,4 +105,5 @@ export const Route = createFileRoute('/settings')({
       context.queryClient.query(retroReminderQueryOptions(context.userId)),
     ]);
   },
+  head: () => ({ meta: [{ title: 'Settings - Journey' }] }),
 });

@@ -1,4 +1,7 @@
 .habits {
   inline-size: 100%;
   padding-block: var(--space-base);
+  padding-inline: 0;
+  margin: 0;
+  list-style: none;
 }

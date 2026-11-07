@@ -163,4 +163,5 @@ export const Route = createFileRoute('/')({
       }),
     ]);
   },
+  head: () => ({ meta: [{ title: 'Habits - Journey' }] }),
 });

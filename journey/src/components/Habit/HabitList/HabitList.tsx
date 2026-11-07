@@ -45,7 +45,7 @@ const HabitList = ({
   }
 
   return (
-    <div className={styles.habits}>
+    <ul className={styles.habits}>
       {sortedHabits.map((habit) => (
         <HabitItem
           completedDates={datesByHabit.get(habit.id) ?? new Set<string>()}
@@ -56,7 +56,7 @@ const HabitList = ({
           weekDates={dates}
         />
       ))}
-    </div>
+    </ul>
   );
 };
 

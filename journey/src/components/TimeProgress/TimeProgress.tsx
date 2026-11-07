@@ -41,19 +41,13 @@ const TimeProgress = () => {
             />
           </div>
 
-          <div
+          <progress
             aria-label={`${bar.label} progress`}
-            aria-valuemax={100}
-            aria-valuemin={0}
-            aria-valuenow={Math.round(bar.progress)}
             className={styles.track}
-            role="progressbar"
-          >
-            <div
-              className={styles.fill}
-              style={{ '--progress': bar.progress } as React.CSSProperties}
-            />
-          </div>
+            max={100}
+            style={{ '--progress': bar.progress } as React.CSSProperties}
+            value={bar.progress}
+          />
         </li>
       ))}
     </ul>

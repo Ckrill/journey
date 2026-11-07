@@ -39,7 +39,7 @@ Guide advice that the project rules reject is under "Conflicts with project rule
 
 Instructions file
 
-- [ ] Remove the `prefers-reduced-motion` blocks in `src/components/Modal/Modal.module.scss` (line 64), `src/components/ParagraphGroup/ParagraphGroup.module.scss` (line 51) and `src/components/TimeProgress/TimeProgress.module.scss` (line 103). The instructions say animations and smooth scrolling always run.
+- [ ] Remove the `prefers-reduced-motion` blocks in `src/components/Modal/Modal.module.scss` (line 64) and `src/components/ParagraphGroup/ParagraphGroup.module.scss` (line 51). The instructions say animations and smooth scrolling always run.
 
 Headers and security (`vercel.json`, `public/sw.js`, build)
 
@@ -47,18 +47,7 @@ Headers and security (`vercel.json`, `public/sw.js`, build)
 - [ ] Add `Cross-Origin-Opener-Policy: same-origin-allow-popups` (the guide's default). `src` has no `window.open`, popups or OAuth, so plain `same-origin` would also be safe. If you add `Cross-Origin-Resource-Policy: same-origin`, leave `/logo.png` cross-origin because `index.html` uses it as the `og:image`.
 - [ ] `public/sw.js` (lines 31-41) passes the push payload `url` to `openWindow` and `navigate` with no same-origin check. The payload is VAPID-authenticated, so risk is low. Resolve it with `new URL(url, self.location.origin)` and ignore other origins.
 - [ ] `supabase/functions/send-reminders/index.ts` compares `x-cron-secret` with `!==`, which is not constant-time. Low risk, but use a constant-time comparison. The function has no CORS handling, which is right for a cron-only endpoint.
-- [ ] `public/site.webmanifest` has an absolute `start_url` (`https://journey.vercel.app`) and no `id`. Set `"id": "/"` and `"start_url": "/"`, which keeps the same app identity.
 - [ ] Outside the guide: `vite.config.js` sets `build.sourcemap: true`, which ships source maps publicly, and `visualizer({ open: true })` writes `stats.html` and opens a browser on every build, which will also run in CI.
-
-Semantics
-
-- [ ] `src/components/Header/Header.tsx`: the nav links sit in a `<header>` and `<ul>` with no `<nav>` landmark.
-- [ ] `src/components/Habit/HabitList/HabitList.tsx` (lines 48-59): habit rows are bare `<div>`s. Use `<ul>` and `<li>`.
-- [ ] `src/components/TimeProgress/TimeProgress.tsx` (lines 44-55) uses `<div role="progressbar">`. The guide wants a native `<progress>`.
-- [ ] Decorative icons without `aria-hidden`: `DayToggle.tsx` (line 81) and `WeekSwitcher.tsx` (lines 32 and 47).
-- [ ] `index.html`: `<title>` is static. The guide wants unique titles updated on SPA route changes.
-- [ ] `src/components/RouteError/RouteError.tsx` (lines 24-27): the error paragraph has no `role="alert"`.
-- [ ] `index.html` has no `<meta name="text-scale" content="scale">` (Chrome on Android 146 and later).
 
 Loading and layout
 

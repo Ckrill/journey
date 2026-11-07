@@ -1,7 +1,11 @@
 // External
 import type { QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
+import {
+  createRootRouteWithContext,
+  HeadContent,
+  Outlet,
+} from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { AnimatePresence } from 'motion/react';
 
@@ -20,6 +24,8 @@ const RootComponent = () => {
 
   return (
     <>
+      <HeadContent />
+
       <Layout>
         <AnimatePresence initial={false} mode="wait">
           <Header
@@ -49,4 +55,5 @@ interface RouterContext {
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootComponent,
+  head: () => ({ meta: [{ title: 'Journey' }] }),
 });

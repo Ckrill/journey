@@ -106,4 +106,5 @@ export const Route = createFileRoute('/retro')({
       }),
     ]);
   },
+  head: () => ({ meta: [{ title: 'Retro - Journey' }] }),
 });

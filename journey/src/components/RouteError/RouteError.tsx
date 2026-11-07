@@ -21,7 +21,7 @@ const RouteError = ({ error, reset }: ErrorComponentProps) => {
   return (
     <div className={styles.error}>
       <Section>
-        <Paragraph>
+        <Paragraph role="alert">
           Something went wrong.
           <br />
           Check your connection and try again.

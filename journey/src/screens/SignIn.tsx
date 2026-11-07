@@ -42,6 +42,8 @@ const SignIn = ({ onCovered, restoringSession }: Props) => {
       transition={pageTransition}
       variants={pageVariants}
     >
+      <title>Sign in - Journey</title>
+
       {restoringSession && <Spinner aria-label="Authenticating" />}
 
       {covered && !restoringSession && (
