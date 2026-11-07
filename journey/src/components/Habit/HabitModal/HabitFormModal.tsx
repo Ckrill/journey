@@ -1,5 +1,5 @@
 // External
-import { useEffect } from 'react';
+import { useEffect, useId } from 'react';
 import { useForm } from 'react-hook-form';
 
 // Utilities
@@ -43,6 +43,7 @@ interface Props {
 }
 
 const HabitFormModal = ({ habit, onClose, open }: Props) => {
+  const titleId = useId();
   const { archive, create, update } = useHabitMutations();
   const isEdit = habit !== null;
 
@@ -114,7 +115,7 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
   const title = isEdit ? 'Edit habit' : 'New habit';
 
   return (
-    <Modal label={title} onClose={onClose} open={open}>
+    <Modal labelledBy={titleId} onClose={onClose} open={open}>
       <form
         noValidate
         onSubmit={(e) => {
@@ -123,7 +124,9 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
       >
         <SectionContainer>
           <Section>
-            <Heading level={1}>{title}</Heading>
+            <Heading id={titleId} level={1}>
+              {title}
+            </Heading>
 
             <ParagraphGroup
               more={
@@ -233,6 +236,10 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
                   Archive habit
                 </Button>
               )}
+
+              <Button onClick={onClose} priority="secondary" type="button">
+                Cancel
+              </Button>
 
               {mutationError && (
                 <ErrorMessage>{errorMessage(mutationError)}</ErrorMessage>

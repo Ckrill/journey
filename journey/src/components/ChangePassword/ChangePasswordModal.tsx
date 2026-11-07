@@ -1,5 +1,5 @@
 // External
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 // Miscellaneous
@@ -26,6 +26,7 @@ interface Props {
 const minLength = 8;
 
 const ChangePasswordModal = ({ onClose, onSaved, open }: Props) => {
+  const titleId = useId();
   const [submitting, setSubmitting] = useState(false);
   const {
     formState: { errors },
@@ -59,7 +60,7 @@ const ChangePasswordModal = ({ onClose, onSaved, open }: Props) => {
   };
 
   return (
-    <Modal label="Change password" onClose={onClose} open={open}>
+    <Modal labelledBy={titleId} onClose={onClose} open={open}>
       <form
         noValidate
         onSubmit={(e) => {
@@ -68,7 +69,9 @@ const ChangePasswordModal = ({ onClose, onSaved, open }: Props) => {
       >
         <SectionContainer>
           <Section>
-            <Heading level={1}>Change password</Heading>
+            <Heading id={titleId} level={1}>
+              Change password
+            </Heading>
           </Section>
 
           <Section>
@@ -108,6 +111,10 @@ const ChangePasswordModal = ({ onClose, onSaved, open }: Props) => {
             <FormActions>
               <Button disabled={submitting} type="submit">
                 {submitting ? 'Saving' : 'Change password'}
+              </Button>
+
+              <Button onClick={onClose} priority="secondary" type="button">
+                Cancel
               </Button>
             </FormActions>
           </Section>

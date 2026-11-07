@@ -21,7 +21,6 @@ import ParagraphGroup from '../ParagraphGroup/ParagraphGroup';
 import type { Sex } from '../../types/types';
 
 const currentYear = Temporal.Now.plainDateISO().year;
-
 const { regions } = lifeExpectancyData;
 
 const regionOptions = regions.map(({ name, value }) => ({

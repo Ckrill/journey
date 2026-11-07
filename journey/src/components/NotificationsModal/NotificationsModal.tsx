@@ -1,5 +1,5 @@
 // External
-import { useEffect } from 'react';
+import { useEffect, useId } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
 // Utilities
@@ -53,6 +53,7 @@ interface FieldValues {
 }
 
 const NotificationsModal = ({ onClose, open }: Props) => {
+  const titleId = useId();
   const { data: reminder } = useRetroReminderQuery();
   const { remove, save } = useRetroReminderMutations();
   const {
@@ -99,7 +100,7 @@ const NotificationsModal = ({ onClose, open }: Props) => {
   );
 
   return (
-    <Modal label="Configure notifications" onClose={onClose} open={open}>
+    <Modal labelledBy={titleId} onClose={onClose} open={open}>
       <form
         noValidate
         onSubmit={(e) => {
@@ -108,7 +109,9 @@ const NotificationsModal = ({ onClose, open }: Props) => {
       >
         <SectionContainer>
           <Section>
-            <Heading level={1}>Notifications</Heading>
+            <Heading id={titleId} level={1}>
+              Notifications
+            </Heading>
           </Section>
 
           <Section>
@@ -149,6 +152,10 @@ const NotificationsModal = ({ onClose, open }: Props) => {
               <ButtonGroup errorText={errors.root?.server.message}>
                 <Button disabled={pending} type="submit">
                   {pending ? 'Saving' : 'Save'}
+                </Button>
+
+                <Button onClick={onClose} priority="secondary" type="button">
+                  Cancel
                 </Button>
               </ButtonGroup>
             </FormActions>

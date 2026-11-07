@@ -22,10 +22,11 @@ Guide advice that the project rules reject is under "Conflicts with project rule
 - Contrast: no changes. The color contrast items were removed from this list. The two keyboard focus indicator items (`Button` and the `Select` picker) stay in batch 4.
 - Color scheme: light only for now. Done: `color-scheme: light` in `src/styles/constants.scss` and `<meta name="color-scheme" content="light">` in `index.html`. Dark mode is not planned.
 - Text selection: keep the global `user-select: none` in `src/styles/generic.scss`. That item was removed.
-- Heading levels: done. `Heading` takes a `level` prop (default 2) and a `visuallyHidden` prop. Page and modal titles are `<h1>`, the settings page has a visually hidden `<h1>Settings</h1>`, and the sign-in title is an `<h1>`. Section headings stay `<h2>`. The look is unchanged. The Feedback overlay still renders its own `<h1>`s (see batch 3).
+- Heading levels: done. `Heading` takes a `level` prop (default 2) and a `visuallyHidden` prop. Page and modal titles are `<h1>`, the settings page has a visually hidden `<h1>Settings</h1>`, and the sign-in title is an `<h1>`. Section headings stay `<h2>`. The look is unchanged. The Feedback overlay renders its own `<h1>`s inside its dialog.
 - Typography, partly done: `text-wrap: balance` on `Heading` (not on the Feedback title and subtitle, where the size classes and wrapping are tuned by hand), `text-wrap: pretty` on `Paragraph` text, and `letter-spacing` in form fields now uses `--letter-spacing-field` (`0.055em`) instead of `1px`. `text-transform: uppercase` is deliberate and stays.
 - Class modifiers: the BEM-style `--error` and `--l`, `--m` and similar modifiers are replaced by `[aria-invalid='true']` (`Input`, `Select`, `Textarea`) and `[data-size]` (Feedback title). `Input` and `Textarea` now set `aria-invalid`, as `Select` already did.
 - Spinner: `role="progressbar"` instead of `role="status"`.
+- Modal focus: no `autofocus`. The delete modal's Cancel button would be the only use, so modals keep the browser's default initial focus. Each modal has a visible Cancel button.
 - Browser target: the newest stable Chrome on Android, now stated in `.github/copilot-instructions.md`. So `text-fit` and other new features are allowed without fallbacks.
 - Still open: the rest of typography (unitless `line-height`, `clamp()` ranges, `text-fit`, font fallbacks), the Header, motion and the other batch 4 items.
 
@@ -83,16 +84,6 @@ Fields and validation
 - [ ] Optional: textareas are fixed at `min-block-size: 96px` (`Textarea.module.scss` lines 12 and 18), while the retro textareas hold up to 2000 characters. `field-sizing: content` with a `max-block-size` would fit the content.
 - [ ] Low priority and unverified: `Input.tsx` hides the suffix ("days", "months") with `aria-hidden`, so screen reader users lose the unit. No guide rule covers it.
 
-Dialogs and overlays
-
-- [ ] `src/components/Feedback/Feedback.tsx` (lines 56-61) and `Feedback.module.scss` (lines 1-45): the celebration overlay is a plain full-screen `<div>` with click-only dismissal. There is no Esc handling, the back gesture on Android leaves the page instead of closing it, and the page behind is not inert. The hidden overlay (`opacity: 0`, no `inert`) also seems to stay in the accessibility tree, so its text may be announced (unverified). Render it as a `<dialog>` or popover, or auto-dismiss it.
-- [ ] No modal has a visible close or Cancel control (`Modal.tsx` lines 85-119). `DeleteAccountModal.tsx` has no safe action, and the guide wants `autofocus` on the safe action in a destructive confirmation.
-- [ ] There is no `autoFocus` anywhere. In `HabitFormModal.tsx` (lines 128-141) the `ParagraphGroup` summary comes before the Name input, so initial focus probably lands on "Show more" (inferred, not tested). Add `autoFocus` to the Name input.
-- [ ] `Modal.tsx` (line 86) names the dialog with `aria-label` although every caller renders a heading. Use `aria-labelledby`.
-- [ ] Low priority: `Modal.tsx` (line 109) puts `role="presentation"` on the scroller that wraps the focusable dialog body. No practical impact.
-- [ ] Low priority: `Modal.tsx` (line 88) has no fallback for browsers without `closedby`. Below 600px `handleScrollerClick` covers it.
-- [ ] Optional: the week arrows hard-cut (`WeekPager.tsx` lines 68-75, `Carousel.tsx` line 30) while a swipe animates. Make the arrows smooth-scroll the pager.
-
 ## 4. Design decisions
 
 Decide these first, because they touch many files.
@@ -136,7 +127,6 @@ Privacy and browser support
 
 - [ ] `src/lib/supabase.ts` uses the default `createClient`, so the session JWT and refresh token live in `localStorage`. This is the Supabase default for SPAs. The realistic options are a short session lifetime or accepting the risk.
 - [ ] Low priority: the `settings:<userId>` key stays in `localStorage` after sign-out. It is intentional, holds no PII beyond the UUID in the key, and is removed on account deletion.
-- [ ] `Profile.tsx` (line 20) calls `Temporal.Now` at module scope and `week.ts` calls it during render, with no feature check. Browsers without Temporal (Chrome below 144, Safari) get the generic route error. The guides suggest a polyfill, which your rules reject, so a "browser not supported" screen is the in-rule option.
 
 ## 5. Performance
 

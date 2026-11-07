@@ -1,23 +1,48 @@
 // External
-import { type ReactNode, useEffect, useLayoutEffect, useRef } from 'react';
+import {
+  type ReactNode,
+  type Ref,
+  useEffect,
+  useImperativeHandle,
+  useLayoutEffect,
+  useRef,
+} from 'react';
 
 // Styles
 import styles from './Carousel.module.scss';
 
 type SnapEvent = Event & { snapTargetInline: Element | null };
 
+export interface CarouselHandle {
+  /** Smooth-scrolls one slide back (-1) or forward (1), then settles like a swipe. */
+  step: (direction: -1 | 1) => void;
+}
+
 interface Props {
   // Pending slide while swiping, or null once the swipe returns to the current slide.
   onPreview: (key: null | string) => void;
   // A swipe settled on another slide.
   onSettle: (key: string) => void;
+  ref?: Ref<CarouselHandle>;
   slideKey: string;
   // Ordered slides including the current one, so a fast swipe has room before the edge.
   slides: { key: string; node: ReactNode }[];
 }
 
-const Carousel = ({ onPreview, onSettle, slideKey, slides }: Props) => {
+const Carousel = ({ onPreview, onSettle, ref, slideKey, slides }: Props) => {
   const pagerRef = useRef<HTMLDivElement>(null);
+
+  useImperativeHandle(ref, () => ({
+    step: (direction) => {
+      const pager = pagerRef.current;
+      if (!pager) return;
+
+      // Step from the slide in view, so quick repeat taps keep advancing.
+      const index =
+        Math.round(pager.scrollLeft / pager.clientWidth) + direction;
+      pager.scrollTo({ behavior: 'smooth', left: index * pager.clientWidth });
+    },
+  }));
 
   // Keep the current slide in view; this also recenters after a swipe shifts the window.
   useLayoutEffect(() => {

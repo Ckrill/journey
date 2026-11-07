@@ -10,13 +10,18 @@ interface Props {
   children: ReactNode;
   /** When false, Esc, backdrop taps and sheet swipes cannot close the modal. */
   dismissible?: boolean;
-  label: string;
+  /** The `id` of the heading inside that names the dialog. */
+  labelledBy: string;
   onClose: () => void;
   open: boolean;
 }
 
 // Mirrors the bottom-sheet breakpoint in Modal.module.scss.
 const isSheet = () => window.matchMedia('(width < 600px)').matches;
+
+// The top is the sheet's "closed" position. Snapping can rest at a fractional
+// offset (seen on Firefox), so don't compare to 0.
+const isScrolledToTop = (scroller: HTMLElement) => scroller.scrollTop < 1;
 
 // A sheet taller than the viewport stops at its top edge, not its bottom.
 const openScrollTop = (scroller: HTMLElement) =>
@@ -28,7 +33,7 @@ const openScrollTop = (scroller: HTMLElement) =>
 const Modal = ({
   children,
   dismissible = true,
-  label,
+  labelledBy,
   onClose,
   open,
 }: Props) => {
@@ -47,7 +52,7 @@ const Modal = ({
       if (isSheet()) {
         scroller.scrollTo({ behavior: 'auto', top: openScrollTop(scroller) });
       }
-    } else if (isSheet() && scroller.scrollTop > 0) {
+    } else if (isSheet() && !isScrolledToTop(scroller)) {
       scroller.scrollTo({ behavior: 'auto', top: 0 });
     } else {
       // No scroll will happen, so `scrollend` can't close it for us.
@@ -58,7 +63,7 @@ const Modal = ({
   // Resting at the top snap stop means the sheet was swiped (or scrolled) away.
   const handleScrollEnd = (event: UIEvent<HTMLDivElement>) => {
     const scroller = event.currentTarget;
-    if (scroller.scrollTop !== 0) return;
+    if (!isScrolledToTop(scroller)) return;
 
     if (dismissible) {
       dialogRef.current?.close();
@@ -83,7 +88,7 @@ const Modal = ({
 
   return (
     <dialog
-      aria-label={label}
+      aria-labelledby={labelledBy}
       className={styles.dialog}
       closedby={dismissible ? 'any' : 'none'}
       onCancel={(event) => {
@@ -93,7 +98,7 @@ const Modal = ({
         }
         // Back-swipe/Esc would close instantly; animate the sheet away instead.
         const scroller = scrollerRef.current;
-        if (isSheet() && scroller && scroller.scrollTop > 0) {
+        if (isSheet() && scroller && !isScrolledToTop(scroller)) {
           event.preventDefault();
           scroller.scrollTo({ behavior: 'auto', top: 0 });
         }
@@ -106,7 +111,6 @@ const Modal = ({
         onClick={handleScrollerClick}
         onScrollEnd={handleScrollEnd}
         ref={scrollerRef}
-        role="presentation"
       >
         <div className={styles.sheet}>{children}</div>
       </div>

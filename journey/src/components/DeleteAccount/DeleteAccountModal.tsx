@@ -1,5 +1,5 @@
 // External
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 // Miscellaneous
@@ -26,6 +26,7 @@ interface Props {
 const phrase = 'Nuke from orbit';
 
 const DeleteAccountModal = ({ onClose, onDeleted, open }: Props) => {
+  const titleId = useId();
   const [deleting, setDeleting] = useState(false);
   const [deleted, setDeleted] = useState(false);
   const {
@@ -61,10 +62,12 @@ const DeleteAccountModal = ({ onClose, onDeleted, open }: Props) => {
 
   // The account is gone, so leaving the confirmation means signing out.
   return deleted ? (
-    <Modal label="Account deleted" onClose={onDeleted} open={open}>
+    <Modal labelledBy={titleId} onClose={onDeleted} open={open}>
       <SectionContainer>
         <Section>
-          <Heading level={1}>Account deleted</Heading>
+          <Heading id={titleId} level={1}>
+            Account deleted
+          </Heading>
 
           <Paragraph>
             Your account and all of your data have been deleted.
@@ -81,7 +84,7 @@ const DeleteAccountModal = ({ onClose, onDeleted, open }: Props) => {
   ) : (
     <Modal
       dismissible={!deleting}
-      label="Delete account"
+      labelledBy={titleId}
       onClose={onClose}
       open={open}
     >
@@ -93,7 +96,9 @@ const DeleteAccountModal = ({ onClose, onDeleted, open }: Props) => {
       >
         <SectionContainer>
           <Section>
-            <Heading level={1}>Delete account</Heading>
+            <Heading id={titleId} level={1}>
+              Delete account
+            </Heading>
 
             <Paragraph>
               This permanently deletes your account and all of your habits and
@@ -121,6 +126,15 @@ const DeleteAccountModal = ({ onClose, onDeleted, open }: Props) => {
             <FormActions>
               <Button disabled={deleting} tone="danger" type="submit">
                 {deleting ? 'Deleting' : 'Delete account'}
+              </Button>
+
+              <Button
+                disabled={deleting}
+                onClick={onClose}
+                priority="secondary"
+                type="button"
+              >
+                Cancel
               </Button>
             </FormActions>
           </Section>

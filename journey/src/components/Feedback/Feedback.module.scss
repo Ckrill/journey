@@ -1,18 +1,31 @@
-.overlay {
+.dialog {
   position: fixed;
-  inset-block-start: 0;
-  inset-inline-start: 0;
-  z-index: 2;
+  inset: 0;
+  box-sizing: border-box;
   inline-size: 100%;
+  max-inline-size: none;
   block-size: 100%;
+  max-block-size: none;
+  padding: 0;
+  margin: 0;
   overflow: hidden;
-  pointer-events: none;
+  color: inherit;
+  outline: none;
+  background: transparent;
+  border: none;
   opacity: 0;
-  transition: opacity var(--duration-fast) var(--duration-rapid);
+  transition:
+    opacity var(--duration-fast) var(--duration-rapid),
+    display var(--duration-fast) var(--duration-rapid) allow-discrete,
+    overlay var(--duration-fast) var(--duration-rapid) allow-discrete;
 
-  &.show {
+  &[open] {
     opacity: 1;
     transition: opacity var(--duration-instant);
+
+    @starting-style {
+      opacity: 0;
+    }
   }
 
   &::before {
@@ -26,18 +39,23 @@
     border-radius: 150vmax;
     transform: translate(-50%, -50%) scale(0);
 
-    // Wait for .overlay to finish animation
+    // Wait for .dialog to finish animation
     transition: transform var(--duration-instant)
       calc(var(--duration-rapid) + var(--duration-fast));
   }
 
-  &.show {
-    pointer-events: all;
+  &[open]::before {
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform var(--duration-slow);
 
-    &::before {
-      transform: translate(-50%, -50%) scale(1);
-      transition: transform var(--duration-slow);
+    @starting-style {
+      transform: translate(-50%, -50%) scale(0);
     }
+  }
+
+  // The dialog supplies its own circle; the default tint would pop in and out.
+  &::backdrop {
+    background: transparent;
   }
 }
 
@@ -94,9 +112,13 @@
     font-size: clamp(calc(30rem / 16), 12vw, calc(150rem / 16));
   }
 
-  .show & {
+  .dialog[open] & {
     transform: skewY(-20deg);
     transition: transform var(--duration-fast) var(--duration-slow);
+
+    @starting-style {
+      transform: skewY(-20deg) translateX(100%);
+    }
   }
 }
 
@@ -112,8 +134,12 @@
   transform: skewY(-20deg) translateX(-100%);
   transition: transform var(--duration-fast);
 
-  .show & {
+  .dialog[open] & {
     transform: skewY(-20deg);
     transition: transform var(--duration-fast) var(--duration-slow);
+
+    @starting-style {
+      transform: skewY(-20deg) translateX(-100%);
+    }
   }
 }

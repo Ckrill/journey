@@ -9,6 +9,7 @@ import { AuthContext, useSession } from '../contexts/authContext';
 
 // Miscellaneous
 import SignIn from './SignIn';
+import UnsupportedBrowser from './UnsupportedBrowser';
 
 const AuthGate = ({ children }: { children: ReactNode }) => {
   const queryClient = useQueryClient();
@@ -22,6 +23,11 @@ const AuthGate = ({ children }: { children: ReactNode }) => {
     // Drop cached data so the next account never sees this one's.
     if (!retainedSession) queryClient.clear();
   }, [retainedSession, queryClient]);
+
+  // Checked before sign-in. Modules in the main bundle are already loaded, so
+  // none may use Temporal at load time. Route components are code-split and
+  // never load here.
+  if (!('Temporal' in globalThis)) return <UnsupportedBrowser />;
 
   return (
     <>

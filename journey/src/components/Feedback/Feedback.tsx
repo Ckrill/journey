@@ -1,6 +1,5 @@
 // External
-import clsx from 'clsx';
-import { useEffect, useRef } from 'react';
+import { useEffect, useId, useRef } from 'react';
 
 // Utilities
 import { getHeadingSize } from '../../helpers/synonyms';
@@ -27,6 +26,8 @@ const Feedback = ({ heading, setShow, show, streak }: Props) => {
   const headingSize = heading ? getHeadingSize(heading) : 'm';
 
   const audioPlayerRef = useRef<HTMLAudioElement | null>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const headingId = useId();
 
   useEffect(() => {
     if (!show) return;
@@ -52,12 +53,26 @@ const Feedback = ({ heading, setShow, show, streak }: Props) => {
     }
   }, [settings.sound, settings.vibration, show]);
 
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog || show === dialog.open) return;
+
+    if (show) dialog.showModal();
+    else dialog.close();
+  }, [show]);
+
   return (
-    <div
-      className={clsx(styles.overlay, show && styles.show)}
+    <dialog
+      aria-labelledby={headingId}
+      className={styles.dialog}
       onClick={() => {
         setShow(false);
       }}
+      onClose={() => {
+        // Esc and the back gesture close the dialog itself; mirror that into state.
+        if (show) setShow(false);
+      }}
+      ref={dialogRef}
     >
       <audio preload={settings.sound ? 'auto' : 'none'} ref={audioPlayerRef}>
         <source src={thump} type="audio/mpeg" />
@@ -67,7 +82,11 @@ const Feedback = ({ heading, setShow, show, streak }: Props) => {
       <div className={styles.container}>
         {streak > 1 ? (
           <>
-            <h1 className={styles.heading} data-size={headingSize}>
+            <h1
+              className={styles.heading}
+              data-size={headingSize}
+              id={headingId}
+            >
               {heading}
             </h1>
 
@@ -75,7 +94,9 @@ const Feedback = ({ heading, setShow, show, streak }: Props) => {
           </>
         ) : (
           <>
-            <h1 className={styles.heading}>Departure</h1>
+            <h1 className={styles.heading} id={headingId}>
+              Departure
+            </h1>
 
             <p className={styles.paragraph}>
               Today you embarked on your journey
@@ -83,7 +104,7 @@ const Feedback = ({ heading, setShow, show, streak }: Props) => {
           </>
         )}
       </div>
-    </div>
+    </dialog>
   );
 };
 

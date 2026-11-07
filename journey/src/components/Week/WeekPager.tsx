@@ -1,12 +1,12 @@
 // External
 import { getRouteApi } from '@tanstack/react-router';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 // Utilities
 import { currentWeekStart, shiftWeek, weekDates } from '../../helpers/week';
 
 // Miscellaneous
-import Carousel from '../Carousel/Carousel';
+import Carousel, { type CarouselHandle } from '../Carousel/Carousel';
 import HabitList from '../Habit/HabitList/HabitList';
 import WeekSwitcher from './WeekSwitcher';
 
@@ -28,6 +28,7 @@ interface Props {
 const WeekPager = ({ datesByHabit, events, habits, openEdit }: Props) => {
   const navigate = route.useNavigate();
   const { week } = route.useSearch();
+  const carouselRef = useRef<CarouselHandle>(null);
 
   const weekStart = week ?? currentWeekStart();
   const canGoNext = weekStart < currentWeekStart();
@@ -66,11 +67,11 @@ const WeekPager = ({ datesByHabit, events, habits, openEdit }: Props) => {
   };
 
   const goPrev = () => {
-    goTo(shiftWeek(weekStart, -1));
+    carouselRef.current?.step(-1);
   };
 
   const goNext = () => {
-    if (canGoNext) goTo(shiftWeek(weekStart, 1));
+    if (canGoNext) carouselRef.current?.step(1);
   };
 
   const goCurrent = () => {
@@ -90,6 +91,7 @@ const WeekPager = ({ datesByHabit, events, habits, openEdit }: Props) => {
       <Carousel
         onPreview={setPreview}
         onSettle={goTo}
+        ref={carouselRef}
         slideKey={weekStart}
         slides={slides}
       />
