@@ -52,11 +52,6 @@ const Notifications = () => {
       <Heading>Notifications</Heading>
 
       <ParagraphGroup>
-        <Paragraph size="fine">
-          Notifications are in <strong>BETA</strong>. More notifications
-          features are coming soon.
-        </Paragraph>
-
         <Paragraph>
           Use notifications to help you stay on top of retros.
         </Paragraph>
@@ -66,7 +61,7 @@ const Notifications = () => {
         <Warning>
           {blocked
             ? "Notifications are blocked. Allow them in your browser's site settings to turn them on."
-            : 'This browser does not support notifications.'}
+            : 'This device does not support notifications.'}
         </Warning>
       ) : (
         <>

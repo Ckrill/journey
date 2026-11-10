@@ -1,3 +1,6 @@
+// Utilities
+import { vibrationSupported } from '../../helpers/vibrate';
+
 // Contexts
 import { useSettings, useSettingsUpdate } from '../../contexts/settingsContext';
 
@@ -5,6 +8,7 @@ import { useSettings, useSettingsUpdate } from '../../contexts/settingsContext';
 import Checkbox from '../Form/Checkbox/Checkbox';
 import CheckboxGroup from '../Form/Checkbox/CheckboxGroup';
 import Heading from '../Heading/Heading';
+import Warning from '../Notice/Warning';
 
 const Preferences = () => {
   const settings = useSettings();
@@ -31,7 +35,8 @@ const Preferences = () => {
         />
 
         <Checkbox
-          checked={settings.vibration}
+          checked={settings.vibration && vibrationSupported}
+          disabled={!vibrationSupported}
           id="vibration"
           label="Vibration"
           onChange={() => {
@@ -48,6 +53,10 @@ const Preferences = () => {
           }}
         />
       </CheckboxGroup>
+
+      {!vibrationSupported && (
+        <Warning>This device does not support vibration.</Warning>
+      )}
     </>
   );
 };
