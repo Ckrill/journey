@@ -8,6 +8,11 @@
   background-color: var(--color-brand-primary);
 }
 
+// iOS: Color the background while the keyboard is open.
+:root:has(.page input:focus) body {
+  background-color: var(--color-brand-primary);
+}
+
 .title {
   position: relative;
   inset-block-start: 5dvh;

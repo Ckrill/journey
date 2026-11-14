@@ -59,6 +59,11 @@
   }
 }
 
+// iOS: Stops the page scrolling behind the dialog.
+:root:has(.dialog[open]) {
+  overflow: hidden;
+}
+
 .container {
   position: relative;
   inset-block-start: 0;
