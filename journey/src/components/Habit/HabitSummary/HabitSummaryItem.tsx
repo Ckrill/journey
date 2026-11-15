@@ -21,7 +21,7 @@ const HabitSummaryItem = ({ completed, completedDays, habit, met }: Props) => (
       name={<span className={styles.name}>{habit.name}</span>}
       trailing={
         <span className={styles.result} data-met={met}>
-          {completed} / {habit.weeklyTarget}
+          {completed}&thinsp;/&thinsp;{habit.weeklyTarget}
         </span>
       }
     >

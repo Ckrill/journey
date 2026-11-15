@@ -12,9 +12,6 @@ import { queryClient } from './lib/queryClient';
 import App from './screens/App';
 import AuthGate from './screens/AuthGate';
 
-// Styles
-import './index.css';
-
 // Safari has no Temporal yet. If the polyfill fails to load, AuthGate shows the unsupported screen.
 if (!('Temporal' in globalThis)) {
   await import('temporal-polyfill/global').catch(() => undefined);

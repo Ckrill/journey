@@ -13,13 +13,13 @@
 .count {
   font-family: var(--font-family-mono);
   font-size: calc(40rem / 16);
-  font-weight: 600;
+  font-weight: 500;
   font-variant-numeric: tabular-nums;
 }
 
 .caption {
   font-size: calc(12rem / 16);
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-spacious);
 }

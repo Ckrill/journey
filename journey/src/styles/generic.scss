@@ -1,14 +1,25 @@
 body {
   margin: 0;
   font-family: var(--font-family);
+  font-size-adjust: var(--font-size-adjust);
   color: var(--color-text);
   letter-spacing: var(--letter-spacing-tight);
   background: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  color: var(--color-text);
-  background-color: var(--color-background);
+strong {
+  font-weight: 600;
+}
+
+// Browser default styles set their own font on form controls, so inherit it.
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size-adjust: inherit;
 }
 
 * {

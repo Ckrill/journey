@@ -42,7 +42,11 @@
 
   /* Typography */
   --font-family: 'IBM Plex Sans', 'Helvetica Neue', arial, sans-serif;
+  --font-family-display: 'Rubik', arial, helvetica, sans-serif;
   --font-family-mono: 'IBM Plex Mono', courier, monospace;
+
+  // x-height ratio of IBM Plex Sans and Mono. Scales fallback fonts to match.
+  --font-size-adjust: 0.516;
   --letter-spacing-tight: 0.025em;
   --letter-spacing-spacious: 0.075em;
   --letter-spacing-field: 0.05em;

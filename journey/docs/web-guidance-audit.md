@@ -28,6 +28,7 @@ Guide advice that the project rules reject is under "Conflicts with project rule
 - Spinner: `role="progressbar"` instead of `role="status"`.
 - Modal focus: no `autofocus`. The delete modal's Cancel button would be the only use, so modals keep the browser's default initial focus. Each modal has a visible Cancel button.
 - Browser target: the newest stable Chrome on Android, now stated in `.github/copilot-instructions.md`. So `text-fit` and other new features are allowed without fallbacks.
+- Fonts, partly done: IBM Plex Sans is loaded at 400, 600 and their italics (the 700 faces and files are removed, and `Heading` and `strong` use 600). Plex Mono is used at 500 only, so nothing is synthesized bold. The Rubik stack is the `--font-family-display` token in `src/styles/constants.scss`. `index.html` preloads the Plex Sans Regular and SemiBold files and Rubik 900 with `crossorigin`. Rubik is also preloaded for signed-in users who never see sign-in, which was accepted to keep the first paint of sign-in stable. `body` sets `font-size-adjust: 0.516` (`--font-size-adjust`, the x-height of Plex Sans and Mono, which are identical), and form controls inherit it. That scales the Arial, Helvetica and Courier fallbacks, and Plex itself is unchanged except SemiBold (0.522), which renders about 1% smaller. Rubik is left alone: its x-height (0.52) is close to Arial's. `from-font` was not used because it reads the first available font, which is the fallback while the web font loads. The thin-space `&thinsp;` around the slash in `HabitSummary` and `BarDetail` (both Plex Mono) falls back to a system font because U+2009 is outside the Latin1 subset. This is intended: Plex Mono's own U+2009 has the full 600-unit advance of a normal space, so adding it (from the 14 KB `Pi` subset) would remove the thin effect.
 - Still open: the rest of typography (unitless `line-height`, `clamp()` ranges, `text-fit`, font fallbacks), the Header, motion and the other batch 4 items.
 
 ## 1. Real bugs
@@ -51,8 +52,6 @@ Headers and security (`vercel.json`, `public/sw.js`, build)
 - [ ] Outside the guide: `vite.config.js` sets `build.sourcemap: true`, which ships source maps publicly, and `visualizer({ open: true })` writes `stats.html` and opens a browser on every build, which will also run in CI.
 
 Loading and layout
-
-- [ ] Fonts use `font-display: swap` but are not preloaded, although Rubik 900 and Plex Regular are used on the first paint of the sign-in screen. When adding preloads, include `crossorigin` and limit them to two or three fonts.
 
 CSS
 
@@ -107,9 +106,6 @@ Typography and text scaling
 - [ ] The `clamp()` font sizes in `Feedback.module.scss` and `SignIn.module.scss` use `vw` alone as the middle term (the guide combines viewport and font-relative units, for example `calc(1rem + 2vw)`), and some ranges exceed the guide's 2.5x limit: `Feedback.module.scss` (line 92, 3x, and line 96, 5x) and `SignIn.module.scss` (line 20, 5x). At 200% zoom the viewport term falls below the floor and the text stops scaling.
 - [ ] `Feedback.module.scss` (lines 60-97) has five hand-tuned size classes picked in JS by `getHeadingSize` (`src/helpers/synonyms.ts` lines 35-54), and `SignIn.module.scss` (line 20) hand-tunes `15vw`. `text-fit: grow per-line-all` (Chrome 150 and later) would replace both. Keep `clamp()` as the fallback.
 - [ ] Fixed pixel heights on text boxes inside clipping parents: `DayToggleGroup.module.scss` (line 3, 44px), `DayStatus.module.scss` (line 2, 36px), `Pillbox.module.scss` (line 28, 44px) and `Checkbox.module.scss` (line 36, 44px). Use `min-block-size`.
-- [ ] Fonts: `src/styles/fonts.scss` has no `size-adjust` or metric overrides, nothing sets `font-size-adjust`, and the Rubik fallback is a literal `Arial, Helvetica, sans-serif` in `Feedback.module.scss` (lines 64 and 109) and `SignIn.module.scss` (line 19). Use `font-size-adjust` or metric-matched fallback faces.
-- [ ] Plex Mono is loaded at weight 500 only (`fonts.scss` lines 78-91), but weight 600 is requested in `HabitSummary`, `HabitItem` and `HabitSummaryItem`, so bold is probably synthesized. Not checked in a browser.
-- [ ] Sans and mono text sit side by side in `HabitItem.module.scss` (line 28), `HabitSummaryItem.module.scss` (line 9) and `TimeProgress.module.scss` (line 66). The mono fallback (`courier`) is not metric-matched, so use `font-size-adjust`.
 - [ ] Low priority: `TimeProgress.module.scss` (lines 54-58) uses `white-space: nowrap` with an ellipsis on the habit name. The pixel breakpoint `600px` in `Modal.module.scss` (line 87) could be `38em`. `Modal.tsx` (line 19) reads `window.matchMedia('(width < 600px)')` once, duplicating that breakpoint, with no `change` listener.
 - [ ] Low priority: `text-box: trim-both cap alphabetic` would simplify the padding on `Button.module.scss` (lines 11-19) and the icon alignment in `Notice.module.scss` (lines 30-42).
 

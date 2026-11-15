@@ -25,7 +25,7 @@ const BarDetail = ({ elapsed, kind, total }: Props) => {
   const hasTotal = total !== null;
 
   const text = hasTotal
-    ? `${String(elapsed)} / ${String(total)} ${unit(total)}`
+    ? `${String(elapsed)}\u2009/\u2009${String(total)} ${unit(total)}`
     : `${String(elapsed)} ${unit(elapsed)}`;
 
   return (

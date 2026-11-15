@@ -21,7 +21,7 @@ const HabitSummary = ({ summary }: Props) => {
     <div className={styles.summary}>
       <p className={styles.headline}>
         <span className={styles.count}>
-          {summary.metCount} / {summary.habits.length}
+          {summary.metCount}&thinsp;/&thinsp;{summary.habits.length}
         </span>
 
         <span className={styles.caption}>goals met</span>

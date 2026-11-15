@@ -83,7 +83,7 @@
   inline-size: 100%;
   padding-inline: var(--space-base);
   margin-block: 0 20px;
-  font-family: Rubik, Arial, Helvetica, sans-serif;
+  font-family: var(--font-family-display);
   font-size: clamp(calc(75rem / 16), 25vw, calc(150rem / 16));
   font-weight: 900;
   line-height: 0.9em;
@@ -131,7 +131,7 @@
   inline-size: 100%;
   padding-inline: var(--space-base);
   margin-block: 0 50px;
-  font-family: Rubik, Arial, Helvetica, sans-serif;
+  font-family: var(--font-family-display);
   font-size: clamp(calc(20rem / 16), 7vw, calc(50rem / 16));
   font-weight: 900;
   text-align: center;
