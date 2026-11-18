@@ -105,7 +105,7 @@ Typography and text scaling
 
 - [ ] The `clamp()` font sizes in `Feedback.module.scss` and `SignIn.module.scss` use `vw` alone as the middle term (the guide combines viewport and font-relative units, for example `calc(1rem + 2vw)`), and some ranges exceed the guide's 2.5x limit: `Feedback.module.scss` (line 92, 3x, and line 96, 5x) and `SignIn.module.scss` (line 20, 5x). At 200% zoom the viewport term falls below the floor and the text stops scaling.
 - [ ] `Feedback.module.scss` (lines 60-97) has five hand-tuned size classes picked in JS by `getHeadingSize` (`src/helpers/synonyms.ts` lines 35-54), and `SignIn.module.scss` (line 20) hand-tunes `15vw`. `text-fit: grow per-line-all` (Chrome 150 and later) would replace both. Keep `clamp()` as the fallback.
-- [ ] Fixed pixel heights on text boxes inside clipping parents: `DayToggleGroup.module.scss` (line 3, 44px), `DayStatus.module.scss` (line 2, 36px), `Pillbox.module.scss` (line 28, 44px) and `Checkbox.module.scss` (line 36, 44px). Use `min-block-size`.
+- [ ] Fixed pixel height on a text box inside a clipping parent: `DayStatus.module.scss` (line 2, 36px). Use `min-block-size`. `DayToggleGroup` and `Pillbox` now use `min-block-size: var(--size-touch-min)`. `Checkbox` keeps its fixed 44px square on purpose, because the box holds only an icon.
 - [ ] Low priority: `TimeProgress.module.scss` (lines 54-58) uses `white-space: nowrap` with an ellipsis on the habit name. The pixel breakpoint `600px` in `Modal.module.scss` (line 87) could be `38em`. `Modal.tsx` (line 19) reads `window.matchMedia('(width < 600px)')` once, duplicating that breakpoint, with no `change` listener.
 - [ ] Low priority: `text-box: trim-both cap alphabetic` would simplify the padding on `Button.module.scss` (lines 11-19) and the icon alignment in `Notice.module.scss` (lines 30-42).
 
@@ -161,10 +161,10 @@ These are guide recommendations that the project rules reject, so they are not t
   - Read the sections of the `accessibility` guide that were skipped (images, SVG, skip links), and the `built-in-ai`, `wasm` and `webmcp` guides beyond their opening paragraphs.
   - Verify at runtime with axe or Lighthouse and manual keyboard and screen reader checks. Several findings are unconfirmed (Feedback overlay in the accessibility tree, Button focus contrast, the Header height estimate, the streak benchmark on a real phone).
 - [ ] Check areas the guides do not cover.
-  - Instructions file: `yarn knip` reports two unused files (`src/components/Code/Code.tsx` and `Code.module.scss`), two unused exports (`overallBestStreak` in `src/helpers/streak.ts` and `weekStartOf` in `src/helpers/week.ts`) and 15 stale entries in `knip.json` to remove. Also check that ref callbacks guard against `null`, check that `docs/habits.md` still matches the code, and decide whether `stats.html` in the repo root (a build artifact) should be committed.
+  - Instructions file: `yarn knip` reports two unused exports (`overallBestStreak` in `src/helpers/streak.ts` and `weekStartOf` in `src/helpers/week.ts`) and 15 stale entries in `knip.json` to remove. Also check that ref callbacks guard against `null`, check that `docs/habits.md` still matches the code, and decide whether `stats.html` in the repo root (a build artifact) should be committed.
   - Backend security: review row-level security in `supabase/schema.sql`. `send-reminders` was reviewed for its time logic and its secret check, but not for how `pg_cron` calls it.
   - PWA: check manifest icons (maskable) and the notification options in `public/sw.js` such as `badge`.
   - Dependencies: check for outdated or unused packages and review bundle size.
   - Tests: check whether any exist and what they cover.
   - Loading and error states: check how routes behave while pending and on failure.
-  - Touch: check for hover-only interactions on touch devices and measure target sizes.
+  - Touch: check for hover-only interactions on touch devices. Target sizes now use `--size-touch-min` (44px) in `Button`, `Header`, `DayToggleGroup`, `Pillbox`, `Checkbox`, `Input`, `Select` and the `WeekSwitcher` label. Still to do: the habit name button in `HabitItem.module.scss` (about 20px tall) and the `ParagraphGroup` toggle (12px text), then measure on a device.
