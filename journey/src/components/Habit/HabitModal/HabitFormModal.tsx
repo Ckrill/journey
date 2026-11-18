@@ -144,9 +144,7 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
                 try not to miss two days.
               </Paragraph>
             </ParagraphGroup>
-          </Section>
 
-          <Section>
             <FieldGroup>
               <Input
                 assistiveText="Name your habit."
