@@ -1,5 +1,5 @@
 .header {
-  --header-padding-block: var(--space-base);
+  --header-padding-block: var(--space-s);
 
   position: sticky;
   inset-block: 0;
@@ -27,9 +27,6 @@
   flex-direction: row;
   justify-content: space-evenly;
   inline-size: 100%;
-  padding-inline-start: 0;
-  margin-block: 0;
-  list-style: none;
 }
 
 .item {
@@ -42,8 +39,13 @@
 }
 
 .link {
+  --link-padding-inline: var(--space-m);
+
   position: relative;
-  padding: 10px;
+  display: flex;
+  align-items: center;
+  min-block-size: 44px;
+  padding-inline: var(--link-padding-inline);
   font-weight: 600;
   color: var(--color-brand-secondary);
   text-transform: uppercase;
@@ -53,16 +55,15 @@
   -webkit-tap-highlight-color: transparent;
 
   &:focus-visible {
-    outline: 2px solid var(--color-brand-secondary);
-    outline-offset: -2px;
+    outline: var(--border-width) solid var(--color-brand-secondary);
+    outline-offset: calc(-1 * var(--border-width));
   }
 
   .underline {
     position: absolute;
-    inset-block-end: 4px;
-    inset-inline-start: 10px;
-    inline-size: calc(100% - 20px);
-    block-size: 2px;
+    inset-block-end: 6px;
+    inset-inline: var(--link-padding-inline);
+    block-size: var(--border-width);
     background-color: var(--color-brand-secondary);
   }
 }

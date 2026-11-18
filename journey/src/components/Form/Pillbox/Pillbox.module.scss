@@ -2,8 +2,7 @@
   box-sizing: border-box;
   inline-size: 100%;
   min-inline-size: 0;
-  max-inline-size: var(--size-form);
-  padding-block: 10px;
+  padding-block: 0;
   padding-inline: 0;
   margin: 0;
   border: none;
@@ -18,7 +17,7 @@
 }
 
 .pill {
-  --pill-border: 2px;
+  --pill-border: var(--border-width);
   --pill-radius: 4px;
   --pill-border-color: var(--color-border-subtle);
 
@@ -97,7 +96,7 @@
   }
 
   .input:focus-visible + & {
-    outline: 2px solid var(--color-brand-secondary);
-    outline-offset: -2px;
+    outline: var(--border-width) solid var(--color-brand-secondary);
+    outline-offset: calc(-1 * var(--border-width));
   }
 }

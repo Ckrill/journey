@@ -9,6 +9,7 @@ import { useSaveReflection } from '../../hooks/useSaveReflection';
 
 // Miscellaneous
 import Button from '../Button/Button';
+import FieldGroup from '../Form/FieldGroup/FieldGroup';
 import FormActions from '../Form/FormActions/FormActions';
 import Textarea from '../Form/Textarea/Textarea';
 import ErrorMessage from '../Notice/ErrorMessage';
@@ -55,63 +56,65 @@ const ReflectionForm = ({ previous }: Props) => {
         void handleSubmit(onSubmit)(e);
       }}
     >
-      <Textarea
-        assistiveText="Celebrate your wins, big or small."
-        autoComplete="off"
-        disabled={save.isPending}
-        id="retro-went-well"
-        labelText="What went well?"
-        maxLength={MAX_LENGTH}
-        placeholder={previous?.wentWell}
-        {...register('wentWell')}
-      />
+      <FieldGroup>
+        <Textarea
+          assistiveText="Celebrate your wins, big or small."
+          autoComplete="off"
+          disabled={save.isPending}
+          id="retro-went-well"
+          labelText="What went well?"
+          maxLength={MAX_LENGTH}
+          placeholder={previous?.wentWell}
+          {...register('wentWell')}
+        />
 
-      <Textarea
-        assistiveText="Honest reflections are the key to improvement."
-        autoComplete="off"
-        disabled={save.isPending}
-        id="retro-blockers"
-        labelText="What got in your way?"
-        maxLength={MAX_LENGTH}
-        placeholder={previous?.blockers}
-        {...register('blockers')}
-      />
+        <Textarea
+          assistiveText="Honest reflections are the key to improvement."
+          autoComplete="off"
+          disabled={save.isPending}
+          id="retro-blockers"
+          labelText="What got in your way?"
+          maxLength={MAX_LENGTH}
+          placeholder={previous?.blockers}
+          {...register('blockers')}
+        />
 
-      <Textarea
-        assistiveText="Pick something small and concrete."
-        autoComplete="off"
-        disabled={save.isPending}
-        id="retro-next-steps"
-        labelText="How can you remove some friction?"
-        maxLength={MAX_LENGTH}
-        placeholder={previous?.nextSteps}
-        {...register('nextSteps')}
-      />
+        <Textarea
+          assistiveText="Pick something small and concrete."
+          autoComplete="off"
+          disabled={save.isPending}
+          id="retro-next-steps"
+          labelText="How can you remove some friction?"
+          maxLength={MAX_LENGTH}
+          placeholder={previous?.nextSteps}
+          {...register('nextSteps')}
+        />
 
-      <Textarea
-        assistiveText="What is the minimum you can do?"
-        autoComplete="off"
-        disabled={save.isPending}
-        id="retro-plan"
-        labelText="Plan for next week. How will you meet your goal?"
-        maxLength={MAX_LENGTH}
-        placeholder={previous?.plan}
-        {...register('plan')}
-      />
+        <Textarea
+          assistiveText="What is the minimum you can do?"
+          autoComplete="off"
+          disabled={save.isPending}
+          id="retro-plan"
+          labelText="Plan for next week. How will you meet your goal?"
+          maxLength={MAX_LENGTH}
+          placeholder={previous?.plan}
+          {...register('plan')}
+        />
 
-      <FormActions>
-        <Button disabled={save.isPending || !isDirty} type="submit">
-          {save.isPending ? 'Saving' : 'Save reflection'}
-        </Button>
+        <FormActions>
+          <Button disabled={save.isPending || !isDirty} type="submit">
+            {save.isPending ? 'Saving' : 'Save reflection'}
+          </Button>
 
-        {save.isError && (
-          <ErrorMessage>{errorMessage(save.error)}</ErrorMessage>
-        )}
+          {save.isError && (
+            <ErrorMessage>{errorMessage(save.error)}</ErrorMessage>
+          )}
 
-        {save.isSuccess && !isDirty && (
-          <SuccessMessage>Saved. Saving again replaces it.</SuccessMessage>
-        )}
-      </FormActions>
+          {save.isSuccess && !isDirty && (
+            <SuccessMessage>Saved. Saving again replaces it.</SuccessMessage>
+          )}
+        </FormActions>
+      </FieldGroup>
     </form>
   );
 };

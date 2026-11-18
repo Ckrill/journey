@@ -1,32 +1,17 @@
 .paragraph {
-  max-inline-size: var(--size-content-max);
-  padding-inline: var(--paragraph-space-inline, 20px);
-  margin-block: var(--paragraph-space-before, 50px)
-    var(--paragraph-space-after, 20px);
-  margin-inline: auto;
   font-size: calc(16rem / 16);
-  line-height: calc(30rem / 16);
+  line-height: 1.75;
   text-align: center;
   text-wrap: pretty;
 }
 
-:is(h1, h2) + .paragraph,
-.paragraph + .paragraph {
-  margin-block-start: var(--paragraph-space-before, 20px);
-}
-
 .paragraph[data-align='left'] {
-  padding-inline: 0;
   text-align: start;
 }
 
 .paragraph[data-size='fine'] {
   font-size: calc(12rem / 16);
   font-style: italic;
-  line-height: calc(18rem / 16);
+  line-height: 1.5;
   color: var(--color-text-muted);
-}
-
-.paragraph + .paragraph[data-size='fine'] {
-  margin-block-start: var(--paragraph-space-before, 10px);
 }

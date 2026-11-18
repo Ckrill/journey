@@ -14,6 +14,7 @@ import Button from '../Button/Button';
 import ButtonGroup from '../Button/ButtonGroup';
 import Checkbox from '../Form/Checkbox/Checkbox';
 import CheckboxGroup from '../Form/Checkbox/CheckboxGroup';
+import FieldGroup from '../Form/FieldGroup/FieldGroup';
 import FormActions from '../Form/FormActions/FormActions';
 import Input from '../Form/Input/Input';
 import Select from '../Form/Select/Select';
@@ -112,53 +113,53 @@ const NotificationsModal = ({ onClose, open }: Props) => {
             <Heading id={titleId} level={1}>
               Notifications
             </Heading>
-          </Section>
 
-          <Section>
-            <CheckboxGroup>
-              <Checkbox
-                id="retro-reminder"
-                label="Retro reminder"
-                {...register('enabled')}
+            <FieldGroup>
+              <CheckboxGroup>
+                <Checkbox
+                  id="retro-reminder"
+                  label="Retro reminder"
+                  {...register('enabled')}
+                />
+              </CheckboxGroup>
+
+              <Select
+                autoComplete="off"
+                disabled={!enabled}
+                id="retro-reminder-day"
+                labelText="Day"
+                options={weekdayOptions}
+                required={enabled}
+                {...register('weekday')}
               />
-            </CheckboxGroup>
 
-            <Select
-              autoComplete="off"
-              disabled={!enabled}
-              id="retro-reminder-day"
-              labelText="Day"
-              options={weekdayOptions}
-              required={enabled}
-              {...register('weekday')}
-            />
+              <Input
+                assistiveText={`Time zone: ${timeZone}. Saving updates it to this device's time zone.`}
+                autoComplete="off"
+                disabled={!enabled}
+                errorText={errors.time?.message}
+                id="retro-reminder-time"
+                labelText="Time"
+                required={enabled}
+                type="time"
+                {...register('time', {
+                  validate: (value, { enabled: on }) =>
+                    !on || value !== '' || 'Enter a time.',
+                })}
+              />
 
-            <Input
-              assistiveText={`Time zone: ${timeZone}. Saving updates it to this device's time zone.`}
-              autoComplete="off"
-              disabled={!enabled}
-              errorText={errors.time?.message}
-              id="retro-reminder-time"
-              labelText="Time"
-              required={enabled}
-              type="time"
-              {...register('time', {
-                validate: (value, { enabled: on }) =>
-                  !on || value !== '' || 'Enter a time.',
-              })}
-            />
+              <FormActions>
+                <ButtonGroup errorText={errors.root?.server.message}>
+                  <Button disabled={pending} type="submit">
+                    {pending ? 'Saving' : 'Save'}
+                  </Button>
 
-            <FormActions>
-              <ButtonGroup errorText={errors.root?.server.message}>
-                <Button disabled={pending} type="submit">
-                  {pending ? 'Saving' : 'Save'}
-                </Button>
-
-                <Button onClick={onClose} priority="secondary" type="button">
-                  Cancel
-                </Button>
-              </ButtonGroup>
-            </FormActions>
+                  <Button onClick={onClose} priority="secondary" type="button">
+                    Cancel
+                  </Button>
+                </ButtonGroup>
+              </FormActions>
+            </FieldGroup>
           </Section>
         </SectionContainer>
       </form>

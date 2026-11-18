@@ -3,21 +3,19 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 
 // Utilities
-import { toHabit, toReflection } from '../../helpers/mappers';
+import { toHabit, toReflection } from '../helpers/mappers';
 
 // Contexts
-import { useSession } from '../../contexts/authContext';
-import { useSettings } from '../../contexts/settingsContext';
+import { useSession } from '../contexts/authContext';
+import { useSettings } from '../contexts/settingsContext';
 
 // Hooks
-import { eventsQueryOptions } from '../../hooks/useEventsQuery';
-import { retroReminderQueryOptions } from '../../hooks/useRetroReminderQuery';
-import { useUserId } from '../../hooks/useUserId';
+import { eventsQueryOptions } from './useEventsQuery';
+import { retroReminderQueryOptions } from './useRetroReminderQuery';
+import { useUserId } from './useUserId';
 
 // Miscellaneous
-import { supabase } from '../../lib/supabase';
-import Button from '../Button/Button';
-import ButtonGroup from '../Button/ButtonGroup';
+import { supabase } from '../lib/supabase';
 
 // The habits query only holds active habits; this one includes archived ones.
 const fetchAllHabits = async () => {
@@ -42,7 +40,8 @@ const fetchReflection = async () => {
   return data ? toReflection(data) : null;
 };
 
-const DownloadDataButton = () => {
+/** Collects the user's data and saves it to the device as a JSON file. */
+export const useDownloadData = () => {
   const queryClient = useQueryClient();
   const userId = useUserId();
   const session = useSession();
@@ -50,7 +49,7 @@ const DownloadDataButton = () => {
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState(false);
 
-  const handleDownload = async () => {
+  const download = async () => {
     setBusy(true);
     setFailed(false);
 
@@ -103,20 +102,5 @@ const DownloadDataButton = () => {
     }
   };
 
-  return (
-    <ButtonGroup
-      errorText={failed ? 'Something went wrong. Please try again.' : undefined}
-    >
-      <Button
-        disabled={busy}
-        onClick={() => {
-          void handleDownload();
-        }}
-      >
-        {busy ? 'Preparing' : 'Download data'}
-      </Button>
-    </ButtonGroup>
-  );
+  return { busy, download, failed };
 };
-
-export default DownloadDataButton;

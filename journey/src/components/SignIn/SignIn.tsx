@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 // Miscellaneous
 import { supabase } from '../../lib/supabase';
 import Button from '../Button/Button';
+import FieldGroup from '../Form/FieldGroup/FieldGroup';
 import Input from '../Form/Input/Input';
 import Section from '../Section/Section';
 
@@ -43,30 +44,32 @@ const SignInForm = () => {
       style={{ display: 'contents' }}
     >
       <Section>
-        <Input
-          autoComplete="username"
-          errorText={errors.email?.message}
-          id="email"
-          inputMode="email"
-          labelText="Email"
-          required
-          type="email"
-          {...register('email', { required: 'Enter your email.' })}
-        />
+        <FieldGroup>
+          <Input
+            autoComplete="username"
+            errorText={errors.email?.message}
+            id="email"
+            inputMode="email"
+            labelText="Email"
+            required
+            type="email"
+            {...register('email', { required: 'Enter your email.' })}
+          />
 
-        <Input
-          autoComplete="current-password"
-          errorText={errors.password?.message ?? submitError ?? undefined}
-          id="password"
-          labelText="Password"
-          required
-          type="password"
-          {...register('password', { required: 'Enter your password.' })}
-        />
+          <Input
+            autoComplete="current-password"
+            errorText={errors.password?.message ?? submitError ?? undefined}
+            id="password"
+            labelText="Password"
+            required
+            type="password"
+            {...register('password', { required: 'Enter your password.' })}
+          />
 
-        <Button disabled={submitting} type="submit">
-          {submitting ? 'Signing in' : 'Sign in'}
-        </Button>
+          <Button disabled={submitting} type="submit">
+            {submitting ? 'Signing in' : 'Sign in'}
+          </Button>
+        </FieldGroup>
       </Section>
     </form>
   );

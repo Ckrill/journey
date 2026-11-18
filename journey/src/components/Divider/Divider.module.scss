@@ -3,16 +3,11 @@
   display: flex;
   justify-content: center;
   inline-size: 100%;
-  margin-block: 10px;
   text-align: center;
 }
 
 .divider[data-appearance='faint'] .ruler {
-  block-size: var(--border-width);
-}
-
-.divider[data-spacing='spacious'] {
-  margin-block: 25px;
+  block-size: calc(var(--border-width) / 2);
 }
 
 .ruler {
@@ -20,7 +15,7 @@
   inset-block: 0;
   inset-inline-start: 0;
   inline-size: 100%;
-  block-size: calc(2 * var(--border-width));
+  block-size: var(--border-width);
   margin-block: auto;
   background-color: var(--color-border);
   border: none;
@@ -28,16 +23,17 @@
 
 .mask {
   position: relative;
-  padding-inline: 20px;
+  padding-inline: var(--space-l);
   text-align: center;
   background-color: var(--color-background);
 }
 
 .text {
   display: block;
-  margin-block-end: 5px;
+  margin-block-end: var(--space-xs);
   font-size: calc(16rem / 16);
   font-weight: 600;
-  line-height: calc(22rem / 16);
-  text-transform: capitalize;
+  line-height: 1.375;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-spacious);
 }

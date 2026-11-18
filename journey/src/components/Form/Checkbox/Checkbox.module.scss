@@ -1,7 +1,7 @@
 .container {
   position: relative;
   display: inline-flex;
-  gap: 12px;
+  gap: var(--space-m);
   align-items: center;
   cursor: pointer;
   user-select: none;
@@ -36,7 +36,7 @@
   font-size: calc(24rem / 16);
   color: var(--color-brand-secondary);
   background-color: var(--color-field);
-  border: 2px solid var(--color-border-subtle);
+  border: var(--border-width) solid var(--color-border-subtle);
   border-radius: var(--radius-base);
   scale: 1;
   transition: scale var(--duration-rapid);

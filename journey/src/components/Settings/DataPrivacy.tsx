@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { settingsKey } from '../../helpers/localStorage';
 
 // Hooks
+import { useDownloadData } from '../../hooks/useDownloadData';
 import { useUserId } from '../../hooks/useUserId';
 
 // Miscellaneous
@@ -12,13 +13,14 @@ import { supabase } from '../../lib/supabase';
 import Button from '../Button/Button';
 import ButtonGroup from '../Button/ButtonGroup';
 import DeleteAccountModal from '../DeleteAccount/DeleteAccountModal';
-import DownloadDataButton from '../DownloadData/DownloadDataButton';
+import FieldGroup from '../Form/FieldGroup/FieldGroup';
 import Heading from '../Heading/Heading';
 import Paragraph from '../Paragraph/Paragraph';
 import ParagraphGroup from '../ParagraphGroup/ParagraphGroup';
 
 const DataPrivacy = () => {
   const userId = useUserId();
+  const { busy, download, failed } = useDownloadData();
   const [deleteOpen, setDeleteOpen] = useState(false);
 
   const handleAccountDeleted = async () => {
@@ -54,19 +56,33 @@ const DataPrivacy = () => {
         </Paragraph>
       </ParagraphGroup>
 
-      <DownloadDataButton />
-
-      <ButtonGroup>
-        <Button
-          onClick={() => {
-            setDeleteOpen(true);
-          }}
-          priority="secondary"
-          tone="danger"
+      <FieldGroup>
+        <ButtonGroup
+          align="center"
+          errorText={
+            failed ? 'Something went wrong. Please try again.' : undefined
+          }
         >
-          Delete account
-        </Button>
-      </ButtonGroup>
+          <Button
+            disabled={busy}
+            onClick={() => {
+              void download();
+            }}
+          >
+            {busy ? 'Preparing' : 'Download data'}
+          </Button>
+
+          <Button
+            onClick={() => {
+              setDeleteOpen(true);
+            }}
+            priority="secondary"
+            tone="danger"
+          >
+            Delete account
+          </Button>
+        </ButtonGroup>
+      </FieldGroup>
 
       <DeleteAccountModal
         onClose={() => {

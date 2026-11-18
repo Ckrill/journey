@@ -1,8 +1,8 @@
 .label {
   display: flex;
   align-items: center;
-  margin-block-end: 4px;
-  margin-inline-start: 4px;
+  margin-block-end: var(--space-xs);
+  margin-inline-start: var(--space-xs);
   font-size: calc(12rem / 16);
   font-weight: 600;
   text-transform: uppercase;
@@ -13,6 +13,6 @@
 // }
 
 .required {
-  margin-inline-start: 3px;
+  margin-inline-start: var(--space-xs);
   color: var(--color-warning);
 }

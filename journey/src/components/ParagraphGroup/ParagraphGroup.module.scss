@@ -1,33 +1,22 @@
 .group {
-  // Paragraphs inside only get a small gap; the group owns the outer spacing.
-  --paragraph-space-before: 10px;
-  --paragraph-space-after: 0;
-  --paragraph-space-inline: 0;
-
-  max-inline-size: var(--size-content-max);
-  padding-inline: 20px;
-  margin-block: 50px 20px;
-  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
   text-align: center;
-
-  > :first-child {
-    --paragraph-space-before: 0;
-  }
-}
-
-:is(h1, h2) + .group,
-.group + .group {
-  margin-block-start: 20px;
 }
 
 .more {
   display: flex;
   flex-direction: column-reverse;
+  gap: 0;
   inline-size: 100%;
   interpolate-size: allow-keywords;
+  transition: gap var(--duration-fast) ease-in-out;
 
   &::details-content {
-    display: flow-root;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
     block-size: 0;
     min-block-size: 0;
     overflow: clip;
@@ -41,6 +30,11 @@
   &[open]::details-content {
     block-size: auto;
     opacity: 1;
+  }
+
+  // The group's gap already separates the closed toggle from the paragraph above.
+  &[open] {
+    gap: var(--space-m);
   }
 
   &[open] .showMore,
@@ -58,7 +52,6 @@
 .toggle {
   align-self: center;
   padding: 0;
-  margin-block-start: 10px;
   font-size: calc(12rem / 16);
   color: var(--color-text-muted);
   text-decoration: underline;

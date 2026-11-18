@@ -7,6 +7,7 @@ import { useSettings, useSettingsUpdate } from '../../contexts/settingsContext';
 // Miscellaneous
 import Checkbox from '../Form/Checkbox/Checkbox';
 import CheckboxGroup from '../Form/Checkbox/CheckboxGroup';
+import FieldGroup from '../Form/FieldGroup/FieldGroup';
 import Heading from '../Heading/Heading';
 import Warning from '../Notice/Warning';
 
@@ -24,35 +25,37 @@ const Preferences = () => {
     <>
       <Heading>Preferences</Heading>
 
-      <CheckboxGroup>
-        <Checkbox
-          checked={settings.sound}
-          id="sound"
-          label="Sound"
-          onChange={() => {
-            handleToggle('sound');
-          }}
-        />
+      <FieldGroup>
+        <CheckboxGroup>
+          <Checkbox
+            checked={settings.sound}
+            id="sound"
+            label="Sound"
+            onChange={() => {
+              handleToggle('sound');
+            }}
+          />
 
-        <Checkbox
-          checked={settings.vibration && vibrationSupported}
-          disabled={!vibrationSupported}
-          id="vibration"
-          label="Vibration"
-          onChange={() => {
-            handleToggle('vibration');
-          }}
-        />
+          <Checkbox
+            checked={settings.vibration && vibrationSupported}
+            disabled={!vibrationSupported}
+            id="vibration"
+            label="Vibration"
+            onChange={() => {
+              handleToggle('vibration');
+            }}
+          />
 
-        <Checkbox
-          checked={settings.bottomNavigation}
-          id="bottomNavigation"
-          label="Upside Down"
-          onChange={() => {
-            handleToggle('bottomNavigation');
-          }}
-        />
-      </CheckboxGroup>
+          <Checkbox
+            checked={settings.bottomNavigation}
+            id="bottomNavigation"
+            label="Upside Down"
+            onChange={() => {
+              handleToggle('bottomNavigation');
+            }}
+          />
+        </CheckboxGroup>
+      </FieldGroup>
 
       {!vibrationSupported && (
         <Warning>This device does not support vibration.</Warning>

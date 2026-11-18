@@ -11,6 +11,7 @@ import { useSettings, useSettingsUpdate } from '../../contexts/settingsContext';
 import lifeExpectancyData from '../../data/life-expectancy.json';
 
 // Miscellaneous
+import FieldGroup from '../Form/FieldGroup/FieldGroup';
 import Input from '../Form/Input/Input';
 import Select from '../Form/Select/Select';
 import Heading from '../Heading/Heading';
@@ -63,44 +64,46 @@ const Profile = () => {
     <>
       <Heading>Profile</Heading>
 
-      <Input
-        assistiveText="Enable your custom timeline."
-        autoComplete="bday-year"
-        defaultValue={settings.birthYear}
-        errorText={birthError ? 'Please enter a valid year.' : undefined}
-        id="birthYear"
-        inputMode="numeric"
-        labelText="Year of birth"
-        max={currentYear}
-        min={1900}
-        onBlur={(e) => {
-          setBirthError(!e.target.validity.valid);
-        }}
-        onChange={handleBirthYearChange}
-        type="number"
-      />
+      <FieldGroup>
+        <Input
+          assistiveText="Enable your custom timeline."
+          autoComplete="bday-year"
+          defaultValue={settings.birthYear}
+          errorText={birthError ? 'Please enter a valid year.' : undefined}
+          id="birthYear"
+          inputMode="numeric"
+          labelText="Year of birth"
+          max={currentYear}
+          min={1900}
+          onBlur={(e) => {
+            setBirthError(!e.target.validity.valid);
+          }}
+          onChange={handleBirthYearChange}
+          type="number"
+        />
 
-      <Select
-        assistiveText="Improve life expectancy estimates."
-        autoComplete="sex"
-        id="sex"
-        labelText="Sex"
-        onChange={handleSexChange}
-        options={sexOptions}
-        placeholder="Select your sex"
-        value={settings.sex ?? ''}
-      />
+        <Select
+          assistiveText="Improve life expectancy estimates."
+          autoComplete="sex"
+          id="sex"
+          labelText="Sex"
+          onChange={handleSexChange}
+          options={sexOptions}
+          placeholder="Select your sex"
+          value={settings.sex ?? ''}
+        />
 
-      <Select
-        assistiveText="Improve life expectancy estimates."
-        autoComplete="off"
-        id="region"
-        labelText="Region of residence"
-        onChange={handleRegionChange}
-        options={regionOptions}
-        placeholder="Select a region"
-        value={settings.region ?? ''}
-      />
+        <Select
+          assistiveText="Improve life expectancy estimates."
+          autoComplete="off"
+          id="region"
+          labelText="Region of residence"
+          onChange={handleRegionChange}
+          options={regionOptions}
+          placeholder="Select a region"
+          value={settings.region ?? ''}
+        />
+      </FieldGroup>
 
       <ParagraphGroup>
         <Paragraph>

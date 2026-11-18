@@ -1,11 +1,11 @@
 .container {
   box-sizing: border-box;
   inline-size: 100%;
-  max-inline-size: var(--size-form);
-  padding-block: 10px;
 }
 
 .field {
+  --chevron-size: calc(20rem / 16);
+
   position: relative;
   color: var(--color-text);
   transition: transform var(--duration-rapid);
@@ -25,15 +25,15 @@
   box-sizing: border-box;
   display: block;
   inline-size: 100%;
-  padding-block: 10px;
-  padding-inline: 12px 40px;
-  font-size: calc(18rem / 16);
-  line-height: calc(24rem / 16);
+  padding-block: var(--space-s);
+  padding-inline: var(--space-m) calc(var(--space-l) + var(--chevron-size));
+  font-size: calc(16rem / 16);
+  line-height: 1.5;
   color: inherit;
   letter-spacing: var(--letter-spacing-field);
   appearance: none;
   background-color: var(--color-field);
-  border: 2px solid var(--color-border-subtle);
+  border: var(--border-width) solid var(--color-border-subtle);
   border-radius: var(--radius-base);
 
   &[aria-invalid='true'] {
@@ -66,18 +66,18 @@
   }
 
   .select::picker(select) {
-    padding: 4px;
+    padding: var(--space-xs);
     background-color: var(--color-field);
-    border: 2px solid var(--color-border-subtle);
+    border: var(--border-width) solid var(--color-border-subtle);
     border-radius: var(--radius-base);
   }
 
   .select option {
     display: flex;
-    gap: 8px;
+    gap: var(--space-s);
     align-items: center;
-    padding-block: 8px;
-    padding-inline: 12px;
+    padding-block: var(--space-s);
+    padding-inline: var(--space-s);
     border-radius: calc(var(--radius-base) / 2);
 
     &::checkmark {
@@ -119,9 +119,9 @@
 
 .chevron {
   position: absolute;
-  inset-block-start: 50%;
-  inset-inline-end: 14px;
-  font-size: calc(20rem / 16);
+  inset-block: 0;
+  inset-inline-end: var(--space-m);
+  margin-block: auto;
+  font-size: var(--chevron-size);
   pointer-events: none;
-  transform: translateY(-50%);
 }

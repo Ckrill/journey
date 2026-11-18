@@ -11,6 +11,7 @@ import { useSettings, useSettingsUpdate } from '../../contexts/settingsContext';
 import Button from '../Button/Button';
 import Checkbox from '../Form/Checkbox/Checkbox';
 import CheckboxGroup from '../Form/Checkbox/CheckboxGroup';
+import FieldGroup from '../Form/FieldGroup/FieldGroup';
 import Heading from '../Heading/Heading';
 import Warning from '../Notice/Warning';
 import NotificationsModal from '../NotificationsModal/NotificationsModal';
@@ -65,30 +66,32 @@ const Notifications = () => {
         </Warning>
       ) : (
         <>
-          <CheckboxGroup
-            errorText={
-              failed ? 'Something went wrong. Please try again.' : undefined
-            }
-          >
-            <Checkbox
-              checked={settings.notifications}
-              disabled={toggling}
-              id="notifications"
-              label="Notifications"
-              onChange={() => {
-                void handleNotificationsToggle();
-              }}
-            />
-          </CheckboxGroup>
+          <FieldGroup>
+            <CheckboxGroup
+              errorText={
+                failed ? 'Something went wrong. Please try again.' : undefined
+              }
+            >
+              <Checkbox
+                checked={settings.notifications}
+                disabled={toggling}
+                id="notifications"
+                label="Notifications"
+                onChange={() => {
+                  void handleNotificationsToggle();
+                }}
+              />
+            </CheckboxGroup>
 
-          <Button
-            disabled={!settings.notifications}
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          >
-            Configure notifications
-          </Button>
+            <Button
+              disabled={!settings.notifications}
+              onClick={() => {
+                setModalOpen(true);
+              }}
+            >
+              Configure
+            </Button>
+          </FieldGroup>
 
           <NotificationsModal
             onClose={() => {

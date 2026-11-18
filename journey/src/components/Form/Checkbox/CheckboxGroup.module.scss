@@ -1,17 +1,10 @@
-// Matches the spacing around a text input, whose message line is always present.
 .container {
   box-sizing: border-box;
   inline-size: 100%;
-  max-inline-size: var(--size-form);
-  padding-block-end: 10px;
-
-  :is(h1, h2) + & {
-    margin-block-start: 20px;
-  }
 }
 
 .group {
   display: grid;
-  gap: 12px;
+  gap: var(--space-m);
   justify-content: center;
 }

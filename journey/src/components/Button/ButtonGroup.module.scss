@@ -1,12 +1,8 @@
 .group {
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
   inline-size: 100%;
-  max-inline-size: var(--size-form);
-
-  // Keeps the gap Button gives its adjacent siblings.
-  & + & {
-    margin-block-start: 10px;
-  }
 }
 
 // Aligns the message under the buttons.

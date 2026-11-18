@@ -1,13 +1,14 @@
 .summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
   inline-size: 100%;
-  padding-block: var(--space-base);
 }
 
 .headline {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-block: 0 var(--space-base);
 }
 
 .count {
@@ -27,8 +28,5 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-base);
-  padding: 0;
-  margin: 0;
-  list-style: none;
+  gap: var(--space-l);
 }

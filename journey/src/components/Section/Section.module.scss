@@ -4,13 +4,8 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  gap: var(--space-xl);
   align-items: center;
   inline-size: 100%;
   max-inline-size: var(--size-content-max);
-  padding-inline: var(--space-base);
-  margin-block-start: 20px;
-}
-
-.section:first-of-type {
-  margin-block-start: 0;
 }

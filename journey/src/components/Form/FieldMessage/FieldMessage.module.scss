@@ -1,19 +1,15 @@
 .assistive {
-  min-block-size: calc(18rem / 16);
-  margin-block: 4px 0;
-  margin-inline: 4px;
+  margin-block: var(--space-xs) 0;
+  margin-inline-start: var(--space-xs);
   font-size: calc(12rem / 16);
   font-style: italic;
-  line-height: calc(18rem / 16);
 }
 
 .error {
-  min-block-size: calc(18rem / 16);
-  margin-block: 4px 0;
-  margin-inline: 4px;
+  margin-block: var(--space-xs) 0;
+  margin-inline-start: var(--space-xs);
   font-size: calc(12rem / 16);
   font-weight: 600;
-  line-height: calc(18rem / 16);
   color: var(--color-warning);
   text-transform: uppercase;
   word-spacing: var(--word-spacing-spacious);

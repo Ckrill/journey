@@ -23,11 +23,16 @@
   /* Sizes */
   --size-content-max: 500px;
   --size-form: 350px;
-  --border-width: 1px;
+  --border-width: 2px;
   --radius-base: 4px;
 
-  /* Spacing */
-  --space-base: 20px;
+  /* Spacing, on a 4px grid */
+  --space-xs: 4px;
+  --space-s: 8px;
+  --space-m: 12px;
+  --space-l: 24px;
+  --space-xl: 48px;
+  --space-xxl: 96px;
 
   /* Animations */
   --duration-instant: 0s;

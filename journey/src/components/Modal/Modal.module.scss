@@ -74,7 +74,8 @@
 
 .sheet {
   box-sizing: border-box;
-  padding: var(--space-base);
+  padding-block: var(--space-xl) var(--space-l);
+  padding-inline: var(--space-l);
 
   // Start-aligned so a tall sheet has a stop at its top edge; a short one clamps
   // to the bottom. `always` stops momentum there instead of flinging into "closed".
@@ -88,7 +89,7 @@
   .dialog {
     max-inline-size: var(--size-content-max);
     block-size: fit-content;
-    max-block-size: calc(100dvh - 2 * var(--space-base));
+    max-block-size: calc(100dvh - 2 * var(--space-m));
     margin: auto;
     overflow-block: auto;
     opacity: 0;

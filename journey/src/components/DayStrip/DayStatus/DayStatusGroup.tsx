@@ -1,6 +1,3 @@
-// External
-import clsx from 'clsx';
-
 // Utilities
 import { WEEKDAY_LABELS, WEEKDAYS } from '../../../helpers/week';
 
@@ -10,9 +7,8 @@ import DayStatus from './DayStatus';
 // Types
 import type { Weekday } from '../../../types/types';
 
-import shared from '../DayStrip.module.scss';
 // Styles
-import styles from './DayStatusGroup.module.scss';
+import shared from '../DayStrip.module.scss';
 
 interface Props {
   completedDays: Weekday[];
@@ -20,7 +16,7 @@ interface Props {
 }
 
 const DayStatusGroup = ({ completedDays, name }: Props) => (
-  <ol aria-label={`${name} days`} className={clsx(shared.strip, styles.days)}>
+  <ol aria-label={`${name} days`} className={shared.strip}>
     {WEEKDAYS.map((day, index) => (
       <DayStatus
         done={completedDays.includes(day)}

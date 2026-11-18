@@ -1,5 +1,6 @@
 // Types
 import type { WeekSummaryData } from '../../../helpers/retro';
+import { formatWeekRange } from '../../../helpers/week';
 
 // Miscellaneous
 import Paragraph from '../../Paragraph/Paragraph';
@@ -10,22 +11,25 @@ import styles from './HabitSummary.module.scss';
 
 interface Props {
   summary: WeekSummaryData;
+  weekStart: string;
 }
 
-const HabitSummary = ({ summary }: Props) => {
+const HabitSummary = ({ summary, weekStart }: Props) => {
   if (summary.habits.length === 0) {
     return <Paragraph>No habits were being tracked this week.</Paragraph>;
   }
 
   return (
     <div className={styles.summary}>
-      <p className={styles.headline}>
+      <div className={styles.headline}>
+        <Paragraph>{formatWeekRange(weekStart)}</Paragraph>
+
         <span className={styles.count}>
           {summary.metCount}&thinsp;/&thinsp;{summary.habits.length}
         </span>
 
         <span className={styles.caption}>goals met</span>
-      </p>
+      </div>
 
       <ul className={styles.list}>
         {summary.habits.map(({ completed, completedDays, habit, met }) => (

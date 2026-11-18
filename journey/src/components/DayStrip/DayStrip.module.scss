@@ -1,12 +1,11 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-xs);
 }
 
 .header {
   display: flex;
-  align-items: baseline;
   justify-content: space-between;
 }
 
@@ -14,7 +13,7 @@
 .strip {
   display: flex;
   overflow: hidden;
-  border: 2px solid var(--color-brand-secondary);
+  border: var(--border-width) solid var(--color-brand-secondary);
   border-radius: 22px;
 }
 
@@ -29,7 +28,7 @@
   background-color: var(--color-field);
 
   & + & {
-    border-inline-start: 2px solid var(--color-brand-secondary);
+    border-inline-start: var(--border-width) solid var(--color-brand-secondary);
   }
 
   &[data-done='true'] {

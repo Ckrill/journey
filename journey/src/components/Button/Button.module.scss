@@ -7,12 +7,12 @@
 
   display: inline-block;
   inline-size: 100%;
-  max-inline-size: var(--size-form);
-  padding-block: 16px;
-  padding-inline: 30px;
+  min-block-size: 44px;
+  padding-block: var(--space-m);
+  padding-inline: var(--space-l);
   font-size: calc(14rem / 16);
   font-weight: 600;
-  line-height: calc(18rem / 16);
+  line-height: 1;
   color: var(--button-color);
   text-transform: uppercase;
   word-spacing: var(--word-spacing-spacious);
@@ -30,10 +30,6 @@
 
   &:active {
     transform: scale(var(--scale-press));
-  }
-
-  & + .button {
-    margin-block-start: 10px;
   }
 
   &:is(:hover, :focus-visible) {
@@ -67,10 +63,6 @@
   --button-background: transparent;
   --button-background-hover: color-mix(in srgb, currentcolor 8%, transparent);
   --button-background-disabled: transparent;
-
-  padding-block: 12px;
-  padding-inline: 20px;
-  font-size: calc(12rem / 16);
 
   &[data-tone='danger'] {
     --button-color: var(--color-error);

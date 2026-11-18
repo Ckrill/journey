@@ -16,7 +16,10 @@ import feedbackHeading from '../data/synonyms/feedback-heading.json';
 
 // Miscellaneous
 import Button from '../components/Button/Button';
+import ButtonGroup from '../components/Button/ButtonGroup';
+import Divider from '../components/Divider/Divider';
 import Feedback from '../components/Feedback/Feedback';
+import FieldGroup from '../components/Form/FieldGroup/FieldGroup';
 import HabitFormModal from '../components/Habit/HabitModal/HabitFormModal';
 import Heading from '../components/Heading/Heading';
 import PageTransition from '../components/PageTransition/PageTransition';
@@ -98,9 +101,7 @@ const Habits = () => {
       <SectionContainer>
         <Section>
           <Heading level={1}>Habits</Heading>
-        </Section>
 
-        <Section>
           <WeekPager
             datesByHabit={datesByHabit}
             events={events}
@@ -110,19 +111,27 @@ const Habits = () => {
         </Section>
 
         <Section>
-          <Button onClick={openCreate} type="button">
-            + Add habit
-          </Button>
+          <Divider appearance="faint" text="Actions" />
+        </Section>
 
-          <Button
-            onClick={() => {
-              void navigate({ to: '/retro' });
-            }}
-            priority="secondary"
-            type="button"
-          >
-            Weekly retro
-          </Button>
+        <Section>
+          <FieldGroup>
+            <ButtonGroup>
+              <Button onClick={openCreate} type="button">
+                + Add habit
+              </Button>
+
+              <Button
+                onClick={() => {
+                  void navigate({ to: '/retro' });
+                }}
+                priority="secondary"
+                type="button"
+              >
+                Weekly retro
+              </Button>
+            </ButtonGroup>
+          </FieldGroup>
         </Section>
       </SectionContainer>
 

@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 // Miscellaneous
 import { supabase } from '../../lib/supabase';
 import Button from '../Button/Button';
+import ButtonGroup from '../Button/ButtonGroup';
+import FieldGroup from '../Form/FieldGroup/FieldGroup';
 import FormActions from '../Form/FormActions/FormActions';
 import Input from '../Form/Input/Input';
 import Heading from '../Heading/Heading';
@@ -73,11 +75,13 @@ const DeleteAccountModal = ({ onClose, onDeleted, open }: Props) => {
             Your account and all of your data have been deleted.
           </Paragraph>
 
-          <FormActions>
-            <Button onClick={onDeleted} type="button">
-              Okay
-            </Button>
-          </FormActions>
+          <FieldGroup>
+            <FormActions>
+              <Button onClick={onDeleted} type="button">
+                Okay
+              </Button>
+            </FormActions>
+          </FieldGroup>
         </Section>
       </SectionContainer>
     </Modal>
@@ -104,39 +108,41 @@ const DeleteAccountModal = ({ onClose, onDeleted, open }: Props) => {
               This permanently deletes your account and all of your habits and
               history. It cannot be undone.
             </Paragraph>
-          </Section>
 
-          <Section>
-            <Input
-              assistiveText={`Type "${phrase}" to confirm.`}
-              autoComplete="off"
-              disabled={deleting}
-              errorText={errors.confirmation?.message ?? serverError?.message}
-              id="delete-confirmation"
-              labelText="Confirmation"
-              required
-              type="text"
-              {...register('confirmation', {
-                validate: (value) =>
-                  value.trim().toLowerCase() === phrase.toLowerCase() ||
-                  `Type "${phrase}" to confirm.`,
-              })}
-            />
-
-            <FormActions>
-              <Button disabled={deleting} tone="danger" type="submit">
-                {deleting ? 'Deleting' : 'Delete account'}
-              </Button>
-
-              <Button
+            <FieldGroup>
+              <Input
+                assistiveText={`Type "${phrase}" to confirm.`}
+                autoComplete="off"
                 disabled={deleting}
-                onClick={onClose}
-                priority="secondary"
-                type="button"
-              >
-                Cancel
-              </Button>
-            </FormActions>
+                errorText={errors.confirmation?.message ?? serverError?.message}
+                id="delete-confirmation"
+                labelText="Confirmation"
+                required
+                type="text"
+                {...register('confirmation', {
+                  validate: (value) =>
+                    value.trim().toLowerCase() === phrase.toLowerCase() ||
+                    `Type "${phrase}" to confirm.`,
+                })}
+              />
+
+              <FormActions>
+                <ButtonGroup>
+                  <Button disabled={deleting} tone="danger" type="submit">
+                    {deleting ? 'Deleting' : 'Delete account'}
+                  </Button>
+
+                  <Button
+                    disabled={deleting}
+                    onClick={onClose}
+                    priority="secondary"
+                    type="button"
+                  >
+                    Cancel
+                  </Button>
+                </ButtonGroup>
+              </FormActions>
+            </FieldGroup>
           </Section>
         </SectionContainer>
       </form>

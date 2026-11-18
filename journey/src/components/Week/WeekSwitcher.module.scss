@@ -3,9 +3,9 @@
   align-items: center;
   justify-content: center;
   justify-content: space-between;
-  inline-size: calc(100% + 2 * var(--space-base));
+  inline-size: calc(100% + 2 * var(--space-l));
   max-inline-size: var(--size-content-max);
-  margin-inline: calc(-1 * var(--space-base));
+  margin-inline: calc(-1 * var(--space-l));
   overflow: hidden;
 }
 
@@ -13,7 +13,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+
+  // The chevron glyph does not fill its box, so this extra padding aligns it visually.
+  padding: calc(var(--space-m) + var(--space-xs));
   font-size: calc(32rem / 16);
   color: var(--color-text);
   cursor: pointer;
@@ -41,7 +43,7 @@
 .label {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-xs);
   align-items: center;
   padding: 0;
   color: var(--color-text);

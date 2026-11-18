@@ -32,42 +32,42 @@ const FormSelect = ({
   placeholder,
   required,
   ...props
-}: Props) => (
-  <div className={styles.container}>
-    <FieldLabel htmlFor={props.id} required={required}>
-      {labelText}
-    </FieldLabel>
+}: Props) => {
+  const allOptions: Option[] = placeholder
+    ? [{ disabled: required, label: placeholder, value: '' }, ...options]
+    : options;
 
-    <div className={styles.field}>
-      <select
-        aria-invalid={errorText ? true : undefined}
-        className={styles.select}
-        required={required}
-        {...props}
-      >
-        {placeholder && (
-          <option disabled={required} value="">
-            {placeholder}
-          </option>
-        )}
+  return (
+    <div className={styles.container}>
+      <FieldLabel htmlFor={props.id} required={required}>
+        {labelText}
+      </FieldLabel>
 
-        {options.map((option) => (
-          <option
-            disabled={option.disabled}
-            key={option.value}
-            value={option.value}
-          >
-            {option.label}
-            <BsCheck aria-hidden className={styles.check} />
-          </option>
-        ))}
-      </select>
+      <div className={styles.field}>
+        <select
+          aria-invalid={errorText ? true : undefined}
+          className={styles.select}
+          required={required}
+          {...props}
+        >
+          {allOptions.map((option) => (
+            <option
+              disabled={option.disabled}
+              key={option.value}
+              value={option.value}
+            >
+              {option.label}
+              <BsCheck aria-hidden className={styles.check} />
+            </option>
+          ))}
+        </select>
 
-      <BsChevronDown aria-hidden className={styles.chevron} />
+        <BsChevronDown aria-hidden className={styles.chevron} />
+      </div>
+
+      <FieldMessage assistiveText={assistiveText} errorText={errorText} />
     </div>
-
-    <FieldMessage assistiveText={assistiveText} errorText={errorText} />
-  </div>
-);
+  );
+};
 
 export default FormSelect;

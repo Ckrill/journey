@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 
 // Miscellaneous
 import Button from '../Button/Button';
+import FieldGroup from '../Form/FieldGroup/FieldGroup';
 import Paragraph from '../Paragraph/Paragraph';
 import Section from '../Section/Section';
 
@@ -27,14 +28,16 @@ const RouteError = ({ error, reset }: ErrorComponentProps) => {
           Check your connection and try again.
         </Paragraph>
 
-        <Button
-          onClick={() => {
-            reset();
-            void router.invalidate();
-          }}
-        >
-          Try again
-        </Button>
+        <FieldGroup>
+          <Button
+            onClick={() => {
+              reset();
+              void router.invalidate();
+            }}
+          >
+            Try again
+          </Button>
+        </FieldGroup>
       </Section>
     </div>
   );

@@ -3,7 +3,7 @@ import { createFileRoute } from '@tanstack/react-router';
 
 // Utilities
 import { summarizeWeek } from '../helpers/retro';
-import { currentWeekStart, formatWeekRange, weekDates } from '../helpers/week';
+import { currentWeekStart, weekDates } from '../helpers/week';
 
 // Hooks
 import { eventsQueryOptions, useEventsQuery } from '../hooks/useEventsQuery';
@@ -39,13 +39,11 @@ const Retro = () => {
         <Section>
           <Heading level={1}>Retro</Heading>
 
-          <Paragraph>{formatWeekRange(weekStart)}</Paragraph>
-
-          <HabitSummary summary={summary} />
+          <HabitSummary summary={summary} weekStart={weekStart} />
         </Section>
 
         <Section>
-          <Divider appearance="faint" spacing="spacious" />
+          <Divider appearance="faint" />
         </Section>
 
         <Section>

@@ -2,13 +2,9 @@
 .container {
   display: flex;
   flex-direction: column;
+  gap: var(--space-xxl);
   align-items: center;
   justify-content: center;
   inline-size: 100%;
   max-inline-size: 100%;
-  margin-block: 40px;
-}
-
-.container[is-first-on-page='true'] {
-  margin-block-start: 0;
 }

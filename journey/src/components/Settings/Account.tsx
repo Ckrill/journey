@@ -12,6 +12,8 @@ import { supabase } from '../../lib/supabase';
 import Button from '../Button/Button';
 import ButtonGroup from '../Button/ButtonGroup';
 import ChangePasswordModal from '../ChangePassword/ChangePasswordModal';
+import FieldGroup from '../Form/FieldGroup/FieldGroup';
+import FormActions from '../Form/FormActions/FormActions';
 import Input from '../Form/Input/Input';
 import Heading from '../Heading/Heading';
 
@@ -48,35 +50,39 @@ const Account = () => {
     <>
       <Heading>Account</Heading>
 
-      <Input
-        autoComplete="email"
-        disabled
-        id="email"
-        labelText="Email"
-        type="email"
-        value={session?.user.email ?? ''}
-      />
+      <FieldGroup>
+        <Input
+          autoComplete="email"
+          disabled
+          id="email"
+          labelText="Email"
+          type="email"
+          value={session?.user.email ?? ''}
+        />
 
-      <ButtonGroup>
-        <Button
-          onClick={() => {
-            setPasswordSaved(false);
-            setPasswordOpen(true);
-          }}
-        >
-          {passwordSaved ? 'Password changed' : 'Change password'}
-        </Button>
+        <FormActions>
+          <ButtonGroup>
+            <Button
+              onClick={() => {
+                setPasswordSaved(false);
+                setPasswordOpen(true);
+              }}
+            >
+              {passwordSaved ? 'Password changed' : 'Change password'}
+            </Button>
 
-        <Button
-          disabled={signingOut}
-          onClick={() => {
-            void handleSignOut();
-          }}
-          priority="secondary"
-        >
-          {signingOut ? 'Signing out' : 'Sign out'}
-        </Button>
-      </ButtonGroup>
+            <Button
+              disabled={signingOut}
+              onClick={() => {
+                void handleSignOut();
+              }}
+              priority="secondary"
+            >
+              {signingOut ? 'Signing out' : 'Sign out'}
+            </Button>
+          </ButtonGroup>
+        </FormActions>
+      </FieldGroup>
 
       <ChangePasswordModal
         onClose={() => {

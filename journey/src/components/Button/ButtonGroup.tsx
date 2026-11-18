@@ -20,9 +20,7 @@ const ButtonGroup = ({
   <div className={styles.group} data-align={align}>
     {children}
 
-    {(assistiveText ?? errorText) && (
-      <FieldMessage assistiveText={assistiveText} errorText={errorText} />
-    )}
+    <FieldMessage assistiveText={assistiveText} errorText={errorText} />
   </div>
 );
 

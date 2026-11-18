@@ -14,6 +14,8 @@ import {
 
 // Miscellaneous
 import Button from '../../Button/Button';
+import ButtonGroup from '../../Button/ButtonGroup';
+import FieldGroup from '../../Form/FieldGroup/FieldGroup';
 import FormActions from '../../Form/FormActions/FormActions';
 import Input from '../../Form/Input/Input';
 import Pillbox from '../../Form/Pillbox/Pillbox';
@@ -145,106 +147,109 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
           </Section>
 
           <Section>
-            {/* Registered with `register` like the fields below, so the error focus order follows the page. */}
-            <Input
-              assistiveText="Name your habit."
-              autoComplete="off"
-              data-1p-ignore
-              disabled={isPending}
-              errorText={errors.name && 'Name your habit.'}
-              id="habit-name"
-              labelText="Name"
-              required
-              type="text"
-              {...register('name', { required: true })}
-            />
+            <FieldGroup>
+              <Input
+                assistiveText="Name your habit."
+                autoComplete="off"
+                data-1p-ignore
+                disabled={isPending}
+                errorText={errors.name && 'Name your habit.'}
+                id="habit-name"
+                labelText="Name"
+                required
+                type="text"
+                {...register('name', { required: true })}
+              />
 
-            <Input
-              assistiveText="How many days per week?"
-              autoComplete="off"
-              disabled={isPending}
-              errorText={errors.weeklyTarget?.message}
-              id="habit-weekly-target"
-              inputMode="numeric"
-              labelText="Weekly target"
-              max={7}
-              min={1}
-              required
-              suffix="days"
-              type="number"
-              {...register('weeklyTarget', {
-                max: { message: 'Pick a number from 1 to 7.', value: 7 },
-                min: { message: 'Pick a number from 1 to 7.', value: 1 },
-                required: 'Pick a number from 1 to 7.',
-                valueAsNumber: true,
-              })}
-            />
+              <Input
+                assistiveText="How many days per week?"
+                autoComplete="off"
+                disabled={isPending}
+                errorText={errors.weeklyTarget?.message}
+                id="habit-weekly-target"
+                inputMode="numeric"
+                labelText="Weekly target"
+                max={7}
+                min={1}
+                required
+                suffix="days"
+                type="number"
+                {...register('weeklyTarget', {
+                  max: { message: 'Pick a number from 1 to 7.', value: 7 },
+                  min: { message: 'Pick a number from 1 to 7.', value: 1 },
+                  required: 'Pick a number from 1 to 7.',
+                  valueAsNumber: true,
+                })}
+              />
 
-            <Pillbox
-              assistiveText="Select the days you plan to do this habit."
-              disabled={isPending}
-              labelText="Days"
-              options={dayOptions}
-              {...register('plannedDays')}
-            />
+              <Pillbox
+                assistiveText="Select the days you plan to do this habit."
+                disabled={isPending}
+                labelText="Days"
+                options={dayOptions}
+                {...register('plannedDays')}
+              />
 
-            <Textarea
-              assistiveText="What does reaching your goal look like?"
-              autoComplete="off"
-              disabled={isPending}
-              errorText={errors.goalDescription?.message}
-              id="habit-goal-description"
-              labelText="Make it tangible"
-              maxLength={500}
-              rows={3}
-              {...register('goalDescription')}
-            />
+              <Textarea
+                assistiveText="What does reaching your goal look like?"
+                autoComplete="off"
+                disabled={isPending}
+                errorText={errors.goalDescription?.message}
+                id="habit-goal-description"
+                labelText="Make it tangible"
+                maxLength={500}
+                rows={3}
+                {...register('goalDescription')}
+              />
 
-            <Input
-              assistiveText="When do you reach your goal?"
-              autoComplete="off"
-              data-1p-ignore
-              disabled={isPending}
-              errorText={errors.goalMonths?.message}
-              id="habit-goal-months"
-              inputMode="numeric"
-              labelText="Duration"
-              max={60}
-              min={1}
-              suffix="months"
-              type="number"
-              {...register('goalMonths', {
-                max: { message: 'Pick a number from 1 to 60.', value: 60 },
-                min: { message: 'Pick a number from 1 to 60.', value: 1 },
-                valueAsNumber: true,
-              })}
-            />
+              <Input
+                assistiveText="When do you reach your goal?"
+                autoComplete="off"
+                data-1p-ignore
+                disabled={isPending}
+                errorText={errors.goalMonths?.message}
+                id="habit-goal-months"
+                inputMode="numeric"
+                labelText="Duration"
+                max={60}
+                min={1}
+                suffix="months"
+                type="number"
+                {...register('goalMonths', {
+                  max: { message: 'Pick a number from 1 to 60.', value: 60 },
+                  min: { message: 'Pick a number from 1 to 60.', value: 1 },
+                  valueAsNumber: true,
+                })}
+              />
 
-            <FormActions>
-              <Button disabled={isPending} type="submit">
-                {isPending ? 'Saving' : 'Save habit'}
-              </Button>
+              <FormActions>
+                <ButtonGroup>
+                  <Button disabled={isPending} type="submit">
+                    {isPending ? 'Saving' : 'Save habit'}
+                  </Button>
 
-              {isEdit && (
-                <Button
-                  disabled={isPending}
-                  onClick={handleArchive}
-                  priority="secondary"
-                  tone="danger"
-                  type="button"
-                >
-                  Archive habit
-                </Button>
-              )}
+                  {isEdit && (
+                    <Button
+                      disabled={isPending}
+                      onClick={handleArchive}
+                      priority="secondary"
+                      tone="danger"
+                      type="button"
+                    >
+                      Archive habit
+                    </Button>
+                  )}
 
-              <Button onClick={onClose} priority="secondary" type="button">
-                Cancel
-              </Button>
+                  <Button onClick={onClose} priority="secondary" type="button">
+                    Cancel
+                  </Button>
+                </ButtonGroup>
 
-              {mutationError && (
-                <ErrorMessage>{errorMessage(mutationError)}</ErrorMessage>
-              )}
-            </FormActions>
+                {mutationError && (
+                  <ErrorMessage>{errorMessage(mutationError)}</ErrorMessage>
+                )}
+              </FormActions>
+            </FieldGroup>
           </Section>
         </SectionContainer>
       </form>

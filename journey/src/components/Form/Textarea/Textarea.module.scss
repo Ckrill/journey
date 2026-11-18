@@ -1,8 +1,6 @@
 .container {
   box-sizing: border-box;
   inline-size: 100%;
-  max-inline-size: var(--size-form);
-  padding-block: 10px;
 }
 
 .textarea {
@@ -10,13 +8,13 @@
   display: block;
   inline-size: 100%;
   min-block-size: 96px;
-  padding-block: 10px;
-  padding-inline: 12px;
-  font-size: calc(18rem / 16);
-  line-height: calc(24rem / 16);
+  padding-block: var(--space-s);
+  padding-inline: var(--space-m);
+  font-size: calc(16rem / 16);
+  line-height: 1.5;
   resize: vertical;
   background-color: var(--color-field);
-  border: 2px solid var(--color-border-subtle);
+  border: var(--border-width) solid var(--color-border-subtle);
   border-radius: var(--radius-base);
   transition: transform var(--duration-rapid);
 

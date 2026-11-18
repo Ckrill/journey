@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 // Miscellaneous
 import { supabase } from '../../lib/supabase';
 import Button from '../Button/Button';
+import ButtonGroup from '../Button/ButtonGroup';
+import FieldGroup from '../Form/FieldGroup/FieldGroup';
 import FormActions from '../Form/FormActions/FormActions';
 import Input from '../Form/Input/Input';
 import Heading from '../Heading/Heading';
@@ -75,48 +77,52 @@ const ChangePasswordModal = ({ onClose, onSaved, open }: Props) => {
           </Section>
 
           <Section>
-            <Input
-              autoComplete="new-password"
-              disabled={submitting}
-              errorText={errors.password?.message}
-              id="new-password"
-              labelText="New password"
-              required
-              type="password"
-              {...register('password', {
-                minLength: {
-                  message: `Use at least ${String(minLength)} characters.`,
-                  value: minLength,
-                },
-                required: 'Enter a new password.',
-              })}
-            />
+            <FieldGroup>
+              <Input
+                autoComplete="new-password"
+                disabled={submitting}
+                errorText={errors.password?.message}
+                id="new-password"
+                labelText="New password"
+                required
+                type="password"
+                {...register('password', {
+                  minLength: {
+                    message: `Use at least ${String(minLength)} characters.`,
+                    value: minLength,
+                  },
+                  required: 'Enter a new password.',
+                })}
+              />
 
-            <Input
-              autoComplete="new-password"
-              disabled={submitting}
-              errorText={errors.confirm?.message ?? serverError?.message}
-              id="confirm-password"
-              labelText="Confirm new password"
-              required
-              type="password"
-              {...register('confirm', {
-                required: 'Repeat the new password.',
-                validate: (value) =>
-                  value === getValues('password') ||
-                  'The passwords do not match.',
-              })}
-            />
+              <Input
+                autoComplete="new-password"
+                disabled={submitting}
+                errorText={errors.confirm?.message ?? serverError?.message}
+                id="confirm-password"
+                labelText="Confirm new password"
+                required
+                type="password"
+                {...register('confirm', {
+                  required: 'Repeat the new password.',
+                  validate: (value) =>
+                    value === getValues('password') ||
+                    'The passwords do not match.',
+                })}
+              />
 
-            <FormActions>
-              <Button disabled={submitting} type="submit">
-                {submitting ? 'Saving' : 'Change password'}
-              </Button>
+              <FormActions>
+                <ButtonGroup>
+                  <Button disabled={submitting} type="submit">
+                    {submitting ? 'Saving' : 'Change password'}
+                  </Button>
 
-              <Button onClick={onClose} priority="secondary" type="button">
-                Cancel
-              </Button>
-            </FormActions>
+                  <Button onClick={onClose} priority="secondary" type="button">
+                    Cancel
+                  </Button>
+                </ButtonGroup>
+              </FormActions>
+            </FieldGroup>
           </Section>
         </SectionContainer>
       </form>

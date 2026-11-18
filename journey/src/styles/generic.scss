@@ -2,6 +2,7 @@ body {
   margin: 0;
   font-family: var(--font-family);
   font-size-adjust: var(--font-size-adjust);
+  line-height: 1.5;
   color: var(--color-text);
   letter-spacing: var(--letter-spacing-tight);
   background: var(--color-background);
@@ -11,6 +12,18 @@ body {
 
 strong {
   font-weight: 600;
+}
+
+// Spacing comes from the parent's `gap`, so these keep no browser default margin.
+:where(h1, h2, p) {
+  margin: 0;
+}
+
+// Every list in the app is layout, not prose, so it keeps no bullets or browser default spacing.
+:where(ul, ol) {
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 // Browser default styles set their own font on form controls, so inherit it.

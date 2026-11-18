@@ -47,7 +47,7 @@ const Settings = () => {
         </Section>
 
         <Section>
-          <Divider appearance="faint" spacing="spacious" />
+          <Divider appearance="faint" />
         </Section>
 
         <Section>
@@ -55,7 +55,7 @@ const Settings = () => {
         </Section>
 
         <Section>
-          <Divider appearance="faint" spacing="spacious" />
+          <Divider appearance="faint" />
         </Section>
 
         <Section>
@@ -63,7 +63,7 @@ const Settings = () => {
         </Section>
 
         <Section>
-          <Divider appearance="faint" spacing="spacious" />
+          <Divider appearance="faint" />
         </Section>
 
         <Section>
@@ -71,7 +71,7 @@ const Settings = () => {
         </Section>
 
         <Section>
-          <Divider appearance="faint" spacing="spacious" />
+          <Divider appearance="faint" />
         </Section>
 
         <Section>
@@ -79,7 +79,7 @@ const Settings = () => {
         </Section>
 
         <Section>
-          <Divider appearance="faint" spacing="spacious" />
+          <Divider appearance="faint" />
         </Section>
 
         <Section>

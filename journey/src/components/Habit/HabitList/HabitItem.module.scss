@@ -1,13 +1,9 @@
 .row {
   inline-size: 100%;
-  padding-block: var(--space-base);
 }
 
 .name {
   display: flex;
-  gap: 10px;
-  align-items: baseline;
-  justify-content: space-between;
   inline-size: 100%;
   padding: 0;
   font-size: calc(16rem / 16);
@@ -23,7 +19,7 @@
 
 .streak {
   display: flex;
-  gap: 4px;
+  gap: var(--space-xs);
   align-items: center;
   font-family: var(--font-family-mono);
   font-size: calc(16rem / 16);
@@ -49,6 +45,6 @@
 }
 
 .flame {
-  inline-size: 1.1em;
-  block-size: 1.1em;
+  inline-size: 1em;
+  block-size: 1em;
 }
