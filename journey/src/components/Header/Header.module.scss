@@ -17,6 +17,7 @@
       env(safe-area-inset-bottom, 0px) - env(safe-area-max-inset-bottom, 36px)
     );
     grid-area: header-bottom;
+    // stylelint-disable-next-line declaration-property-value-disallowed-list -- 36px is the required env() fallback, not a spacing value
     padding-block: var(--header-padding-block)
       calc(var(--header-padding-block) + env(safe-area-max-inset-bottom, 36px));
   }

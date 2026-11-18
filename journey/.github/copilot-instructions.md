@@ -2,7 +2,7 @@
 
 - Do not add `prefers-reduced-motion` handling to new code (CSS media queries or `matchMedia` checks). Animations and smooth scrolling always run.
 - The primary target is the installed web app (PWA) in the newest stable Chrome on Android. Use modern web platform features freely there (Vibration API, Web Push, scroll-driven animations, `color-mix`).
-- Support other browsers only when it is an easy fix. Otherwise degrade gracefully, e.g. feature-detect with `'vibrate' in navigator` and skip the effect.
+- Safari on iOS and Firefox are supported in their newest stable versions only, with no fallbacks for older ones. A feature the newest Chrome, Safari and Firefox all support needs no fallback. When one of them lacks a feature, degrade gracefully (e.g. feature-detect with `'vibrate' in navigator` and skip the effect), and add a workaround only when it is an easy fix.
 - Use the `modern-web-guidance` skill first for HTML, CSS and client-side JS work, and prefer the platform features it recommends over polyfills or extra libraries.
 - Skills installed globally live in `~/.agents/skills/`. Not every skill is there, but check it first. The `modern-web-guidance` guides are in `~/.agents/skills/modern-web-guidance/guides/`, grouped by category. Read them from there instead of running `npx modern-web-guidance`, which also breaks the `yarn`-only rule below.
 
@@ -36,4 +36,5 @@
 - Do not edit generated files: `src/types/database.types.ts` (`yarn gen:types`) and `src/routeTree.gen.ts` (TanStack Router plugin).
 - Query keys include the user id. Query options live in `src/hooks/` next to their hook, and route loaders use `queryClient` with `userId` from the router context.
 - Use the native `Temporal` API for dates. No date libraries or polyfills.
-- `docs/habit-redesign.md` holds the habit, streak and week-view design notes.
+- `docs/habits.md` holds the habit, streak and week-view design notes.
+- `docs/spacing.md` holds the spacing rules and tokens. Read it before changing margins, padding, `gap` or layout widths.

@@ -9,6 +9,13 @@
       true,
       { "ignoreShorthands": ["grid-template"] }
     ],
+    "declaration-property-value-disallowed-list": {
+      "/^(margin|padding|gap|row-gap|column-gap)/": ["/\\d(px|rem|em)\\b/"]
+    },
+    "property-disallowed-list": [
+      "/^margin-(top|bottom)$/",
+      "/^margin-block(-start|-end)?$/"
+    ],
     "selector-class-pattern": null
   }
 }

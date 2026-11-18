@@ -14,9 +14,9 @@
   position: absolute;
   inset-block: 0;
   inset-inline-start: 0;
+  align-self: center;
   inline-size: 100%;
   block-size: var(--border-width);
-  margin-block: auto;
   background-color: var(--color-border);
   border: none;
 }
@@ -30,7 +30,6 @@
 
 .text {
   display: block;
-  margin-block-end: var(--space-xs);
   font-size: calc(16rem / 16);
   font-weight: 600;
   line-height: 1.375;
