@@ -7,7 +7,7 @@
 
   display: inline-block;
   inline-size: 100%;
-  min-block-size: 44px;
+  min-block-size: var(--size-touch-min);
   padding-block: var(--space-m);
   padding-inline: var(--space-l);
   font-size: calc(14rem / 16);

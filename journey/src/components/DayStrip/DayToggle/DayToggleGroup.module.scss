@@ -1,4 +1,4 @@
 .days {
   align-items: stretch;
-  block-size: 44px;
+  min-block-size: var(--size-touch-min);
 }

@@ -27,7 +27,7 @@
   clear: both;
   display: flex;
   align-items: stretch;
-  block-size: 44px;
+  min-block-size: var(--size-touch-min);
   overflow: hidden;
   border: var(--pill-border) solid var(--pill-border-color);
   border-radius: var(--pill-radius);

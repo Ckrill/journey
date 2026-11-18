@@ -29,6 +29,7 @@
   box-sizing: border-box;
   display: block;
   inline-size: 100%;
+  min-block-size: var(--size-touch-min);
   padding-block: var(--space-s);
   padding-inline: var(--space-m) calc(var(--space-l) + var(--chevron-size));
   font-size: calc(16rem / 16);

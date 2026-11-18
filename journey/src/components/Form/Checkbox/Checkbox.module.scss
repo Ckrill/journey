@@ -31,8 +31,8 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  inline-size: 44px;
-  block-size: 44px;
+  inline-size: var(--size-touch-min);
+  block-size: var(--size-touch-min);
   font-size: calc(24rem / 16);
   color: var(--color-brand-secondary);
   background-color: var(--color-field);
