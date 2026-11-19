@@ -17,8 +17,8 @@ import {
 import Divider from '../components/Divider/Divider';
 import HabitSummary from '../components/Habit/HabitSummary/HabitSummary';
 import Heading from '../components/Heading/Heading';
-import { exitPage } from '../components/PageTransition/exitPage';
 import PageTransition from '../components/PageTransition/PageTransition';
+import { exitPage } from '../components/PageTransition/transition';
 import Paragraph from '../components/Paragraph/Paragraph';
 import ParagraphGroup from '../components/ParagraphGroup/ParagraphGroup';
 import ReflectionForm from '../components/Reflection/ReflectionForm';

@@ -6,8 +6,8 @@ import { habitsQueryOptions } from '../hooks/useHabitsQuery';
 
 // Miscellaneous
 import Heading from '../components/Heading/Heading';
-import { exitPage } from '../components/PageTransition/exitPage';
 import PageTransition from '../components/PageTransition/PageTransition';
+import { exitPage } from '../components/PageTransition/transition';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 import TimeProgress from '../components/TimeProgress/TimeProgress';

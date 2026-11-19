@@ -17,8 +17,8 @@ import { useUserId } from '../hooks/useUserId';
 // Miscellaneous
 import Divider from '../components/Divider/Divider';
 import Heading from '../components/Heading/Heading';
-import { exitPage } from '../components/PageTransition/exitPage';
 import PageTransition from '../components/PageTransition/PageTransition';
+import { exitPage } from '../components/PageTransition/transition';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
 import About from '../components/Settings/About';
