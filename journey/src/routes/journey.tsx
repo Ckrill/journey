@@ -6,6 +6,7 @@ import { habitsQueryOptions } from '../hooks/useHabitsQuery';
 
 // Miscellaneous
 import Heading from '../components/Heading/Heading';
+import { exitPage } from '../components/PageTransition/exitPage';
 import PageTransition from '../components/PageTransition/PageTransition';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
@@ -26,6 +27,7 @@ const Journey = () => {
 };
 
 export const Route = createFileRoute('/journey')({
+  beforeLoad: exitPage,
   component: Journey,
   loader: async ({ context }) => {
     await context.queryClient.query({

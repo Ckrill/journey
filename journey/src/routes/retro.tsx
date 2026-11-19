@@ -17,6 +17,7 @@ import {
 import Divider from '../components/Divider/Divider';
 import HabitSummary from '../components/Habit/HabitSummary/HabitSummary';
 import Heading from '../components/Heading/Heading';
+import { exitPage } from '../components/PageTransition/exitPage';
 import PageTransition from '../components/PageTransition/PageTransition';
 import Paragraph from '../components/Paragraph/Paragraph';
 import ParagraphGroup from '../components/ParagraphGroup/ParagraphGroup';
@@ -87,6 +88,7 @@ const Retro = () => {
 };
 
 export const Route = createFileRoute('/retro')({
+  beforeLoad: exitPage,
   component: Retro,
   loader: async ({ context }) => {
     await Promise.all([

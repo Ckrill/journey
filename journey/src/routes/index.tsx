@@ -22,6 +22,7 @@ import Feedback from '../components/Feedback/Feedback';
 import FieldGroup from '../components/Form/FieldGroup/FieldGroup';
 import HabitFormModal from '../components/Habit/HabitModal/HabitFormModal';
 import Heading from '../components/Heading/Heading';
+import { exitPage } from '../components/PageTransition/exitPage';
 import PageTransition from '../components/PageTransition/PageTransition';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
@@ -156,10 +157,11 @@ interface WeekSearch {
 }
 
 export const Route = createFileRoute('/')({
-  component: Habits,
   validateSearch: (search: Record<string, unknown>): WeekSearch => ({
     week: typeof search.week === 'string' ? search.week : undefined,
   }),
+  beforeLoad: exitPage,
+  component: Habits,
   loader: async ({ context }) => {
     await Promise.all([
       context.queryClient.query({

@@ -17,6 +17,7 @@ import { useUserId } from '../hooks/useUserId';
 // Miscellaneous
 import Divider from '../components/Divider/Divider';
 import Heading from '../components/Heading/Heading';
+import { exitPage } from '../components/PageTransition/exitPage';
 import PageTransition from '../components/PageTransition/PageTransition';
 import Section from '../components/Section/Section';
 import SectionContainer from '../components/Section/SectionContainer';
@@ -91,6 +92,7 @@ const Settings = () => {
 };
 
 export const Route = createFileRoute('/settings')({
+  beforeLoad: exitPage,
   component: Settings,
   loader: async ({ context }) => {
     await Promise.all([

@@ -35,9 +35,7 @@ const RootComponent = () => {
         </AnimatePresence>
 
         <main>
-          <AnimatePresence mode="wait">
-            <Outlet />
-          </AnimatePresence>
+          <Outlet />
         </main>
       </Layout>
 
