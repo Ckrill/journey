@@ -2,11 +2,12 @@
   font-size: calc(16rem / 16);
   line-height: 1.75;
   text-align: center;
-  text-wrap: pretty;
+  text-wrap: balance;
 }
 
 .paragraph[data-align='left'] {
   text-align: start;
+  text-wrap: pretty;
 }
 
 .paragraph[data-size='fine'] {

@@ -47,12 +47,14 @@ const DataPrivacy = () => {
               anyone.
             </Paragraph>
 
-            <Paragraph>No tracking, no analytics and no cookies.</Paragraph>
+            <Paragraph size="fine">
+              No tracking, no analytics and no cookies.
+            </Paragraph>
           </>
         }
       >
         <Paragraph>
-          Your data is yours. Download it or delete it at any time.
+          Your data is yours. Download or delete it at any time.
         </Paragraph>
       </ParagraphGroup>
 
