@@ -32,7 +32,19 @@ const getRangeProgress = (start: Temporal.PlainDate, end: Temporal.PlainDate) =>
     start.until(Temporal.Now.plainDateISO(), { largestUnit: 'days' }).days,
   );
 
-// Habits without an estimated time to goal never end, so their bar is full.
+// Days until an open-ended habit reaches half of its bar.
+const OPEN_ENDED_HALF_LIFE_DAYS = 180;
+
+// Fast at first, then ever slower: approaches 100 but never reaches it.
+const getOpenEndedProgress = (start: Temporal.PlainDate) => {
+  const days = Math.max(
+    start.until(Temporal.Now.plainDateISO(), { largestUnit: 'days' }).days,
+    0,
+  );
+
+  return (days / (days + OPEN_ENDED_HALF_LIFE_DAYS)) * 100;
+};
+
 const toHabitBar = (habit: Habit): Bar => {
   const start = getHabitStart(habit.createdAt);
 
@@ -46,7 +58,7 @@ const toHabitBar = (habit: Habit): Bar => {
     label: habit.name,
     progress:
       habit.goalMonths === null
-        ? 100
+        ? getOpenEndedProgress(start)
         : getRangeProgress(start, start.add({ months: habit.goalMonths })),
   };
 };
