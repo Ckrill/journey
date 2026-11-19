@@ -12,6 +12,7 @@
 - Yarn 4 is the package manager. Run tools through `yarn` scripts, not `npx`. `yarn knip` reports unused files and exports.
 - Oxfmt owns formatting and import order, not Prettier. ESLint is strict type-checked with `sonarjs` (for example, no nested ternaries).
 - Do not commit or stage changes (no `git add`). The user does both. When a task is done, suggest a commit message instead.
+- Never run git commands that change the index or working tree state (`git stash`, `git reset`, `git checkout`/`git restore` on files) without asking first. They can silently unstage the user's staged changes. To compare against a baseline, read from `HEAD` (for example `git show HEAD:path`) or use `git worktree` instead.
 - Commit messages follow [Conventional Commits](https://www.conventionalcommits.org), kept to one line: `type: Sentence case summary.` with a trailing period. Skip a body and scope.
 
 ## Conventions

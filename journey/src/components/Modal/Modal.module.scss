@@ -14,7 +14,6 @@
   overscroll-behavior: contain;
   background: transparent;
   border: none;
-  timeline-scope: --sheet-fade;
 
   // Fallback: browsers without scroll-driven animations show a fixed backdrop.
   --sheet-backdrop: 1;
@@ -22,9 +21,10 @@
   // Longhands on purpose: the production minifier folds `animation` plus
   // `animation-timeline` into one shorthand that Chrome drops entirely.
   animation-name: fade-sheet-backdrop;
-  animation-timeline: --sheet-fade;
   animation-timing-function: linear;
   animation-fill-mode: both;
+  timeline-scope: --sheet-fade;
+  animation-timeline: --sheet-fade;
 
   &::backdrop {
     overflow: hidden;
@@ -58,8 +58,8 @@
   overflow-block: scroll;
   overscroll-behavior: none;
   scroll-snap-type: y mandatory;
-  scroll-timeline: --sheet-fade y;
   scrollbar-width: none;
+  scroll-timeline: --sheet-fade y;
 
   @media (prefers-reduced-motion: no-preference) {
     scroll-behavior: smooth;
