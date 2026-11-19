@@ -1,10 +1,12 @@
-// Types
+// Utilities
 import type { WeekSummaryData } from '../../../helpers/retro';
+import { planSummary } from '../../../helpers/summaryAnimation';
 import { formatWeekRange } from '../../../helpers/week';
 
 // Miscellaneous
 import Paragraph from '../../Paragraph/Paragraph';
 import HabitSummaryItem from './HabitSummaryItem';
+import SummaryScore from './SummaryScore';
 
 // Styles
 import styles from './HabitSummary.module.scss';
@@ -15,18 +17,20 @@ interface Props {
 }
 
 const HabitSummary = ({ summary, weekStart }: Props) => {
-  if (summary.habits.length === 0) {
+  const total = summary.habits.length;
+
+  if (total === 0) {
     return <Paragraph>No habits were being tracked this week.</Paragraph>;
   }
 
+  const plan = planSummary(summary.metCount, total);
+
   return (
-    <div className={styles.summary}>
+    <div className={styles.summary} style={plan.vars}>
       <div className={styles.headline}>
         <Paragraph>{formatWeekRange(weekStart)}</Paragraph>
 
-        <span className={styles.count}>
-          {summary.metCount}&thinsp;/&thinsp;{summary.habits.length}
-        </span>
+        <SummaryScore metCount={summary.metCount} plan={plan} total={total} />
 
         <span className={styles.caption}>goals met</span>
       </div>

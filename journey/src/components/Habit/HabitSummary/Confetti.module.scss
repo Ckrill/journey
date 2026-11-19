@@ -1,0 +1,77 @@
+.confetti {
+  --start: var(--confetti-start);
+
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  &[data-immediate='true'] {
+    --start: 0s;
+  }
+}
+
+.piece {
+  // Golden angle plus a square-root distance spreads pieces evenly (sunflower
+  // pattern), so they never pile up and need no fixed piece count.
+  --angle: calc(var(--index) * 137.5deg + var(--offset));
+  --delay: var(--start);
+  --distance: calc(sqrt(var(--index) + 1) * 26px * var(--reach));
+
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  inline-size: 8px;
+  block-size: 14px;
+  background-color: var(--color-brand-primary);
+  border-radius: 2px;
+  opacity: 0;
+  animation: burst 1.4s cubic-bezier(0.15, 0.7, 0.3, 1) var(--delay);
+
+  &:nth-child(5n + 2) {
+    background-color: var(--color-brand-secondary);
+  }
+
+  &:nth-child(5n + 3) {
+    background-color: var(--color-success);
+  }
+
+  &:nth-child(5n + 4) {
+    background-color: var(--color-info);
+  }
+
+  &:nth-child(5n) {
+    background-color: var(--color-warning);
+  }
+
+  &:nth-child(4n) {
+    inline-size: 6px;
+    block-size: 6px;
+    border-radius: 50%;
+  }
+
+  &:nth-child(7n) {
+    --delay: calc(var(--start) + 0.15s);
+  }
+
+  &:nth-child(11n) {
+    --delay: calc(var(--start) + 0.3s);
+  }
+}
+
+@keyframes burst {
+  0% {
+    opacity: 1;
+    translate: -50% -50%;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    rotate: 540deg;
+    translate: calc(-50% + cos(var(--angle)) * var(--distance))
+      calc(-50% + sin(var(--angle)) * var(--distance) + 30px);
+  }
+}

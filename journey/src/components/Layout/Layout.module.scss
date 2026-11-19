@@ -12,5 +12,8 @@
     grid-area: main;
     padding-block: var(--space-xxl);
     padding-inline: var(--space-l);
+
+    // Decorative effects such as the retro confetti may fly past the screen edge.
+    overflow-x: clip;
   }
 }

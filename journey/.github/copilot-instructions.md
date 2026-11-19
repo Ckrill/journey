@@ -11,6 +11,8 @@
 - After editing, run `yarn validate` (Oxfmt, Stylelint, ESLint, `tsc`). `yarn format:fix` and `yarn lint:css:fix` fix most formatting and CSS property-order issues.
 - Yarn 4 is the package manager. Run tools through `yarn` scripts, not `npx`. `yarn knip` reports unused files and exports.
 - Oxfmt owns formatting and import order, not Prettier. ESLint is strict type-checked with `sonarjs` (for example, no nested ternaries).
+- Do not commit or stage changes (no `git add`). The user does both. When a task is done, suggest a commit message instead.
+- Commit messages follow [Conventional Commits](https://www.conventionalcommits.org), kept to one line: `type: Sentence case summary.` with a trailing period. Skip a body and scope.
 
 ## Conventions
 

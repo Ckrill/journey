@@ -16,7 +16,7 @@ interface Props {
 }
 
 const HabitSummaryItem = ({ completed, completedDays, habit, met }: Props) => (
-  <li>
+  <li className={styles.item}>
     <DayStrip
       name={<span className={styles.name}>{habit.name}</span>}
       trailing={

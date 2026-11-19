@@ -1,3 +1,33 @@
+// Registered so sibling-index() resolves on .item instead of in the descendants that read it.
+@property --row-index {
+  syntax: '<integer>';
+  inherits: true;
+  initial-value: 0;
+}
+
+// Colors fade in row by row, like the bars on the journey page.
+.item {
+  --row-index: sibling-index();
+
+  ol [data-done='true'] {
+    animation: fade-color var(--duration-slow) ease-in-out
+      calc(var(--row-index) * var(--row-step)) backwards;
+  }
+}
+
+@keyframes fade-color {
+  from {
+    color: var(--color-text-faint);
+    background-color: var(--color-field);
+  }
+}
+
+@keyframes fade-result {
+  from {
+    opacity: 0.5;
+  }
+}
+
 .name {
   font-size: calc(16rem / 16);
   font-weight: 600;
@@ -14,5 +44,7 @@
 
   &[data-met='true'] {
     opacity: 1;
+    animation: fade-result var(--duration-slow) ease-in-out
+      calc(var(--row-index) * var(--row-step)) backwards;
   }
 }
