@@ -1,6 +1,6 @@
 // External
 import clsx from 'clsx';
-import { BsFire, BsThreeDotsVertical } from 'react-icons/bs';
+import { BsCheck, BsThreeDotsVertical } from 'react-icons/bs';
 
 // Hooks
 import { useToggleEvent } from '../../../hooks/useToggleEvent';
@@ -17,7 +17,7 @@ import styles from './HabitItem.module.scss';
 
 interface Props {
   completedDates: Set<string>;
-  currentStreak: number;
+  completedWeeks: number;
   habit: Habit;
   onEdit: (habit: Habit) => void;
   weekDates: string[];
@@ -25,7 +25,7 @@ interface Props {
 
 const HabitItem = ({
   completedDates,
-  currentStreak,
+  completedWeeks,
   habit,
   onEdit,
   weekDates,
@@ -44,17 +44,17 @@ const HabitItem = ({
         trailing={
           <span className={styles.trailing}>
             <span
-              aria-hidden={currentStreak === 0}
-              aria-label={`${String(currentStreak)} week streak`}
+              aria-hidden={completedWeeks === 0}
+              aria-label={`${String(completedWeeks)} ${completedWeeks === 1 ? 'week' : 'weeks'} travelled`}
               className={clsx(
-                styles.streak,
-                currentStreak === 0 && styles.empty,
+                styles.weeks,
+                completedWeeks === 0 && styles.empty,
                 targetMet && styles.active,
               )}
               role="img"
             >
-              <BsFire className={styles.flame} />
-              {currentStreak}
+              <BsCheck className={styles.check} />
+              {completedWeeks}
             </span>
 
             <button

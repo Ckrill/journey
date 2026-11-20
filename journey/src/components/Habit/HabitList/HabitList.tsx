@@ -1,5 +1,5 @@
 // Utilities
-import { calculateStreak } from '../../../helpers/streak';
+import { countCompletedWeeks } from '../../../helpers/completedWeeks';
 
 // Miscellaneous
 import Paragraph from '../../Paragraph/Paragraph';
@@ -26,10 +26,9 @@ const HabitList = ({
   habits,
   openEdit,
 }: Props) => {
-  // Current streak per habit (always relative to the real current week).
-  const streaks = new Map<string, number>();
+  const completedWeeks = new Map<string, number>();
   for (const habit of habits) {
-    streaks.set(habit.id, calculateStreak(habit, events).current);
+    completedWeeks.set(habit.id, countCompletedWeeks(habit, events));
   }
 
   if (habits.length === 0) {
@@ -45,7 +44,7 @@ const HabitList = ({
       {habits.map((habit) => (
         <HabitItem
           completedDates={datesByHabit.get(habit.id) ?? new Set<string>()}
-          currentStreak={streaks.get(habit.id) ?? 0}
+          completedWeeks={completedWeeks.get(habit.id) ?? 0}
           habit={habit}
           key={habit.id}
           onEdit={openEdit}

@@ -3,7 +3,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
 
 // Utilities
-import { calculateStreak } from '../helpers/streak';
+import { countCompletedWeeks } from '../helpers/completedWeeks';
 import { getHeading } from '../helpers/synonyms';
 import { currentWeekStart, weekDates } from '../helpers/week';
 
@@ -39,7 +39,7 @@ const Habits = () => {
   const [editing, setEditing] = useState<Habit | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
-  const [celebrateStreak, setCelebrateStreak] = useState(0);
+  const [celebrateWeeks, setCelebrateWeeks] = useState(0);
   const [celebrateHeading, setCelebrateHeading] = useState('');
 
   // Map each habit to the set of dates it was completed on.
@@ -72,9 +72,9 @@ const Habits = () => {
         const was = prevMetRef.current.get(habit.id) ?? false;
         const now = met.get(habit.id) ?? false;
         if (!was && now) {
-          const streak = calculateStreak(habit, events).current;
-          setCelebrateStreak(streak);
-          setCelebrateHeading(getHeading(feedbackHeading, streak));
+          const weeks = countCompletedWeeks(habit, events);
+          setCelebrateWeeks(weeks);
+          setCelebrateHeading(getHeading(feedbackHeading, weeks));
           setShowFeedback(true);
           break;
         }
@@ -143,10 +143,10 @@ const Habits = () => {
       />
 
       <Feedback
+        completedWeeks={celebrateWeeks}
         heading={celebrateHeading}
         setShow={setShowFeedback}
         show={showFeedback}
-        streak={celebrateStreak}
       />
     </PageTransition>
   );

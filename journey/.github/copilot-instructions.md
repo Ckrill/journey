@@ -39,5 +39,5 @@
 - Do not edit generated files: `src/types/database.types.ts` (`yarn gen:types`) and `src/routeTree.gen.ts` (TanStack Router plugin).
 - Query keys include the user id. Query options live in `src/hooks/` next to their hook, and route loaders use `queryClient` with `userId` from the router context.
 - Use the native `Temporal` API for dates. No date libraries or polyfills.
-- `docs/habits.md` holds the habit, streak and week-view design notes.
+- `docs/habits.md` holds the habit, completed-weeks and week-view design notes.
 - `docs/spacing.md` holds the spacing rules and tokens. Read it before changing margins, padding, `gap` or layout widths.

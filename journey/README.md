@@ -2,7 +2,7 @@
 
 A habit tracker built as an installable web app (PWA), primarily for Chrome on Android.
 
-- **Habits.** Set a weekly target, tap the days you did it, and build streaks measured in weeks. See [docs/habits.md](docs/habits.md).
+- **Habits.** Set a weekly target, tap the days you did it, and watch the weeks you've travelled add up. See [docs/habits.md](docs/habits.md).
 - **Retro.** A weekly summary and reflection, with an optional Web Push reminder.
 - **Journey.** Time-progress bars, including your life expectancy based on your profile settings.
 

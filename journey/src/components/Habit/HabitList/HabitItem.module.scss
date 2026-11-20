@@ -6,6 +6,7 @@
   inline-size: 100%;
   font-size: calc(16rem / 16);
   font-weight: 600;
+  line-height: calc(20 / 16);
   color: var(--color-text);
   text-align: start;
   text-transform: uppercase;
@@ -15,7 +16,7 @@
 
 .trailing {
   display: flex;
-  gap: var(--space-s);
+  gap: var(--space-xs);
   align-items: center;
   align-self: end;
 }
@@ -46,14 +47,14 @@
   }
 }
 
-.streak {
+.weeks {
   display: flex;
-  gap: var(--space-xs);
   align-items: center;
   font-family: var(--font-family-mono);
   font-size: calc(16rem / 16);
   font-weight: 500;
   font-variant-numeric: tabular-nums;
+  line-height: calc(20 / 16);
   color: var(--color-text-faint);
   white-space: nowrap;
   opacity: 0.4;
@@ -61,19 +62,18 @@
     color var(--duration-fast),
     opacity var(--duration-fast);
 
-  // This week's target is met, so the streak is secured.
+  // This week's target is met, so this week is counted.
   &.active {
     color: var(--color-text);
     opacity: 1;
   }
 
-  // Keeps its size so the header doesn't shift when the first streak appears.
+  // Keeps its size so the header doesn't shift when the first week appears.
   &.empty {
     visibility: hidden;
   }
 }
 
-.flame {
-  inline-size: 1em;
-  block-size: 1em;
+.check {
+  font-size: calc(20rem / 16);
 }

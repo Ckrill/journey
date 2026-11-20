@@ -5,19 +5,19 @@ type FeedbackHeading = {
 
 export const getHeading = (
   feedbackHeading: FeedbackHeading,
-  streak: number,
+  completedWeeks: number,
 ) => {
   let tier = 1;
 
-  if (streak < 15) {
+  if (completedWeeks < 15) {
     tier = 1;
-  } else if (streak < 30) {
+  } else if (completedWeeks < 30) {
     tier = 2;
-  } else if (streak < 60) {
+  } else if (completedWeeks < 60) {
     tier = 3;
-  } else if (streak < 99) {
+  } else if (completedWeeks < 99) {
     tier = 4;
-  } else if (streak < 100) {
+  } else if (completedWeeks < 100) {
     tier = 5;
   } else {
     tier = 6;

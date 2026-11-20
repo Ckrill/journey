@@ -14,13 +14,13 @@ import thump from '../../assets/sounds/thump.mp3';
 import styles from './Feedback.module.scss';
 
 interface Props {
+  completedWeeks: number;
   heading: string;
   setShow: (show: boolean) => void;
   show: boolean;
-  streak: number;
 }
 
-const Feedback = ({ heading, setShow, show, streak }: Props) => {
+const Feedback = ({ completedWeeks, heading, setShow, show }: Props) => {
   const settings = useSettings();
 
   const headingSize = heading ? getHeadingSize(heading) : 'm';
@@ -80,7 +80,7 @@ const Feedback = ({ heading, setShow, show, streak }: Props) => {
       </audio>
 
       <div className={styles.container}>
-        {streak > 1 ? (
+        {completedWeeks > 1 ? (
           <>
             <h1
               className={styles.heading}
@@ -90,7 +90,7 @@ const Feedback = ({ heading, setShow, show, streak }: Props) => {
               {heading}
             </h1>
 
-            <p className={styles.paragraph}>{streak} weeks in a row</p>
+            <p className={styles.paragraph}>{completedWeeks} weeks travelled</p>
           </>
         ) : (
           <>
