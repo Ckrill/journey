@@ -20,20 +20,20 @@ import type { Habits } from '../types/types';
 export const habitsKey = (userId: string) => ['habits', userId] as const;
 
 /**
- * Query options for the user's active habits, oldest first.
+ * Query options for the user's active habits, newest first. Cache updates in
+ * `useHabitMutations` must keep that order.
  * @param userId The signed-in user's id.
  */
 export const habitsQueryOptions = (userId: string) => ({
   queryFn: async (): Promise<Habits> => {
-    // Row-level security limits this to the user's own active habits, oldest
-    // first (createdAt is the streak-order tiebreaker).
+    // Row-level security limits this to the user's own active habits.
     const { data, error } = await supabase
       .from('habits')
       .select(
         'id, name, planned_days, weekly_target, goal_description, goal_months, active, created_at',
       )
       .eq('active', true)
-      .order('created_at');
+      .order('created_at', { ascending: false });
 
     if (error) throw error;
     return data.map((row) => toHabit(row));
@@ -43,7 +43,8 @@ export const habitsQueryOptions = (userId: string) => ({
 });
 
 /**
- * Reads the user's active habits, suspending until they have loaded.
+ * Reads the user's active habits, newest first, suspending until they have
+ * loaded.
  * @returns The suspense query result holding the habits.
  */
 export const useHabitsQuery = () => {

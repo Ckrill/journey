@@ -36,7 +36,7 @@ Streaks are never stored. A streak is a pure function of a habit's events, its `
 
 - The home route (`/`) shows the active habits, each with a row of day cells for the selected week.
 - Tapping a cell toggles that day's event. The cell is disabled while the request is in flight, so a double tap can't race a create against a delete.
-- Habits are listed oldest first (`createdAt` ascending).
+- Habits are listed newest first (`createdAt` descending), here and on the Journey page. The habits query orders them in the database, and the create and update mutations keep that order in the cache.
 - Hitting a habit's weekly target for the week triggers the `Feedback` celebration.
 - The + Add habit button opens the habit form modal empty. Tapping a habit opens the same modal pre-filled to edit or archive it. The modal is the only habit editor.
 

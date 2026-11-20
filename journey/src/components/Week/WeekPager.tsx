@@ -62,6 +62,8 @@ const WeekPager = ({ datesByHabit, events, habits, openEdit }: Props) => {
 
   const goTo = (start: string) => {
     void navigate({
+      // Changing the week isn't a page change, so keep the scroll position.
+      resetScroll: false,
       search: { week: start === currentWeekStart() ? undefined : start },
     });
   };

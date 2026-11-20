@@ -84,15 +84,13 @@ const toTimeBar = (
   };
 };
 
-/** Habits (least progressed first), then the year, then life if a birth year is set. */
+/** Habits, then the year, then life if a birth year is set. */
 export const getTimeBars = (
   habits: Habits,
   lifeYears: number,
   birthYear?: number,
 ): Bar[] => {
-  const habitBars = habits
-    .map((habit) => toHabitBar(habit))
-    .toSorted((a, b) => a.progress - b.progress);
+  const habitBars = habits.map((habit) => toHabitBar(habit));
 
   const timeBars = [
     toTimeBar(

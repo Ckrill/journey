@@ -58,8 +58,8 @@ export const useHabitMutations = () => {
     },
     onSuccess: (habit) => {
       queryClient.setQueryData<Habits>(habitsKey(userId), (old) => [
-        ...(old ?? []),
         habit,
+        ...(old ?? []),
       ]);
     },
   });
@@ -87,10 +87,11 @@ export const useHabitMutations = () => {
     // The habits query only holds active habits, so an archived (inactive)
     // habit is dropped from the cache; an active one is replaced in place.
     onSuccess: (habit) => {
-      queryClient.setQueryData<Habits>(habitsKey(userId), (old) => {
-        const others = (old ?? []).filter((item) => item.id !== habit.id);
-        return habit.active ? [...others, habit] : others;
-      });
+      queryClient.setQueryData<Habits>(habitsKey(userId), (old) =>
+        habit.active
+          ? (old ?? []).map((item) => (item.id === habit.id ? habit : item))
+          : (old ?? []).filter((item) => item.id !== habit.id),
+      );
     },
   });
 

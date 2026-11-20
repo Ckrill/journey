@@ -32,11 +32,7 @@ const HabitList = ({
     streaks.set(habit.id, calculateStreak(habit, events).current);
   }
 
-  const sortedHabits = habits.toSorted((a, b) =>
-    a.createdAt < b.createdAt ? -1 : 1,
-  );
-
-  if (sortedHabits.length === 0) {
+  if (habits.length === 0) {
     return (
       <div className={styles.habits}>
         <Paragraph>No habits yet. Add one to begin your journey.</Paragraph>
@@ -46,7 +42,7 @@ const HabitList = ({
 
   return (
     <ul className={styles.habits}>
-      {sortedHabits.map((habit) => (
+      {habits.map((habit) => (
         <HabitItem
           completedDates={datesByHabit.get(habit.id) ?? new Set<string>()}
           currentStreak={streaks.get(habit.id) ?? 0}

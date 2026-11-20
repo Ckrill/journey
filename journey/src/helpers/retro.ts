@@ -39,7 +39,6 @@ export const summarizeWeek = (
   }
 
   const summaries = habits
-    .toSorted((a, b) => a.createdAt.localeCompare(b.createdAt))
     // Habits created after the week ended have nothing to report.
     .filter((habit) => habit.createdAt.slice(0, 10) <= dates[6])
     .map((habit): HabitWeekSummary => {
