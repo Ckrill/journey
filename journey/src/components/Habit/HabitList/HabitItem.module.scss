@@ -3,18 +3,47 @@
 }
 
 .name {
-  display: flex;
   inline-size: 100%;
-  padding: 0;
   font-size: calc(16rem / 16);
   font-weight: 600;
   color: var(--color-text);
   text-align: start;
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-tight);
+  text-wrap: pretty;
+}
+
+.trailing {
+  display: flex;
+  gap: var(--space-s);
+  align-items: center;
+  align-self: end;
+}
+
+// The padding grows the tap target without changing the layout: the inline
+// padding is cancelled by the negative margin, and the block padding fits
+// inside the header's line height.
+.edit {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  padding: var(--space-m);
+  margin: calc(-1 * var(--space-m));
+  font-size: calc(20rem / 16);
+  color: var(--color-text);
   cursor: pointer;
   background-color: unset;
   border: none;
+  scale: 1;
+  transition: scale var(--duration-rapid);
+
+  &:is(:hover, :focus-visible) {
+    scale: var(--scale-focus-strong);
+  }
+
+  &:active {
+    scale: var(--scale-press-strong);
+  }
 }
 
 .streak {

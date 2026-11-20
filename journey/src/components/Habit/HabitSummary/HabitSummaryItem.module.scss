@@ -29,13 +29,17 @@
 }
 
 .name {
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: calc(16rem / 16);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-tight);
+  white-space: nowrap;
 }
 
 .result {
+  flex-shrink: 0;
   font-family: var(--font-family-mono);
   font-size: calc(16rem / 16);
   font-weight: 500;

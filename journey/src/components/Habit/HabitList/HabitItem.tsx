@@ -1,6 +1,6 @@
 // External
 import clsx from 'clsx';
-import { BsFire } from 'react-icons/bs';
+import { BsFire, BsThreeDotsVertical } from 'react-icons/bs';
 
 // Hooks
 import { useToggleEvent } from '../../../hooks/useToggleEvent';
@@ -40,32 +40,33 @@ const HabitItem = ({
     <li>
       <DayStrip
         className={styles.row}
-        name={
-          <button
-            className={styles.name}
-            onClick={() => {
-              onEdit(habit);
-            }}
-            type="button"
-          >
-            <span>
-              <span>{habit.name}</span>
-            </span>
-          </button>
-        }
+        name={<span className={styles.name}>{habit.name}</span>}
         trailing={
-          <span
-            aria-hidden={currentStreak === 0}
-            aria-label={`${String(currentStreak)} week streak`}
-            className={clsx(
-              styles.streak,
-              currentStreak === 0 && styles.empty,
-              targetMet && styles.active,
-            )}
-            role="img"
-          >
-            <BsFire className={styles.flame} />
-            {currentStreak}
+          <span className={styles.trailing}>
+            <span
+              aria-hidden={currentStreak === 0}
+              aria-label={`${String(currentStreak)} week streak`}
+              className={clsx(
+                styles.streak,
+                currentStreak === 0 && styles.empty,
+                targetMet && styles.active,
+              )}
+              role="img"
+            >
+              <BsFire className={styles.flame} />
+              {currentStreak}
+            </span>
+
+            <button
+              aria-label={`Edit ${habit.name}`}
+              className={styles.edit}
+              onClick={() => {
+                onEdit(habit);
+              }}
+              type="button"
+            >
+              <BsThreeDotsVertical aria-hidden="true" />
+            </button>
           </span>
         }
       >

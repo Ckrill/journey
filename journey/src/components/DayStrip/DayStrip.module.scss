@@ -6,6 +6,7 @@
 
 .header {
   display: flex;
+  gap: var(--space-l);
   justify-content: space-between;
 }
 
