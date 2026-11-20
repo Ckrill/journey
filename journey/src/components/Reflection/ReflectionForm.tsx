@@ -58,7 +58,7 @@ const ReflectionForm = ({ previous }: Props) => {
     >
       <FieldGroup>
         <Textarea
-          assistiveText="Celebrate your wins, big or small."
+          assistiveText="Lasting habits are built from small steps. Celebrate the moments you showed up, no matter how small they felt."
           autoComplete="off"
           disabled={save.isPending}
           id="retro-went-well"
@@ -69,7 +69,7 @@ const ReflectionForm = ({ previous }: Props) => {
         />
 
         <Textarea
-          assistiveText="Honest reflections are the key to improvement."
+          assistiveText="Honest reflections are the key to improvement. Was it low energy, a busy schedule, or a goal set too high?"
           autoComplete="off"
           disabled={save.isPending}
           id="retro-blockers"
@@ -80,7 +80,7 @@ const ReflectionForm = ({ previous }: Props) => {
         />
 
         <Textarea
-          assistiveText="Pick something small and concrete."
+          assistiveText="The easier a habit is to start, the more likely it sticks. Pick one small, concrete change to make starting easier."
           autoComplete="off"
           disabled={save.isPending}
           id="retro-next-steps"
@@ -91,11 +91,11 @@ const ReflectionForm = ({ previous }: Props) => {
         />
 
         <Textarea
-          assistiveText="What is the minimum you can do?"
+          assistiveText="Be realistic about your time and energy. What is the minimum version you can commit to on a hard day?"
           autoComplete="off"
           disabled={save.isPending}
           id="retro-plan"
-          labelText="Plan for next week. How will you meet your goal?"
+          labelText="How will you meet your goal next week?"
           maxLength={MAX_LENGTH}
           placeholder={previous?.plan}
           {...register('plan')}
