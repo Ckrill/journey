@@ -58,7 +58,7 @@ const ReflectionForm = ({ previous }: Props) => {
     >
       <FieldGroup>
         <Textarea
-          assistiveText="Lasting habits are built from small steps. Celebrate the moments you showed up, no matter how small they felt."
+          assistiveText="Lasting habits are built from small steps. Celebrate your wins, no matter how small they felt."
           autoComplete="off"
           disabled={save.isPending}
           id="retro-went-well"
@@ -80,7 +80,7 @@ const ReflectionForm = ({ previous }: Props) => {
         />
 
         <Textarea
-          assistiveText="The easier a habit is to start, the more likely it sticks. Pick one small, concrete change to make starting easier."
+          assistiveText="The easier a habit is to start, the more likely it sticks. Pick one small change to make starting easier."
           autoComplete="off"
           disabled={save.isPending}
           id="retro-next-steps"

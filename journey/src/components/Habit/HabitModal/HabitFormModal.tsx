@@ -181,27 +181,15 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
               />
 
               <Pillbox
-                assistiveText="Select the days you plan to do this habit."
+                assistiveText="On which days could you do this habit?"
                 disabled={isPending}
                 labelText="Days"
                 options={dayOptions}
                 {...register('plannedDays')}
               />
 
-              <Textarea
-                assistiveText="What does reaching your goal look like?"
-                autoComplete="off"
-                disabled={isPending}
-                errorText={errors.goalDescription?.message}
-                id="habit-goal-description"
-                labelText="Make it tangible"
-                maxLength={500}
-                rows={3}
-                {...register('goalDescription')}
-              />
-
               <Input
-                assistiveText="When do you reach your goal?"
+                assistiveText="For how long do you want to follow this habit?"
                 autoComplete="off"
                 data-1p-ignore
                 disabled={isPending}
@@ -218,6 +206,18 @@ const HabitFormModal = ({ habit, onClose, open }: Props) => {
                   min: { message: 'Pick a number from 1 to 60.', value: 1 },
                   valueAsNumber: true,
                 })}
+              />
+
+              <Textarea
+                assistiveText="What are you working towards, if anything?"
+                autoComplete="off"
+                disabled={isPending}
+                errorText={errors.goalDescription?.message}
+                id="habit-goal-description"
+                labelText="Goal"
+                maxLength={500}
+                rows={3}
+                {...register('goalDescription')}
               />
 
               <FormActions>

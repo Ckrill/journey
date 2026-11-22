@@ -15,7 +15,7 @@
   display: flex;
   overflow: hidden;
   border: var(--border-width) solid var(--color-brand-secondary);
-  border-radius: 22px;
+  border-radius: calc((var(--size-touch-min) + (2 * var(--border-width))) / 2);
 }
 
 .day {

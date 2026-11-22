@@ -66,7 +66,7 @@ const Profile = () => {
 
       <FieldGroup>
         <Input
-          assistiveText="Enable your custom timeline."
+          assistiveText="Used for your bespoke timeline."
           autoComplete="bday-year"
           defaultValue={settings.birthYear}
           errorText={birthError ? 'Please enter a valid year.' : undefined}
