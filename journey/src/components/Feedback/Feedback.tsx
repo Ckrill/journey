@@ -1,14 +1,14 @@
 // External
 import { useEffect, useId, useRef } from 'react';
 
-// Utilities
-import { getHeadingSize } from '../../helpers/synonyms';
-
 // Contexts
 import { useSettings } from '../../contexts/settingsContext';
 
 // Assets
 import thump from '../../assets/sounds/thump.mp3';
+
+// Utilities
+import { getHeadingSize } from './headingSize';
 
 // Styles
 import styles from './Feedback.module.scss';

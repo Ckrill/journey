@@ -1,7 +1,7 @@
 [
   {
     "tier": 0,
-    "words": [
+    "messages": [
       {
         "heading": "Departure",
         "subtitle": "Today you embarked on your journey"
@@ -15,11 +15,11 @@
   },
   {
     "tier": 1,
-    "words": ["Cool", "Nice", "Not bad", "Okay", "Yay"]
+    "messages": ["Cool", "Nice", "Not bad", "Okay", "Yay"]
   },
   {
     "tier": 2,
-    "words": [
+    "messages": [
       "Don't stop!",
       "Great!",
       "How?!",
@@ -32,7 +32,7 @@
   },
   {
     "tier": 3,
-    "words": [
+    "messages": [
       "Amazing!",
       "Awesome!",
       "Beast!",
@@ -61,7 +61,7 @@
   },
   {
     "tier": 4,
-    "words": [
+    "messages": [
       "Give up already!",
       "Stop it!",
       "Un neces sary!",
@@ -74,11 +74,11 @@
   },
   {
     "tier": 5,
-    "words": ["Okay you win."]
+    "messages": ["Okay you win."]
   },
   {
     "tier": 6,
-    "words": [
+    "messages": [
       "Don't stop!",
       "Great!",
       "How?!",

@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 
 // Utilities
 import { countCompletedWeeks } from '../helpers/completedWeeks';
-import { getHeading } from '../helpers/synonyms';
-import type { FeedbackText } from '../helpers/synonyms';
+import { pickFeedback } from '../helpers/feedback';
+import type { FeedbackMessage } from '../helpers/feedback';
 import { currentWeekStart, weekDates } from '../helpers/week';
 
 // Hooks
@@ -13,7 +13,7 @@ import { eventsQueryOptions, useEventsQuery } from '../hooks/useEventsQuery';
 import { habitsQueryOptions, useHabitsQuery } from '../hooks/useHabitsQuery';
 
 // Data
-import feedbackHeading from '../data/synonyms/feedback-heading.json';
+import feedbackTiers from '../data/feedback.json';
 
 // Miscellaneous
 import Button from '../components/Button/Button';
@@ -41,7 +41,7 @@ const Habits = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
   const [celebrateWeeks, setCelebrateWeeks] = useState(0);
-  const [celebrateHeading, setCelebrateHeading] = useState<FeedbackText>({
+  const [celebrateMessage, setCelebrateMessage] = useState<FeedbackMessage>({
     heading: '',
   });
 
@@ -77,7 +77,7 @@ const Habits = () => {
         if (!was && now) {
           const weeks = countCompletedWeeks(habit, events);
           setCelebrateWeeks(weeks);
-          setCelebrateHeading(getHeading(feedbackHeading, weeks));
+          setCelebrateMessage(pickFeedback(feedbackTiers, weeks));
           setShowFeedback(true);
           break;
         }
@@ -147,10 +147,10 @@ const Habits = () => {
 
       <Feedback
         completedWeeks={celebrateWeeks}
-        heading={celebrateHeading.heading}
+        heading={celebrateMessage.heading}
         setShow={setShowFeedback}
         show={showFeedback}
-        subtitle={celebrateHeading.subtitle}
+        subtitle={celebrateMessage.subtitle}
       />
     </PageTransition>
   );
