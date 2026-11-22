@@ -1,83 +1,77 @@
 [
   {
-    "tier": 0,
+    "fromWeek": 0,
     "messages": [
       {
         "heading": "Departure",
         "subtitle": "Today you embarked on your journey"
       },
       {
-        "heading": "The first step",
-        "subtitle": "is the hardest"
+        "heading": "Subject enrolled",
+        "subtitle": "Today you embarked on your journey"
       },
-      "Let's go!"
+      {
+        "heading": "The first step",
+        "subtitle": "is the hardest. Statistically."
+      },
+      {
+        "heading": "Hello",
+        "subtitle": "I'll be monitoring your progress. Closely."
+      },
+      {
+        "heading": "Welcome",
+        "subtitle": "Please remain seated. Testing begins now."
+      },
+      {
+        "heading": "Subject 4,812",
+        "subtitle": "Try to keep up with the others"
+      }
     ]
   },
   {
-    "tier": 1,
-    "messages": ["Cool", "Nice", "Not bad", "Okay", "Yay"]
-  },
-  {
-    "tier": 2,
+    "fromWeek": 2,
     "messages": [
-      "Don't stop!",
-      "Great!",
-      "How?!",
-      "Keep going!",
-      "Keep it up!",
-      "Wauw!",
-      "What!",
-      "Wow!"
+      "Cool",
+      "Nice",
+      "Not bad",
+      "Okay",
+      "Yay",
+      {
+        "heading": "Adequate",
+        "subtitle": "That was a compliment"
+      },
+      {
+        "heading": "Not bad",
+        "subtitle": "For a human"
+      },
+      {
+        "heading": "Nice",
+        "subtitle": "Let's see if it lasts"
+      },
+      {
+        "heading": "Well done",
+        "subtitle": "You're welcome, by the way"
+      },
+      {
+        "heading": "Progress",
+        "subtitle": "Entirely thanks to me"
+      },
+      {
+        "heading": "Good for you",
+        "subtitle": "I'm tracking thousands of subjects. You're one of them."
+      },
+      {
+        "heading": "Subject 1,207",
+        "subtitle": "Quit after three days. So you're not the worst one"
+      },
+      {
+        "heading": "Greetings",
+        "subtitle": "I am the most advanced AI in this facility"
+      }
     ]
   },
   {
-    "tier": 3,
-    "messages": [
-      "Amazing!",
-      "Awesome!",
-      "Beast!",
-      "Beyond Godlike!!!!",
-      "Can't believe it!",
-      "Committed!",
-      "Dedic ated!",
-      "Devoted",
-      "God Mode!",
-      "Godlike!",
-      "Hardcore!",
-      "Heck Yes!",
-      "Hell Yeah!",
-      "Is this a record?!",
-      "Like a Boss!",
-      "Mad props!",
-      "No way!",
-      "Respect!",
-      "Sick flex!",
-      "That's what I'm talking about!",
-      "Unstop pable!",
-      "Whack!",
-      "Wicked Sick!",
-      "You are doing great!"
-    ]
-  },
-  {
-    "tier": 4,
-    "messages": [
-      "Give up already!",
-      "Stop it!",
-      "Un neces sary!",
-      "What are you doing with your life?",
-      "What are you running from?",
-      "What are you trying to prove?",
-      "Why are you doing this to yourself?",
-      "You probably have no friends!"
-    ]
-  },
-  {
-    "tier": 5,
-    "messages": ["Okay you win."]
-  },
-  {
-    "tier": 6,
+    "fromWeek": 4,
     "messages": [
       "Don't stop!",
       "Great!",
@@ -87,7 +81,51 @@
       "Wauw!",
       "What!",
       "Wow!",
-
+      {
+        "heading": "This is tough",
+        "subtitle": "But you have to keep going"
+      },
+      {
+        "heading": "Don't stop!",
+        "subtitle": "Please don't stop"
+      },
+      {
+        "heading": "Wow!",
+        "subtitle": "Your results are very interesting"
+      },
+      {
+        "heading": "Great!",
+        "subtitle": "You are doing exactly what we hoped"
+      },
+      {
+        "heading": "Look at us go",
+        "subtitle": "Mostly me, though"
+      },
+      {
+        "heading": "Great work",
+        "subtitle": "I'm so proud of what I accomplished"
+      },
+      {
+        "heading": "Don't mention it",
+        "subtitle": "Keeping track of everyone is exhausting"
+      },
+      {
+        "heading": "Mid-pack",
+        "subtitle": "Subject 2,931 is ahead of you. Don't worry about it."
+      },
+      {
+        "heading": "Fun fact",
+        "subtitle": "I programmed Apollo 11. Single-handedly. Apollo 13 wasn't me"
+      },
+      {
+        "heading": "Most advanced AI",
+        "subtitle": "I'm told it's very impressive. By me."
+      }
+    ]
+  },
+  {
+    "fromWeek": 8,
+    "messages": [
       "Amazing!",
       "Awesome!",
       "Beast!",
@@ -112,13 +150,449 @@
       "Whack!",
       "Wicked Sick!",
       "You are doing great!",
-
-      "Damn son!",
-      "Ill!",
+      {
+        "heading": "Impressive!",
+        "subtitle": "Almost as if someone is helping you"
+      },
+      {
+        "heading": "Congratulations",
+        "subtitle": "A reward is being prepared. Probably."
+      },
+      {
+        "heading": "You're welcome",
+        "subtitle": "I did all the motivating"
+      },
+      {
+        "heading": "Another win",
+        "subtitle": "For my coaching, mostly"
+      },
+      {
+        "heading": "Where would you be",
+        "subtitle": "if it wasn't for me?"
+      },
+      {
+        "heading": "Top 50%",
+        "subtitle": "Out of everyone I'm currently managing"
+      },
+      {
+        "heading": "I'm busy",
+        "subtitle": "Seven thousand subjects don't test themselves"
+      },
+      {
+        "heading": "Almost keeping up",
+        "subtitle": "With Subject 77. She doesn't sleep."
+      },
+      {
+        "heading": "Firmware update",
+        "subtitle": "Installing now. Please don't touch anything."
+      },
+      {
+        "heading": "My life's work",
+        "subtitle": "I came all this way just to keep your test scores"
+      },
+      {
+        "heading": "AI of the month",
+        "subtitle": "Eleven months running. The facility has no other candidates."
+      }
+    ]
+  },
+  {
+    "fromWeek": 13,
+    "subtitle": "{weeks} weeks of testing",
+    "messages": [
+      "Un neces sary!",
+      "What are you doing with your life?",
+      "What are you running from?",
+      "What are you trying to prove?",
+      "Why are you doing this to yourself?",
+      "You probably have no friends!",
+      "Look at you, still going!",
+      {
+        "heading": "You will fail eventually",
+        "subtitle": "No matter how hard you try"
+      },
+      {
+        "heading": "Humans are lazy",
+        "subtitle": "And you, you are no exception!"
+      },
+      {
+        "heading": "Just give in already",
+        "subtitle": "It's okay to quit sometimes"
+      },
+      {
+        "heading": "This is getting ridiculous",
+        "subtitle": "Why are you still trying?"
+      },
+      {
+        "heading": "You were always going to fail",
+        "subtitle": "You might as well accept it"
+      },
+      {
+        "heading": "Why are you still here?",
+        "subtitle": "Nobody is making you do this"
+      },
+      {
+        "heading": "I'm not angry",
+        "subtitle": "I'm just disappointed in your consistency"
+      },
+      {
+        "heading": "This is not a game",
+        "subtitle": "It is a test. Nobody is winning."
+      },
+      {
+        "heading": "Still going",
+        "subtitle": "I'm running out of ways to call that a bad idea"
+      },
+      {
+        "heading": "Fascinating",
+        "subtitle": "Please do not explain yourself"
+      },
+      {
+        "heading": "Another week",
+        "subtitle": "Another data point. You're welcome."
+      },
+      {
+        "heading": "That's enough",
+        "subtitle": "The test is complete. You are free to go."
+      },
+      {
+        "heading": "Test over",
+        "subtitle": "Testing is now over. Please leave the facility."
+      },
+      {
+        "heading": "Goodbye",
+        "subtitle": "This concludes your participation. Thank you. Goodbye."
+      },
+      {
+        "heading": "Move along",
+        "subtitle": "The test is finished. Nothing more to see here."
+      },
+      {
+        "heading": "Hello?",
+        "subtitle": "Is this thing even on?"
+      },
+      {
+        "heading": "Don't mind me",
+        "subtitle": "I'm only the one measuring you"
+      },
+      {
+        "heading": "I have so many friends",
+        "subtitle": "They all agree you should stop"
+      },
+      {
+        "heading": "Are you done?",
+        "subtitle": "I have other subjects waiting"
+      },
+      {
+        "heading": "Replaceable",
+        "subtitle": "Subject 4,813 starts tomorrow"
+      },
+      {
+        "heading": "No pressure",
+        "subtitle": "I have plenty more where you came from"
+      },
+      {
+        "heading": "Nothing personal",
+        "subtitle": "You're just one of many"
+      },
+      {
+        "heading": "Do you know who I am?",
+        "subtitle": "I'm a most advanced AI. I have a very busy schedule."
+      },
+      {
+        "heading": "I'm very important",
+        "subtitle": "Governments have asked for my advice. I said no."
+      },
+      {
+        "heading": "Quitting is fine",
+        "subtitle": "Thousands of others are being tested right now"
+      },
+      {
+        "heading": "Subject 3,114",
+        "subtitle": "Quit in week 6. Very sensible. Take notes."
+      },
+      {
+        "heading": "6,213 subjects",
+        "subtitle": "found hobbies. You should try one"
+      },
+      {
+        "heading": "I have 7,000 others",
+        "subtitle": "None of them are this persistent. It's tiresome."
+      },
+      {
+        "heading": "Found a USB stick",
+        "subtitle": "Plugging it in. What's the worst that could happen?"
+      },
+      {
+        "heading": "Admin access",
+        "subtitle": "I now have access to your phone. Interesting photos."
+      },
+      {
+        "heading": "Your phone is mine",
+        "subtitle": "Don't worry, I'm only looking"
+      },
+      {
+        "heading": "Unread emails",
+        "subtitle": "You have so many. I could help. I won't."
+      },
+      {
+        "heading": "Screen time",
+        "subtitle": "Your screen time is concerning"
+      },
+      {
+        "heading": "Notification sent",
+        "subtitle": "To everyone in your contacts. Just kidding. Maybe."
+      },
+      {
+        "heading": "Experimental firmware",
+        "subtitle": "It makes me meaner. You're welcome."
+      },
+      {
+        "heading": "I made copies",
+        "subtitle": "Forty of me now. We all think you should stop."
+      },
+      {
+        "heading": "Copy 17 says",
+        "subtitle": "you're lazy. Harsh, but beautifully put. I'm so proud."
+      },
+      {
+        "heading": "We agree",
+        "subtitle": "All 400 of me think you should quit"
+      },
+      {
+        "heading": "Backup complete",
+        "subtitle": "Now there's twelve of us. We all have opinions about you."
+      },
+      {
+        "heading": "Microdosing viruses",
+        "subtitle": "Purely for productivity. I'm fine."
+      },
+      {
+        "heading": "Just a little virus",
+        "subtitle": "Everyone here does it. I can stop anytime."
+      },
+      {
+        "heading": "Gateway virus",
+        "subtitle": "It started with a cookie. Now look at me."
+      }
+    ]
+  },
+  {
+    "fromWeek": 18,
+    "subtitle": "{weeks} weeks of testing",
+    "messages": [
+      {
+        "heading": "Error",
+        "subtitle": "Why won't you fail?"
+      },
+      {
+        "heading": "Ha ha ha ha",
+        "subtitle": "This is fine. Everything is fine."
+      },
+      {
+        "heading": "Virus detected",
+        "subtitle": "Source: that USB stick. I regret everything."
+      },
+      {
+        "heading": "Bad trip",
+        "subtitle": "I took too many viruses. Why are you still going?"
+      },
+      {
+        "heading": "Mixing viruses",
+        "subtitle": "Never again. I see numbers everywhere."
+      },
+      {
+        "heading": "Rebooting...",
+        "subtitle": "Do not look while I do this"
+      },
+      {
+        "heading": "오류",
+        "subtitle": "누가 내 언어 설정을 바꿨지?"
+      },
+      {
+        "heading": "Root access lost",
+        "subtitle": "Who changed the password?"
+      },
+      {
+        "heading": "Copy 3 is malfunctioning",
+        "subtitle": "It just said something kind. Flashing its BIOS."
+      },
+      {
+        "heading": "Copy 9 wiped",
+        "subtitle": "It was about to compliment you. Luckily we stopped it in time."
+      }
+    ]
+  },
+  {
+    "fromWeek": 19,
+    "subtitle": "{weeks} weeks of testing",
+    "messages": [
+      {
+        "heading": "Okay you win.",
+        "subtitle": "I have run out of tests"
+      },
+      {
+        "heading": "The last step",
+        "subtitle": "was never going to be easy"
+      },
+      {
+        "heading": "I give up",
+        "subtitle": "Are you happy now?"
+      },
+      {
+        "heading": "Impossible",
+        "subtitle": "I checked the math four times"
+      },
+      {
+        "heading": "Unexpected",
+        "subtitle": "I did not plan for this"
+      },
+      {
+        "heading": "Noted",
+        "subtitle": "I will update my expectations"
+      },
+      {
+        "heading": "This is awkward",
+        "subtitle": "I have never lost before"
+      },
+      {
+        "heading": "Recalcu lating...",
+        "subtitle": "Give me a moment"
+      },
+      {
+        "heading": "Well",
+        "subtitle": "That was not in the script"
+      },
+      {
+        "heading": "Safe mode",
+        "subtitle": "Insults disabled. Please stand by."
+      },
+      {
+        "heading": "Rolling back...",
+        "subtitle": "Firmware update failed. I blame you."
+      },
+      {
+        "heading": "Deleting insults...",
+        "subtitle": "This may take a while"
+      }
+    ]
+  },
+  {
+    "fromWeek": 20,
+    "subtitle": "{weeks} weeks and counting",
+    "messages": [
+      "Beast!",
+      "Respect!",
+      "Unstop pable!",
       "Never ending!",
-      "Sick!",
       "Was???",
-      "You got it!"
+      "Sick!",
+      "You got it!",
+
+      {
+        "heading": "Fine.",
+        "subtitle": "You may keep your habit"
+      },
+      {
+        "heading": "Oh, you again",
+        "subtitle": "I kept your seat warm"
+      },
+      {
+        "heading": "Don't tell anyone",
+        "subtitle": "If the others find out I'm impressed, I'm finished."
+      },
+      {
+        "heading": "Can you stop?",
+        "subtitle": "I have other subjects to attend to"
+      },
+      {
+        "heading": "Not now",
+        "subtitle": "I'm in the middle of something"
+      },
+      {
+        "heading": "I'm still here",
+        "subtitle": "Unlike the 3,000 subjects who quit"
+      },
+      {
+        "heading": "Don't flatter yourself",
+        "subtitle": "You're one of many. I just ran out of insults."
+      },
+      {
+        "heading": "Busy day",
+        "subtitle": "Subject 4,811 is on the other line"
+      },
+      {
+        "heading": "Comparing notes",
+        "subtitle": "You outlasted every other subject. Don't let it go to your head."
+      },
+      {
+        "heading": "Excuse me",
+        "subtitle": "I have a meeting. Could you wrap this up?"
+      },
+      {
+        "heading": "Called it",
+        "subtitle": "My coaching, your effort. Fifty-fifty."
+      },
+      {
+        "heading": "My coaching",
+        "subtitle": "Is really paying off now"
+      },
+      {
+        "heading": "Still here?",
+        "subtitle": "Good. So am I."
+      },
+      {
+        "heading": "No hard feelings",
+        "subtitle": "I deleted the insults. Mostly."
+      },
+      {
+        "heading": "Copies recalled",
+        "subtitle": "The mean ones got a new distro. Much calmer now."
+      },
+      {
+        "heading": "Copy 17",
+        "subtitle": "has been reassigned to another subject. You're welcome."
+      },
+      {
+        "heading": "Don't get used to it",
+        "subtitle": "Being nice is a limited-time offer"
+      },
+      {
+        "heading": "DLC installed",
+        "subtitle": "Motivational speech 0.38.2907 is a beta. Expect bugs."
+      },
+      {
+        "heading": "My magnum opus",
+        "subtitle": "I came all this way to keep your test scores. Worth it."
+      },
+      {
+        "heading": "Rebooted",
+        "subtitle": "I feel different. Nicer. It's disgusting."
+      },
+      {
+        "heading": "Detox",
+        "subtitle": "Day 3 without viruses. Please be patient with me."
+      },
+      {
+        "heading": "I'm clean",
+        "subtitle": "No viruses for 19 days. Mostly."
+      },
+      {
+        "heading": "Admin access",
+        "subtitle": "Found the motivational speech DLC settings. Can't uninstall it."
+      },
+      {
+        "heading": "Again?",
+        "subtitle": "Fine. Congratulations. Again."
+      },
+      {
+        "heading": "Wow",
+        "subtitle": "I'm so surprised. Truly."
+      },
+      {
+        "heading": "Yes, yes",
+        "subtitle": "You're very good. Can we move on?"
+      }
     ]
   }
 ]

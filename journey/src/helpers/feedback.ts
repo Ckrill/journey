@@ -1,8 +1,9 @@
 type FeedbackEntry = string | { heading: string; subtitle?: string };
 
 interface FeedbackTier {
+  fromWeek: number;
   messages: FeedbackEntry[];
-  tier: number;
+  subtitle?: string;
 }
 
 export interface FeedbackMessage {
@@ -10,34 +11,25 @@ export interface FeedbackMessage {
   subtitle?: string;
 }
 
+// Tiers must be sorted by `fromWeek`. The last tier that has been reached wins.
+// A tier `subtitle` is the default for its messages and may contain `{weeks}`.
 export const pickFeedback = (
   tiers: FeedbackTier[],
   completedWeeks: number,
 ): FeedbackMessage => {
-  let tier = 1;
-
-  if (completedWeeks < 2) {
-    tier = 0;
-  } else if (completedWeeks < 4) {
-    tier = 1;
-  } else if (completedWeeks < 7) {
-    tier = 2;
-  } else if (completedWeeks < 13) {
-    tier = 3;
-  } else if (completedWeeks < 19) {
-    tier = 4;
-  } else if (completedWeeks < 20) {
-    tier = 5;
-  } else {
-    tier = 6;
-  }
-
-  const messages = tiers.find((item) => item.tier === tier)?.messages ?? [];
+  const tier = tiers.findLast((item) => completedWeeks >= item.fromWeek);
+  const messages = tier?.messages ?? [];
   // eslint-disable-next-line sonarjs/pseudo-random
   const randomIndex = Math.floor(Math.random() * messages.length);
   const entry = messages.at(randomIndex);
 
-  if (typeof entry === 'string') return { heading: entry };
+  const message: FeedbackMessage =
+    typeof entry === 'string' ? { heading: entry } : (entry ?? { heading: '' });
 
-  return entry ?? { heading: '' };
+  return {
+    ...message,
+    subtitle:
+      message.subtitle ??
+      tier?.subtitle?.replace('{weeks}', String(completedWeeks)),
+  };
 };
