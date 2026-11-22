@@ -1,23 +1,32 @@
+type FeedbackWord = string | { heading: string; subtitle?: string };
+
 type FeedbackHeading = {
   tier: number;
-  words: string[];
+  words: FeedbackWord[];
 }[];
+
+export interface FeedbackText {
+  heading: string;
+  subtitle?: string;
+}
 
 export const getHeading = (
   feedbackHeading: FeedbackHeading,
   completedWeeks: number,
-) => {
+): FeedbackText => {
   let tier = 1;
 
-  if (completedWeeks < 15) {
+  if (completedWeeks < 2) {
+    tier = 0;
+  } else if (completedWeeks < 4) {
     tier = 1;
-  } else if (completedWeeks < 30) {
+  } else if (completedWeeks < 7) {
     tier = 2;
-  } else if (completedWeeks < 60) {
+  } else if (completedWeeks < 13) {
     tier = 3;
-  } else if (completedWeeks < 99) {
+  } else if (completedWeeks < 19) {
     tier = 4;
-  } else if (completedWeeks < 100) {
+  } else if (completedWeeks < 20) {
     tier = 5;
   } else {
     tier = 6;
@@ -27,9 +36,11 @@ export const getHeading = (
     feedbackHeading.find((item) => item.tier === tier)?.words ?? [];
   // eslint-disable-next-line sonarjs/pseudo-random
   const randomIndex = Math.floor(Math.random() * wordList.length);
-  const word = wordList[randomIndex];
+  const word = wordList.at(randomIndex);
 
-  return word;
+  if (typeof word === 'string') return { heading: word };
+
+  return word ?? { heading: '' };
 };
 
 export const getHeadingSize = (sentence: string) => {

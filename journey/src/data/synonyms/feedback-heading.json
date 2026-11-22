@@ -1,5 +1,19 @@
 [
   {
+    "tier": 0,
+    "words": [
+      {
+        "heading": "Departure",
+        "subtitle": "Today you embarked on your journey"
+      },
+      {
+        "heading": "The first step",
+        "subtitle": "is the hardest"
+      },
+      "Let's go!"
+    ]
+  },
+  {
     "tier": 1,
     "words": ["Cool", "Nice", "Not bad", "Okay", "Yay"]
   },

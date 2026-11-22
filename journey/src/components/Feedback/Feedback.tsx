@@ -18,9 +18,16 @@ interface Props {
   heading: string;
   setShow: (show: boolean) => void;
   show: boolean;
+  subtitle?: string;
 }
 
-const Feedback = ({ completedWeeks, heading, setShow, show }: Props) => {
+const Feedback = ({
+  completedWeeks,
+  heading,
+  setShow,
+  show,
+  subtitle,
+}: Props) => {
   const settings = useSettings();
 
   const headingSize = heading ? getHeadingSize(heading) : 'm';
@@ -80,29 +87,14 @@ const Feedback = ({ completedWeeks, heading, setShow, show }: Props) => {
       </audio>
 
       <div className={styles.container}>
-        {completedWeeks > 1 ? (
-          <>
-            <h1
-              className={styles.heading}
-              data-size={headingSize}
-              id={headingId}
-            >
-              {heading}
-            </h1>
+        <h1 className={styles.heading} data-size={headingSize} id={headingId}>
+          {heading}
+        </h1>
 
-            <p className={styles.paragraph}>{completedWeeks} weeks travelled</p>
-          </>
-        ) : (
-          <>
-            <h1 className={styles.heading} id={headingId}>
-              Departure
-            </h1>
-
-            <p className={styles.paragraph}>
-              Today you embarked on your journey
-            </p>
-          </>
-        )}
+        <p className={styles.paragraph}>
+          {subtitle ??
+            `${String(completedWeeks)} ${completedWeeks === 1 ? 'week' : 'weeks'} travelled`}
+        </p>
       </div>
     </dialog>
   );

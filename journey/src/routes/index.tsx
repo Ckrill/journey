@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 // Utilities
 import { countCompletedWeeks } from '../helpers/completedWeeks';
 import { getHeading } from '../helpers/synonyms';
+import type { FeedbackText } from '../helpers/synonyms';
 import { currentWeekStart, weekDates } from '../helpers/week';
 
 // Hooks
@@ -40,7 +41,9 @@ const Habits = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
   const [celebrateWeeks, setCelebrateWeeks] = useState(0);
-  const [celebrateHeading, setCelebrateHeading] = useState('');
+  const [celebrateHeading, setCelebrateHeading] = useState<FeedbackText>({
+    heading: '',
+  });
 
   // Map each habit to the set of dates it was completed on.
   const datesByHabit = new Map<string, Set<string>>();
@@ -144,9 +147,10 @@ const Habits = () => {
 
       <Feedback
         completedWeeks={celebrateWeeks}
-        heading={celebrateHeading}
+        heading={celebrateHeading.heading}
         setShow={setShowFeedback}
         show={showFeedback}
+        subtitle={celebrateHeading.subtitle}
       />
     </PageTransition>
   );
